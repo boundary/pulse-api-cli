@@ -16,8 +16,6 @@
 ### limitations under the License.
 ###
 
-# -d '{ "source": "myserver", "metric": "PAGE_FAULTS", "measure": 2, "timestamp": 1377043134 }'
-
 if [ $# -ne 3 ]
 then
    echo "usage: $(basename $0) source metric measure"
@@ -28,10 +26,15 @@ else
    typeset -r measure=$3
 fi
 
-$BOUNDARY_API_SHELL_HOME/src/main/scripts/meter/list.sh | jq ".[] | select(.name == \"$name\") | .obs_domain_id" | tr -d '"'
-#echo $source
+# Fetch our id based on the name provided
+source=$($BOUNDARY_API_SHELL_HOME/src/main/scripts/meter/list.sh | jq ".[] | select(.name == \"$name\") | .obs_domain_id" | tr -d '"')
+if [ -z $source ]
+then
+   echo "Unable to find source: $name"
+   exit 1
+fi
 
-#DATA="{\"source\": \"$source\", \"metric\": \"$metric\", \"measure\": $measure}"
+DATA="{\"source\": \"$source\", \"metric\": \"$metric\", \"measure\": $measure}"
 
-#echo curl -s -X POST -u "$BOUNDARY_METRICS_EMAIL:$BOUNDARY_METRICS_TOKEN" -H "Content-Type: application/json" -d "\'$DATA\'" "https://$BOUNDARY_METRICS_API_HOST/v1/measurements" 
-
+echo curl -s -X POST -u "$BOUNDARY_METRICS_EMAIL:$BOUNDARY_METRICS_TOKEN" -H "Content-Type: application/json" -d "$DATA" "https://$BOUNDARY_METRICS_API_HOST/v1/measurements" 
+curl -s -X POST -u "$BOUNDARY_METRICS_EMAIL:$BOUNDARY_METRICS_TOKEN" -H "Content-Type: application/json" -d "$DATA" "https://$BOUNDARY_METRICS_API_HOST/v1/measurements" 
