@@ -27,7 +27,7 @@ else
 fi
 
 # Fetch our id based on the name provided
-source=$($BOUNDARY_API_SHELL_HOME/src/main/scripts/meter/list.sh | jq ".[] | select(.name == \"$name\") | .obs_domain_id" | tr -d '"')
+source=$(meter-list | jq ".[] | select(.name == \"$name\") | .obs_domain_id" | tr -d '"')
 if [ -z $source ]
 then
    echo "Unable to find source: $name"
