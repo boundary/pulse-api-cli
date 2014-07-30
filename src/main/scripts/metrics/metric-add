@@ -36,5 +36,5 @@ fi
 
 DATA="{\"source\": \"$source\", \"metric\": \"$metric\", \"measure\": $measure}"
 
-echo curl -s -X POST -u "$BOUNDARY_METRICS_EMAIL:$BOUNDARY_METRICS_TOKEN" -H "Content-Type: application/json" -d "$DATA" "https://$BOUNDARY_METRICS_API_HOST/v1/measurements" 
-curl -s -X POST -u "$BOUNDARY_METRICS_EMAIL:$BOUNDARY_METRICS_TOKEN" -H "Content-Type: application/json" -d "$DATA" "https://$BOUNDARY_METRICS_API_HOST/v1/measurements" 
+#echo curl -s -X POST -u "$BOUNDARY_METRICS_EMAIL:$BOUNDARY_METRICS_TOKEN" -H "Content-Type: application/json" -d "$DATA" "https://$BOUNDARY_METRICS_API_HOST/v1/measurements" 
+curl -s -X POST -u "$BOUNDARY_METRICS_EMAIL:$BOUNDARY_METRICS_TOKEN" -H "Content-Type: application/json" -d "$DATA" "https://$BOUNDARY_METRICS_API_HOST/v1/measurements" >> "$(basename $0).log"
