@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ $# -ne 1 ]
+then
+  echo "usage: $(basename $0) <name>"
+  exit 1
+fi
+#payload="{\"metric\": \"$1\"}"
+#echo $payload
+curl -u "$BOUNDARY_METRICS_EMAIL:$BOUNDARY_METRICS_TOKEN" "https://$BOUNDARY_METRICS_API_HOST/project/16/metricsEdit"
+#curl -X POST -u "$BOUNDARY_METRICS_EMAIL:$BOUNDARY_METRICS_TOKEN" -H 'Content-Type: application/json' -d "$payload" "https://$BOUNDARY_METRICS_API_HOST/v1/metrics/ref" 

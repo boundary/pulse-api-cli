@@ -1,0 +1,69 @@
+#!/bin/bash 
+
+
+
+#set -x
+
+Usage() {
+  echo "$(basename $0): <name> <display-name> <display-name_short> <description> <aggregate> <unit>"
+  echo "where:"
+  echo "  name - Name of the metric"
+  echo "  description - Description of the metric (also used as tooltip)"
+  echo "  aggregate - Type of aggregate (sum, avg, max, or min)"
+  echo "  display-name - Name displayed in the Web UI"
+  echo "  display-name-short - Shorter display name"
+  echo "  unit - Type of measurement (percent, number, bytecount, or duration )"
+}
+
+# Example JSON Payload
+#  {
+#     "name": "MY_COOL_METRIC",
+#     "description": "A cool metric I created",
+#     "displayName": "My cool metric",
+#     "displayNameShort": "cool metric",
+#     "unit": "number",
+#     "defaultAggregate": "avg"
+#  }
+
+FormatPayload() {
+  typeset -r name=$1
+  typeset -r description=$2
+  typeset -r displayName=$3
+  typeset -r displayNameShort=$4
+  typeset -r unit=$5
+  typeset -r defaultAggregate=$6
+
+  PAYLOAD=$(cat <<EOF
+    {"name": "$name",
+     "description": "$description",
+     "displayName": "$displayName",
+     "displayNameShort": "$displayNameShort",
+     "unit": "$unit",
+     "defaultAggregate": "$defaultAggregate"
+    }
+EOF
+)
+
+ echo $PAYLOAD
+}
+
+Main() {
+  if [ $# -ne 6 ]
+  then
+    Usage
+    exit 1
+  fi
+
+  typeset -r name=$1
+  typeset -r display_name=$2
+  typeset -r display_name_short=$3
+  typeset -r description=$4
+  typeset -r aggregate=$5
+  typeset -r unit=$6
+
+  typeset -r payload=$(FormatPayload "$name" "$description" "$display_name" "$display_name_short" "$unit" "$aggregate")
+  curl -X PUT -u "$BOUNDARY_METRICS_EMAIL:$METRIC_API_KEY" -H 'Content-Type: application/json' -d "$payload" "https://$BOUNDARY_METRICS_API_HOST/v1/metrics/$name"
+}
+
+Main "$@"
+
