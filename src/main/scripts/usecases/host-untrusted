@@ -1,0 +1,13 @@
+#!/bin/bash
+
+Main() {
+if [ $# -ne 1 ]
+then
+   echo "usage: $(basename $0) name"
+   exit 1
+fi
+
+event-create "\"title\": \"$1 NOT TRUSTED\", \"message\": \"Mt. Wilson reports that $1 is not trusted.\",\"status\": \"OPEN\", \"severity\": \"WARN\", \"source\": {\"ref\": \"$1\", \"type\": \"host\"}, \"fingerprintFields\": [\"@title\",\"hostname\",\"@message\"], \"properties\": {\"hostname\": \"$1\"}"
+}
+
+Main "$@"
