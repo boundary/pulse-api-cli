@@ -1,0 +1,17 @@
+{
+  "name" : "Check for Tripwire Start Two Events",
+  "expectation" : {
+    "operator" : "EQUAL",
+    "expectation" : 2
+  },
+  "query" : {
+    "params" : {
+      "q" : [ "(tags:first OR tags:second) AND status:OPEN" ],
+lastSeenAt:[* TO NOW-15MINUTES] AND status: OPEN AND properties.tripwire: tripwire
+     "fq" : [ "lastSeenAt:[NOW-60SECONDS TO NOW]" ]
+    }
+  },
+  "fingerprint" : {
+    "field" : "NO-OP"
+  }
+}

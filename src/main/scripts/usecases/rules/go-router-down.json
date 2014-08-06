@@ -1,0 +1,16 @@
+{
+  "name" : "Go Router Offline",
+  "expectation" : {
+    "operator" : "EQUAL",
+    "expectation" : 2
+  },
+  "query" : {
+    "params" : {
+      "q" : [ "status:OPEN AND severity:WARN AND tags: \"Cloud Foundry\""],
+     "fq" : [ "lastSeenAt:[NOW-5MINUTES TO NOW]" ]
+    }
+  },
+  "fingerprint" : {
+    "field" : "NO-OP"
+  }
+}

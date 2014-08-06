@@ -1,0 +1,16 @@
+{
+  "name" : "Check for Tripwire Start",
+  "expectation" : {
+    "operator" : "EQUAL",
+    "expectation" : 0
+  },
+  "query" : {
+    "params" : {
+      "q" : [ "status:OPEN AND message:coldStart" ],
+     "fq" : [ "lastSeenAt:[* TO NOW-5MINUTES]" ]
+    }
+  },
+  "fingerprint" : {
+    "field" : "NO-OP"
+  }
+}
