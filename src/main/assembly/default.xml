@@ -24,9 +24,20 @@
               <include>README.md</include>
             </includes>
     </fileSet>
-
     <fileSet>
       <directory>src/main/scripts/metrics</directory>
+      <outputDirectory>bin</outputDirectory>
+      <filtered>true</filtered>
+      <fileMode>0744</fileMode>
+    </fileSet>
+    <fileSet>
+      <directory>src/main/scripts/events</directory>
+      <outputDirectory>bin</outputDirectory>
+      <filtered>true</filtered>
+      <fileMode>0744</fileMode>
+    </fileSet>
+    <fileSet>
+      <directory>src/main/scripts/meter</directory>
       <outputDirectory>bin</outputDirectory>
       <filtered>true</filtered>
       <fileMode>0744</fileMode>
