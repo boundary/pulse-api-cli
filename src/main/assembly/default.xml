@@ -10,7 +10,7 @@
   </formats>
   <dependencySets>
      <dependencySet>
-       <useProjectArtifact>true</useProjectArtifact>
+       <useProjectArtifact>false</useProjectArtifact>
        <outputDirectory>lib</outputDirectory>
        <unpack>false</unpack>
      </dependencySet>
