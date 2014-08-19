@@ -5,8 +5,8 @@
 #set -x
 
 Usage() {
-  echo "$(basename $0): <name> <display-name> <display-name_short> <description> <aggregate> <unit>"
-  echo "where:"
+  echo "usage: $(basename $0) <name> <display-name> <display-name_short> <description> <aggregate> <unit>"
+  echo "where"
   echo "  name - Name of the metric"
   echo "  display-name - Name displayed in the Web UI"
   echo "  display-name-short - Shorter display name"
