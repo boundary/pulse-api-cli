@@ -52,7 +52,7 @@ The Boundary API Shell uses environment variable for configuration information (
 
 ### Environment Variables
 | Environment Variable                    | Description                    |
-| ----------------------------------------|:------------------------------:|
+|:----------------------------------------|:--------------------------------|
 | <code>BOUNDARY_API_HOST</code>          | Boundary Enterprise API Host   |
 | <code>BOUNDARY_API_KEY</code>           | Boundary Enterprise API key    |
 | <code>BOUNDARY_PREMIUM_API_HOST</code>  | Boundary Premium API Host      |
