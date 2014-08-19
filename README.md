@@ -1,7 +1,7 @@
 Boundary API Shell
 ==================
 
-Shell scripts for using the Boundary APIs.
+Shell scripts for using the Boundary Enterprise and Premimums APIs.
 
 Prerequisites
 -------------
