@@ -14,7 +14,7 @@ Prerequisites
 
 ### Required For Installation Only
 1. [wget](https://www.gnu.org/software/wget/),package for retrieving files using HTTP, HTTPS and FTP. (required for installtion only)
-2. [unzip](required for  installation only),
+2. [unzip](http://gnuwin32.sourceforge.net/packages/unzip.htm), UnZip is an extraction utility for archives compressed in .zip format. (required for  installation only)
 
 
 Installation
@@ -29,10 +29,10 @@ For Windows install [Win-Bash](http://win-bash.sourceforge.net) or other Bash Sh
 Download the binaries for [jq](http://stedolan.github.io/jq/) from [here](http://stedolan.github.io/jq/download/) for you specific platform.
 
 ### Install Boundary API Shell
-1. Download the distribution
+1. Download the distribution from this [link](https://github.com/jdgwartney/boundary-api-shell/archive/RE-00.01.00.zip):
 
     ```bash
-    $ curl https://github.com/jdgwartney/boundary-api-shell/archive/RE-00.01.00.zip
+    $ curl https://github.com/jdgwartney/boundary-api-shell/archive/RE-00.02.00.zip
     ```
 2. Change directory to directory where the distribution was downloaded:
 
