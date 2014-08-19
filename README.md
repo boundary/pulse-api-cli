@@ -77,8 +77,21 @@ Usage of the Boundary API Shell
 
 ### Create a Metric
 
+    ```bash
+    $ metric-create FOO "foo bar" "foo" "it's the foo" sum number
+    ````
 
-### Send a Metric Value
+### Add a Metric Value
+
+    ```bash
+    $ metric-add myhost LOAD_1_MINUTE 30
+    ```
+
+### List Metrics
+
+    ```bash
+    $ metric-list
+    ```
 
 ### List Meters
 

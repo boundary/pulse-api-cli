@@ -23,4 +23,4 @@ typeset -r meter_id=$1
 # TODO: Use shift to have additional tags
 typeset -r tag=$2
 
-curl -X PUT -i -u "${BOUNDARY_API_KEY}": -H "Content-Type: application/json" -d '{}' "https://api.boundary.com/${BOUNDARY_ORG_ID}/meters/${meter_id}/tags/${tag}"
+curl -s -X PUT -u "${BOUNDARY_API_KEY}": -H "Content-Type: application/json" -d '{}' "https://api.boundary.com/${BOUNDARY_ORG_ID}/meters/${meter_id}/tags/${tag}" | jq '.'
