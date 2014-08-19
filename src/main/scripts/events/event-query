@@ -16,105 +16,6 @@
 ### limitations under the License.
 ###
 
-APIHOST="api.boundary.com"
-APICREDS=
-
-print_help() {
-  echo "./create_event -i ORGID -a APIKEY"
-  exit 0
-}
-#    'title': 'example\nfoo',
-#    'createdAt': '2014-04-14T23:31:36.635757',
-#    'message': 'test',
-#    'tags': ['example', 'test', 'stuff'],
-#    'fingerprintFields': ['@title'],
-#    'source': {
-#        'ref': 'myhost',
-#        'type': 'host'
-#    }
-
-#"organizationId":"",
-#"sender":{"ref":"","type":"","name":"","properties":{}},
-
-#   "createdAt":1397605089881,
-#   "message":"davidg[89290]: Tue Apr 15 16:38:09 PDT 2014\n",
-#   "severity":"INFO",
-#   "properties":{
-#      "facility":"LOCAL0",
-#      "remote_address":"/127.0.0.1:54199"
-#      "hostname":"Lerma.local",
-#      "message":"davidg[89290]: Tue Apr 15 16:38:09 PDT 2014\n",
-#   },
-
-create_event() {
-    PAYLOAD=$(cat <<EOF
-{
-    "createdAt": "2014-05-30T16:36:28.000Z", 
-    "fingerprintFields": [
-        "@title"
-    ], 
-    "message": "NOPARSE", 
-    "organizationId": null, 
-    "properties": {}, 
-    "receivedAt": null, 
-    "sender": {
-        "ref": "javascript", 
-        "type": "noparse"
-    }, 
-    "severity": "INFO", 
-    "source": {
-        "ref": "somehost", 
-        "type": "host"
-    }, 
-    "status": "OPEN", 
-    "title": "Test Message - 3"
-}
-
-EOF
-)
-  local LOCATION=`curl -is -v -X POST -H "Content-Type: application/json" \
-  -d "$PAYLOAD" \
-  -u "$1:" $2  \
-        | grep Location \
-        | sed 's/Location: //' \
-        | sed 's/\(.*\)./\1/'`
-
-  echo $LOCATION
-}
-Main() {
-while getopts "h a:i:" opts
-do
-  case $opts in
-    h) print_help;;
-    i) APIID="$OPTARG";;
-    a) APIKEY="$OPTARG";;
-    [?]) print_help;;
-  esac
-done
-
-if [ ! -z $APIID ]
-  then
-    if [ ! -z $APIKEY ]
-      then
-        URL="https://$APIHOST/$APIID/events"
-
-        LOCATION=`create_event $APIKEY $URL`
-
-        if [ ! -z $LOCATION ]
-          then
-            echo "An event was created at $LOCATION"
-          else
-            echo "No location header received, error creating event!"
-            exit 1
-        fi
-      else
-        print_help
-      fi
-else
-  print_help
-fi
-}
-
 processQuery() {
    typeset -r event_query=$1
    queryEvents "$event_query"
@@ -122,8 +23,6 @@ processQuery() {
 
 queryEvents() {
    typeset -r q=$1
-#   echo $1
-   echo curl -s -u "$BOUNDARY_API_KEY:" "https://$BOUNDARY_API_HOST/$BOUNDARY_ORG_ID/events?q=$q" 
    curl -s -u "$BOUNDARY_API_KEY:" "https://$BOUNDARY_API_HOST/$BOUNDARY_ORG_ID/events?q=$q" | jq '.'
 }
 

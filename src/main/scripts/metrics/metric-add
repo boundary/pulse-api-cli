@@ -1,5 +1,4 @@
 #!/bin/bash
-
 ###
 ### Copyright 2014, Boundary
 ###
@@ -21,20 +20,19 @@ then
    echo "usage: $(basename $0) source metric measure"
    exit 1
 else
-   typeset -r name=$1
+   typeset -r source=$1
    typeset -r metric=$2
    typeset -r measure=$3
 fi
 
 # Fetch our id based on the name provided
-source=$(meter-list | jq ".[] | select(.name == \"$name\") | .obs_domain_id" | tr -d '"')
-if [ -z $source ]
-then
-   echo "Unable to find source: $name"
-   exit 1
-fi
+#source=$(meter-list | jq ".[] | select(.name == \"$name\") | .obs_domain_id" | tr -d '"')
+#if [ -z $source ]
+#then
+#   echo "Unable to find source: $name"
+#   exit 1
+#fi
 
 DATA="{\"source\": \"$source\", \"metric\": \"$metric\", \"measure\": $measure}"
 
-#echo curl -s -X POST -u "$BOUNDARY_METRICS_EMAIL:$BOUNDARY_METRICS_TOKEN" -H "Content-Type: application/json" -d "$DATA" "https://$BOUNDARY_METRICS_API_HOST/v1/measurements" 
-curl -s -X POST -u "$BOUNDARY_METRICS_EMAIL:$BOUNDARY_METRICS_TOKEN" -H "Content-Type: application/json" -d "$DATA" "https://$BOUNDARY_METRICS_API_HOST/v1/measurements" >> "$(basename $0).log"
+curl -s -X POST -u "$BOUNDARY_PREMIUM_EMAIL:$BOUNDARY_PREMIUM_API_TOKEN" -H "Content-Type: application/json" -d "$DATA" "https://$BOUNDARY_PREMIUM_API_HOST/v1/measurements" | jq '.'

@@ -8,10 +8,10 @@ Usage() {
   echo "$(basename $0): <name> <display-name> <display-name_short> <description> <aggregate> <unit>"
   echo "where:"
   echo "  name - Name of the metric"
-  echo "  description - Description of the metric (also used as tooltip)"
-  echo "  aggregate - Type of aggregate (sum, avg, max, or min)"
   echo "  display-name - Name displayed in the Web UI"
   echo "  display-name-short - Shorter display name"
+  echo "  description - Description of the metric (also used as tooltip)"
+  echo "  aggregate - Type of aggregate (sum, avg, max, or min)"
   echo "  unit - Type of measurement (percent, number, bytecount, or duration )"
 }
 
@@ -62,7 +62,7 @@ Main() {
   typeset -r unit=$6
 
   typeset -r payload=$(FormatPayload "$name" "$description" "$display_name" "$display_name_short" "$unit" "$aggregate")
-  curl -X PUT -u "$BOUNDARY_METRICS_EMAIL:$METRIC_API_KEY" -H 'Content-Type: application/json' -d "$payload" "https://$BOUNDARY_METRICS_API_HOST/v1/metrics/$name"
+  curl -s -X PUT -u "$BOUNDARY_PREMIUM_EMAIL:$BOUNDARY_PREMIUM_API_TOKEN" -H 'Content-Type: application/json' -d "$payload" "https://$BOUNDARY_PREMIUM_API_HOST/v1/metrics/$name" | jq '.'
 }
 
 Main "$@"
