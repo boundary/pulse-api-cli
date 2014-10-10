@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -x
+
+if [ $# -ne 1 ]
+then
+  echo "usage: $(basename) <match>"
+  exit 1
+fi
+
+#query="'.result[] | select(.name | match(\"$1\"))'"
+#echo $query
+
+$BOUNDARY_API_SHELL_HOME/metric-list | jq ".result[] | select(.name | contains(\"$1\"))"
+jq ".result[] | select(.name | contains(\"$1\"))"
