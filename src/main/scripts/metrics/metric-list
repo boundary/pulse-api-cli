@@ -17,4 +17,23 @@
 
 PROJECT=$(echo $BOUNDARY_PREMIUM_API_TOKEN | awk -F'-' '{print $2}')
 
-curl -s -u "$BOUNDARY_PREMIUM_EMAIL:$BOUNDARY_PREMIUM_API_TOKEN" "https://$BOUNDARY_PREMIUM_API_HOST/project/$PROJECT/metricsEdit" | jq '.'
+if [ $# -gt 1 ]
+then
+  echo "usage $(basename) [match]"
+  exit 1
+elif  [ $# -eq 1 ]
+then
+   match="$1"
+else
+  :
+fi
+AUTH="$BOUNDARY_PREMIUM_EMAIL:$BOUNDARY_PREMIUM_API_TOKEN"
+URL="https://$BOUNDARY_PREMIUM_API_HOST/project/$PROJECT/metricsEdit"
+FIELDS="{name: .name, description: .description,displayName: .displayName,displayNameShort: .displayNameShort,unit: .unit,defaultAggregate: .defaultAggregate,defaultResolutionMS: .defaultResolutionMS}"
+
+if [ -z "$match" ]
+then
+  curl -s -u "$AUTH" "$URL" | jq "." #| $FIELDS"
+else
+  curl -s -u "$AUTH" "$URL" | jq ".result[] | select(.name | contains(\"$match\")) | $FIELDS"
+fi

@@ -7,4 +7,4 @@ then
 fi
 
 #$BOUNDARY_API_SHELL_HOME/metric-list | jq ".result[] | select(.name | contains(\"$1\"))"
-jq ".result[] | select(.name | contains(\"$1\"))"
+jq ".result[] | select(.name | contains(\"$1\")) | {name: .name, displayName: .displayName}"
