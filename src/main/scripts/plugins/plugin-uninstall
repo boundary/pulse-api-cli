@@ -20,6 +20,7 @@ then
   echo "usage: $(basename $0) <plugin-name>"
   exit 1
 fi
-
 AUTH="$BOUNDARY_PREMIUM_EMAIL:$BOUNDARY_PREMIUM_API_TOKEN"
-curl -s -X DELETE -u "$AUTH" "https://$BOUNDARY_PREMIUM_API_HOST/v1/plugins/private/$1" | jq '.'
+HEADER="Content-Type: application/json" 
+PAYLOAD="{ \"removeMetrics\": true, \"removeDashes\": true}"
+curl -s -X DELETE -u "$AUTH" -H "$HEADER" -d "$PAYLOAD" "https://premium-api.boundary.com/v1/plugins/installed/$1" 

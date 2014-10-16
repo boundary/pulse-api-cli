@@ -15,11 +15,5 @@
 ### limitations under the License.
 ###
 
-if [ $# -ne 1 ]
-then
-  echo "usage: $(basename $0) <plugin-name>"
-  exit 1
-fi
-
 AUTH="$BOUNDARY_PREMIUM_EMAIL:$BOUNDARY_PREMIUM_API_TOKEN"
-curl -s -X DELETE -u "$AUTH" "https://$BOUNDARY_PREMIUM_API_HOST/v1/plugins/private/$1" | jq '.'
+curl -s -X GET -u "$AUTH" "https://premium-api.boundary.com/v1/plugins/installed" | jq '.'

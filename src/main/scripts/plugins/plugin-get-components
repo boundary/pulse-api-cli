@@ -22,4 +22,4 @@ then
 fi
 
 AUTH="$BOUNDARY_PREMIUM_EMAIL:$BOUNDARY_PREMIUM_API_TOKEN"
-curl -s -X DELETE -u "$AUTH" "https://$BOUNDARY_PREMIUM_API_HOST/v1/plugins/private/$1" | jq '.'
+curl -s -X GET -u "$AUTH" "https://premium-api.boundary.com/v1/plugins/$1/components" | jq '.'
