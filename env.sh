@@ -22,6 +22,7 @@ export PATH="$PATH:$BOUNDARY_API_SHELL_HOME/src/main/scripts/events"
 export PATH="$PATH:$BOUNDARY_API_SHELL_HOME/src/main/scripts/meter"
 export PATH="$PATH:$BOUNDARY_API_SHELL_HOME/src/main/scripts/metrics"
 export PATH="$PATH:$BOUNDARY_API_SHELL_HOME/src/main/scripts/plugins"
+export PATH="$PATH:$BOUNDARY_API_SHELL_HOME/src/main/scripts/relays"
 export PATH="$PATH:$BOUNDARY_API_SHELL_HOME/src/main/scripts/usecases"
 
 alias bsenv="env | grep BOUNDARY | sort"
