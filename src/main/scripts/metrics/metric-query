@@ -2,7 +2,7 @@
 
 if [ $# -ne 1 ]
 then
-  echo "usage: $(basename) <match>"
+  echo "usage: $(basename $0) <match>"
   exit 1
 fi
 
