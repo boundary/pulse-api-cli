@@ -31,6 +31,4 @@ URL="https://$BOUNDARY_PREMIUM_API_HOST/account/$account_id/sourcetypes"
 PAYLOAD="{\"source\": \"$source\", \"typename\": \"$type_name\", \"action\":\"remove\"}"
 HEADERS="Content-Type: application/json"
 
-echo curl -s -X POST -H "$HEADERS" -u "$AUTH" -d "$PAYLOAD" "$URL" 
 curl -s -X POST -H "$HEADERS" -u "$AUTH" -d "$PAYLOAD" "$URL" 
-#curl -s -X POST -H 'Content-Type: application/json' -u davidg3@boundary.com:api.1f3449f1e9-3439 -d '{"source": "i-fdf77337", "typename": "AWS_EC2_CPU_UTILIZATION", "action":"remove"}' https://premium-api.boundary.com/account/3453/sourcetypes
