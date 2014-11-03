@@ -27,4 +27,5 @@ typeset account_id=$1
 AUTH="$BOUNDARY_PREMIUM_EMAIL:$BOUNDARY_PREMIUM_API_TOKEN"
 URL="https://$BOUNDARY_PREMIUM_API_HOST/account/$account_id/sourcetypes"
 
+echo curl -s -u "$AUTH" "$URL" 
 curl -s -u "$AUTH" "$URL" | jq '.'
