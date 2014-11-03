@@ -23,6 +23,62 @@ export PATH="$PATH:$BOUNDARY_API_SHELL_HOME/src/main/scripts/meter"
 export PATH="$PATH:$BOUNDARY_API_SHELL_HOME/src/main/scripts/metrics"
 export PATH="$PATH:$BOUNDARY_API_SHELL_HOME/src/main/scripts/plugins"
 export PATH="$PATH:$BOUNDARY_API_SHELL_HOME/src/main/scripts/relays"
-export PATH="$PATH:$BOUNDARY_API_SHELL_HOME/src/main/scripts/usecases"
+export PATH="$PATH:$BOUNDARY_API_SHELL_HOME/src/main/scripts/sources"
 
 alias bsenv="env | grep BOUNDARY | sort"
+
+#
+# Shows the current environment
+#
+function bp-env() {
+  env | grep BOUNDARY_PREMIUM | sort
+}
+
+#
+# List the currently configured environments
+#
+function bp-acc() {
+  local count=1
+  for config in $(ls -1 "$HOME/.boundary/accounts")
+  do
+    printf "%s) %s\n" "$count" "$config"
+    count=$((count + 1))
+  done
+}
+
+#
+# Change the environment
+#
+function bp-set() {
+  typeset config=$1
+  typeset -i rc=0
+
+  # Create a menu if a configuration was not specified
+  if [ -z "$config" ]
+  then
+    select opt in $(ls -1 $HOME/.boundary/accounts); do
+      config="$opt"
+      break
+    done
+  fi
+
+  #
+  # If the configuration exists then source it
+  #
+  if [ -r "$HOME/.boundary/accounts/$config" ]
+  then
+    source "$HOME/.boundary/accounts/$config"
+    rc=0
+  else
+    rc=1
+  fi
+
+  bp-env
+  return $rc
+}
+
+#
+# Configure completion
+#
+complete -o filenames -W "$(cd $HOME/.boundary/accounts ; ls -1)" bp-set
+
