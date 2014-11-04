@@ -15,20 +15,20 @@
 ### limitations under the License.
 ###
 
-if [ $# -ne 3 ]
+if [ $# -ne 2 ]
 then
-  echo "usage $(basename $0) [account-id] [source] [type-name]"
+  echo "usage $(basename $0) [source] [type-name]"
   exit 1
 fi
 
 # Set command line arguments to read-only variables
-typeset account_id=$1
-typeset source=$2
-typeset type_name=$3
+typeset account_id=$(user-get | jq '.result.accountId')
+typeset source=$1
+typeset type_name=$2
 
 AUTH="$BOUNDARY_PREMIUM_EMAIL:$BOUNDARY_PREMIUM_API_TOKEN"
 URL="https://$BOUNDARY_PREMIUM_API_HOST/account/$account_id/sourcetypes"
 PAYLOAD="{\"source\": \"$source\", \"typename\": \"$type_name\", \"action\":\"remove\"}"
 HEADERS="Content-Type: application/json"
 
-curl -s -X POST -H "$HEADERS" -u "$AUTH" -d "$PAYLOAD" "$URL" 
+curl -s -X POST -H "$HEADERS" -u "$AUTH" -d "$PAYLOAD" "$URL" | jq '.'
