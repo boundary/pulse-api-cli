@@ -15,17 +15,10 @@
 ### limitations under the License.
 ###
 
-if [ $# -ne 1 ]
-then
-  echo "usage $(basename $0) [account-id]"
-  exit 1
-fi
-
-# Set command line arguments to read-only variables
-typeset account_id=$1
+# Get the account id and set to read-only variable
+typeset account_id=$(user-get | jq '.result.accountId')
 
 AUTH="$BOUNDARY_PREMIUM_EMAIL:$BOUNDARY_PREMIUM_API_TOKEN"
 URL="https://$BOUNDARY_PREMIUM_API_HOST/account/$account_id/sourcetypes"
 
-echo curl -s -u "$AUTH" "$URL" 
 curl -s -u "$AUTH" "$URL" | jq '.'

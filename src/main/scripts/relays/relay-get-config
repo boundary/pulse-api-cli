@@ -24,4 +24,4 @@ fi
 AUTH="$BOUNDARY_PREMIUM_EMAIL:$BOUNDARY_PREMIUM_API_TOKEN"
 HEADER="Content-Type: application/json" 
 PAYLOAD="{ \"removeMetrics\": true, \"removeDashes\": true}"
-curl -s -X GET -u "$AUTH" -H "$HEADER" -d "$PAYLOAD" "https://premium-api.boundary.com/v1/relays/$1/config" 
+curl -s -X GET -u "$AUTH" -H "$HEADER" -d "$PAYLOAD" "https://premium-api.boundary.com/v1/relays/$1/config" | jq '.'
