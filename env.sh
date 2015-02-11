@@ -32,7 +32,7 @@ alias bsenv="env | grep BOUNDARY | sort"
 # Shows the current environment
 #
 function bp-env() {
-  env | grep BOUNDARY_PREMIUM | sort
+  env | grep BOUNDARY | sort
 }
 
 #
