@@ -146,125 +146,9 @@ $ metric-list
 ...
 ```
 
-### `meter-list`
-
-```bash
-$ meter-list
-[
-  {
-    "id": "8k1zTp62kqBDhMXP3g",
-    "obs_domain_id": "11",
-    "cert_serial_number": "8k1zTp62kqBDhMXP3h",
-    "org_id": "ChMBk5Ou9QBdDPaTai0rfUbZ8bC",
-    "name": "boundary-splunk",
-    "created_at": 1400787749,
-    "updated_at": 1408200754,
-    "links": [
-      {
-        "rel": "self",
-        "href": "https://api.boundary.com/ChMBk5Ou9QBdDPaTai0rfUbZ8bC/meters/8k1zTp62kqBDhMXP3g"
-      },
-      {
-        "rel": "cert",
-        "href": "https://api.boundary.com/ChMBk5Ou9QBdDPaTai0rfUbZ8bC/meters/8k1zTp62kqBDhMXP3g/cert.pem"
-      },
-      {
-        "rel": "key",
-        "href": "https://api.boundary.com/ChMBk5Ou9QBdDPaTai0rfUbZ8bC/meters/8k1zTp62kqBDhMXP3g/key.pem"
-      }
-    ],
-    "tags": [],
-    "features": [],
-    "connected": "true",
-    "connected_at": "1406409472397",
-    "export_address": "10.1.0.3",
-    "meter_version": "2.0.4-261",
-    "nic_driver": [
-      "virtio_net"
-    ],
-    "nic_driver_version": [
-      "1.0.0"
-    ],
-    "nic_firmware_version": [
-      ""
-    ],
-    "nic_id": [
-      "0"
-    ],
-    "nic_ip": [
-      "10.1.0.3"
-    ],
-    "nic_mac": [
-      "fa:16:3e:98:ca:83"
-    ],
-    "nic_name": [
-      "eth0"
-    ],
-    "os_distribution_name": "Fedora 20 (Heisenbug)",
-    "os_machine": "x86_64",
-    "os_node_name": "boundary-splunk",
-    "os_release": "3.11.10-301.fc20.x86_64",
-    "os_sysname": "Linux",
-    "os_version": "#1 SMP Thu Dec 5 14:01:17 UTC 2013"
-  },
-  ...
-```
-
-### Tag a Meter
-
-```bash
-$ meter-tag 8k0DJnjjxuDvcoTvOK foobar
-```
 
 Command Reference
 -----------------
-
-### Event
-Commands to interact with Boundary events
-
-#### `event-create`
-Inserts a new Raw Event into Boundary Enterprise
-
-``` bash
-usage: event-create <event>
-```
-
-#### `event-list`
-List the events in your Boundary instance
-
-``` bash
-usage: event-list
-```
-
-#### `event-query`
-Queries the events in your Boundary instance
-
-``` bash
-usage: event-query <query>
-```
-
-### Meter
-Commands to administer Boundary Enterprise meters
-
-#### `meter-create`
-Creates a new meter definition in Boundary Enterprise
-
-````bash
-usage: meter-create name
-```
-
-#### `meter-list`
-Lists the meters in Boundary Enterprise
-
-````bash
-usage: meter-list [id]
-```
-#### `meter-tag`
-Adds a tag to a Boundary Enterprise Meter
-
-```bash
-usage: meter-tag meter_id tag
-```
 
 ### Metric
 Commands to administer metrics in Boundary
@@ -288,6 +172,7 @@ where:
   description - Description of the metric (also used as tooltip)
   aggregate - Type of aggregate (sum, avg, max, or min)
   unit - Type of measurement (percent, number, bytecount, or duration )
+  defaultResolutionMS - 
 ```
 #### `metric-delete`
 
@@ -302,8 +187,25 @@ Lists the metric definitions in your Boundary instance.
 usage: metric-list
 ```
 
-### Plugin
+### Plugins
 
+#### `plugin-add`
+
+#### `plugin-delete`
+
+#### `plugin-get`
+
+#### `plugin-get-components`
+
+#### `plugin-install`
+
+#### `plugin-installed`
+
+#### `plugin-list`
+
+#### `plugin-remove`
+
+#### `plugin-uninstall`
 
 ### Sources
 
