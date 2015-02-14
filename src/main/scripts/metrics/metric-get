@@ -15,7 +15,34 @@
 ### limitations under the License.
 ###
 
-typeset -r AUTH="$BOUNDARY_EMAIL:$BOUNDARY_API_TOKEN"
-typeset -r URL="https://$BOUNDARY_API_HOST/user"
+Useage() {
+  echo "usage: $(basename $0) metric_id [ <start> <end> ]"
+#  echo ""
+#  echo "where:"
+#  echo ""
+#  echo "metric_id - Unique id of the metric"
+#  echo "start - "
+#  echo "end - "
+  exit 1
+}
 
-curl -s -u "$AUTH" "$URL" | jq '.'
+#set -x
+
+typeset -r METRIC_ID=$1
+typeset -r START=$(($(date -d "$2" '+%s') * 10))
+typeset -r END=$(($(date -d "$3" '+%s') * 10))
+typeset -r AUTH="$BOUNDARY_EMAIL:$BOUNDARY_API_TOKEN"
+
+if [ $# -eq 1 ]
+then
+  URL="https://$BOUNDARY_API_HOST/v1/measurements/$METRIC_ID?agg=AVG"
+elif [ $# -eq 3 ]
+then
+  URL="https://$BOUNDARY_API_HOST/v1/measurements/$METRIC_ID?start=$START&end=$END&agg=AVG"
+else
+  Useage
+fi
+URL="https://$BOUNDARY_API_HOST/v1/measurements/$METRIC_ID?start=$START&end=$END&agg=AVG"
+
+curl -X GET -i -u"$AUTH" $URL
+

@@ -1,6 +1,6 @@
 #!/bin/bash
 ###
-### Copyright 2014, Boundary
+### Copyright 2014-2015 Boundary, Inc.
 ###
 ### Licensed under the Apache License, Version 2.0 (the "License");
 ### you may not use this file except in compliance with the License.
@@ -15,5 +15,7 @@
 ### limitations under the License.
 ###
 
-AUTH="$BOUNDARY_PREMIUM_EMAIL:$BOUNDARY_PREMIUM_API_TOKEN"
-curl -s -X GET -u "$AUTH" "https://premium-api.boundary.com/v1/plugins/installed" | jq '.'
+typeset -r AUTH="$BOUNDARY_EMAIL:$BOUNDARY_API_TOKEN"
+typeset -r URI="https://$BOUNDARY_API_HOST/v1/plugins/installed"
+curl -s -X GET -u "$AUTH" "$URI" | jq '.'
+
