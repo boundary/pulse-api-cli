@@ -19,16 +19,19 @@
 
 Main() {
 
-if [ $# -ne 1 ]
-then
-   echo "usage: $(basename $0) <event>"
-   exit 1
-fi
-typeset -r event=$1
-#echo $event
-payload="{$event}"
+  if [ $# -ne 1 ]
+  then
+     echo "usage: $(basename $0) <event>"
+     exit 1
+  fi
+  typeset -r event=$1
+  typeset -r PAYLOAD="{$event}"
+  typeset -r AUTH="$BOUNDARY_EMAIL:$BOUNDARY_API_TOKEN"
+  #typeset -r URI="https://$BOUNDARY_API_HOST/${BOUNDARY_ORG_ID}/events" 
+  typeset -r URI="https://$BOUNDARY_API_HOST/events" 
+  typeset -r HEADER="Content-Type: application/json"
 
-curl -i -X POST -u "${BOUNDARY_API_KEY}": -H "Content-Type: application/json" -d "$payload" "https://api.boundary.com/${BOUNDARY_ORG_ID}/events" 
+  curl -i -X POST -u "$AUTH": -H "$HEADER" -d "$PAYLOAD" "$URI"
 
 }
 
