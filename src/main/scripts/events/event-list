@@ -17,12 +17,11 @@
 
 if [ $# -eq 1 ]
 then
-   URL="https://api.boundary.com/${BOUNDARY_ORG_ID}/meters/$1"
-   URL="https://api.boundary.com/$BOUNDARY_ORG_ID/events/$1"
+   URL="https://$BOUNDARY_API_HOST/events/$1"
 else
-   URL="https://api.boundary.com/$BOUNDARY_ORG_ID/events"
+   URL="https://$BOUNDARY_API_HOST/events"
 fi
+typeset AUTH="$BOUNDARY_EMAIL:$BOUNDARY_API_TOKEN"
 
-
-curl -s -q -u "$BOUNDARY_API_KEY:" "$URL" | jq '.'
+curl -s -q -u "$AUTH" "$URL" | jq '.'
 

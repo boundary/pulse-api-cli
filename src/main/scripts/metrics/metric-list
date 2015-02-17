@@ -1,6 +1,6 @@
 #!/bin/bash
 ###
-### Copyright 2014, Boundary
+### Copyright 2014-2015 Boundary, Inc.
 ###
 ### Licensed under the Apache License, Version 2.0 (the "License");
 ### you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 ### limitations under the License.
 ###
 
-PROJECT=$(echo $BOUNDARY_PREMIUM_API_TOKEN | awk -F'-' '{print $2}')
+PROJECT=$(echo $BOUNDARY_API_TOKEN | awk -F'-' '{print $2}')
 
 if [ $# -gt 1 ]
 then
@@ -27,13 +27,14 @@ then
 else
   :
 fi
-AUTH="$BOUNDARY_PREMIUM_EMAIL:$BOUNDARY_PREMIUM_API_TOKEN"
-URL="https://$BOUNDARY_PREMIUM_API_HOST/project/$PROJECT/metricsEdit"
-FIELDS="{name: .name, description: .description,displayName: .displayName,displayNameShort: .displayNameShort,unit: .unit,defaultAggregate: .defaultAggregate,defaultResolutionMS: .defaultResolutionMS}"
+
+typeset -r AUTH="$BOUNDARY_EMAIL:$BOUNDARY_API_TOKEN"
+typeset -r URL="https://$BOUNDARY_API_HOST/project/$PROJECT/metricsEdit"
+typeset -r FIELDS="{name: .name, description: .description,displayName: .displayName,displayNameShort: .displayNameShort,unit: .unit,defaultAggregate: .defaultAggregate,defaultResolutionMS: .defaultResolutionMS}"
 
 if [ -z "$match" ]
 then
-  curl -s -u "$AUTH" "$URL" | jq "." #| $FIELDS"
+  curl -s -u "$AUTH" "$URL" | jq "." 
 else
   curl -s -u "$AUTH" "$URL" | jq ".result[] | select(.name | contains(\"$match\")) | $FIELDS"
 fi

@@ -20,4 +20,6 @@ then
   echo "usage: $(basename $0) <name>"
   exit 1
 fi
-curl -s -X DELETE -u "$BOUNDARY_PREMIUM_EMAIL:$BOUNDARY_PREMIUM_API_TOKEN" "https://$BOUNDARY_PREMIUM_API_HOST/v1/metrics/$1" | jq '.'
+AUTH="$BOUNDARY_EMAIL:$BOUNDARY_API_TOKEN"
+URI="https://$BOUNDARY_API_HOST/v1/metrics/$1" 
+curl -s -X DELETE -u "$AUTH" "$URI" | jq '.'

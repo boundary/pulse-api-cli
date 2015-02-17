@@ -1,6 +1,6 @@
 #!/bin/bash
 ###
-### Copyright 2014, Boundary
+### Copyright 2014-2015 Boundary, Inc.
 ###
 ### Licensed under the Apache License, Version 2.0 (the "License");
 ### you may not use this file except in compliance with the License.
@@ -15,20 +15,7 @@
 ### limitations under the License.
 ###
 
-if [ $# -ne 2 ]
-then
-  echo "usage $(basename $0) [source] [type-name]"
-  exit 1
-fi
-
-# Set command line arguments to read-only variables
-typeset -r account_id=$(user-get | jq '.result.accountId')
-typeset -r source=$1
-typeset -r type_name=$2
-
+typeset -r URL="https://$BOUNDARY_API_HOST/api/v1/relays"
 typeset -r AUTH="$BOUNDARY_EMAIL:$BOUNDARY_API_TOKEN"
-typeset -r URL="https://$BOUNDARY_API_HOST/account/$account_id/sourcetypes"
-typeset -r PAYLOAD="{\"source\": \"$source\", \"typename\": \"$type_name\", \"action\":\"remove\"}"
-typeset -r HEADERS="Content-Type: application/json"
 
-curl -s -X POST -H "$HEADERS" -u "$AUTH" -d "$PAYLOAD" "$URL" | jq '.'
+curl -s -X GET -u "$AUTH" "$URL" | jq '.'

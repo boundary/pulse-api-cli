@@ -1,6 +1,6 @@
 #!/bin/bash
 ###
-### Copyright 2014, Boundary
+### Copyright 2014-2015 Boundary, Inc.
 ###
 ### Licensed under the Apache License, Version 2.0 (the "License");
 ### you may not use this file except in compliance with the License.
@@ -20,7 +20,8 @@ then
   echo "usage: $(basename $0) <plugin-name>"
   exit 1
 fi
-AUTH="$BOUNDARY_PREMIUM_EMAIL:$BOUNDARY_PREMIUM_API_TOKEN"
-HEADER="Content-Type: application/json" 
-PAYLOAD="{ \"removeMetrics\": true, \"removeDashes\": true}"
-curl -s -X DELETE -u "$AUTH" -H "$HEADER" -d "$PAYLOAD" "https://premium-api.boundary.com/v1/plugins/installed/$1" 
+typeset -r AUTH="$BOUNDARY_EMAIL:$BOUNDARY_API_TOKEN"
+typeset -r HEADER="Content-Type: application/json" 
+typeset -r PAYLOAD="{ \"removeMetrics\": true, \"removeDashes\": true}"
+typeset -r URI="https://$BOUNDARY_API_HOST/v1/plugins/installed/$1" 
+curl -s -X DELETE -u "$AUTH" -H "$HEADER" -d "$PAYLOAD" "$URI"

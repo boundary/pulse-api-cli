@@ -1,6 +1,6 @@
 #!/bin/bash
 ###
-### Copyright 2014, Boundary
+### Copyright 2014-2015 Boundary, Inc.
 ###
 ### Licensed under the Apache License, Version 2.0 (the "License");
 ### you may not use this file except in compliance with the License.
@@ -19,20 +19,15 @@ if [ $# -ne 3 ]
 then
    echo "usage: $(basename $0) source metric measure"
    exit 1
-else
-   typeset -r source=$1
-   typeset -r metric=$2
-   typeset -r measure=$3
 fi
 
-# Fetch our id based on the name provided
-#source=$(meter-list | jq ".[] | select(.name == \"$name\") | .obs_domain_id" | tr -d '"')
-#if [ -z $source ]
-#then
-#   echo "Unable to find source: $name"
-#   exit 1
-#fi
+typeset -r source=$1
+typeset -r metric=$2
+typeset -r measure=$3
 
-DATA="{\"source\": \"$source\", \"metric\": \"$metric\", \"measure\": $measure}"
+typeset -r PAYLOAD="{\"source\": \"$source\", \"metric\": \"$metric\", \"measure\": $measure}"
+typeset -r AUTH="$BOUNDARY_EMAIL:$BOUNDARY_API_TOKEN"
+typeset -r HEADER="Content-Type: application/json"
+typeset -r URI="https://$BOUNDARY_API_HOST/v1/measurements" 
 
-curl -s -X POST -u "$BOUNDARY_PREMIUM_EMAIL:$BOUNDARY_PREMIUM_API_TOKEN" -H "Content-Type: application/json" -d "$DATA" "https://$BOUNDARY_PREMIUM_API_HOST/v1/measurements" | jq '.'
+curl -s -X POST -u "$AUTH" -H "$HEADER" -d "$PAYLOAD" "$URI" | jq '.'

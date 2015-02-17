@@ -20,9 +20,9 @@
       <directory>${basedir}</directory>
         <outputDirectory></outputDirectory>
           <filtered>true</filtered>
-            <includes>
-              <include>README.md</include>
-            </includes>
+          <includes>
+            <include>README.md</include>
+          </includes>
     </fileSet>
     <fileSet>
       <directory>src/main/scripts/metrics</directory>

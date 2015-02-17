@@ -1,7 +1,6 @@
 #!/bin/bash
-
 ###
-### Copyright 2013, Boundary
+### Copyright 2014-2015, Boundary, Inc.
 ###
 ### Licensed under the Apache License, Version 2.0 (the "License");
 ### you may not use this file except in compliance with the License.
@@ -16,6 +15,9 @@
 ### limitations under the License.
 ###
 
+typeset -r AUTH="${BOUNDARY_EMAIL}:${BOUNDARY_API_TOKEN}"
+typeset -r URI="https://$BOUNDARY_API_HOST/events?q=$q" 
+
 processQuery() {
    typeset -r event_query=$1
    queryEvents "$event_query"
@@ -23,7 +25,7 @@ processQuery() {
 
 queryEvents() {
    typeset -r q=$1
-   curl -s -u "$BOUNDARY_API_KEY:" "https://$BOUNDARY_API_HOST/$BOUNDARY_ORG_ID/events?q=$q" | jq '.'
+   curl -s -u "$AUTH" "$URI" | jq '.'
 }
 
 if [ $# -ne 1 ]

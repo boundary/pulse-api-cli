@@ -1,6 +1,6 @@
 #!/bin/bash
 ###
-### Copyright 2014, Boundary
+### Copyright 2014-2015 Boundary, Inc.
 ###
 ### Licensed under the Apache License, Version 2.0 (the "License");
 ### you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
 # Get the account id and set to read-only variable
 typeset account_id=$(user-get | jq '.result.accountId')
 
-AUTH="$BOUNDARY_PREMIUM_EMAIL:$BOUNDARY_PREMIUM_API_TOKEN"
-URL="https://$BOUNDARY_PREMIUM_API_HOST/account/$account_id/sourcetypes"
+typeset AUTH="$BOUNDARY_EMAIL:$BOUNDARY_API_TOKEN"
+typeset URL="https://$BOUNDARY_API_HOST/account/$account_id/sourcetypes"
 
 curl -s -u "$AUTH" "$URL" | jq '.'
