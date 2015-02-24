@@ -22,6 +22,5 @@ then
 fi
 
 typeset -r AUTH="$BOUNDARY_EMAIL:$BOUNDARY_API_TOKEN"
-typeset -r HEADER="Content-Type: application/json" 
 typeset -r URI="https://$BOUNDARY_API_HOST/v1/relays/$1/config"
-curl -s -X GET -u "$AUTH" -H "$HEADER" "$URI" | jq '.'
+curl -s -X GET -u "$AUTH" "$URI" | jq '.'
