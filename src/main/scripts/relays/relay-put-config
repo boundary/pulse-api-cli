@@ -15,25 +15,18 @@
 ### limitations under the License.
 ###
 
-Main() {
+set -x
 
-  if [ $# -ne 1 ]
-  then
-     echo "usage: $(basename $0) <event id>"
-     exit 1
-  fi
-  typeset -r EVENT_ID=$1
-  if [ -z "$BOUNDARY_ORG_ID" ]
-  then
-    typeset -r URI="https://$BOUNDARY_API_HOST/v1/events/$EVENT_ID" 
-    typeset -r AUTH="$BOUNDARY_EMAIL:$BOUNDARY_API_TOKEN"
-  else
-    typeset -r URI="https://$BOUNDARY_API_HOST/$BOUNDARY_ORG_ID/events/$EVENT_ID" 
-    typeset -r AUTH="$BOUNDARY_API_TOKEN:"
-  fi
+if [ $# -ne 2 ]
+then
+  echo "usage: $(basename $0) <relay-name> <file name>"
+  exit 1
+fi
 
-  curl -s -X GET -u "$AUTH" "$URI" | jq '.'
-
-}
-
-Main "$@"
+typeset -r RELAY=$1
+typeset -r FILE=$2
+typeset -r PAYLOAD=`cat $FILE`
+typeset -r AUTH="$BOUNDARY_EMAIL:$BOUNDARY_API_TOKEN"
+typeset -r HEADER="Content-Type: application/json" 
+typeset -r URI="https://$BOUNDARY_API_HOST/v1/relays/$RELAY/config"
+curl -i -X PUT -u "$AUTH" -H "$HEADER" -d"$PAYLOAD" "$URI" #| jq '.'

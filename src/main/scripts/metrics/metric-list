@@ -15,7 +15,7 @@
 ### limitations under the License.
 ###
 
-PROJECT=$(echo $BOUNDARY_API_TOKEN | awk -F'-' '{print $2}')
+set -x
 
 if [ $# -gt 1 ]
 then
@@ -29,7 +29,7 @@ else
 fi
 
 typeset -r AUTH="$BOUNDARY_EMAIL:$BOUNDARY_API_TOKEN"
-typeset -r URL="https://$BOUNDARY_API_HOST/project/$PROJECT/metricsEdit"
+typeset -r URL="https://$BOUNDARY_API_HOST/v1/metrics"
 typeset -r FIELDS="{name: .name, description: .description,displayName: .displayName,displayNameShort: .displayNameShort,unit: .unit,defaultAggregate: .defaultAggregate,defaultResolutionMS: .defaultResolutionMS}"
 
 if [ -z "$match" ]

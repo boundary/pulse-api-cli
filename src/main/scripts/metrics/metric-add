@@ -17,13 +17,13 @@
 
 if [ $# -ne 3 ]
 then
-   echo "usage: $(basename $0) source metric measure"
+   echo "usage: $(basename $0) metric measure source"
    exit 1
 fi
 
-typeset -r source=$1
-typeset -r metric=$2
-typeset -r measure=$3
+typeset -r metric=$1
+typeset -r measure=$2
+typeset -r source=$3
 
 typeset -r PAYLOAD="{\"source\": \"$source\", \"metric\": \"$metric\", \"measure\": $measure}"
 typeset -r AUTH="$BOUNDARY_EMAIL:$BOUNDARY_API_TOKEN"
