@@ -15,8 +15,6 @@
 ### limitations under the License.
 ###
 
-set -x
-
 if [ $# -ne 2 ]
 then
   echo "usage: $(basename $0) <relay-name> <file name>"
@@ -25,8 +23,7 @@ fi
 
 typeset -r RELAY=$1
 typeset -r FILE=$2
-typeset -r PAYLOAD=`cat $FILE`
 typeset -r AUTH="$BOUNDARY_EMAIL:$BOUNDARY_API_TOKEN"
 typeset -r HEADER="Content-Type: application/json" 
 typeset -r URI="https://$BOUNDARY_API_HOST/v1/relays/$RELAY/config"
-curl -i -X PUT -u "$AUTH" -H "$HEADER" -d"$PAYLOAD" "$URI" #| jq '.'
+curl -s -X PUT -u "$AUTH" -H "$HEADER" -d @"$FILE" "$URI" #| jq '.'
