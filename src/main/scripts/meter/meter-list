@@ -17,7 +17,7 @@
 
 if [ $# -eq 1 ]
 then
-   URL="https://api.boundary.com/${BOUNDARY_ORG_ID}/meters/$1"
+   URL="https://api.boundary.com/${BOUNDARY_ORG_ID}/meters?name=$1"
 else
    URL="https://api.boundary.com/${BOUNDARY_ORG_ID}/meters"
 fi
