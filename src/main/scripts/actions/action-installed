@@ -15,12 +15,6 @@
 ### limitations under the License.
 ###
 
-if [ $# -ne 1 ]
-then
-  echo "usage: $(basename $0) <relay-name>"
-  exit 1
-fi
-
-typeset -r AUTH="$BOUNDARY_EMAIL:$BOUNDARY_API_TOKEN"
-typeset -r URI="https://$BOUNDARY_API_HOST/v1/relays/$1/config"
+AUTH="$BOUNDARY_EMAIL:$BOUNDARY_API_TOKEN"
+URI="https://$BOUNDARY_API_HOST/v1/actions/installed"
 curl -s -X GET -u "$AUTH" "$URI" | jq '.'
