@@ -1,6 +1,6 @@
 ============
 Boundary CLI
-===========-
+============
 
 Boundary CLI provides command line access to Boundary REST APIs
 Typical usage often looks like this::
@@ -33,12 +33,12 @@ Metrics
 metric-add
 ~~~~~~~~~~
 
-$ metric-add myhost LOAD_1_MINUTE 30
-{
-  "result": {
-    "success": true
-  }
-}
+    $ metric-add myhost LOAD_1_MINUTE 30
+    {
+      "result": {
+        "success": true
+      }
+    }
 
 metric-create
 ~~~~~~~~~~~~~
