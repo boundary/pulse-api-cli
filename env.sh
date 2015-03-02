@@ -82,5 +82,8 @@ function bp-set() {
 #
 # Configure completion
 #
-complete -o filenames -W "$(cd $HOME/.boundary/accounts ; ls -1)" bp-set
+if [ -r $HOME/.boundary/accounts ]
+then
+  complete -o filenames -W "$(cd $HOME/.boundary/accounts ; ls -1)" bp-set
+fi
 

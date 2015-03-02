@@ -1,8 +1,30 @@
 #!/bin/bash
+###
+### Copyright 2014-2015 Boundary, Inc.
+###
+### Licensed under the Apache License, Version 2.0 (the "License");
+### you may not use this file except in compliance with the License.
+### You may obtain a copy of the License at
+###
+###     http://www.apache.org/licenses/LICENSE-2.0
+###
+### Unless required by applicable law or agreed to in writing, software
+### distributed under the License is distributed on an "AS IS" BASIS,
+### WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+### See the License for the specific language governing permissions and
+### limitations under the License.
+###
 
-#if [ $# -ne 1 ]
-#then
-#  echo "usage: $(basename $0) <name>"
-#  exit 1
-#fi
-curl -u "$BOUNDARY_METRICS_EMAIL:$BOUNDARY_METRICS_TOKEN" 'https://metrics-api.boundary.com/project/16/metricsEdit'
+if [ $# -ne 1 ]
+then
+  echo "usage: $(basename $0) <metric>"
+  exit 1
+fi
+
+typeset -r PAYLOAD="{ \"metric\": \"$METRIC\" }"
+typeset -r URL="https://$BOUNDARY_API_HOST/v1/metrics/ref"
+typeset -r AUTH="$BOUNDARY_EMAIL:$BOUNDARY_API_TOKEN"
+typeset -r HEADER="Content-Type: application/json"
+
+curl -X POST -i -u"$AUTH" -H "$HEADER" -d "$PAYLOAD" $URL
+

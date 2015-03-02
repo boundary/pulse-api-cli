@@ -15,8 +15,6 @@
 ### limitations under the License.
 ###
 
-set -x
-
 if [ $# -gt 1 ]
 then
   echo "usage $(basename $0) [match]"
