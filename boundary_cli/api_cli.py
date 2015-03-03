@@ -30,7 +30,6 @@ Base class for all the Boundary CLI commands
 '''
 class ApiCli():
 
-
   def __init__(self):
     self.path = None
     self.apihost = None
