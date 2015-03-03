@@ -29,7 +29,6 @@ class MetricCreate (ApiCli):
         self.parser.add_argument('-g', '--aggregate', dest='aggregate',action='store',help='Metric default aggregate')
         self.parser.add_argument('-u', '--unit', dest='unit',action='store',help='Metric unit')
         self.parser.add_argument('-r', '--resolution', dest='resolution',action='store',help='Metric resolution')
-
         
     def getArguments(self):
         ApiCli.getArgs(self)
