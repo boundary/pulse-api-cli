@@ -32,7 +32,7 @@ Metrics
 
 metric-add
 ~~~~~~~~~~
-
+::
     $ metric-add myhost LOAD_1_MINUTE 30
     {
       "result": {
