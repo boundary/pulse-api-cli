@@ -17,12 +17,8 @@
 
 import argparse
 import json
-from pprint import pprint
-from plugin_manifest import PluginManifest
 import logging
 import os
-import sys
-
 import requests
 
 '''
@@ -34,58 +30,94 @@ class ApiCli():
     self.path = None
     self.apihost = None
     self.email = None
-    self.apikey = None
+    self.apitoken = None
     self.parser = argparse.ArgumentParser(description=self.getDescription())
-    self.paths="v1/metrics"
+    self.scheme = "https"
+    self.path = None
+    self.url_parameters = None
+    self.method = "GET"
+    self.data = None
+    
+    self.methods = {"DELETE": self.doDelete,"GET": self.doGet,"POST": self.doPost,"PUT": self.doPut}
 
   def getDescription(self):
+    '''
+    Returns a description of the CLI
+    '''
     return "General API CLI"
 
   def getEnvironment(self):
+    '''
+    Gets the configuration stored in environment variables
+    '''
     try:
       self.email = os.environ['BOUNDARY_EMAIL']
     except(KeyError):
       self.email = None
     try:
-      self.apikey = os.environ['BOUNDARY_API_TOKEN']
+      self.apitoken = os.environ['BOUNDARY_API_TOKEN']
     except(KeyError):
-      self.apikey = None
+      self.apitoken = None
     try:
       self.apihost = os.environ['BOUNDARY_API_HOST']
     except(KeyError):
-        self.apihost = 'premium-api.boundary.com'
+      self.apihost = 'premium-api.boundary.com'
 
   def addArguments(self):
     '''
     Configure handling of command line arguments.
     '''
-    self.parser.add_argument('-e','--email',dest='email',action='store',help='e-mail used to create the Boundary account')
-    self.parser.add_argument('-t','--api-token',dest='apitoken',required=False,action='store',help='API token to access the Boundary Account')
-    self.parser.add_argument('-v', dest='verbose', action='store_true',help='verbose mode')
+    self.parser.add_argument('-a', '--api-host', dest='apihost',action='store',help='API endpoint')
+    self.parser.add_argument('-e', '--email', dest='email', action='store', help='e-mail used to create the Boundary account')
+    self.parser.add_argument('-t', '--api-token', dest='apitoken', required=False, action='store', help='API token to access the Boundary Account')
+    self.parser.add_argument('-v', '--verbose',dest='verbose', action='store_true', help='verbose mode')
     
   def parseArgs(self):
-
+    '''
+    Handles the parse of the command line arguments
+    '''
     self.addArguments()
-
     self.args = self.parser.parse_args()
-
-  def getMetricDefinition(self,name):
-      '''
-      Make an API call to get the metric definition
-      '''
-      metric = None
-      url = "https://{0}/{1}".format(self.apihost,self.path)
-      r = requests.get(url, auth=(self.email, self.apikey))
-      if r.status_code != 200:
-          print(url)
-          print(r)
-      print(r.text)
-  
     
-  def execute(self):
-    self.parseArgs()
-    print("execute") 
+  def getArgs(self):
+    if self.args.apihost != None:
+        self.apihost = self.args.apihost
+    if self.args.email != None:
+      self.email = self.args.email
+    if self.args.apitoken != None:
+      self.apitoken = self.args.apitoken
+    if self.args.apitoken != None:
+      self.apitoken = self.args.apitoken
 
-if __name__ == "__main__":
-  c = ApiCli()
-  c.execute()
+  def doGet(self):
+    return requests.get(self.url,auth=(self.email,self.apitoken))
+
+  def doDelete(self):
+    return requests.delete(self.url,auth=(self.email,self.apitoken))
+
+  def doPost(self):
+    return requests.post(self.url,auth=(self.email,self.apitoken),data=self.payload)
+
+  def doPut(self):
+    return requests.put(self.url,auth=(self.email,self.apitoken),data=self.payload)
+
+  def callAPI(self):
+    '''
+    Make an API call to get the metric definition
+    '''
+    self.url = "{0}://{1}/{2}/".format(self.scheme,self.apihost,self.path)
+    result = self.methods[self.method]()
+    if result.status_code != 200:
+        print(self.url)
+        print(result)
+    self.handleResults(result)
+      
+  def handleResults(self,result):
+    print(result.text)
+  
+  def execute(self):
+    self.getEnvironment()
+    self.parseArgs()
+    self.getArgs()
+    self.callAPI()
+
