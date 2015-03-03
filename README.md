@@ -93,29 +93,51 @@ usage: metric-add source metric measure
 #### metric-delete
 Creates/updates a Boundary Premium metric definition
 
-```bash
-usage: metric-create <name> <display-name> <display-name_short> <description> <aggregate> <unit> <defaultResolutionMS>
-where:
-  name - Name of the metric
-  display-name - Name displayed in the Web UI
-  display-name-short - Shorter display name
-  description - Description of the metric (also used as tooltip)
-  aggregate - Type of aggregate (sum, avg, max, or min)
-  unit - Type of measurement (percent, number, bytecount, or duration )
-  defaultResolutionMS - 
-```
-#### `metric-delete`
+    ```bash
+    $ metric-create -h
+    usage: metric-create [-h] [-a APIHOST] [-e EMAIL] [-t APITOKEN] [-v] -m NAME
+                     [-d DISPLAYNAME] [-s DISPLAYNAMESHORT] [-i DESCRIPTION]
+                     [-g AGGREGATE] [-u UNIT] [-r RESOLUTION] [-x]
 
-```bash
-usage: metric-delete <name>
-```
+    Creates a new metric definition in an Boundary account
 
-#### `metric-list`
+    optional arguments:
+      -h, --help            show this help message and exit
+      -a APIHOST, --api-host APIHOST
+                        API endpoint
+      -e EMAIL, --email EMAIL
+                        e-mail used to create the Boundary account
+      -t APITOKEN, --api-token APITOKEN
+                        API token to access the Boundary Account
+      -v, --verbose         verbose mode
+      -m NAME, --name NAME  Metric identifier
+      -d DISPLAYNAME, --display-name DISPLAYNAME
+                        Metric display name
+      -s DISPLAYNAMESHORT, --display-name-short DISPLAYNAMESHORT
+                        Metric short display name
+      -i DESCRIPTION, --description DESCRIPTION
+                        Metric description
+      -g AGGREGATE, --aggregate AGGREGATE
+                        Metric default aggregate
+      -u UNIT, --unit UNIT  Metric unit
+      -r RESOLUTION, --resolution RESOLUTION
+                        Metric default resolution
+      -x, --is-disabled     verbose mode
+
+    ```
+
+#### metric-delete
+
+   ```bash
+    usage: metric-delete <name>
+   ```
+
+#### metric-list
 Lists the metric definitions in your Boundary instance.
 
-```bash
-usage: metric-list
-```
+   ```bash
+    usage: metric-list
+   ```
 
 ### Plugins
 
@@ -139,20 +161,20 @@ usage: metric-list
 
 ### Sources
 
-#### `source-delete`
+#### source-delete
 
-```
-$ source-delete <source> <metric id>
-```
+    ```
+    $ source-delete <source> <metric id>
+    ```
 
 
-#### `source-list`
+#### source-list
 
 Lists all sources in your Boundary instance
 
-```
-$ source-list
-```
+    ```
+    $ source-list
+    ```
 
 ### User
 

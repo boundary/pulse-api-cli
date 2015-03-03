@@ -20,6 +20,7 @@ import json
 import logging
 import os
 import requests
+import urllib2
 
 '''
 Base class for all the Boundary CLI commands
@@ -27,8 +28,9 @@ Base class for all the Boundary CLI commands
 class ApiCli():
 
   def __init__(self):
+    self.message = None
     self.path = None
-    self.apihost = None
+    self.apihost = "premium-api.boundary.com"
     self.email = None
     self.apitoken = None
     self.parser = argparse.ArgumentParser(description=self.getDescription())
@@ -38,6 +40,7 @@ class ApiCli():
     self.method = "GET"
     self.data = None
     
+    # Construct a dictionary with each of the HTTP methods that we support
     self.methods = {"DELETE": self.doDelete,"GET": self.doGet,"POST": self.doPost,"PUT": self.doPut}
 
   def getDescription(self):
@@ -79,45 +82,80 @@ class ApiCli():
     self.addArguments()
     self.args = self.parser.parse_args()
     
-  def getArgs(self):
+  def getArguments(self):
+    '''
+    CLIs get called back so that they can process any command line arguments
+    that are given. This method handles the standard command line arguments for:
+    API Host, user, password, etc.
+    '''
     if self.args.apihost != None:
         self.apihost = self.args.apihost
     if self.args.email != None:
       self.email = self.args.email
     if self.args.apitoken != None:
       self.apitoken = self.args.apitoken
-    if self.args.apitoken != None:
-      self.apitoken = self.args.apitoken
+      
+  def setErrorMessage(self,message):
+      self.message = message
+      
+  def validateArguments(self):
+    if self.email == None:
+        self.setErrorMessage("E-mail for the account not provided")
+        return False
+    if self.apitoken == None:
+        self.setErrorMessage("API Token for the account not provided")
+        return False
+    return True
 
   def doGet(self):
-    return requests.get(self.url,auth=(self.email,self.apitoken))
+    '''
+    HTTP Get Request
+    '''
+    return requests.get(self.url,auth=(self.email,self.apitoken),data=self.data)
 
   def doDelete(self):
-    return requests.delete(self.url,auth=(self.email,self.apitoken))
+    '''
+    HTTP Delete Request
+    '''
+    return requests.delete(self.url,auth=(self.email,self.apitoken),data=self.data)
 
   def doPost(self):
-    return requests.post(self.url,auth=(self.email,self.apitoken),data=self.payload)
+    return requests.post(self.url,auth=(self.email,self.apitoken),data=self.data)
 
   def doPut(self):
-    return requests.put(self.url,auth=(self.email,self.apitoken),data=self.payload)
+    '''
+    HTTP Put Request
+    '''
+    return requests.put(self.url,auth=(self.email,self.apitoken),data=self.data)
 
   def callAPI(self):
     '''
     Make an API call to get the metric definition
     '''
     self.url = "{0}://{1}/{2}/".format(self.scheme,self.apihost,self.path)
+
     result = self.methods[self.method]()
-    if result.status_code != 200:
+    if result.status_code != urllib2.httplib.OK:
         print(self.url)
         print(result)
     self.handleResults(result)
       
   def handleResults(self,result):
+    '''
+    Call back function to be implemented by the CLI.
+    Default is to just print the results to standard out
+    '''
     print(result.text)
   
   def execute(self):
+    '''
+    Run the steps to execute the CLI
+    '''
     self.getEnvironment()
     self.parseArgs()
-    self.getArgs()
-    self.callAPI()
+    self.getArguments()
+    if self.validateArguments() == True:
+        self.callAPI()
+    else:
+        print(self.message)
 

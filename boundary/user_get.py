@@ -13,10 +13,15 @@
 ### See the License for the specific language governing permissions and
 ### limitations under the License.
 ###
-import action_list
-import api_cli
-import metric_create
-import metric_get
-import metric_list
-import relay_list
-import user_get
+from api_cli import ApiCli
+
+class UserGet (ApiCli):
+     
+    def __init__(self):
+        ApiCli.__init__(self)
+        self.method = "GET"
+        self.path = "user"
+                 
+    def getDescription(self):
+        return "Returns the user associated with the account"
+    
