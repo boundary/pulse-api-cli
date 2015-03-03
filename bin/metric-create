@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env python
 ###
 ### Copyright 2014-2015 Boundary, Inc.
 ###
@@ -14,20 +14,8 @@
 ### See the License for the specific language governing permissions and
 ### limitations under the License.
 ###
-
-if [ $# -ne 3 ]
-then
-   echo "usage: $(basename $0) source metric measure"
-   exit 1
-fi
-
-typeset -r source=$1
-typeset -r metric=$2
-typeset -r measure=$3
-
-typeset -r PAYLOAD="{\"source\": \"$source\", \"metric\": \"$metric\", \"measure\": $measure}"
-typeset -r AUTH="$BOUNDARY_EMAIL:$BOUNDARY_API_TOKEN"
-typeset -r HEADER="Content-Type: application/json"
-typeset -r URI="https://$BOUNDARY_API_HOST/v1/measurements" 
-
-curl -s -X POST -u "$AUTH" -H "$HEADER" -d "$PAYLOAD" "$URI" | jq '.'
+from boundary_cli.metric_create import MetricCreate
+     
+if __name__ == "__main__":
+  c = MetricCreate()
+  c.execute()

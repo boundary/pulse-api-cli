@@ -1,4 +1,3 @@
-#!/bin/bash
 ###
 ### Copyright 2014-2015 Boundary, Inc.
 ###
@@ -14,20 +13,16 @@
 ### See the License for the specific language governing permissions and
 ### limitations under the License.
 ###
-
-if [ $# -ne 3 ]
-then
-   echo "usage: $(basename $0) source metric measure"
-   exit 1
-fi
-
-typeset -r source=$1
-typeset -r metric=$2
-typeset -r measure=$3
-
-typeset -r PAYLOAD="{\"source\": \"$source\", \"metric\": \"$metric\", \"measure\": $measure}"
-typeset -r AUTH="$BOUNDARY_EMAIL:$BOUNDARY_API_TOKEN"
-typeset -r HEADER="Content-Type: application/json"
-typeset -r URI="https://$BOUNDARY_API_HOST/v1/measurements" 
-
-curl -s -X POST -u "$AUTH" -H "$HEADER" -d "$PAYLOAD" "$URI" | jq '.'
+from api_cli import ApiCli
+class MetricList (ApiCli):
+     
+    def __init__(self):
+        ApiCli.__init__(self)
+        self.path = "v1/metrics"
+        
+    def addArguments(self):
+        ApiCli.addArguments(self)
+         
+    def getDescription(self):
+        return "Lists the defined metrics in a Boundary account"
+    
