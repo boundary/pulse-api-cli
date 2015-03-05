@@ -21,6 +21,7 @@ import logging
 import os
 import requests
 import urllib2
+import urllib
 
 '''
 Base class for all the Boundary CLI commands
@@ -70,9 +71,9 @@ class ApiCli():
     '''
     Configure handling of command line arguments.
     '''
-    self.parser.add_argument('-a', '--api-host', dest='apihost',action='store',help='API endpoint')
-    self.parser.add_argument('-e', '--email', dest='email', action='store', help='e-mail used to create the Boundary account')
-    self.parser.add_argument('-t', '--api-token', dest='apitoken', required=False, action='store', help='API token to access the Boundary Account')
+    self.parser.add_argument('-a', '--api-host',dest='apihost',action='store',metavar="api_host",help='API endpoint')
+    self.parser.add_argument('-e', '--email',dest='email',action='store',metavar="e_mail",help='e-mail used to create the Boundary account')
+    self.parser.add_argument('-t', '--api-token',dest='apitoken',required=False,action='store',metavar="api_token",help='API token to access the Boundary Account')
     self.parser.add_argument('-v', '--verbose',dest='verbose', action='store_true', help='verbose mode')
     
   def parseArgs(self):
@@ -91,12 +92,12 @@ class ApiCli():
     if self.args.apihost != None:
         self.apihost = self.args.apihost
     if self.args.email != None:
-      self.email = self.args.email
+        self.email = self.args.email
     if self.args.apitoken != None:
-      self.apitoken = self.args.apitoken
+        self.apitoken = self.args.apitoken
       
   def setErrorMessage(self,message):
-      self.message = message
+        self.message = message
       
   def validateArguments(self):
     if self.email == None:
@@ -106,6 +107,20 @@ class ApiCli():
         self.setErrorMessage("API Token for the account not provided")
         return False
     return True
+
+  def getUrlParameters(self):
+    urlParameters = ""
+    if self.url_parameters != None:
+        urlParameters = "?"
+        values = self.url_parameters
+        first = True
+        for key in values:
+            if first == True:
+                first = False
+            else:
+                urlParameters = urlParameters + "&"
+            urlParameters = urlParameters + "{0}={1}".format(key,values[key])
+    return urlParameters
 
   def doGet(self):
     '''
@@ -132,7 +147,8 @@ class ApiCli():
     '''
     Make an API call to get the metric definition
     '''
-    self.url = "{0}://{1}/{2}/".format(self.scheme,self.apihost,self.path)
+
+    self.url = "{0}://{1}/{2}{3}".format(self.scheme,self.apihost,self.path,self.getUrlParameters())
 
     result = self.methods[self.method]()
     if result.status_code != urllib2.httplib.OK:

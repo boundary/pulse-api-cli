@@ -15,8 +15,16 @@
 ###
 import action_list
 import api_cli
+import host_group_list
+import host_group_search
 import metric_create
 import metric_get
 import metric_list
+import plugin_add
+import plugin_install
+import plugin_installed
+import plugin_remove
+import plugin_uninstall
+import plugin_list
 import relay_list
 import user_get

@@ -21,7 +21,7 @@ class MetricCreate (ApiCli):
         ApiCli.__init__(self)
         self.method = "PUT"
         
-        self.name = None
+        self.metricName = None
         self.displayName = None
         self.displayNameShort = None
         self.description = None
@@ -32,7 +32,7 @@ class MetricCreate (ApiCli):
         
     def addArguments(self):
         ApiCli.addArguments(self)
-        self.parser.add_argument('-m', '--name', dest='name',action='store',required=True,help='Metric identifier')
+        self.parser.add_argument('-n', '--metric-name', dest='metricName',action='store',required=True,help='Metric identifier')
         self.parser.add_argument('-d', '--display-name', dest='displayName',action='store',help='Metric display name')
         self.parser.add_argument('-s', '--display-name-short', dest='displayNameShort',action='store',help='Metric short display name')
         self.parser.add_argument('-i', '--description', dest='description',action='store',help='Metric description')
@@ -46,8 +46,8 @@ class MetricCreate (ApiCli):
         Extracts the specific arguments of this CLI
         '''
         ApiCli.getArguments(self)
-        if self.args.name != None:
-            self.name = self.args.name
+        if self.args.metricName != None:
+            self.metricName = self.args.metricName
             
         if self.args.displayName != None:
             self.displayName = self.args.displayName
@@ -70,7 +70,7 @@ class MetricCreate (ApiCli):
         if self.args.isDisabled != None:
             self.isDisabled = self.args.isDisabled
        
-        self.data = {'name': self.name,
+        self.data = {'name': self.metricName,
                     'displayName': self.displayName,
                     'displayNameShort': self.displayNameShort,
                     'description': self.description,

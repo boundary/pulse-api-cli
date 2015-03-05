@@ -1,6 +1,5 @@
-#!/bin/bash
 ###
-### Copyright 2014-2015 Boundary,Inc.
+### Copyright 2014-2015 Boundary, Inc.
 ###
 ### Licensed under the Apache License, Version 2.0 (the "License");
 ### you may not use this file except in compliance with the License.
@@ -14,14 +13,16 @@
 ### See the License for the specific language governing permissions and
 ### limitations under the License.
 ###
-
-if [ $# -ne 1 ]
-then
-  echo "usage: $(basename $0) <plugin name>"
-  exit 1
-fi
-
-typeset -r PLUGIN_NAME=$1
-typeset -r AUTH="$BOUNDARY_EMAIL:$BOUNDARY_API_TOKEN"
-typeset -r URI="https://$BOUNDARY_API_HOST/v1/plugins/installed/$PLUGIN_NAME"
-curl -X PUT -u "$AUTH" "$URI"
+from api_cli import ApiCli
+class PluginList (ApiCli):
+     
+    def __init__(self):
+        ApiCli.__init__(self)
+        self.path = "v1/plugins"
+        
+    def addArguments(self):
+        ApiCli.addArguments(self)
+         
+    def getDescription(self):
+        return "Lists the plugins in a Boundary account"
+    

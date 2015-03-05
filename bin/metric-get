@@ -17,5 +17,5 @@
 from boundary.metric_get import MetricGet
      
 if __name__ == "__main__":
-  c = MetricGet()
-  c.execute()
+    c = MetricGet()
+    c.execute()
