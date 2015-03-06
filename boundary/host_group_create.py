@@ -13,51 +13,15 @@
 ### See the License for the specific language governing permissions and
 ### limitations under the License.
 ###
-from api_cli import ApiCli
+from host_group_modify import HostGroupModify
 
-class HostGroupCreate (ApiCli):
+class HostGroupCreate (HostGroupModify):
      
     def __init__(self,update):
-        ApiCli.__init__(self)
-        self.update = update
-        if self.update == True:
-            self.method = "PUT"
-        else:
-            self.method = "POST"
+        HostGroupModify.__init__(self,False)
         self.path="v1/hostgroups"
         self.sources = None
-        
-        self.hostGroupName = ""
-        
-    def addArguments(self):
-        ApiCli.addArguments(self)
-        self.parser.add_argument('-n', '--host-group-name', dest='hostGroupName',action='store',required=True,help='Host group name')
-        self.parser.add_argument('-s', '--sources', dest='sources',action='store',required=True,help='Comma separated sources to add to the host group. If empty adds all hosts.')
-        
-    def getArguments(self):
-        '''
-        Extracts the specific arguments of this CLI
-        '''
-        ApiCli.getArguments(self)
-        if self.args.hostGroupName != None:
-            self.hostGroupName = self.args.hostGroupName
-        
-        # Get the list of sources separated by commas
-        if self.args.sources != None:
-            self.sources = self.args.sources
- 
-        payload = {"name": self.hostGroupName, "hostnames": [] }
-        if self.sources != None:
-            sourceList = str.split(self.sources,',')
-            for s in sourceList:
-                payload["hostnames"].append(s)
-                
-        if self.update == True:
-            self.path="v1/hostgroups/" + self.hostGroupName
-
-
-        self.data = payload
-         
+                        
     def getDescription(self):
         return "Creates host group definition in a Boundary account"
     

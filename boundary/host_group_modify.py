@@ -31,7 +31,8 @@ class HostGroupModify (ApiCli):
         
     def addArguments(self):
         ApiCli.addArguments(self)
-        self.parser.add_argument('-s', '--sources', dest='sources',action='store',required=True,help='Comma separated sources to add to the host group. If empty adds all hosts.')
+        self.parser.add_argument('-n', '--host-group-name', dest='hostGroupName',action='store',required=True,metavar="host_group_name",help='Host group name')
+        self.parser.add_argument('-s', '--sources', dest='sources',action='store',required=True,metavar='sources',help='Comma separated sources to add to the host group. If empty adds all hosts.')
         
     def getArguments(self):
         '''
@@ -39,6 +40,10 @@ class HostGroupModify (ApiCli):
         '''
         ApiCli.getArguments(self)
         
+        # Get the host group name
+        if self.args.hostGroupName != None:
+            self.hostGroupName = self.args.hostGroupName
+
         # Get the list of sources separated by commas
         if self.args.sources != None:
             self.sources = self.args.sources

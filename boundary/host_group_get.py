@@ -26,7 +26,7 @@ class HostGroupGet (ApiCli):
         
     def addArguments(self):
         ApiCli.addArguments(self)
-        self.parser.add_argument('-i', '--host-group-id', dest='hostGroupId',action='store',required=True,help='Host group id')
+        self.parser.add_argument('-i', '--host-group-id', dest='hostGroupId',action='store',required=True,metavar="host_group_id",help='Host group id')
         
     def getArguments(self):
         '''

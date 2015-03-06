@@ -19,22 +19,24 @@ class HostGroupUpdate (HostGroupModify):
      
     def __init__(self):
         HostGroupModify.__init__(self,True)
+        self.method = "PUT"
         
         self.hostGroupId = ""
         
     def addArguments(self):
         HostGroupModify.addArguments(self)
-        self.parser.add_argument('-i', '--host-group-id', dest='hostGroupId',action='store',required=True,help='Host group id to update')
+        self.parser.add_argument('-i', '--host-group-id', dest='hostGroupId',action='store',required=True,metavar='host_group_id',help='Host group id to update')
         
     def getArguments(self):
         '''
         Extracts the specific arguments of this CLI
         '''
         HostGroupModify.getArguments(self)
+        
         if self.args.hostGroupId != None:
             self.hostGroupId = self.args.hostGroupId
                 
-        self.path="v1/hostgroups/" + str(self.hostGroupId)
+        self.path="v1/hostgroup/" + str(self.hostGroupId)
          
     def getDescription(self):
         return "Updates host group definition in a Boundary account"
