@@ -32,14 +32,14 @@ class MetricCreate (ApiCli):
         
     def addArguments(self):
         ApiCli.addArguments(self)
-        self.parser.add_argument('-n', '--metric-name', dest='metricName',action='store',required=True,help='Metric identifier')
-        self.parser.add_argument('-d', '--display-name', dest='displayName',action='store',help='Metric display name')
-        self.parser.add_argument('-s', '--display-name-short', dest='displayNameShort',action='store',help='Metric short display name')
-        self.parser.add_argument('-i', '--description', dest='description',action='store',help='Metric description')
-        self.parser.add_argument('-g', '--aggregate', dest='aggregate',action='store',help='Metric default aggregate')
-        self.parser.add_argument('-u', '--unit', dest='unit',action='store',choices=['sum','avg','max','min'],help='Metric unit')
-        self.parser.add_argument('-r', '--resolution', dest='resolution',action='store',help='Metric default resolution')
-        self.parser.add_argument('-x', '--is-disabled',dest='isDisabled', action='store_true', help='disable metric')
+        self.parser.add_argument('-n', '--metric-name', dest='metricName',action='store',required=True,metavar='metric_name',help='Metric identifier')
+        self.parser.add_argument('-d', '--display-name', dest='displayName',action='store',metavar='display_name',help='Metric display name')
+        self.parser.add_argument('-s', '--display-name-short', dest='displayNameShort',action='store',metavar='display_short_name',help='Metric short display name')
+        self.parser.add_argument('-i', '--description', dest='description',action='store',metavar='description',help='Metric description')
+        self.parser.add_argument('-g', '--aggregate', dest='aggregate',action='store',choices=['sum','avg','max','min'],metavar='aggregate',help='Metric default aggregate')
+        self.parser.add_argument('-u', '--unit', dest='unit',action='store',choices=['percent','number','bytecount','duration'],metavar='unit',help='Metric unit')
+        self.parser.add_argument('-r', '--resolution', dest='resolution',action='store',metavar='resolution',help='Metric default resolution')
+        self.parser.add_argument('-x', '--is-disabled',dest='isDisabled',action='store_true',help='disable metric')
         
     def getArguments(self):
         '''
@@ -51,24 +51,37 @@ class MetricCreate (ApiCli):
             
         if self.args.displayName != None:
             self.displayName = self.args.displayName
-            
+        else:
+            self.displayName = self.metricName
+                        
         if self.args.displayNameShort != None:
             self.displayNameShort = self.args.displayNameShort
+        else:
+            self.displayNameShort = self.metricName
             
         if self.args.description != None:
             self.description = self.args.description
-        
+        else:
+            self.description = self.metricName
+                    
         if self.args.aggregate != None:
             self.aggregate = self.args.aggregate
+        else:
+            self.aggregate = "ave"
             
         if self.args.unit != None:
             self.unit = self.args.unit
+        else:
+            self.unit = "number"
             
         if self.args.resolution != None:
             self.resolution = self.args.resolution
+        else:
+            self.resolution = 1000
             
         if self.args.isDisabled != None:
             self.isDisabled = self.args.isDisabled
+            
        
         self.data = {'name': self.metricName,
                     'displayName': self.displayName,
@@ -78,7 +91,7 @@ class MetricCreate (ApiCli):
                     'unit': self.unit,
                     'defaultResolutionMS': self.resolution,
                     'isDisabled': self.isDisabled}
-        self.path = "v1/metrics/{0}".format(self.name)
+        self.path = "v1/metrics/{0}".format(self.metricName)
     
     def validateArguments(self):
         return ApiCli.validateArguments(self)
