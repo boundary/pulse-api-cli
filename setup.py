@@ -13,6 +13,7 @@ setup(
       'bin/hostgroup-get',
       'bin/hostgroup-list',
       'bin/hostgroup-update',
+      'bin/measurement-add',
       'bin/metric-create',
       'bin/metric-export',
       'bin/metric-get',
