@@ -71,10 +71,10 @@ class ApiCli():
     '''
     Configure handling of command line arguments.
     '''
-    self.parser.add_argument('-a', '--api-host',dest='apihost',action='store',metavar="api_host",help='API endpoint')
-    self.parser.add_argument('-e', '--email',dest='email',action='store',metavar="e_mail",help='e-mail used to create the Boundary account')
-    self.parser.add_argument('-t', '--api-token',dest='apitoken',required=False,action='store',metavar="api_token",help='API token to access the Boundary Account')
     self.parser.add_argument('-v', '--verbose',dest='verbose', action='store_true', help='verbose mode')
+    self.parser.add_argument('-a', '--api-host',dest='apihost',action='store',metavar="api_host",help='API host endpoint')
+    self.parser.add_argument('-e', '--email',dest='email',action='store',metavar="e_mail",help='e-mail used to create the Boundary account')
+    self.parser.add_argument('-t', '--api-token',dest='apitoken',required=False,action='store',metavar="api_token",help='API token to access the Boundary account')
     
   def parseArgs(self):
     '''
@@ -153,6 +153,8 @@ class ApiCli():
     result = self.methods[self.method]()
     if result.status_code != urllib2.httplib.OK:
         print(self.url)
+        if self.data != None:
+            print(self.data)
         print(result)
     self.handleResults(result)
       
