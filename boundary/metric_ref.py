@@ -15,16 +15,17 @@
 ###
 from api_cli import ApiCli
 
-class MetricGet (ApiCli):
+class MetricRef (ApiCli):
      
     def __init__(self):
         ApiCli.__init__(self)
-        self.method = "GET"
-        self.metricName = ""
+        self.method = "POST"
+        self.path = "v1/metrics/ref"
+        self.metricName = None
         
     def addArguments(self):
         ApiCli.addArguments(self)
-        self.parser.add_argument('-n', '--name', dest='metricName',action='store',required=True,metavar="metric_name",help='Metric identifier')
+        self.parser.add_argument('-n', '--metric-name', dest='metricName',action='store',required=True,metavar='metric_name',help='Metric identifier')
         
     def getArguments(self):
         '''
@@ -32,10 +33,13 @@ class MetricGet (ApiCli):
         '''
         ApiCli.getArguments(self)
         if self.args.metricName != None:
-            self.metricName = self.args.metricName
-            
-        self.path = "v1/metrics/{0}".format(self.metricName)
+            self.metricName = self.args.metricName            
+       
+        self.data = {'metric': self.metricName}
+    
+    def validateArguments(self):
+        return ApiCli.validateArguments(self)
          
     def getDescription(self):
-        return "Gets a metric definition from a Boundary account"
+        return "Adds an existing metric definition to a Boundary account"
     

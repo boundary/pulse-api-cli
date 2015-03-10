@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 ###
 ### Copyright 2014-2015 Boundary, Inc.
 ###
@@ -14,8 +13,15 @@
 ### See the License for the specific language governing permissions and
 ### limitations under the License.
 ###
-from boundary.action_list import ActionList
+from api_cli import ApiCli
+
+class ActionInstalled (ApiCli):
      
-if __name__ == "__main__":
-  c = ActionList()
-  c.execute()
+    def __init__(self):
+        ApiCli.__init__(self)
+        self.method = "GET"
+        self.path = "v1/actions/installed"
+                 
+    def getDescription(self):
+        return "Returns the actions associated with the account"
+    

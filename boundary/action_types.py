@@ -13,29 +13,15 @@
 ### See the License for the specific language governing permissions and
 ### limitations under the License.
 ###
-import action_installed
-import action_types
-import api_cli
-import host_group_create
-import host_group_delete
-import host_group_get
-import host_group_list
-import host_group_search
-import host_group_update
-import measurement_add
-import measurement_get
-import metric_create
-import metric_get
-import metric_list
-import metric_ref
-import plugin_add
-import plugin_get
-import plugin_get_components
-import plugin_install
-import plugin_installed
-import plugin_list
-import plugin_remove
-import plugin_uninstall
-import plugin_list
-import relay_list
-import user_get
+from api_cli import ApiCli
+
+class ActionTypes (ApiCli):
+     
+    def __init__(self):
+        ApiCli.__init__(self)
+        self.method = "GET"
+        self.path = "v1/actions"
+                 
+    def getDescription(self):
+        return "List action types associated with the Boundary account"
+    
