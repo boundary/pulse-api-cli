@@ -149,7 +149,6 @@ class ApiCli():
     '''
 
     self.url = "{0}://{1}/{2}{3}".format(self.scheme,self.apihost,self.path,self.getUrlParameters())
-    print(self.url)
 
     result = self.methods[self.method]()
     if result.status_code != urllib2.httplib.OK:
