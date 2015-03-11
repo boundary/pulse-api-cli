@@ -1,107 +1,37 @@
-Boundary API CLI
-==================
+Boundary CLI
+============
 
-Commandline scripts that use Boundary APIs.
+Boundary CLI provides command line access to Boundary REST APIs
+Typical usage often looks like this:
 
-Prerequisites
--------------
-
-### Required At Runtime
-
-1. Bash Shell, version 3.2.X or later
-2. [Curl](http://curl.haxx.se/), a command line tool for transferring data with URL syntax
-3. [jq JSON processor](http://stedolan.github.io/jq/) a lightweight and flexible command-line JSON processor
-
-### Required For Installation Only
-1. [wget](https://www.gnu.org/software/wget/),package for retrieving files using HTTP, HTTPS and FTP. (required for installtion only)
-2. [unzip](http://gnuwin32.sourceforge.net/packages/unzip.htm), UnZip is an extraction utility for archives compressed in .zip format. (required for  installation only)
-
+   ```bash
+    $ metric-list
+   ```
 
 Installation
 ------------
 
-### Install Bash Shell
-Most Linux/Unix environments already have the Bash Shell installed and configured as the default shell.
+   ```bash
+     $ pip install boundary_cli
+   ```
 
-For Windows install [Win-Bash](http://win-bash.sourceforge.net) or other Bash Shell distribution for Windows
-
-### Install Jq
-Download the binaries for [jq](http://stedolan.github.io/jq/) from [here](http://stedolan.github.io/jq/download/) for you specific platform.
-
-### Install Boundary API Shell
-1. Download the distribution from this [link](https://github.com/jdgwartney/boundary-api-shell/archive/RE-00.01.00.zip):
-
-    ```bash
-    $ curl https://github.com/jdgwartney/boundary-api-shell/archive/RE-00.02.00.zip
-    ```
-2. Change directory to directory where the distribution was downloaded:
-
-    ```bash
-    $ cd distribution_directory
-    ```
-    
-3. Extract the distribution
-
-    ```bash
-    $ unzip RE-00.02.00.zip
-    ```
-    
 Configuration
 -------------
-The Boundary API CLI uses environment variable for configuration information (user, password, etc) for executing curl commands that use the Boundary REST APIs.
+The Boundary CLI uses environment variables for configuration information (user, password, etc) to execute against the Boundary REST APIs, and optionally this information can be overridden via the command line
 
 ### Environment Variables
-| Environment Variable                    | Description                    |
-|:----------------------------------------|:-------------------------------|
+| Environment Variable                  | Description                    |
+|:--------------------------------------|:-------------------------------|
 | <pre>BOUNDARY_API_HOST</pre>          | Boundary API host              |
 | <pre>BOUNDARY_EMAIL</pre>             | Boundary email                 |
 | <pre>BOUNDARY_API_TOKEN</pre>         | Boundary API token             |
 
-Using
------
-1. Change directory to the unpacked distribution
-2. Source `env.sh`:
-
-```bash
-$ source env.sh
-```
-
-The Boundary API commands have now been added to your `PATH`
-
-Adding to Your Profile
-----------------------
-
-The `env.h` can be configured to run at login by adding the following to your `.bash_profile`
-
-```bash
-[[ -r <path to distribution>/env.sh ]] && source <path to distribution>/env.sh
-```
-
-Run Script Template
--------------------
-The following is run script template that can be used to configure environment variables
-
-```bash
-BOUNDARY_API_HOST=premium-api.boundary.com
-BOUNDARY_API_TOKEN=
-BOUNDARY_EMAIL=
-```
-
-1. Create a sub directory in your in your `HOME` directory name `.boundary` and add the above template into a file named `config`.
-
-1. Add the following to your `$HOME/.bash_profile`:
-
-```bash
-[[ -r "$HOME/.config" ]] && source "$HOME/.config"
-```
-
-This will set the environment variables whenever you login.
 
 Examples
 --------
-Usage of the Boundary API Shell
+Usage of the Boundary CLI
 
-### `metric-create`
+### metric-create
 
 ```bash
 $ metric-create FOO "foo bar" "foo" "it's the foo" sum number
@@ -123,7 +53,7 @@ $ metric-add myhost LOAD_1_MINUTE 30
 }
 ```
 
-### `metric-list`
+### metric-list
 
 ```bash
 $ metric-list
@@ -153,76 +83,98 @@ Command Reference
 ### Metric
 Commands to administer metrics in Boundary
 
-#### `metric-add`
+#### metric-add
 Creates a new measurement value in Boundary
 
 ````bash
 usage: metric-add source metric measure
 ```
 
-#### `metric-delete`
+#### metric-delete
 Creates/updates a Boundary Premium metric definition
 
-```bash
-usage: metric-create <name> <display-name> <display-name_short> <description> <aggregate> <unit> <defaultResolutionMS>
-where:
-  name - Name of the metric
-  display-name - Name displayed in the Web UI
-  display-name-short - Shorter display name
-  description - Description of the metric (also used as tooltip)
-  aggregate - Type of aggregate (sum, avg, max, or min)
-  unit - Type of measurement (percent, number, bytecount, or duration )
-  defaultResolutionMS - 
-```
-#### `metric-delete`
+    ```bash
+    $ metric-create -h
+    usage: metric-create [-h] [-a APIHOST] [-e EMAIL] [-t APITOKEN] [-v] -m NAME
+                     [-d DISPLAYNAME] [-s DISPLAYNAMESHORT] [-i DESCRIPTION]
+                     [-g AGGREGATE] [-u UNIT] [-r RESOLUTION] [-x]
 
-```bash
-usage: metric-delete <name>
-```
+    Creates a new metric definition in an Boundary account
 
-#### `metric-list`
+    optional arguments:
+      -h, --help            show this help message and exit
+      -a APIHOST, --api-host APIHOST
+                        API endpoint
+      -e EMAIL, --email EMAIL
+                        e-mail used to create the Boundary account
+      -t APITOKEN, --api-token APITOKEN
+                        API token to access the Boundary Account
+      -v, --verbose         verbose mode
+      -m NAME, --name NAME  Metric identifier
+      -d DISPLAYNAME, --display-name DISPLAYNAME
+                        Metric display name
+      -s DISPLAYNAMESHORT, --display-name-short DISPLAYNAMESHORT
+                        Metric short display name
+      -i DESCRIPTION, --description DESCRIPTION
+                        Metric description
+      -g AGGREGATE, --aggregate AGGREGATE
+                        Metric default aggregate
+      -u UNIT, --unit UNIT  Metric unit
+      -r RESOLUTION, --resolution RESOLUTION
+                        Metric default resolution
+      -x, --is-disabled     verbose mode
+
+    ```
+
+#### metric-delete
+
+   ```bash
+    usage: metric-delete <name>
+   ```
+
+#### metric-list
 Lists the metric definitions in your Boundary instance.
 
-```bash
-usage: metric-list
-```
+   ```bash
+    usage: metric-list
+   ```
 
 ### Plugins
 
-#### `plugin-add`
+#### plugin-add
 
-#### `plugin-delete`
+#### plugin-delete
 
-#### `plugin-get`
+#### plugin-get
 
-#### `plugin-get-components`
+#### plugin-get-components
 
-#### `plugin-install`
+#### plugin-install
 
-#### `plugin-installed`
+#### plugin-installed
 
-#### `plugin-list`
+#### plugin-list
 
-#### `plugin-remove`
+#### plugin-remove
 
-#### `plugin-uninstall`
+#### plugin-uninstall`
 
 ### Sources
 
-#### `source-delete`
+#### source-delete
 
-```
-$ source-delete <source> <metric id>
-```
+    ```
+    $ source-delete <source> <metric id>
+    ```
 
 
-#### `source-list`
+#### source-list
 
 Lists all sources in your Boundary instance
 
-```
-$ source-list
-```
+    ```
+    $ source-list
+    ```
 
 ### User
 

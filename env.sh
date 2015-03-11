@@ -16,7 +16,6 @@
 
 export BOUNDARY_API_SHELL_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-export PATH="$PATH:$BOUNDARY_API_SHELL_HOME/bin"
 export PATH="$PATH:$BOUNDARY_API_SHELL_HOME/src/main/scripts/account"
 export PATH="$PATH:$BOUNDARY_API_SHELL_HOME/src/main/scripts/actions"
 export PATH="$PATH:$BOUNDARY_API_SHELL_HOME/src/main/scripts/events"
@@ -82,5 +81,8 @@ function bp-set() {
 #
 # Configure completion
 #
-complete -o filenames -W "$(cd $HOME/.boundary/accounts ; ls -1)" bp-set
+if [ -r $HOME/.boundary/accounts ]
+then
+  complete -o filenames -W "$(cd $HOME/.boundary/accounts ; ls -1)" bp-set
+fi
 

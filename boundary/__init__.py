@@ -1,4 +1,3 @@
-#!/bin/bash
 ###
 ### Copyright 2014-2015 Boundary, Inc.
 ###
@@ -14,17 +13,29 @@
 ### See the License for the specific language governing permissions and
 ### limitations under the License.
 ###
-
-if [ $# -ne 1 ]
-then
-  echo "usage: $(basename $0) <metric>"
-  exit 1
-fi
-
-typeset -r PAYLOAD="{ \"metric\": \"$METRIC\" }"
-typeset -r URL="https://$BOUNDARY_API_HOST/v1/metrics/ref"
-typeset -r AUTH="$BOUNDARY_EMAIL:$BOUNDARY_API_TOKEN"
-typeset -r HEADER="Content-Type: application/json"
-
-curl -X POST -i -u"$AUTH" -H "$HEADER" -d "$PAYLOAD" $URL
-
+import action_installed
+import action_types
+import api_cli
+import host_group_create
+import host_group_delete
+import host_group_get
+import host_group_list
+import host_group_search
+import host_group_update
+import measurement_add
+import measurement_get
+import metric_create
+import metric_get
+import metric_list
+import metric_ref
+import plugin_add
+import plugin_get
+import plugin_get_components
+import plugin_install
+import plugin_installed
+import plugin_list
+import plugin_remove
+import plugin_uninstall
+import plugin_list
+import relay_list
+import user_get

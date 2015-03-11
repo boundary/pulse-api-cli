@@ -1,0 +1,242 @@
+#!/usr/bin/env python
+###
+### Copyright 2014-2015 Boundary, Inc.
+###
+### Licensed under the Apache License, Version 2.0 (the "License");
+### you may not use this file except in compliance with the License.
+### You may obtain a copy of the License at
+###
+###     http://www.apache.org/licenses/LICENSE-2.0
+###
+### Unless required by applicable law or agreed to in writing, software
+### distributed under the License is distributed on an "AS IS" BASIS,
+### WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+### See the License for the specific language governing permissions and
+### limitations under the License.
+###
+
+import argparse
+import json
+from pprint import pprint
+from plugin_manifest import PluginManifest
+import logging
+import os
+import sys
+
+import requests
+
+'''
+Reads the plugin.json manifest file looks up the definition and then outputs a markdown table
+
+Format of output table:
+
+|Metric Name|Metric Identifier|Description
+|:-----------|:--------|
+'''
+class MetricMarkdown():
+
+
+  def __init__(self):
+    self.path = None
+    self.apihost = None
+    self.email = None
+    self.apikey = None
+    self.parser = argparse.ArgumentParser(description='Generate Markdown from plugin.json manifest')
+
+  def getEnvironment(self):
+    try:
+      self.email = os.environ['BOUNDARY_EMAIL']
+    except(KeyError):
+      self.email = None
+    try:
+      self.apikey = os.environ['BOUNDARY_API_TOKEN']
+    except(KeyError):
+      self.apikey = None
+    try:
+      self.apihost = os.environ['BOUNDARY_API_HOST']
+    except(KeyError):
+        self.apihost = 'premium-api.boundary.com'
+    
+  def parseArgs(self):
+    '''
+    Configure handling of command line arguments.
+    '''
+    self.parser.add_argument('-d','--debug',dest='debug',action='store_true',help='Enables debugging')
+    self.parser.add_argument('-e','--email',dest='email',action='store',help='e-mail uses to create the account')
+    self.parser.add_argument('-f','--file',dest='path',action='store',required=False,help='Path to plugin.json manifest. Defaults to plugin.json')
+    self.parser.add_argument('-t','--api-key',dest='apikey',required=False,action='store')
+    self.parser.add_argument('-v', dest='verbose', action='store_true',help='verbose mode')
+
+    self.args = self.parser.parse_args()
+
+    # Output the collected arguments
+    logging.debug(self.args.debug)
+    logging.debug(self.args.path)
+    logging.debug(self.args.verbose)
+
+  def load(self):
+    '''
+    Read the file and parse JSON into dictionary
+    '''
+    manifest = PluginManifest(self.path)
+    manifest.get()
+    self.manifest = manifest.getManifest()
+    
+  def getMetricDefinition(self,name):
+      '''
+      Make an API call to get the metric definition
+      '''
+      metric = None
+      url = "https://{0}/v1/metrics".format(self.apihost)
+      r = requests.get(url, auth=(self.email, self.apikey))
+      if r.status_code != 200:
+          print(url)
+          print(r)
+      result = json.loads(r.text)
+      metrics = result['result']
+    
+      for m in metrics:
+          if m['name'] == name:
+              metric = m
+              break
+      return metric
+
+  def printMetricsHeader(self,m,d):
+      '''
+      Prints out table header based on the size of the data in columns
+      '''
+      mstr = "Metric Name"
+      dstr = "Description"
+      
+      print('|{0}{1}|{2}{3}|'.format(mstr,' ' * (m-len(mstr)),dstr,' ' * (d-len(dstr))))           
+      print('|:{0}|:{1}|'.format('-' * (m-1),'-' * (d-1)))
+
+  def getFieldsColumnLengths(self):
+      '''
+      Gets the maximum length of each column in the field table
+      '''
+      nameLen = 0
+      descLen = 0
+      for f in self.fields:
+        nameLen = max(nameLen,len(f['title']))
+        descLen = max(descLen,len(f['description']))
+      return (nameLen,descLen)
+      
+  def getMetricsColumnLengths(self):
+      '''
+      Gets the maximum length of each column
+      '''
+      displayLen = 0
+      descLen = 0
+      for m in self.metrics:
+        displayLen = max(displayLen,len(m['displayName']))
+        descLen = max(descLen,len(m['description']))
+      return (displayLen,descLen)
+  
+  def escapeUnderscores(self):
+      '''
+      Escape underscores so that the markdown is correct
+      '''
+      new_metrics = []
+      for m in self.metrics:
+          m['name'] = m['name'].replace("_","\_")
+          new_metrics.append(m)
+      self.metrics = new_metrics
+
+  def printFieldsHeader(self,f,d):
+      '''
+      Prints out table header based on the size of the data in columns
+      '''
+      fstr = "Field Name"
+      dstr = "Description"
+      
+      print('|{0}{1}|{2}{3}|'.format(fstr,' ' * (f-len(fstr)),dstr,' ' * (d-len(dstr))))           
+      print('|:{0}|:{1}|'.format('-' * (f-1),'-' * (d-1)))
+  
+  def printMetrics(self,m,d):
+      '''
+      Prints out table rows based on the size of the data in columns
+      '''
+      for metric in self.metrics:
+          mstr = metric['displayName']
+          dstr = metric['description']
+          mlen = m - len(mstr)
+          dlen = d - len(dstr)
+          print("|{0}{1}|{2}{3}|".format(mstr,' ' * mlen,dstr,' ' * dlen))
+
+  def printFields(self,f,d):
+      '''
+      Prints out table rows based on the size of the data in columns
+      '''
+      for field in self.fields:
+          fstr = field["title"]
+          dstr = field["description"]
+          flen = f - len(fstr)
+          dlen = d - len(dstr)
+          print("|{0}{1}|{2}{3}|".format(fstr,' ' * flen,dstr,' ' * dlen))
+
+  def generateFieldDefinitions(self):
+      manifest_fields = self.manifest['paramSchema']
+      fields = []
+      for f in manifest_fields:
+          fields.append(f)
+      self.fields = fields 
+    
+  def generateMetricDefinitions(self):
+      manifest_metrics = self.manifest['metrics']
+      metrics = []
+      for m in manifest_metrics:
+          metric = self.getMetricDefinition(m)
+          if metric == None:
+              sys.stderr.write("metric name: {0} not found\n".format(m))
+          else:
+              metrics.append(metric)
+
+      self.metrics = metrics
+
+  def outputFieldMarkdown(self):
+      '''
+      Sends the field definitions ot standard out
+      '''
+      f,d = self.getFieldsColumnLengths()
+
+      self.printFieldsHeader(f,d)
+      self.printFields(f,d)
+
+  def outputMetricMarkdown(self):
+      '''
+      Sends the markdown of the metric definitions to standard out
+      '''
+      self.escapeUnderscores()
+      m,d = self.getMetricsColumnLengths()
+
+      self.printMetricsHeader(m,d)
+      self.printMetrics(m,d)
+
+  def outputMarkdown(self):
+      '''
+      Sends the markdown to standard out
+      '''
+      self.outputFieldMarkdown()
+      self.outputMetricMarkdown()
+
+  def generateMarkdown(self):
+    '''
+    Look up each of the metrics and then output in Markdown
+    '''
+    self.getEnvironment()
+    self.parseArgs()
+    if self.args.path == None:
+       self.path = 'plugin.json'
+    else:
+       self.path = self.args.path
+    self.load()
+    
+    self.generateMetricDefinitions()
+    self.generateFieldDefinitions()
+    self.outputMarkdown()
+
+
+if __name__ == "__main__":
+  g = MetricMarkdown()
+  g.generateMarkdown()

@@ -1,6 +1,5 @@
-#!/bin/bash
 ###
-### Copyright 2014-2015 Boundary,Inc.
+### Copyright 2014-2015 Boundary, Inc.
 ###
 ### Licensed under the Apache License, Version 2.0 (the "License");
 ### you may not use this file except in compliance with the License.
@@ -14,14 +13,15 @@
 ### See the License for the specific language governing permissions and
 ### limitations under the License.
 ###
+from host_group_modify import HostGroupModify
 
-if [ $# -ne 1 ]
-then
-  echo "usage: $(basename $0) <plugin name>"
-  exit 1
-fi
-
-typeset -r PLUGIN_NAME=$1
-typeset -r AUTH="$BOUNDARY_EMAIL:$BOUNDARY_API_TOKEN"
-typeset -r URI="https://$BOUNDARY_API_HOST/v1/plugins/installed/$PLUGIN_NAME"
-curl -X PUT -u "$AUTH" "$URI"
+class HostGroupCreate (HostGroupModify):
+     
+    def __init__(self,update):
+        HostGroupModify.__init__(self,False)
+        self.path="v1/hostgroups"
+        self.sources = None
+                        
+    def getDescription(self):
+        return "Creates host group definition in a Boundary account"
+    
