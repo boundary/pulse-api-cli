@@ -18,7 +18,6 @@ setup(
       'bin/measurement-get',
       'bin/metric-create',
       'bin/metric-export',
-      'bin/metric-get',
       'bin/metric-import',
       'bin/metric-list',
       'bin/metric-markdown',

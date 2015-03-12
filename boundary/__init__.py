@@ -25,7 +25,6 @@ import host_group_update
 import measurement_add
 import measurement_get
 import metric_create
-import metric_get
 import metric_list
 import metric_ref
 import plugin_add

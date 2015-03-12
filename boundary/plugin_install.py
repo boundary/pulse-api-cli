@@ -18,10 +18,11 @@ class PluginInstall (PluginBase):
      
     def __init__(self):
         PluginBase.__init__(self)
+        self.method = "PUT"
         self.path = "v1/plugins/installed"
         
-    def addArguments(self):
-        PluginBase.addArguments(self)
+    def getArguments(self):
+        PluginBase.getArguments(self)
         self.path = "v1/plugins/installed/{0}".format(self.pluginName)
          
     def getDescription(self):
