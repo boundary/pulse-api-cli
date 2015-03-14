@@ -28,8 +28,10 @@ class PluginAdd (PluginBase):
         
     def addArguments(self):
         PluginBase.addArguments(self)
-        self.parser.add_argument('-o', '--organization-name', dest='organizationName',action='store',required=True,metavar="organization_name",help='Name of the github user or organization')
-        self.parser.add_argument('-r', '--repository-name', dest='repositoryName',action='store',required=True,metavar="respository_name",help='Name of the github user or organization')
+        self.parser.add_argument('-o', '--organization-name', dest='organizationName',action='store',required=True,metavar="organization_name",
+                                 help='Name of the github user or organization')
+        self.parser.add_argument('-r', '--repository-name', dest='repositoryName',action='store',required=True,metavar="respository_name",
+                                 help='Name of the github user or organization')
 
     def getArguments(self):
         '''
@@ -44,5 +46,5 @@ class PluginAdd (PluginBase):
         self.path = "v1/plugins/private/{0}/{1}/{2}".format(self.pluginName,self.organizationName,self.repositoryName)
          
     def getDescription(self):
-        return "Stages a pre-release meter plugin into a Boundary account"
+        return "Imports a meter plugin from a github repository into a Boundary account"
     

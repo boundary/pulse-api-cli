@@ -79,8 +79,10 @@ class ApiCli():
     self.parser.add_argument('-l', '--log-level',dest='logLevel', action='store',choices=['debug','info','warning','error','critical'],
                              help='Sets logging level to one of debug,info,warning,error,critical. Default is logging is disabled')
     self.parser.add_argument('-a', '--api-host',dest='apihost',action='store',metavar="api_host",help='Boundary API host endpoint')
-    self.parser.add_argument('-e', '--email',dest='email',action='store',metavar="e_mail",help='e-mail that has access to the Boundary account')
-    self.parser.add_argument('-t', '--api-token',dest='apitoken',required=False,action='store',metavar="api_token",help='API token for given e-mail that has access the Boundary account')
+    self.parser.add_argument('-e', '--email',dest='email',action='store',metavar="e_mail",
+                             help='e-mail that has access to the Boundary account')
+    self.parser.add_argument('-t', '--api-token',dest='apitoken',required=False,action='store',metavar="api_token",
+                             help='API token for given e-mail that has access to the Boundary account')
     
   def parseArgs(self):
     '''

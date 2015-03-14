@@ -16,6 +16,9 @@
 '''
 Command line scripts for accessing the Boundary APIs
 '''
+
+import alarm_create
+import alarm_list
 import action_installed
 import action_types
 import api_cli

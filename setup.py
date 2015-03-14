@@ -7,6 +7,8 @@ setup(
     author_email='davidg@boundary.com',
     packages=['boundary',],
     scripts=[
+      'bin/alarm-create',
+      'bin/alarm-list',
       'bin/action-installed',
       'bin/action-types',
       'bin/hostgroup-create',

@@ -38,10 +38,14 @@ class MeasurementAdd (ApiCli):
         
     def addArguments(self):
         ApiCli.addArguments(self)
-        self.parser.add_argument('-n', '--metric-name', dest='metricName',action='store',required=True,metavar='metric_name',help='Metric identifier')
-        self.parser.add_argument('-m', '--measurement', dest='measurement',action='store',required=True,metavar="measurement",help='Measurement value')
-        self.parser.add_argument('-s', '--source', dest='source',action='store',metavar="source",help='Source of measurement')
-        self.parser.add_argument('-d', '--timestamp', dest='timestamp',action='store',metavar="timestamp",help='Time of occurence of the measurement in either epoch seconds or epoch milliseconds')
+        self.parser.add_argument('-n', '--metric-name', dest='metricName',action='store',required=True,metavar='metric_name',
+                                 help='Metric identifier')
+        self.parser.add_argument('-m', '--measurement', dest='measurement',action='store',required=True,metavar="measurement",
+                                 help='Measurement value')
+        self.parser.add_argument('-s', '--source', dest='source',action='store',metavar="source",
+                                 help='Source of measurement. Defaults to the host where the command is run')
+        self.parser.add_argument('-d', '--timestamp', dest='timestamp',action='store',metavar="timestamp",
+                                 help='Time of occurrence of the measurement in either epoch seconds or epoch milliseconds. Defaults to the receipt time at Boundary')
 
     def getArguments(self):
         '''

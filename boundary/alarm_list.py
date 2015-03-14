@@ -15,13 +15,13 @@
 ###
 from api_cli import ApiCli
 
-class ActionInstalled (ApiCli):
+class AlarmList (ApiCli):
      
     def __init__(self):
         ApiCli.__init__(self)
         self.method = "GET"
-        self.path = "v1/actions/installed"
+        self.path = "v1/alarms"
                  
     def getDescription(self):
-        return "Returns the actions associated with the Boundary account"
+        return "List alarm definitions associated with the Boundary account"
     
