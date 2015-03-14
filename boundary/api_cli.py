@@ -16,12 +16,11 @@
 ###
 
 import argparse
-import json
 import logging
 import os
 import requests
 import urllib2
-import urllib
+
 
 '''
 Base class for all the Boundary CLI commands
@@ -29,6 +28,7 @@ Base class for all the Boundary CLI commands
 class ApiCli():
 
   def __init__(self):
+    self.logLevel = None
     self.message = None
     self.path = None
     self.apihost = "premium-api.boundary.com"
@@ -43,6 +43,11 @@ class ApiCli():
     
     # Construct a dictionary with each of the HTTP methods that we support
     self.methods = {"DELETE": self.doDelete,"GET": self.doGet,"POST": self.doPost,"PUT": self.doPut}
+    self.levels = {"debug": logging.DEBUG,
+                   "info": logging.INFO,
+                   "warn": logging.WARN,
+                   "error": logging.ERROR,
+                   "critical": logging.CRITICAL}
 
   def getDescription(self):
     '''
@@ -71,10 +76,11 @@ class ApiCli():
     '''
     Configure handling of command line arguments.
     '''
-    self.parser.add_argument('-v', '--verbose',dest='verbose', action='store_true', help='verbose mode')
-    self.parser.add_argument('-a', '--api-host',dest='apihost',action='store',metavar="api_host",help='API host endpoint')
-    self.parser.add_argument('-e', '--email',dest='email',action='store',metavar="e_mail",help='e-mail used to create the Boundary account')
-    self.parser.add_argument('-t', '--api-token',dest='apitoken',required=False,action='store',metavar="api_token",help='API token to access the Boundary account')
+    self.parser.add_argument('-l', '--log-level',dest='logLevel', action='store',choices=['debug','info','warning','error','critical'],
+                             help='Sets logging level to one of debug,info,warning,error,critical. Default is logging is disabled')
+    self.parser.add_argument('-a', '--api-host',dest='apihost',action='store',metavar="api_host",help='Boundary API host endpoint')
+    self.parser.add_argument('-e', '--email',dest='email',action='store',metavar="e_mail",help='e-mail that has access to the Boundary account')
+    self.parser.add_argument('-t', '--api-token',dest='apitoken',required=False,action='store',metavar="api_token",help='API token for given e-mail that has access the Boundary account')
     
   def parseArgs(self):
     '''
@@ -82,6 +88,14 @@ class ApiCli():
     '''
     self.addArguments()
     self.args = self.parser.parse_args()
+    
+  def configureLogging(self):
+    '''
+    Configure logging based on command line options
+    '''
+    if self.logLevel != None:
+        print(self.levels[self.logLevel])
+        logging.basicConfig(level=self.levels[self.logLevel])
     
   def getArguments(self):
     '''
@@ -95,6 +109,8 @@ class ApiCli():
         self.email = self.args.email
     if self.args.apitoken != None:
         self.apitoken = self.args.apitoken
+    if self.args.logLevel != None:
+        self.logLevel = self.args.logLevel
       
   def setErrorMessage(self,message):
         self.message = message
@@ -149,13 +165,14 @@ class ApiCli():
     '''
 
     self.url = "{0}://{1}/{2}{3}".format(self.scheme,self.apihost,self.path,self.getUrlParameters())
+    logging.debug(self.url)
 
     result = self.methods[self.method]()
     if result.status_code != urllib2.httplib.OK:
-        print(self.url)
+        logging.error(self.url)
         if self.data != None:
-            print(self.data)
-        print(result)
+            logging.error(self.data)
+        logging.error(result)
     self.handleResults(result)
       
   def handleResults(self,result):
@@ -171,6 +188,7 @@ class ApiCli():
     '''
     self.getEnvironment()
     self.parseArgs()
+    self.configureLogging()
     self.getArguments()
     if self.validateArguments() == True:
         self.callAPI()

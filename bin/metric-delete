@@ -14,8 +14,8 @@
 ### See the License for the specific language governing permissions and
 ### limitations under the License.
 ###
-from boundary.metric_export import MetricExport
+from boundary.metric_delete import MetricDelete
      
 if __name__ == "__main__":
-  c = MetricExport()
-  c.execute()
+    c = MetricDelete()
+    c.execute()

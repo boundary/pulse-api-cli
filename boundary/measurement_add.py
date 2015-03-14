@@ -17,6 +17,13 @@ from api_cli import ApiCli
 import socket
 import time
 
+'''
+Implements command line utility to add a measurement value to a Boundary account
+Uses the following Boundary API:
+
+http://premium-documentation.boundary.com/v1/post/measurements
+
+'''
 class MeasurementAdd (ApiCli):
      
     def __init__(self):
@@ -34,7 +41,7 @@ class MeasurementAdd (ApiCli):
         self.parser.add_argument('-n', '--metric-name', dest='metricName',action='store',required=True,metavar='metric_name',help='Metric identifier')
         self.parser.add_argument('-m', '--measurement', dest='measurement',action='store',required=True,metavar="measurement",help='Measurement value')
         self.parser.add_argument('-s', '--source', dest='source',action='store',metavar="source",help='Source of measurement')
-        self.parser.add_argument('-d', '--timestamp', dest='timestamp',action='store',metavar="timestamp",help='Time of occurence of the measurement')
+        self.parser.add_argument('-d', '--timestamp', dest='timestamp',action='store',metavar="timestamp",help='Time of occurence of the measurement in either epoch seconds or epoch milliseconds')
 
     def getArguments(self):
         '''
