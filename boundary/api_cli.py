@@ -20,6 +20,7 @@ import logging
 import os
 import requests
 import urllib2
+import json
 
 
 '''
@@ -139,27 +140,36 @@ class ApiCli():
                 urlParameters = urlParameters + "&"
             urlParameters = urlParameters + "{0}={1}".format(key,values[key])
     return urlParameters
+    
+  def getPayload(self):
+    if self.data != None:
+        payload = json.dumps(self.data)
+    else:
+        payload = None
+    logging.debug(payload)
+    return payload
+
 
   def doGet(self):
     '''
     HTTP Get Request
     '''
-    return requests.get(self.url,auth=(self.email,self.apitoken),data=self.data)
+    return requests.get(self.url,data=self.getPayload(),auth=(self.email,self.apitoken))
 
   def doDelete(self):
     '''
     HTTP Delete Request
     '''
-    return requests.delete(self.url,auth=(self.email,self.apitoken),data=self.data)
+    return requests.delete(self.url,data=self.getPayload(),auth=(self.email,self.apitoken))
 
   def doPost(self):
-    return requests.post(self.url,auth=(self.email,self.apitoken),data=self.data)
+    return requests.post(self.url,data=self.getPayload(),auth=(self.email,self.apitoken))
 
   def doPut(self):
     '''
     HTTP Put Request
     '''
-    return requests.put(self.url,auth=(self.email,self.apitoken),data=self.data)
+    return requests.put(self.url,data=self.getPayload(),auth=(self.email,self.apitoken))
 
   def callAPI(self):
     '''
@@ -172,8 +182,9 @@ class ApiCli():
     result = self.methods[self.method]()
     if result.status_code != urllib2.httplib.OK:
         logging.error(self.url)
-        if self.data != None:
-            logging.error(self.data)
+        logging.error(self.method)
+        if self.getPayload() != None:
+            logging.error(self.getPayload())
         logging.error(result)
     self.handleResults(result)
       
