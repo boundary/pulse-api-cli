@@ -23,5 +23,5 @@ class ActionInstalled (ApiCli):
         self.path = "v1/actions/installed"
                  
     def getDescription(self):
-        return "Returns the actions associated with the account"
+        return "Returns the actions associated with the Boundary account"
     

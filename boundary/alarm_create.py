@@ -15,31 +15,47 @@
 ###
 from api_cli import ApiCli
 
-class MetricCreate (ApiCli):
+class AlarmCreate (ApiCli):
      
     def __init__(self):
         ApiCli.__init__(self)
-        self.method = "PUT"
+        self.method = "POST"
         
+        self.alarmName = None
         self.metricName = None
-        self.displayName = None
-        self.displayNameShort = None
-        self.description = None
         self.aggregate = None
-        self.unit = None
+        self.operation = None
         self.resolution = None
         self.isDisabled = False
         
+        self.intervals = {"1 second": 1,
+                          "15 seconds": 15,
+                          "1 minute": 60,
+                          "5 minutes": 900,
+                          "1 hour": 3600}
+        
+        
     def addArguments(self):
         ApiCli.addArguments(self)
-        self.parser.add_argument('-n', '--metric-name', dest='metricName',action='store',required=True,metavar='metric_name',help='Metric identifier')
-        self.parser.add_argument('-d', '--display-name', dest='displayName',action='store',metavar='display_name',help='Metric display name')
-        self.parser.add_argument('-s', '--display-name-short', dest='displayNameShort',action='store',metavar='display_short_name',help='Metric short display name')
-        self.parser.add_argument('-i', '--description', dest='description',action='store',metavar='description',help='Metric description')
-        self.parser.add_argument('-g', '--aggregate', dest='aggregate',action='store',choices=['sum','avg','max','min'],help='Metric default aggregate')
-        self.parser.add_argument('-u', '--unit', dest='unit',action='store',choices=['percent','number','bytecount','duration'],help='Metric unit')
-        self.parser.add_argument('-r', '--resolution', dest='resolution',action='store',metavar='resolution',help='Metric default resolution')
-        self.parser.add_argument('-x', '--is-disabled',dest='isDisabled',action='store_true',help='disable metric')
+        self.parser.add_argument('-n', '--alarm-name', dest='alarmName',action='store',required=True,
+                                 metavar='alarm_name',help='Name of the alarm')
+        self.parser.add_argument('-m', '--metric', dest='metricName',action='store',
+                                 metavar='display_name',help='Name of the metric to alarm')
+        self.parser.add_argument('-g', '--trigger-aggregate', dest='aggregate',action='store',choices=['sum','avg','max','min'],
+                                 metavar='aggregate',help='Metric aggregate to alarm upon')
+        self.parser.add_argument('-o', '--trigger-operation', dest='operation',action='store',choices=['eq','gt','lt'],
+                                 metavar='operation',help='Trigger threshold comparison')
+        self.parser.add_argument('-v', '--trigger-threshold', dest='triggerThreshold',action='store',metavar='value',help='Trigger threshold value')
+        self.parser.add_argument('-r', '--trigger-interval', dest='triggerInterval',action='store',required=True,
+                                 choices=['1 second', '15 seconds', '1 minute', '5 minutes','1 hour'],
+                                 metavar='interval',help='Interval to alarm on, can be one of: "1 second","15 seconds","1 minute","5 minutes","1 hour"')
+        self.parser.add_argument('-i','--host-group-id',dest='hostGroupId',action='store',metavar='hostgroup_id',
+                                 help='Host group the alarm applies to')
+        self.parser.add_argument('-d','--note',dest='note',action='store',metavar='note',
+                                 help='A description or resolution of the alarm')
+        self.parser.add_argument('-p', '--per-host-notify', dest='pertHostNotify',action='store_true',
+                                 help='An alarm by default will run the associated actions when any server in the host group violates the threshold, and then at the end when all servers are back within the threshold. If perHostNotify is set to true, the actions will run when ANY server in the group violates and falls back within the threshold.')
+        self.parser.add_argument('-x', '--is-disabled',dest='isDisabled',action='store_true',help='Enable or disable the alarm')
         
     def getArguments(self):
         '''

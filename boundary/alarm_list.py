@@ -15,27 +15,13 @@
 ###
 from api_cli import ApiCli
 
-class MetricGet (ApiCli):
+class AlarmList (ApiCli):
      
     def __init__(self):
         ApiCli.__init__(self)
         self.method = "GET"
-        self.metricName = ""
-        
-    def addArguments(self):
-        ApiCli.addArguments(self)
-        self.parser.add_argument('-n', '--name', dest='metricName',action='store',required=True,metavar="metric_name",help='Metric identifier')
-        
-    def getArguments(self):
-        '''
-        Extracts the specific arguments of this CLI
-        '''
-        ApiCli.getArguments(self)
-        if self.args.metricName != None:
-            self.metricName = self.args.metricName
-            
-        self.path = "v1/metrics/{0}".format(self.metricName)
-         
+        self.path = "v1/alarms"
+                 
     def getDescription(self):
-        return "Gets a metric definition from a Boundary account"
+        return "List alarm definitions associated with the Boundary account"
     

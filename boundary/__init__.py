@@ -13,6 +13,12 @@
 ### See the License for the specific language governing permissions and
 ### limitations under the License.
 ###
+'''
+Command line scripts for accessing the Boundary APIs
+'''
+
+import alarm_create
+import alarm_list
 import action_installed
 import action_types
 import api_cli
@@ -22,10 +28,10 @@ import host_group_get
 import host_group_list
 import host_group_search
 import host_group_update
-import measurement_add
+import measurement_create
 import measurement_get
 import metric_create
-import metric_get
+import metric_delete
 import metric_list
 import metric_ref
 import plugin_add
