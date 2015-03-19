@@ -24,7 +24,7 @@ Uses the following Boundary API:
 http://premium-documentation.boundary.com/v1/post/measurements
 
 '''
-class MeasurementAdd (ApiCli):
+class MeasurementCreate (ApiCli):
      
     def __init__(self):
         ApiCli.__init__(self)

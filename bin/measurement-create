@@ -14,8 +14,8 @@
 ### See the License for the specific language governing permissions and
 ### limitations under the License.
 ###
-from boundary.measurement_add import MeasurementAdd
+from boundary.measurement_create import MeasurementCreate
      
 if __name__ == "__main__":
-    c = MeasurementAdd()
+    c = MeasurementCreate()
     c.execute()

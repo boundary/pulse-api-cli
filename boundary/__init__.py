@@ -28,7 +28,7 @@ import host_group_get
 import host_group_list
 import host_group_search
 import host_group_update
-import measurement_add
+import measurement_create
 import measurement_get
 import metric_create
 import metric_delete
