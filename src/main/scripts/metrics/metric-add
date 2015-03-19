@@ -15,8 +15,6 @@
 ### limitations under the License.
 ###
 
-set -x
-
 if [ $# -ne 3 ]
 then
    echo "usage: $(basename $0) metric measure source"
@@ -32,4 +30,4 @@ typeset -r AUTH="$BOUNDARY_EMAIL:$BOUNDARY_API_TOKEN"
 typeset -r HEADER="Content-Type: application/json"
 typeset -r URI="https://$BOUNDARY_API_HOST/v1/measurements" 
 
-curl -s -X POST -u "$AUTH" -H "$HEADER" -d "$PAYLOAD" "$URI" | jq '.'
+curl -s -X POST -u "$AUTH" -H "$HEADER" -d "$PAYLOAD" "$URI" #| jq '.'
