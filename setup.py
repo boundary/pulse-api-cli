@@ -34,6 +34,7 @@ setup(
       'bin/plugin-uninstall',
       'bin/relay-list',
       'bin/user-get',
+      'src/main/scripts/metrics/metric-add',
     ],
     license='LICENSE.txt',
     description='Command line interface to Boundary REST APIs',
