@@ -39,32 +39,22 @@ class MetricImport():
     
     # Set defaults from environment variables
     self.email = os.environ['BOUNDARY_EMAIL']
-    self.apikey = os.environ['BOUNDARY_API_TOKEN']
+    self.apitoken = os.environ['BOUNDARY_API_TOKEN']
     self.apihost = os.environ['BOUNDARY_API_HOST']
-    # If environment variable is not set then fallback to the default
-    if self.apihost == None:
-        self.apihost = 'premium-api.boundary.com'
+
   def getEnvironment(self):
     try:
       self.email = os.environ['BOUNDARY_EMAIL']
     except(KeyError):
       self.email = None
     try:
-      self.apikey = os.environ['BOUNDARY_API_TOKEN']
+      self.apitoken = os.environ['BOUNDARY_API_TOKEN']
     except(KeyError):
-      self.apikey = None
+      self.apitoken = None
     try:
       self.apihost = os.environ['BOUNDARY_API_HOST']
     except(KeyError):
         self.apihost = 'premium-api.boundary.com'
-
-  def configureLogging(self):
-    # Handle debug logging correctly
-    if self.args.debug == True:
-      level = logging.DEBUG
-    else:
-      level = logging.ERROR
-    logging.basicConfig(level=level)
 
   def initialize(self):
     '''
@@ -72,7 +62,6 @@ class MetricImport():
     '''
     self.getEnvironment()
     self.parseArgs()
-    self.configureLogging()
     
     self.path = self.args.path
     
@@ -80,12 +69,14 @@ class MetricImport():
     # then the override those in environment variables
     if self.args.email != None:
       self.email = self.args.email
-    if self.args.apikey != None:
-      self.apikey = self.args.apikey
-    
+    if self.args.apitoken != None:
+      self.apitoken = self.args.apitoken
+    if self.args.apihost != None:
+      self.apihost = self.args.apihost
+
     # If we do not have either an e-mail or api key then we cannot proceed
     # exit indicating invalid arguments
-    if self.email == None or self.apikey == None:
+    if self.email == None or self.apitoken == None or self.apihost == None:
         self.parser.print_usage()
         sys.exit(errno.EINVAL)
       
@@ -93,20 +84,16 @@ class MetricImport():
     '''
     Configure handling of command line arguments.
     '''
-    self.parser.add_argument('-d','--debug',dest='debug',action='store_true',help='Enables debugging')
-    self.parser.add_argument('-e','--email',dest='email',action='store',help='e-mail used to create the account')
-    self.parser.add_argument('-f','--file',dest='path',action='store',required=True,help='Path to JSON file')
-    self.parser.add_argument('-t','--api-key',dest='apikey',required=False,action='store',help='Boundary API Key')
-    self.parser.add_argument('-v', dest='verbose', action='store_true',help='verbose mode')
+    self.parser.add_argument('-a', '--api-host',dest='apihost',action='store',metavar='api_host',
+                             help='Boundary API host endpoint')
+    self.parser.add_argument('-e','--email',dest='email',action='store',metavar='e_mail',
+                             help='e-mail that has access to the Boundary account')
+    self.parser.add_argument('-f','--file',dest='path',metavar='path',action='store',required=True,
+                             help='Path to JSON file')
+    self.parser.add_argument('-t','--api-token',dest='apitoken',required=False,action='store',metavar='api_token',
+                             help='API token for given e-mail that has access to the Boundary account')
 
     self.args = self.parser.parse_args()
-
-    # Output the collected arguments
-    logging.debug(self.args.apikey)
-    logging.debug(self.args.debug)
-    logging.debug(self.args.email)
-    logging.debug(self.args.path)
-    logging.debug(self.args.verbose)
 
   def load(self):
     '''
@@ -173,7 +160,7 @@ class MetricImport():
 
       payload = json.dumps(m)
       headers = {'content-type': 'application/json'}
-      r = requests.put(url,data=payload,headers=headers,auth=(self.email,self.apikey))
+      r = requests.put(url,data=payload,headers=headers,auth=(self.email,self.apitoken))
       if r.status_code != 200:
         logging.error(url)
         logging.error(headers)
