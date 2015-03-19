@@ -42,7 +42,7 @@ class MetricExport(ApiCli):
     def addArguments(self):
         ApiCli.addArguments(self)
         self.parser.add_argument('-p','--pattern',metavar='pattern',dest='patterns',action='store',
-                                 help='text pattern to use search the name of the metric')
+                                 help='regular expression pattern to use search the name of the metric')
         
     def getArguments(self):
         ApiCli.getArguments(self)
@@ -87,7 +87,7 @@ class MetricExport(ApiCli):
         if self.filter_expression != None:
             metrics = self.metrics['result']
             for m in metrics:
-                if self.filter_expression.match(m['name']):
+                if self.filter_expression.search(m['name']):
                     new_metrics.append(m)
         else:
             new_metrics = self.metrics['result']
