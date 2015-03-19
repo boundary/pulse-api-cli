@@ -36,8 +36,8 @@ class MetricCreate (ApiCli):
         self.parser.add_argument('-d', '--display-name', dest='displayName',action='store',metavar='display_name',help='Metric display name')
         self.parser.add_argument('-s', '--display-name-short', dest='displayNameShort',action='store',metavar='display_short_name',help='Metric short display name')
         self.parser.add_argument('-i', '--description', dest='description',action='store',metavar='description',help='Metric description')
-        self.parser.add_argument('-g', '--aggregate', dest='aggregate',action='store',choices=['sum','avg','max','min'],metavar='aggregate',help='Metric default aggregate')
-        self.parser.add_argument('-u', '--unit', dest='unit',action='store',choices=['percent','number','bytecount','duration'],metavar='unit',help='Metric unit')
+        self.parser.add_argument('-g', '--aggregate', dest='aggregate',action='store',choices=['sum','avg','max','min'],help='Metric default aggregate')
+        self.parser.add_argument('-u', '--unit', dest='unit',action='store',choices=['percent','number','bytecount','duration'],help='Metric unit')
         self.parser.add_argument('-r', '--resolution', dest='resolution',action='store',metavar='resolution',help='Metric default resolution')
         self.parser.add_argument('-x', '--is-disabled',dest='isDisabled',action='store_true',help='disable metric')
         
