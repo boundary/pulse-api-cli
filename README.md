@@ -125,7 +125,7 @@ $ metric-export -p '^BOUNDARY'
     ]
 }
 
-    ```
+```
 
 ### Batch Import Metrics
 **Note** It can take up a to a minute per metric definition that is added to a Boundary account
