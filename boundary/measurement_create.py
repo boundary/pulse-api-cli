@@ -69,6 +69,8 @@ class MeasurementCreate (ApiCli):
             self.timestamp = int(time.time())
             
         self.data = {"metric": self.metricName,"measure": self.measurement,"source": self.source,"timestamp": self.timestamp}
+        self.headers = {'Content-Type': 'application/json'}
+
                      
     def getDescription(self):
         return "Adds a measurement value to a Boundary account"

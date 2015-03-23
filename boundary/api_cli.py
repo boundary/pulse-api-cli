@@ -40,6 +40,7 @@ class ApiCli():
     self.path = None
     self.url_parameters = None
     self.method = "GET"
+    self.headers = None
     self.data = None
     
     # Construct a dictionary with each of the HTTP methods that we support
@@ -149,27 +150,27 @@ class ApiCli():
     logging.debug(payload)
     return payload
 
-
   def doGet(self):
     '''
     HTTP Get Request
     '''
-    return requests.get(self.url,data=self.getPayload(),auth=(self.email,self.apitoken))
+    return requests.get(self.url,data=self.getPayload(),headers=self.headers,auth=(self.email,self.apitoken))
 
   def doDelete(self):
     '''
     HTTP Delete Request
     '''
-    return requests.delete(self.url,data=self.getPayload(),auth=(self.email,self.apitoken))
+    return requests.delete(self.url,data=self.getPayload(),headers=self.headers,auth=(self.email,self.apitoken))
 
   def doPost(self):
-    return requests.post(self.url,data=self.getPayload(),auth=(self.email,self.apitoken))
+
+    return requests.post(self.url,data=self.getPayload(),headers=self.headers,auth=(self.email,self.apitoken))
 
   def doPut(self):
     '''
     HTTP Put Request
     '''
-    return requests.put(self.url,data=self.getPayload(),auth=(self.email,self.apitoken))
+    return requests.put(self.url,data=self.getPayload(),headers=self.headers,auth=(self.email,self.apitoken))
 
   def callAPI(self):
     '''
