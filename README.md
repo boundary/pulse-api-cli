@@ -5,9 +5,19 @@ Boundary CLI provides command line access to Boundary REST APIs
 
 Installation
 ------------
+The `boundary` package can installed in the python global installation by the following:
 
    ```bash
-     $ pip install boundary
+     $ sudo pip install boundary
+   ```
+It is recommended that you use the python [`virtualenv`](http://docs.python-guide.org/en/latest/dev/virtualenvs/) package to create an alternative python installation and then install the boundary package into this alternate python environment.
+
+   ```bash
+     lerma:~ davidg$ virtualenv ~/python # Create a new python environment
+     New python executable in /Users/davidg/python/bin/python
+     Installing setuptools, pip...done.
+     $ . ~/python/bin/activate # enable the new python environment
+     $ pip install boundary # Install boundary package
    ```
 
 Configuration
@@ -71,15 +81,11 @@ $ metric-ref -n BOUNDARY_BIG_BYTES_OUT
 ```
 
 ### Add a Measurement Value
-**NOTE** Requires that the environment variables as outlined above are set since they cannot be passed on the command line. This command also depends on curl being on the `PATH`. A later release will remove this command and subsitute with a new command `measurement-create` which will have the same capability but named arguments.
+**NOTE** Requires that the environment variables as outlined above are set since 
 
 ```bash
-$ metric-add myhost LOAD_1_MINUTE 30
-{
-  "result": {
-    "success": true
-  }
-}
+$ measurement-create -n BOUNDARY_MEASUREMENT_TEST -m 3456 -s foobar
+{"result":{"success":true}}
 ```
 
 ### List all of the metric definitions
@@ -260,13 +266,14 @@ optional arguments:
 ### Metric
 Commands to administer metrics and generate measurements in Boundary
 
-#### measurement-add
+#### measurement-create
 Creates a new measurement value in Boundary
 
 ````bash
-usage: measurement-add [-h] [-l {debug,info,warning,error,critical}]
-                       [-a api_host] [-e e_mail] [-t api_token] -n metric_name
-                       -m measurement [-s source] [-d timestamp]
+usage: measurement-create [-h] [-l {debug,info,warning,error,critical}]
+                          [-a api_host] [-e e_mail] [-t api_token] -n
+                          metric_name -m measurement [-s source]
+                          [-d timestamp]
 
 Adds a measurement value to a Boundary account
 
@@ -281,7 +288,7 @@ optional arguments:
   -e e_mail, --email e_mail
                         e-mail that has access to the Boundary account
   -t api_token, --api-token api_token
-                        API token for given e-mail that has access the
+                        API token for given e-mail that has access to the
                         Boundary account
   -n metric_name, --metric-name metric_name
                         Metric identifier
@@ -294,6 +301,7 @@ optional arguments:
                         Time of occurrence of the measurement in either epoch
                         seconds or epoch milliseconds. Defaults to the receipt
                         time at Boundary
+
 ```
 
 ### metric-create
