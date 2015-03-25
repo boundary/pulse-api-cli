@@ -97,24 +97,28 @@ class ApiCli():
     '''
     Configure logging based on command line options
     '''
-    if self.logLevel != None:
-        print(self.levels[self.logLevel])
-        logging.basicConfig(level=self.levels[self.logLevel])
-    
+    if self.args.logLevel != None:
+        logging.basicConfig(level=self.levels[self.args.logLevel])
+        logging.info("Set logging level to {0}".format(self.args.logLevel))
+
   def getArguments(self):
     '''
     CLIs get called back so that they can process any command line arguments
     that are given. This method handles the standard command line arguments for:
     API Host, user, password, etc.
     '''
+    self.configureLogging()
+    
     if self.args.apihost != None:
         self.apihost = self.args.apihost
     if self.args.email != None:
         self.email = self.args.email
     if self.args.apitoken != None:
         self.apitoken = self.args.apitoken
-    if self.args.logLevel != None:
-        self.logLevel = self.args.logLevel
+        
+    logging.debug("apihost: {0}".format(self.apihost))
+    logging.debug("email: {0}".format(self.email))
+    logging.debug("apitoken: {0}".format(self.apitoken))
       
   def setErrorMessage(self,message):
         self.message = message
@@ -143,11 +147,12 @@ class ApiCli():
     return urlParameters
     
   def getPayload(self):
-    if self.data != None:
-        payload = json.dumps(self.data)
-    else:
+    if self.data == None:
         payload = None
-    logging.debug(payload)
+    else:
+        payload = json.dumps(self.data)
+        logging.debug(payload)
+
     return payload
 
   def doGet(self):
@@ -178,7 +183,6 @@ class ApiCli():
     '''
 
     self.url = "{0}://{1}/{2}{3}".format(self.scheme,self.apihost,self.path,self.getUrlParameters())
-    logging.debug(self.url)
 
     result = self.methods[self.method]()
     if result.status_code != urllib2.httplib.OK:
@@ -202,7 +206,6 @@ class ApiCli():
     '''
     self.getEnvironment()
     self.parseArgs()
-    self.configureLogging()
     self.getArguments()
     if self.validateArguments() == True:
         self.callAPI()
