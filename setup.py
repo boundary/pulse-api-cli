@@ -17,6 +17,7 @@ setup(
       'bin/hostgroup-list',
       'bin/hostgroup-update',
       'bin/measurement-create',
+      'bin/measurement-get',
       'bin/metric-create',
       'bin/metric-delete',
       'bin/metric-export',
@@ -40,6 +41,7 @@ setup(
     long_description=open('README.txt').read(),
     install_requires=[
         "requests >= 2.3.0",
+        "python-dateutil >= 2.4.1",
     ],
 )
 
