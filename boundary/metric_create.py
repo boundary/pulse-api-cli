@@ -81,7 +81,6 @@ class MetricCreate (ApiCli):
             
         if self.args.isDisabled != None:
             self.isDisabled = self.args.isDisabled
-            
        
         self.data = {'name': self.metricName,
                     'displayName': self.displayName,
@@ -92,6 +91,8 @@ class MetricCreate (ApiCli):
                     'defaultResolutionMS': self.resolution,
                     'isDisabled': self.isDisabled}
         self.path = "v1/metrics/{0}".format(self.metricName)
+        self.headers = {'Content-Type': 'application/json'}
+
     
     def validateArguments(self):
         return ApiCli.validateArguments(self)

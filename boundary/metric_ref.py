@@ -36,10 +36,18 @@ class MetricRef (ApiCli):
             self.metricName = self.args.metricName            
        
         self.data = {'metric': self.metricName}
+        self.headers = {'Content-Type': 'application/json'}
     
     def validateArguments(self):
+        '''
+        If the metric name is not set then there is no use in proceeding
+        with the REST call
+        '''
+        if self.metricName == None:
+            self.setErrorMessage("Metric name not specified")
+            return False;
         return ApiCli.validateArguments(self)
          
     def getDescription(self):
-        return "Adds an existing metric definition to a Boundary account"
+        return "Adds a reference to a metric definition in another Boundary account to a Boundary account"
     

@@ -1,7 +1,7 @@
 from distutils.core import setup
 setup(
     name='boundary',
-    version='0.0.6',
+    version='0.0.7',
     url="https://github.com/boundary/boundary-api-cli",
     author='David Gwartney',
     author_email='davidg@boundary.com',
@@ -17,6 +17,7 @@ setup(
       'bin/hostgroup-list',
       'bin/hostgroup-update',
       'bin/measurement-create',
+      'bin/measurement-get',
       'bin/metric-create',
       'bin/metric-delete',
       'bin/metric-export',
@@ -34,13 +35,13 @@ setup(
       'bin/plugin-uninstall',
       'bin/relay-list',
       'bin/user-get',
-      'src/main/scripts/metrics/metric-add',
     ],
     license='LICENSE.txt',
     description='Command line interface to Boundary REST APIs',
     long_description=open('README.txt').read(),
     install_requires=[
         "requests >= 2.3.0",
+        "python-dateutil >= 2.4.1",
     ],
 )
 

@@ -21,7 +21,8 @@ then
   exit 1
 fi
 
-typeset -r PAYLOAD="{ \"name\": \"$METRIC\" }"
+typeset -r METRIC=$1
+typeset -r PAYLOAD="{ \"metric\": \"$METRIC\" }"
 typeset -r URL="https://$BOUNDARY_API_HOST/v1/metrics/ref"
 typeset -r AUTH="$BOUNDARY_EMAIL:$BOUNDARY_API_TOKEN"
 typeset -r HEADER="Content-Type: application/json"

@@ -16,6 +16,7 @@
 from api_cli import ApiCli
 import socket
 import time
+import requests
 
 '''
 Implements command line utility to add a measurement value to a Boundary account
@@ -69,7 +70,20 @@ class MeasurementCreate (ApiCli):
             self.timestamp = int(time.time())
             
         self.data = {"metric": self.metricName,"measure": self.measurement,"source": self.source,"timestamp": self.timestamp}
-                     
+        self.headers = {'Content-Type': 'application/json',"Accept": "application/json"}
+        
+    def callAPI(self):
+        '''
+        Override so we can handle the incomplete read error generated
+        by Boundary API that creates a measurement.
+        Handle here instead of ApiCli since we do not want to mask errors
+        to other API calls.
+        '''
+        try:
+            ApiCli.callAPI(self)
+        except requests.exceptions.ChunkedEncodingError:
+            None
+ 
     def getDescription(self):
         return "Adds a measurement value to a Boundary account"
     
