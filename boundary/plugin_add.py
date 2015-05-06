@@ -31,7 +31,7 @@ class PluginAdd (PluginBase):
         self.parser.add_argument('-o', '--organization-name', dest='organizationName',action='store',required=True,metavar="organization_name",
                                  help='Name of the github user or organization')
         self.parser.add_argument('-r', '--repository-name', dest='repositoryName',action='store',required=True,metavar="respository_name",
-                                 help='Name of the github user or organization')
+                                 help='Name of the github repository')
 
     def getArguments(self):
         '''
