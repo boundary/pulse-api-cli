@@ -57,18 +57,22 @@ class MetricExport(ApiCli):
         Extract only the required fields for the create/update API call
         '''
         m = {}
-        try:
+        if 'name' in m:
             m['name'] = metric['name']
+        if 'description' in m:
             m['description'] = metric['description']
+        if 'displayName' in m:
             m['displayName'] = metric['displayName']
+        if 'displayNameShort' in m:
             m['displayNameShort'] = metric['displayNameShort']
+        if 'unit' in m:
             m['unit'] = metric['unit']
+        if 'defaultAggregate' in m:
             m['defaultAggregate'] = metric['defaultAggregate']
+        if 'defaultResolutionMS' in m:
             m['defaultResolutionMS'] = metric['defaultResolutionMS']
+        if 'isDisabled' in m:
             m['isDisabled'] = metric['isDisabled']
-        except KeyError as e:
-            logging.error("Missing field \"" + e.message + "\" in result")
-            sys.exit(1)
 
         return m
 
@@ -86,15 +90,21 @@ class MetricExport(ApiCli):
          Apply the criteria to filter out on the metrics required
         '''
         new_metrics = []
-        if self.filter_expression != None:
-            metrics = self.metrics['result']
-            for m in metrics:
-                if self.filter_expression.search(m['name']):
-                    new_metrics.append(m)
-        else:
-            new_metrics = self.metrics['result']
+        
+        # Older format which uses an array to contain the metric definitions
+        if 'result' in self.metrics:
+            if self.filter_expression != None:
+                metrics = self.metrics['result']
+                for m in metrics:
+                    if self.filter_expression.search(m['name']):
+                        new_metrics.append(m)
+            else:
+                new_metrics = self.metrics['result']
 
-        self.metrics['result'] = self.extract(new_metrics)
+            self.metrics = self.extract(new_metrics)
+        else:
+            # Handle new format which uses a hash to store a collection of definitions
+            None
 
     def handleResults(self, result):
         '''
