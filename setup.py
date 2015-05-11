@@ -21,6 +21,7 @@ setup(
       'bin/metric-create',
       'bin/metric-delete',
       'bin/metric-export',
+      'bin/metric-get',
       'bin/metric-import',
       'bin/metric-list',
       'bin/metric-markdown',

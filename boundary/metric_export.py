@@ -1,38 +1,38 @@
 #!/usr/bin/python
-# #
-# # Copyright 2014-2015 Boundary, Inc.
-# #
-# # Licensed under the Apache License, Version 2.0 (the "License");
-# # you may not use this file except in compliance with the License.
-# # You may obtain a copy of the License at
-# #
-# #     http://www.apache.org/licenses/LICENSE-2.0
-# #
-# # Unless required by applicable law or agreed to in writing, software
-# # distributed under the License is distributed on an "AS IS" BASIS,
-# # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# # See the License for the specific language governing permissions and
-# # limitations under the License.
-# #
+# 
+#  Copyright 2014-2015 Boundary, Inc.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 
 '''
 Exports metrics from a Boundary account with the ability to filter on metric name
 '''
 from six.moves import http_client
-from api_cli import ApiCli
+from metric_common import MetricCommon
 import json
 import logging
 import re
 import sys
 
 
-class MetricExport(ApiCli):
+class MetricExport(MetricCommon):
 
     def __init__(self):
         '''
         Initialize the instance
         '''
-        ApiCli.__init__(self)
+        MetricCommon.__init__(self)
         self.path = "v1/metrics"
         self.metrics = None
         self.patterns = None
@@ -57,54 +57,78 @@ class MetricExport(ApiCli):
         Extract only the required fields for the create/update API call
         '''
         m = {}
-        if 'name' in m:
+        if 'name' in metric:
             m['name'] = metric['name']
-        if 'description' in m:
+        if 'description' in metric:
             m['description'] = metric['description']
-        if 'displayName' in m:
+        if 'displayName' in metric:
             m['displayName'] = metric['displayName']
-        if 'displayNameShort' in m:
+        if 'displayNameShort' in metric:
             m['displayNameShort'] = metric['displayNameShort']
-        if 'unit' in m:
+        if 'unit' in metric:
             m['unit'] = metric['unit']
-        if 'defaultAggregate' in m:
+        if 'defaultAggregate' in metric:
             m['defaultAggregate'] = metric['defaultAggregate']
-        if 'defaultResolutionMS' in m:
+        if 'defaultResolutionMS' in metric:
             m['defaultResolutionMS'] = metric['defaultResolutionMS']
-        if 'isDisabled' in m:
+        if 'isDisabled' in metric:
             m['isDisabled'] = metric['isDisabled']
-
         return m
 
-    def extract(self, metrics):
+    def extractArray(self, metrics):
         '''
-         Extract required fields
+         Extract required fields from an array
         '''
         new_metrics = []
         for m in metrics:
             new_metrics.append(self.extractFields(m))
         return new_metrics
+    
+    def extractDictionary(self, metrics):
+        '''
+         Extract required fields from a dictionary
+        '''
+        new_metrics = {}
+        for key in metrics:
+            new_metrics[key] = self.extractFields(metrics[key])
+        return new_metrics
+    
+    def filterArray(self):
+
+        if self.filter_expression != None:
+            new_metrics = []
+            metrics = self.metrics['result']
+            for m in metrics:
+                if self.filter_expression.search(m['name']):
+                    new_metrics.append(m)
+        else:
+            new_metrics = self.metrics['result']
+
+        self.metrics = self.extractArray(new_metrics)
+        
+    def filterDictionary(self):
+        if self.filter_expression != None:
+            new_metrics = {}
+            print(type(self.metrics))
+            for key in self.metrics:
+                if self.filter_expression.search(key):
+                    new_metrics[key] = self.metrics[key];
+        else:
+            new_metrics = self.metrics
+
+        self.metrics = self.extractDictionary(new_metrics)
 
     def filter(self):
         '''
          Apply the criteria to filter out on the metrics required
         '''
-        new_metrics = []
         
         # Older format which uses an array to contain the metric definitions
         if 'result' in self.metrics:
-            if self.filter_expression != None:
-                metrics = self.metrics['result']
-                for m in metrics:
-                    if self.filter_expression.search(m['name']):
-                        new_metrics.append(m)
-            else:
-                new_metrics = self.metrics['result']
-
-            self.metrics = self.extract(new_metrics)
+            self.filterArray()
         else:
             # Handle new format which uses a hash to store a collection of definitions
-            None
+            self.filterDictionary()
 
     def handleResults(self, result):
         '''
