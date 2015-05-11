@@ -1,0 +1,10 @@
+site_name: Boundary API CLI
+theme: readthedocs
+pages:
+- [index.md, Home]
+- ['reference/alarms.md','Reference','Alarms']
+- ['reference/hostgroups.md','Reference','Host Groups']
+- ['reference/measurements.md','Reference','Measurements']
+- ['reference/metrics.md','Reference','Metrics']
+- ['reference/plugins.md','Reference','Plugins']
+
