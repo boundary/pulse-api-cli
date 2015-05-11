@@ -40,7 +40,7 @@ class AlarmCreate (ApiCli):
         self.parser.add_argument('-n', '--alarm-name', dest='alarmName',action='store',required=True,
                                  metavar='alarm_name',help='Name of the alarm')
         self.parser.add_argument('-m', '--metric', dest='metricName',action='store',
-                                 metavar='display_name',help='Name of the metric to alarm')
+                                 metavar='metric_name',help='Name of the metric to alarm')
         self.parser.add_argument('-g', '--trigger-aggregate', dest='aggregate',action='store',choices=['sum','avg','max','min'],
                                  metavar='aggregate',help='Metric aggregate to alarm upon')
         self.parser.add_argument('-o', '--trigger-operation', dest='operation',action='store',choices=['eq','gt','lt'],
