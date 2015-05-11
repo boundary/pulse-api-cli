@@ -28,9 +28,12 @@ class MetricCreate (ApiCli):
         self.aggregate = None
         self.unit = None
         self.resolution = None
-        self.isDisabled = False
+        self.isDisabled = None
         
     def addArguments(self):
+        '''
+        Add the specific arguments of this CLI
+        '''
         ApiCli.addArguments(self)
         self.parser.add_argument('-n', '--metric-name', dest='metricName', action='store', required=True, metavar='metric_name', help='Metric identifier')
         self.parser.add_argument('-d', '--display-name', dest='displayName', action='store', metavar='display_name', help='Metric display name')
@@ -39,57 +42,69 @@ class MetricCreate (ApiCli):
         self.parser.add_argument('-g', '--aggregate', dest='aggregate', action='store', choices=['sum', 'avg', 'max', 'min'], help='Metric default aggregate')
         self.parser.add_argument('-u', '--unit', dest='unit', action='store', choices=['percent', 'number', 'bytecount', 'duration'], help='Metric unit')
         self.parser.add_argument('-r', '--resolution', dest='resolution', action='store', metavar='resolution', help='Metric default resolution')
-        self.parser.add_argument('-x', '--is-disabled', dest='isDisabled', action='store_true', help='disable metric')
+        self.parser.add_argument('-x', '--is-disabled', dest='isDisabled', action='store_true', help='disable metric', default=None)
         
     def getArguments(self):
         '''
         Extracts the specific arguments of this CLI
         '''
         ApiCli.getArguments(self)
+        
         if self.args.metricName != None:
             self.metricName = self.args.metricName
             
         if self.args.displayName != None:
             self.displayName = self.args.displayName
-        else:
-            self.displayName = self.metricName
+#         else:
+#             self.displayName = self.metricName
                         
         if self.args.displayNameShort != None:
             self.displayNameShort = self.args.displayNameShort
-        else:
-            self.displayNameShort = self.metricName
+#         else:
+#             self.displayNameShort = self.metricName
             
         if self.args.description != None:
             self.description = self.args.description
-        else:
-            self.description = self.metricName
+#         else:
+#             self.description = self.metricName
                     
         if self.args.aggregate != None:
             self.aggregate = self.args.aggregate
-        else:
-            self.aggregate = "ave"
+#         else:
+#             self.aggregate = "ave"
             
         if self.args.unit != None:
             self.unit = self.args.unit
-        else:
-            self.unit = "number"
+#         else:
+#             self.unit = "number"
             
         if self.args.resolution != None:
             self.resolution = self.args.resolution
-        else:
-            self.resolution = 1000
-            
+#         else:
+#             self.resolution = 1000
+        
+        print(self.args.isDisabled)
         if self.args.isDisabled != None:
             self.isDisabled = self.args.isDisabled
        
-        self.data = {'name': self.metricName,
-                    'displayName': self.displayName,
-                    'displayNameShort': self.displayNameShort,
-                    'description': self.description,
-                    'defaultAggregate': self.aggregate,
-                    'unit': self.unit,
-                    'defaultResolutionMS': self.resolution,
-                    'isDisabled': self.isDisabled}
+        self.data = {}
+        if self.metricName != None:
+            self.data['name'] = self.metricName
+        if self.displayName != None:
+            self.data['displayName'] = self.displayName
+        if self.displayNameShort != None:
+            self.data['displayNameShort'] = self.displayNameShort
+        if self.description != None:
+            self.data['description'] = self.description
+        if self.aggregate != None:
+            self.data['defaultAggregate'] = self.aggregate
+        if self.unit != None:
+            self.data['unit'] = self.unit,
+        if self.resolution != None:
+            self.data['defaultResolutionMS'] = self.resolution
+        if self.isDisabled != None:
+            self.data['isDisabled'] = self.isDisabled
+                    
         self.path = "v1/metrics/{0}".format(self.metricName)
         self.headers = {'Content-Type': 'application/json'}
 
