@@ -8,6 +8,7 @@ setup(
     packages=['boundary',],
     scripts=[
       'bin/alarm-create',
+      'bin/alarm-delete',
       'bin/alarm-get',
       'bin/alarm-list',
       'bin/action-installed',
