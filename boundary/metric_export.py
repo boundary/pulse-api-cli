@@ -60,9 +60,8 @@ class MetricExport(MetricCommon):
         """
         Extract only the required fields for the create/update API call
         """
+
         m = {}
-        if 'name' in metric:
-            m['name'] = metric['name']
         if 'description' in metric:
             m['description'] = metric['description']
         if 'displayName' in metric:
@@ -79,26 +78,19 @@ class MetricExport(MetricCommon):
             m['isDisabled'] = metric['isDisabled']
         return m
 
-    def extractArray(self, metrics):
+    def extractDictionary(self, metrics):
         """
         Extract required fields from an array
         """
-        new_metrics = []
-        for m in metrics:
-            new_metrics.append(self.extractFields(m))
-        return new_metrics
-    
-    def extractDictionary(self, metrics):
-        """
-        Extract required fields from a dictionary
-        """
         new_metrics = {}
-        for key in metrics:
-            new_metrics[key] = self.extractFields(metrics[key])
+        for m in metrics:
+            metric = self.extractFields(m)
+            new_metrics[m['name']] = metric
         return new_metrics
-    
-    def filterArray(self):
+
+    def filter(self):
         """
+        Apply the criteria to filter out on the metrics required
         """
         if self.filter_expression != None:
             new_metrics = []
@@ -109,33 +101,7 @@ class MetricExport(MetricCommon):
         else:
             new_metrics = self.metrics['result']
 
-        self.metrics = self.extractArray(new_metrics)
-        
-    def filterDictionary(self):
-        """
-        """
-        if self.filter_expression != None:
-            new_metrics = {}
-            print(type(self.metrics))
-            for key in self.metrics:
-                if self.filter_expression.search(key):
-                    new_metrics[key] = self.metrics[key];
-        else:
-            new_metrics = self.metrics
-
         self.metrics = self.extractDictionary(new_metrics)
-
-    def filter(self):
-        """
-        Apply the criteria to filter out on the metrics required
-        """
-        
-        # Older format which uses an array to contain the metric definitions
-        if 'result' in self.metrics:
-            self.filterArray()
-        else:
-            # Handle new format which uses a hash to store a collection of definitions
-            self.filterDictionary()
 
     def handleResults(self, result):
         """
