@@ -108,7 +108,7 @@ class MetricExport(MetricCommon):
         Call back function to be implemented by the CLI.
         """
         
-        # Only process of we get HTTP result of 200
+        # Only process if we get HTTP result of 200
         if result.status_code == http_client.OK:
             self.metrics = json.loads(result.text)
             self.filter()
