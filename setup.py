@@ -8,6 +8,7 @@ setup(
     packages=['boundary',],
     scripts=[
       'bin/alarm-create',
+      'bin/alarm-get',
       'bin/alarm-list',
       'bin/action-installed',
       'bin/action-types',
@@ -15,6 +16,7 @@ setup(
       'bin/hostgroup-delete',
       'bin/hostgroup-get',
       'bin/hostgroup-list',
+      'bin/hostgroup-search',
       'bin/hostgroup-update',
       'bin/measurement-create',
       'bin/measurement-get',
