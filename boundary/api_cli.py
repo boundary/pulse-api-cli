@@ -44,6 +44,7 @@ class ApiCli():
         self.method = "GET"
         self.headers = None
         self.data = None
+        self.url = None
     
         # Construct a dictionary with each of the HTTP methods that we support
         self.methods = {"DELETE": self.doDelete, "GET": self.doGet, "POST": self.doPost, "PUT": self.doPut}
