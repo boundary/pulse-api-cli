@@ -15,34 +15,42 @@
 # limitations under the License.
 #
 
-from api_cli import ApiCli
+from metric_common import MetricCommon
 import json
+from six.moves import http_client
 
 """
 Class definition for import metric definitions
 Sets creates or updates a metric from a JSON file
 """
-class MetricImport(ApiCli):
+
+
+class MetricImport(MetricCommon):
 
     def __init__(self):
-        ApiCli.__init__(self)
+        """
+        """
+        MetricCommon.__init__(self)
+        self.method = 'PUT'
         self.metrics = None
         self.path = None
+        self.v2Metrics = None
        
     def addArguments(self):
         """
         Configure handling of command line arguments.
         """
         # Call our parent to add the default arguments
-        ApiCli.addArguments(self)
+        MetricCommon.addArguments(self)
 
         self.parser.add_argument('-f', '--file', dest='path', metavar='path', action='store', required=True, help='Path to JSON file')
 
     def getArguments(self):
-        ApiCli.getArguments(self)
+        """
+        """
+        MetricCommon.getArguments(self)
         if self.args.path is not None:
             self.path = self.args.path
-        
         
     def loadAndParse(self):
         """
@@ -59,45 +67,42 @@ class MetricImport(ApiCli):
         3) Parse into a dictionary
         4) Create or update definitions using API call
         """
-        
-        if 'result' in self.metrics:
-            metrics = self.metrics['result']
-        else:
+
+        self.v2Metrics = self.metricDefintionV2(self.metrics)
+        if self.v2Metrics:
             metrics = self.metrics
-            
+
+        else:
+            metrics = self.metrics['result']
+
+        # Loop through the metrics and call the API
+        # to create/update
         for m in metrics:
-            self.createUpdate(m)
+            if self.v2Metrics:
+                metric = metrics[m]
+                metric['name'] = m
+            else:
+                metric = m
+            self.createUpdate(metric)
       
     def callAPI(self):
+        """
+        """
         self.loadAndParse()
         self.importMetrics()
 
     def createUpdate(self, metric):
         """
         """
-        m = {}
-        m['name'] = metric['name']
-        if metric['description'] != None:
-            m['description'] = metric['description']
-      
-        if metric['displayName'] != None:
-            m['displayName'] = metric['displayName']
-      
-        if metric['displayNameShort'] != None:
-            m['displayNameShort'] = metric['displayNameShort']
-          
-        if metric['unit'] != None:
-            m['unit'] = metric['unit']
-    
-        if metric['defaultAggregate'] != None:
-            m['defaultAggregate'] = metric['defaultAggregate']
-          
-        if metric['defaultResolutionMS'] != None:
-            m['defaultResolutionMS'] = metric['defaultResolutionMS']
-
-        if metric['isDisabled'] != None:
-            m['isDisabled'] = metric['isDisabled']
-          
         self.path = "v1/metrics/{0}".format(metric['name'])
         self.headers = {'content-type': 'application/json'}
-        self.data = json.dumps(m)
+        self.data = json.dumps(metric)
+        MetricCommon.callAPI(self)
+
+    def handleResults(self, result):
+        """
+        Default is to just print the results to standard out
+        """
+        if result.status_code != http_client.OK:
+            print(result.text)
+
