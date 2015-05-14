@@ -14,6 +14,7 @@
 #
 from api_cli import ApiCli
 
+
 class MetricCommon (ApiCli):
     
     def __init__(self):
@@ -41,4 +42,7 @@ class MetricCommon (ApiCli):
         if 'isDisabled' in metric:
             m['isDisabled'] = metric['isDisabled']
         return m
+
+    def metricDefintionV2(self,metrics):
+        return 'result' not in metrics
 
