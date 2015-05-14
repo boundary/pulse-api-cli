@@ -15,23 +15,21 @@
 # limitations under the License.
 #
 
-'''
+"""
 Exports metrics from a Boundary account with the ability to filter on metric name
-'''
+"""
 from six.moves import http_client
 from metric_common import MetricCommon
 import json
-import logging
 import re
-import sys
 
 
 class MetricExport(MetricCommon):
 
     def __init__(self):
-        '''
+        """
         Initialize the instance
-        '''
+        """
         MetricCommon.__init__(self)
         self.path = "v1/metrics"
         self.metrics = None
@@ -39,23 +37,29 @@ class MetricExport(MetricCommon):
         self.filter_expression = None
 
     def getDescription(self):
+        """
+        """
         return 'Export the metric definitions from a Boundary account'
 
     def addArguments(self):
-        ApiCli.addArguments(self)
+        """
+        """
+        MetricCommon.addArguments(self)
         self.parser.add_argument('-p', '--pattern', metavar='pattern', dest='patterns', action='store',
                                  help='regular expression pattern to use search the name of the metric')
         
     def getArguments(self):
-        ApiCli.getArguments(self)
+        """
+        """
+        MetricCommon.getArguments(self)
         
         if self.args.patterns:
             self.filter_expression = re.compile(self.args.patterns)
 
     def extractFields(self, metric):
-        '''
+        """
         Extract only the required fields for the create/update API call
-        '''
+        """
         m = {}
         if 'name' in metric:
             m['name'] = metric['name']
@@ -76,25 +80,26 @@ class MetricExport(MetricCommon):
         return m
 
     def extractArray(self, metrics):
-        '''
-         Extract required fields from an array
-        '''
+        """
+        Extract required fields from an array
+        """
         new_metrics = []
         for m in metrics:
             new_metrics.append(self.extractFields(m))
         return new_metrics
     
     def extractDictionary(self, metrics):
-        '''
-         Extract required fields from a dictionary
-        '''
+        """
+        Extract required fields from a dictionary
+        """
         new_metrics = {}
         for key in metrics:
             new_metrics[key] = self.extractFields(metrics[key])
         return new_metrics
     
     def filterArray(self):
-
+        """
+        """
         if self.filter_expression != None:
             new_metrics = []
             metrics = self.metrics['result']
@@ -107,6 +112,8 @@ class MetricExport(MetricCommon):
         self.metrics = self.extractArray(new_metrics)
         
     def filterDictionary(self):
+        """
+        """
         if self.filter_expression != None:
             new_metrics = {}
             print(type(self.metrics))
@@ -119,9 +126,9 @@ class MetricExport(MetricCommon):
         self.metrics = self.extractDictionary(new_metrics)
 
     def filter(self):
-        '''
-         Apply the criteria to filter out on the metrics required
-        '''
+        """
+        Apply the criteria to filter out on the metrics required
+        """
         
         # Older format which uses an array to contain the metric definitions
         if 'result' in self.metrics:
@@ -131,20 +138,13 @@ class MetricExport(MetricCommon):
             self.filterDictionary()
 
     def handleResults(self, result):
-        '''
+        """
         Call back function to be implemented by the CLI.
-        '''
+        """
         
         # Only process of we get HTTP result of 200
         if result.status_code == http_client.OK:
             self.metrics = json.loads(result.text)
             self.filter()
             out = json.dumps(self.metrics, sort_keys=True, indent=4, separators=(',', ': '))
-            print out
-
-
-
-
-
-
-            
+            print(out)
