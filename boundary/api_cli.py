@@ -21,6 +21,7 @@ import os
 import requests
 import urllib2
 import json
+import urllib
 
 """
 Base class for all the Boundary CLI commands
@@ -142,22 +143,14 @@ class ApiCli():
     def getUrlParameters(self):
         urlParameters = ''
         if self.url_parameters is not None:
-            urlParameters = '?'
-            values = self.url_parameters
-            first = True
-            for key in values:
-                if first:
-                    first = False
-                else:
-                    urlParameters = urlParameters + "&"
-                urlParameters = urlParameters + "{0}={1}".format(key, values[key])
+            urlParameters = '?' + urllib.urlencode(self.url_parameters)
         return urlParameters
     
     def getPayload(self):
         if self.data is None:
             payload = None
         else:
-            payload = json.dumps(self.data)
+            payload = json.dumps(self.data, sort_keys=True)
             logging.debug(payload)
 
         return payload
