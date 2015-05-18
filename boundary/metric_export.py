@@ -31,6 +31,7 @@ class MetricExport(MetricCommon):
         Initialize the instance
         """
         MetricCommon.__init__(self)
+        self.method = "GET"
         self.path = "v1/metrics"
         self.metrics = None
         self.patterns = None
