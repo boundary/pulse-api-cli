@@ -41,6 +41,7 @@ import plugin_get_components
 import plugin_install
 import plugin_installed
 import plugin_list
+import plugin_manifest
 import plugin_remove
 import plugin_uninstall
 import relay_list
