@@ -141,43 +141,37 @@ class ApiCli():
         return True
 
     def getUrlParameters(self):
+        """
+        Encode URL parameters
+        """
         urlParameters = ''
         if self.url_parameters is not None:
             urlParameters = '?' + urllib.urlencode(self.url_parameters)
         return urlParameters
-    
-    def getPayload(self):
-        if self.data is None:
-            payload = None
-        else:
-            payload = json.dumps(self.data, sort_keys=True)
-            logging.debug(payload)
-
-        return payload
 
     def doGet(self):
         """
         HTTP Get Request
         """
-        return requests.get(self.url, data=self.getPayload(), headers=self.headers, auth=(self.email, self.apitoken))
+        return requests.get(self.url, data=self.data, headers=self.headers, auth=(self.email, self.apitoken))
 
     def doDelete(self):
         """
         HTTP Delete Request
         """
-        return requests.delete(self.url, data=self.getPayload(), headers=self.headers, auth=(self.email, self.apitoken))
+        return requests.delete(self.url, data=self.data, headers=self.headers, auth=(self.email, self.apitoken))
 
     def doPost(self):
         """
         HTTP Post Request
         """
-        return requests.post(self.url, data=self.getPayload(), headers=self.headers, auth=(self.email, self.apitoken))
+        return requests.post(self.url, data=self.data, headers=self.headers, auth=(self.email, self.apitoken))
 
     def doPut(self):
         """
         HTTP Put Request
         """
-        return requests.put(self.url, data=self.getPayload(), headers=self.headers, auth=(self.email, self.apitoken))
+        return requests.put(self.url, data=self.data, headers=self.headers, auth=(self.email, self.apitoken))
 
     def callAPI(self):
         """
@@ -190,8 +184,8 @@ class ApiCli():
         if result.status_code != urllib2.httplib.OK:
             logging.error(self.url)
             logging.error(self.method)
-            if self.getPayload() is not None:
-                logging.error(self.getPayload())
+            if self.data is not None:
+                logging.error(self.data)
             logging.error(result)
         self.handleResults(result)
       
