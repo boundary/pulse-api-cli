@@ -1,38 +1,37 @@
 #!/usr/bin/env python
-###
-### Copyright 2014-2015 Boundary, Inc.
-###
-### Licensed under the Apache License, Version 2.0 (the "License");
-### you may not use this file except in compliance with the License.
-### You may obtain a copy of the License at
-###
-###     http://www.apache.org/licenses/LICENSE-2.0
-###
-### Unless required by applicable law or agreed to in writing, software
-### distributed under the License is distributed on an "AS IS" BASIS,
-### WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-### See the License for the specific language governing permissions and
-### limitations under the License.
-###
+#
+# Copyright 2014-2015 Boundary, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 
 import argparse
 import json
-from pprint import pprint
-from plugin_manifest import PluginManifest
+from boundary.plugin_manifest import PluginManifest
 import logging
 import os
 import sys
 
 import requests
 
-'''
+"""
 Reads the plugin.json manifest file looks up the definition and then outputs a markdown table
 
 Format of output table:
 
 |Metric Name|Metric Identifier|Description
 |:-----------|:--------|
-'''
+"""
 class MetricMarkdown():
 
 
@@ -58,9 +57,9 @@ class MetricMarkdown():
         self.apihost = 'premium-api.boundary.com'
     
   def parseArgs(self):
-    '''
+    """
     Configure handling of command line arguments.
-    '''
+    """
     self.parser.add_argument('-d','--debug',dest='debug',action='store_true',help='Enables debugging')
     self.parser.add_argument('-e','--email',dest='email',action='store',help='e-mail uses to create the account')
     self.parser.add_argument('-f','--file',dest='path',action='store',required=False,help='Path to plugin.json manifest. Defaults to plugin.json')
@@ -75,17 +74,17 @@ class MetricMarkdown():
     logging.debug(self.args.verbose)
 
   def load(self):
-    '''
+    """
     Read the file and parse JSON into dictionary
-    '''
+    """
     manifest = PluginManifest(self.path)
     manifest.get()
     self.manifest = manifest.getManifest()
     
   def getMetricDefinition(self,name):
-      '''
+      """
       Make an API call to get the metric definition
-      '''
+      """
       metric = None
       url = "https://{0}/v1/metrics".format(self.apihost)
       r = requests.get(url, auth=(self.email, self.apikey))
@@ -102,9 +101,9 @@ class MetricMarkdown():
       return metric
 
   def printMetricsHeader(self,m,d):
-      '''
+      """
       Prints out table header based on the size of the data in columns
-      '''
+      """
       mstr = "Metric Name"
       dstr = "Description"
       
@@ -112,9 +111,9 @@ class MetricMarkdown():
       print('|:{0}|:{1}|'.format('-' * (m-1),'-' * (d-1)))
 
   def getFieldsColumnLengths(self):
-      '''
+      """
       Gets the maximum length of each column in the field table
-      '''
+      """
       nameLen = 0
       descLen = 0
       for f in self.fields:
@@ -123,9 +122,9 @@ class MetricMarkdown():
       return (nameLen,descLen)
       
   def getMetricsColumnLengths(self):
-      '''
+      """
       Gets the maximum length of each column
-      '''
+      """
       displayLen = 0
       descLen = 0
       for m in self.metrics:
@@ -134,9 +133,9 @@ class MetricMarkdown():
       return (displayLen,descLen)
   
   def escapeUnderscores(self):
-      '''
+      """
       Escape underscores so that the markdown is correct
-      '''
+      """
       new_metrics = []
       for m in self.metrics:
           m['name'] = m['name'].replace("_","\_")
@@ -144,9 +143,9 @@ class MetricMarkdown():
       self.metrics = new_metrics
 
   def printFieldsHeader(self,f,d):
-      '''
+      """
       Prints out table header based on the size of the data in columns
-      '''
+      """
       fstr = "Field Name"
       dstr = "Description"
       
@@ -154,9 +153,9 @@ class MetricMarkdown():
       print('|:{0}|:{1}|'.format('-' * (f-1),'-' * (d-1)))
   
   def printMetrics(self,m,d):
-      '''
+      """
       Prints out table rows based on the size of the data in columns
-      '''
+      """
       for metric in self.metrics:
           mstr = metric['displayName']
           dstr = metric['description']
@@ -165,9 +164,9 @@ class MetricMarkdown():
           print("|{0}{1}|{2}{3}|".format(mstr,' ' * mlen,dstr,' ' * dlen))
 
   def printFields(self,f,d):
-      '''
+      """
       Prints out table rows based on the size of the data in columns
-      '''
+      """
       for field in self.fields:
           fstr = field["title"]
           dstr = field["description"]
@@ -195,9 +194,9 @@ class MetricMarkdown():
       self.metrics = metrics
 
   def outputFieldMarkdown(self):
-      '''
+      """
       Sends the field definitions ot standard out
-      '''
+      """
       f,d = self.getFieldsColumnLengths()
 
       self.printFieldsHeader(f,d)
