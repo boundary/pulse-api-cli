@@ -14,6 +14,7 @@
 # limitations under the License.
 #
 from api_cli import ApiCli
+import json
 
 
 class AlarmCreate(ApiCli):
@@ -131,7 +132,7 @@ class AlarmCreate(ApiCli):
         if self.isDisabled is not None:
             p['isDisabled'] = self.isDisabled
 
-        self.data = p
+        self.data = json.dumps(p, sort_keys=True)
         self.path = 'v1/alarms'
         self.headers = {'Content-Type': 'application/json'}
 
