@@ -34,6 +34,7 @@ class MetricMarkdown(ApiCli):
     def __init__(self):
         ApiCli.__init__(self)
         self.metric_definitions = None
+        self.dashboards = None
         self.metrics = None
         self.manifest = None
         self.file_path = None
@@ -60,6 +61,7 @@ class MetricMarkdown(ApiCli):
         if result.status_code == urllib2.httplib.OK:
             result = json.loads(result.text)
             self.metric_definitions = result['result']
+
             self.generateMarkdown()
         else:
             pass
@@ -92,6 +94,9 @@ class MetricMarkdown(ApiCli):
 
         print('|{0}{1}|{2}{3}|'.format(mstr, ' ' * (m - len(mstr)), dstr, ' ' * (d - len(dstr))))
         print('|:{0}|:{1}|'.format('-' * (m - 1), '-' * (d - 1)))
+
+    def getDashboardColumnLengths(self):
+        return (0, 0)
 
     def getFieldsColumnLengths(self):
         """
@@ -179,6 +184,16 @@ class MetricMarkdown(ApiCli):
 
         self.metrics = metrics
 
+    def generateDashboardDefinitions(self):
+
+        if 'dashboards' in self.manifest:
+            dashboards = self.manifest['dashboards']
+
+            dashes = []
+            for dashboard in dashboards:
+                dashes.append(name)
+            self.dashboards = dashes
+
     def outputFieldMarkdown(self):
         """
         Sends the field definitions ot standard out
@@ -200,12 +215,16 @@ class MetricMarkdown(ApiCli):
         self.printMetricsHeader(m, d)
         self.printMetrics(m, d)
 
+    def outputDashboardMarkdown(self):
+        f,d = self.getDashboardColumnLengths()
+
     def outputMarkdown(self):
         """
         Sends the markdown to standard out
         """
         self.outputFieldMarkdown()
         self.outputMetricMarkdown()
+        self.outputDashboardMarkdown()
 
     def generateMarkdown(self):
         """
@@ -213,6 +232,7 @@ class MetricMarkdown(ApiCli):
         """
         self.generateMetricDefinitions()
         self.generateFieldDefinitions()
+        self.generateDashboardDefinitions()
         self.outputMarkdown()
 
 
