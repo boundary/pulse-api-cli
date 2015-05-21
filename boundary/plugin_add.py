@@ -19,7 +19,7 @@ from plugin_base import PluginBase
 class PluginAdd (PluginBase):
      
     def __init__(self):
-        super().__init__(self)
+        PluginBase.__init__(self)
         self.method = "PUT"
         self.path = "v1/plugins/private"
         
