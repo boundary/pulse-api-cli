@@ -52,7 +52,7 @@ class AlarmCreate(ApiCli):
         self.parser.add_argument('-m', '--metric', dest='metricName', action='store', required=True,
                                  metavar='metric_name', help='Name of the metric to alarm')
         self.parser.add_argument('-g', '--trigger-aggregate', dest='aggregate', action='store',
-                                 choices=['sum', 'avg', 'max', 'min'], help='Metric aggregate to alarm upon')
+                                 choices=['SUM', 'AVG', 'MAX', 'MIN'], help='Metric aggregate to alarm upon')
         self.parser.add_argument('-o', '--trigger-operation', dest='operation', action='store',
                                  choices=['eq', 'gt', 'lt'], help='Trigger threshold comparison')
         self.parser.add_argument('-v', '--trigger-threshold', dest='threshold', action='store', metavar='value',
