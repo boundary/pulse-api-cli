@@ -21,9 +21,9 @@ class MetricCommon (ApiCli):
         ApiCli.__init__(self)
         
     def extractFields(self, metric):
-        '''
+        """
         Extract only the required fields for the create/update API call
-        '''
+        """
         m = {}
         if 'name' in metric:
             m['name'] = metric['name']

@@ -20,7 +20,6 @@ import logging
 import os
 import requests
 import urllib2
-import json
 import urllib
 
 """
@@ -28,9 +27,14 @@ Base class for all the Boundary CLI commands
 """
 
 
-class ApiCli():
+class ApiCli:
 
     def __init__(self):
+        # Properties
+        self._cli_description = None
+        self._method = None
+        self._path = None
+
         self.args = None
         self.logLevel = None
         self.message = None
@@ -55,6 +59,65 @@ class ApiCli():
                        "error": logging.ERROR,
                        "critical": logging.CRITICAL}
 
+    @staticmethod
+    def raise_attribute_change_error(self, name):
+        raise AttributeError("Cannot change property " + name)
+
+    @staticmethod
+    def raise_attribute_delete_error(self, name):
+        raise AttributeError("Cannot delete property " + name)
+
+    #
+    # Description
+    #
+    @property
+    def cli_description(self):
+        """
+        """
+        return self._cli_description
+
+    @cli_description.setter
+    def cli_description(self, value):
+        """
+        """
+        self._cli_description = value
+
+    @cli_description.deleter
+    def cli_description(self):
+        """
+        """
+        ApiCli.raise_attribute_delete_error(self, 'cli_description')
+
+    #
+    # method
+    #
+    @property
+    def method(self):
+            return self._method
+
+    @method.setter
+    def method(self, value):
+        self._method = value
+
+    @method.deleter
+    def method(self):
+        ApiCli.raise_attribute_delete_error('method')
+
+    #
+    # path
+    #
+    @property
+    def path(self):
+        return self._path
+
+    @path.setter
+    def path(self, value):
+        self._path = value
+
+    @path.deleter
+    def path(self):
+        ApiCli.raise_attribute_delete_error('path')
+
     def getDescription(self):
         """
         Returns a description of the CLI
@@ -78,13 +141,17 @@ class ApiCli():
         """
         Configure handling of command line arguments.
         """
-        self.parser.add_argument('-l', '--log-level', dest='logLevel', action='store', choices=['debug', 'info', 'warning', 'error', 'critical'],
-                             help='Sets logging level to one of debug,info,warning,error,critical. Default is logging is disabled')
-        self.parser.add_argument('-a', '--api-host', dest='apihost', action='store', metavar="api_host", help='Boundary API host endpoint')
+        self.parser.add_argument('-l', '--log-level', dest='logLevel', action='store',
+                                 choices=['debug', 'info', 'warning', 'error', 'critical'],
+                                 help='Sets logging level to one of debug,info,warning,error,critical.' +
+                                      'Default is logging is disabled')
+        self.parser.add_argument('-a', '--api-host', dest='apihost', action='store', metavar="api_host",
+                                 help='Boundary API host endpoint')
         self.parser.add_argument('-e', '--email', dest='email', action='store', metavar="e_mail",
-                             help='e-mail that has access to the Boundary account')
-        self.parser.add_argument('-t', '--api-token', dest='apitoken', required=False, action='store', metavar="api_token",
-                             help='API token for given e-mail that has access to the Boundary account')
+                                 help='e-mail that has access to the Boundary account')
+        self.parser.add_argument('-t', '--api-token', dest='apitoken', required=False, action='store',
+                                 metavar="api_token",
+                                 help='API token for given e-mail that has access to the Boundary account')
     
     def parseArgs(self):
         """
@@ -181,6 +248,7 @@ class ApiCli():
         self.url = "{0}://{1}/{2}{3}".format(self.scheme, self.apihost, self.path, self.getUrlParameters())
 
         result = self.methods[self.method]()
+
         if result.status_code != urllib2.httplib.OK:
             logging.error(self.url)
             logging.error(self.method)

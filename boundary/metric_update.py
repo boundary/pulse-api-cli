@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 #
 # Copyright 2014-2015 Boundary, Inc.
 #
@@ -14,8 +13,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-from boundary.metric_create import MetricCreate
 
-if __name__ == "__main__":
-    c = MetricCreate()
-    c.execute()
+from metric_modify import MetricModify
+
+class MetricUpdate (MetricModify):
+     
+    def __init__(self):
+        """
+        """
+        MetricModify.__init__(self)
+        self.method = "PUT"
+        self.description = "Updates a metric definition in an Boundary account"
+         
+    def getDescription(self):
+        """
+        """
+        return "Updates a metric definition in an Boundary account"
