@@ -13,21 +13,38 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-from api_cli import ApiCli
+from boundary.metric_common import MetricCommon
+from six.moves import http_client
+import json
 
 
-class MetricList(ApiCli):
+class MetricList(MetricCommon):
     def __init__(self):
-        ApiCli.__init__(self)
+        MetricCommon.__init__(self)
         self.path = "v1/metrics"
 
     def addArguments(self):
         """
         """
-        ApiCli.addArguments(self)
+        MetricCommon.addArguments(self)
 
     def getDescription(self):
         """
         Text describing this command
         """
         return "Lists the defined metrics in a Boundary account"
+
+    def handleResults(self, result):
+        # Only process if we get HTTP result of 200
+        if result.status_code == http_client.OK:
+            metrics = json.loads(result.text)
+            m = []
+            for metric in metrics['result']:
+                new_metric = self.extractFields(metric)
+                m.append(new_metric)
+
+            metrics['result'] = m
+            # pretty print the JSON output
+            out = json.dumps(metrics, sort_keys=True, indent=4, separators=(',', ': '))
+            print out
+
