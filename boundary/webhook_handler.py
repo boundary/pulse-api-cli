@@ -27,7 +27,6 @@ class WebHookBase(object):
     def _raiseAttributeChangeError(self, propertyName):
         raise AttributeError("Cannot change property " + propertyName)
 
-
     def _raiseAttributeDeleteError(self, propertyName):
         raise AttributeError("Cannot delete property " + propertyName)
 
@@ -50,7 +49,6 @@ class WebHookMetric(WebHookBase):
             self._type = type
         else:
             raise AttributeError("Type not one of: " + str(types))
-
 
     #
     # id
