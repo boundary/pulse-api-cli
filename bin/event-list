@@ -14,8 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-from boundary.alarm_create import AlarmCreate
+from boundary import EventList
 
 if __name__ == "__main__":
-    c = AlarmCreate()
+    c = EventList()
     c.execute()
