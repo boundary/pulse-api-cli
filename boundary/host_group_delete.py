@@ -15,27 +15,27 @@
 #
 from api_cli import ApiCli
 
-class HostGroupDelete (ApiCli):
-     
+
+class HostGroupDelete(ApiCli):
     def __init__(self):
         ApiCli.__init__(self)
         self.method = "DELETE"
-        self.path="v1/hostgroups"
-        
+        self.path = "v1/hostgroups"
+
         self.hostGroupId = ""
         self.force = False
-        
+
     def addArguments(self):
         ApiCli.addArguments(self)
-        self.parser.add_argument('-i', '--host-group-id', dest='hostGroupId',action='store',
-                                 required=True,help='Host group id to delete')
-        self.parser.add_argument('-f', '--force', dest='force',action='store_true',
+        self.parser.add_argument('-i', '--host-group-id', dest='hostGroupId', metavar='host_group_id',
+                                 action='store', required=True, help='Host group id to delete')
+        self.parser.add_argument('-f', '--force', dest='force', action='store_true',
                                  help='Remove the host group, even if in use by a dashboard or alarm')
 
     def getArguments(self):
-        '''
+        """
         Extracts the specific arguments of this CLI
-        '''
+        """
         ApiCli.getArguments(self)
         if self.args.hostGroupId is not None:
             self.hostGroupId = self.args.hostGroupId
@@ -44,9 +44,8 @@ class HostGroupDelete (ApiCli):
 
         if self.force:
             self.url_parameters = {"forceRemove": True}
-             
+
         self.path = "v1/hostgroup/{0}".format(str(self.hostGroupId))
-         
+
     def getDescription(self):
         return "Deletes a host group definition by id from a Boundary account"
-    

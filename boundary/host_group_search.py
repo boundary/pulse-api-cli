@@ -64,8 +64,8 @@ class HostGroupSearch(ApiCli):
 
     def addArguments(self):
         ApiCli.addArguments(self)
-        self.parser.add_argument('-n', '--host-group-name', dest='hostGroupName', action='store', required=True,
-                                 help='Host group name')
+        self.parser.add_argument('-n', '--host-group-name', dest='hostGroupName', metavar="host_group_name",
+                                 action='store', required=True,help='Host group name')
 
     def getArguments(self):
         """
@@ -76,4 +76,4 @@ class HostGroupSearch(ApiCli):
             self.url_parameters = {"name": self.args.hostGroupName}
 
     def getDescription(self):
-        return "Searches by name a Host Group in an Boundary account"
+        return "Searches for Host Group by name in an Boundary account"
