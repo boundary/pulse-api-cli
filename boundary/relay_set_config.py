@@ -16,12 +16,23 @@
 
 from api_cli import ApiCli
 
+
 class RelaySetConfig(ApiCli):
 
     def __init__(self):
-        super().__init__(self)
-        self.path = "v1/hostgroups"
+        ApiCli.__init__()
+        self.path = "v1/relays"
         self.sources = None
+
+    def addArguments(self):
+        """
+        """
+        ApiCli.addArguments()
+        self.parser.add_argument('-n', '--name', metavar='meter', dest='meter', action='store',required=True,
+                                 help='Name of the meter to set plugin configuration information')
+
+    def getArguments(self):
+        ApiCli.getArguments()
 
     def getDescription(self):
         return "Pushes relay configuration to a meter"

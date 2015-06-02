@@ -22,6 +22,8 @@ class MetricGet (MetricCommon):
     def __init__(self):
         MetricCommon.__init__(self)
         self.path = "v1/metrics"
+        self.metricName = None
+        self.metrics = None
         
     def addArguments(self):
         MetricCommon.addArguments(self)
@@ -33,12 +35,12 @@ class MetricGet (MetricCommon):
     def getArguments(self):
         MetricCommon.getArguments(self)
         
-        if self.args.metricName != None:
+        if self.args.metricName is not None:
             self.metricName = self.args.metricName
     
     def handleResults(self, result):
         metric = None
-        # Only process of we get HTTP result of 200
+        # Only process if we get HTTP result of 200
         if result.status_code == http_client.OK:
             self.metrics = json.loads(result.text)
             

@@ -25,7 +25,7 @@ Sets creates or updates a metric from a JSON file
 """
 
 
-class MetricImport(MetricCommon):
+class MetricCreateBatch(MetricCommon):
 
     def __init__(self):
         """

@@ -1,7 +1,13 @@
 # Alarm
 
+Commands to administer definitions of metric alarms in a Boundary account.
+
 ## alarm-create
-```
+
+Creates a alarm definition in a Boundary account.
+
+### Usage
+```bash
 usage: alarm-create [-h] [-l {debug,info,warning,error,critical}]
                     [-a api_host] [-e e_mail] [-t api_token] -n alarm_name
                     [-m metric_name] [-g aggregate] [-o operation] [-v value]
@@ -52,11 +58,39 @@ optional arguments:
 
 ## alarm-delete
 
+```bash
+usage: alarm-delete [-h] [-l {debug,info,warning,error,critical}]
+                    [-a api_host] [-e e_mail] [-t api_token] -i alarm-id
+
+Deletes a metric definition from a Boundary account
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -l {debug,info,warning,error,critical}, --log-level {debug,info,warning,error,critical}
+                        Sets logging level to one of
+                        debug,info,warning,error,critical. Default is logging
+                        is disabled
+  -a api_host, --api-host api_host
+                        Boundary API host endpoint
+  -e e_mail, --email e_mail
+                        e-mail that has access to the Boundary account
+  -t api_token, --api-token api_token
+                        API token for given e-mail that has access to the
+                        Boundary account
+  -i alarm-id, --alarm-id alarm-id
+                        Alarm identifier
+```
+
+
 ### Examples
 
 ## alarm-list
 
-```
+Returns a list of alarm definitions from a Boundary account
+
+#### Usage
+
+```bash
 usage: alarm-list [-h] [-l {debug,info,warning,error,critical}] [-a api_host]
                   [-e e_mail] [-t api_token]
 
@@ -77,6 +111,8 @@ optional arguments:
                         Boundary account
 ```
 
+#### Examples
+
 ## alarm-update
 
-### Usage
+### Examples

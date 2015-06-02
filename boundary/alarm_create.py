@@ -45,6 +45,8 @@ class AlarmCreate(ApiCli):
                           '12 hours': 43200
                           }
 
+        self.cli_description = "Creates a new metric definition in an Boundary account"
+
     def addArguments(self):
         ApiCli.addArguments(self)
         self.parser.add_argument('-n', '--alarm-name', dest='alarmName', action='store', required=True,
@@ -136,8 +138,8 @@ class AlarmCreate(ApiCli):
         self.path = 'v1/alarms'
         self.headers = {'Content-Type': 'application/json'}
 
-    def validateArguments(self):
-        return ApiCli.validateArguments(self)
-
     def getDescription(self):
         return "Creates a new metric definition in an Boundary account"
+
+
+

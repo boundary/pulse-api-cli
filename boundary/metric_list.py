@@ -16,17 +16,14 @@
 from boundary.metric_common import MetricCommon
 from six.moves import http_client
 import json
+import sys
 
 
 class MetricList(MetricCommon):
     def __init__(self):
         MetricCommon.__init__(self)
         self.path = "v1/metrics"
-
-    def addArguments(self):
-        """
-        """
-        MetricCommon.addArguments(self)
+        self.cli_description = "Lists the defined metrics in a Boundary account"
 
     def getDescription(self):
         """
@@ -46,5 +43,5 @@ class MetricList(MetricCommon):
             metrics['result'] = m
             # pretty print the JSON output
             out = json.dumps(metrics, sort_keys=True, indent=4, separators=(',', ': '))
-            print out
+            print(out)
 
