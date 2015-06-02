@@ -13,17 +13,25 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-from api_cli import ApiCli
+from boundary import ApiCli
+from six.moves import http_client
+import json
 
 
-class EventList (ApiCli):
-     
+class EventList(ApiCli):
     def __init__(self):
         ApiCli.__init__(self)
         self.path = "v1/events"
-        
+
     def addArguments(self):
         ApiCli.addArguments(self)
-         
+
     def getDescription(self):
         return "Lists the events in a Boundary account"
+
+    def handleResults(self, result):
+        # Only process if we get HTTP result of 200
+        if result.status_code == http_client.OK:
+            out = json.dumps(json.loads(result.text), sort_keys=True, indent=4, separators=(',', ': '))
+            print(out)
+
