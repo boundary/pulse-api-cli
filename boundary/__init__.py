@@ -53,6 +53,7 @@ from .plugin_manifest import PluginManifest
 from .plugin_remove import PluginRemove
 from .plugin_uninstall import PluginUninstall
 
+from .source_delete import SourceDelete
 from .source_list import SourceList
 
 from .relay_list import RelayList
