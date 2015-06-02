@@ -24,6 +24,7 @@ from .alarm_list import AlarmList
 from .action_installed import ActionInstalled
 from .action_types import ActionTypes
 
+from .host_group_modify import HostGroupModify
 from .host_group_create import HostGroupCreate
 from .host_group_delete import HostGroupDelete
 from .host_group_get import HostGroupGet
@@ -52,5 +53,8 @@ from .plugin_manifest import PluginManifest
 from .plugin_remove import PluginRemove
 from .plugin_uninstall import PluginUninstall
 
+from .source_list import SourceList
+
 from .relay_list import RelayList
+
 from .user_get import UserGet
