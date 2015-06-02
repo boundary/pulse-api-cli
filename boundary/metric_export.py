@@ -19,7 +19,7 @@
 Exports metrics from a Boundary account with the ability to filter on metric name
 """
 from six.moves import http_client
-from metric_common import MetricCommon
+from boundary import MetricCommon
 import json
 import re
 
