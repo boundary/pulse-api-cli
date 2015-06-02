@@ -46,7 +46,6 @@ class SourceDelete(ApiCli):
                 payload['names'].append(s)
 
         self.data = json.dumps(payload, sort_keys=True)
-        print(self.data)
         self.headers = {'Content-Type': 'application/json', "Accept": "application/json"}
 
     def getDescription(self):
