@@ -13,6 +13,7 @@ setup(
       'bin/alarm-list',
       'bin/action-installed',
       'bin/action-types',
+      'bin/event-list',
       'bin/hostgroup-create',
       'bin/hostgroup-delete',
       'bin/hostgroup-get',
