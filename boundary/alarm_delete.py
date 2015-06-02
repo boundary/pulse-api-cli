@@ -14,10 +14,10 @@
 # limitations under the License.
 #
 """
-Implements command to remove a metric definition from a Boundary account.
+Implements command to remove an alarm definition from a Boundary account.
 """
-
-from api_cli import ApiCli
+from six.moves import http_client
+from boundary import ApiCli
 
 """
 Uses the following Boundary API:
@@ -51,12 +51,16 @@ class AlarmDelete(ApiCli):
 
         self.path = "v1/alarm/{0}".format(self.alarmId)
 
-    def validateArguments(self):
-        """
-        """
-        return ApiCli.validateArguments(self)
-
     def getDescription(self):
         """
         """
-        return "Deletes a metric definition from a Boundary account"
+        return "Deletes an alarm definition from a Boundary account"
+
+    def handleResults(self, result):
+        """
+        Handle the results of the API call
+        """
+
+        # Only process if we get HTTP return code other 200.
+        if result.status_code != http_client.OK:
+            print(result.text)
