@@ -27,9 +27,17 @@ Base class for all the Boundary CLI commands
 """
 
 
-class ApiCli:
+class ApiCli(object):
 
     def __init__(self):
+        # Construct a dictionary with each of the HTTP methods that we support
+        self.methods = {"DELETE": self.doDelete, "GET": self.doGet, "POST": self.doPost, "PUT": self.doPut}
+        self.levels = {"debug": logging.DEBUG,
+                       "info": logging.INFO,
+                       "warn": logging.WARN,
+                       "error": logging.ERROR,
+                       "critical": logging.CRITICAL}
+
         # Properties
         self._cli_description = None
         self._method = None
@@ -50,21 +58,13 @@ class ApiCli:
         self.headers = None
         self.data = None
         self.url = None
-    
-        # Construct a dictionary with each of the HTTP methods that we support
-        self.methods = {"DELETE": self.doDelete, "GET": self.doGet, "POST": self.doPost, "PUT": self.doPut}
-        self.levels = {"debug": logging.DEBUG,
-                       "info": logging.INFO,
-                       "warn": logging.WARN,
-                       "error": logging.ERROR,
-                       "critical": logging.CRITICAL}
 
     @staticmethod
-    def raise_attribute_change_error(self, name):
+    def raise_attribute_change_error(name):
         raise AttributeError("Cannot change property " + name)
 
     @staticmethod
-    def raise_attribute_delete_error(self, name):
+    def raise_attribute_delete_error(name):
         raise AttributeError("Cannot delete property " + name)
 
     #
@@ -93,14 +93,25 @@ class ApiCli:
     #
     @property
     def method(self):
-            return self._method
+        """
+        """
+        return self._method
 
     @method.setter
     def method(self, value):
-        self._method = value
+        """
+        Before assigning the value validate that is in one of the
+        HTTP methods we implement
+        """
+        keys = self.methods.keys()
+        if value not in keys:
+            raise AttributeError("Method value not in " + str(keys))
+        else:
+            self._method = value
 
     @method.deleter
     def method(self):
+        print("delete")
         ApiCli.raise_attribute_delete_error('method')
 
     #
@@ -275,4 +286,8 @@ class ApiCli:
             self.callAPI()
         else:
             print(self.message)
+
+    if __name__ == "__main__":
+        import doctest
+        doctest.testmod()
 
