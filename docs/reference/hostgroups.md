@@ -1,5 +1,5 @@
 
-# hostgroup-delete
+## hostgroup-delete
 
 ```bash
 usage: hostgroup-delete [-h] [-l {debug,info,warning,error,critical}]
