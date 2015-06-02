@@ -30,6 +30,7 @@ from .host_group_search import HostGroupSearch
 from .host_group_update import HostGroupUpdate
 from .measurement_create import MeasurementCreate
 from .measurement_get import MeasurementGet
+from .metric_modify import MetricModify
 from .metric_create import MetricCreate
 from .metric_create_batch import MetricCreateBatch
 from .metric_delete import MetricDelete
