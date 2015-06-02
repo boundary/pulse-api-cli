@@ -11,4 +11,5 @@ pages:
 - ['reference/measurements.md','Reference','Measurements']
 - ['reference/metrics.md','Reference','Metrics']
 - ['reference/plugins.md','Reference','Plugins']
+- ['reference/sources.md','Reference','Sources']
 
