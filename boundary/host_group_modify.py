@@ -32,6 +32,7 @@ class HostGroupModify(ApiCli):
 
     def addArguments(self):
         ApiCli.addArguments(self)
+
         self.parser.add_argument('-n', '--host-group-name', dest='hostGroupName', action='store', required=True,
                                  metavar="host_group_name", help='Host group name')
         self.parser.add_argument('-s', '--sources', dest='sources', action='store', required=True, metavar='sources',
@@ -51,9 +52,10 @@ class HostGroupModify(ApiCli):
         if self.args.sources is not None:
             self.sources = self.args.sources
 
-        payload = {'name': self.hostGroupName, 'hostnames': []}
+        payload = {"name": self.hostGroupName, "hostnames": []}
         if self.sources is not None:
-            sourceList = str.split(self.sources, ',')
-            for s in sourceList:
+            source_list = str.split(self.sources, ',')
+            for s in source_list:
                 payload['hostnames'].append(s)
         self.data = json.dumps(payload, sort_keys=True)
+        self.headers = {'Content-Type': 'application/json', "Accept": "application/json"}
