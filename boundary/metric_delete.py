@@ -25,30 +25,30 @@ Uses the following Boundary API:
 http://premium-documentation.boundary.com/v1/delete/metrics/:metric
 """
 
-class MetricDelete (ApiCli):
-     
+
+class MetricDelete(ApiCli):
     def __init__(self):
         ApiCli.__init__(self)
         self.method = "DELETE"
         self.metricName = None
-        
+
     def addArguments(self):
         ApiCli.addArguments(self)
-        self.parser.add_argument('-n', '--metric-name', dest='metricName',action='store',required=True,metavar='metric_name',help='Metric identifier')
-        
+        self.parser.add_argument('-n', '--metric-name', dest='metricName', action='store', required=True,
+                                 metavar='metric_name', help='Metric identifier')
+
     def getArguments(self):
         '''
         Extracts the specific arguments of this CLI
         '''
         ApiCli.getArguments(self)
         if self.args.metricName != None:
-            self.metricName = self.args.metricName            
-       
+            self.metricName = self.args.metricName
+
         self.path = "v1/metrics/{0}".format(self.metricName)
-    
+
     def validateArguments(self):
         return ApiCli.validateArguments(self)
-         
+
     def getDescription(self):
         return "Deletes a metric definition from a Boundary account"
-    
