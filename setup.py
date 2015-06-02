@@ -40,6 +40,8 @@ setup(
       'bin/plugin-remove',
       'bin/plugin-uninstall',
       'bin/relay-list',
+      'bin/source-delete',
+      'bin/source-list',
       'bin/user-get',
     ],
     license='LICENSE.txt',
