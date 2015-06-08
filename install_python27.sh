@@ -5,13 +5,74 @@
 # https://www.digitalocean.com/community/tutorials/how-to-set-up-python-2-7-6-and-3-3-3-on-centos-6-4
 #
 
+function DetectPackageManager() {
+
+  VERSION=$(cat /proc/version)  > /dev/null
+  echo $VERSION | grep -i ubuntu > /dev/null
+
+  if [ $? -eq 0 ]
+  then
+    package_manager=apt
+  fi
+
+  echo $VERSION | grep -i centos > /dev/null
+  if [ $? -eq 0 ]
+  then
+    package_manager=rpm
+  fi
+
+  echo $package_manager
+}
+
+function UpdatePackages() {
+
+    case $(DetectPackageManager) in
+    apt) sudo apt-get update -y 
+       ;;
+    rpm) sudo rpm update -y 
+       ;;
+    esac
+}
+
+function InstallPackage() {
+    typeset -r package_name=$1
+
+    case $(DetectPackageManager) in
+    apt) sudo apt-get install -y $package_name
+       ;;
+    rpm) sudo rpm install -y $package_name
+       ;;
+    *) echo "Unknown package manager, exiting" >&2
+       exit 1
+       ;;
+    esac
+}
+
+typeset -r PACKAGE_MANAGER=$(DetectPackageManager)
 set -x
 
-# sudo yum update -y
-sudo yum install -y epel-release
-sudo yum groupinstall -y development
+#sudo yum update -y
+UpdatePackages
 
-sudo yum install -y zlib-dev openssl-devel sqlite-devel bzip2-devel wget xz-libs
+#sudo yum install -y epel-release
+if $PACKAGE_MANAGER == 'rpm'
+then
+    sudo yum groupinstall -y development
+fi
+
+if $PACKAGE_MANAGER == 'apt'
+then
+   InstallPackage gcc 
+fi
+
+
+#sudo yum install -y zlib-dev openssl-devel sqlite-devel bzip2-devel wget xz-libs
+InstallPackage zlib-dev
+InstallPackage openssl-devel
+InstallPackage sqlite-devel
+InstallPackage bzip2-devel
+InstallPackage wget
+InstallPackage xz-libs
 
 PYTHON_VERSION=2.7.9
 
@@ -57,7 +118,7 @@ tar -xvf setuptools-1.4.2.tar.gz
 # Enter the extracted directory:
 pushd setuptools-1.4.2
 
-# Install setuptools using the Python we've installed (2.7.6)
+# Install setuptools using the Python we've installed (2.7.9)
 sudo /usr/bin/local/bin/python2.7 setup.py install
 
 popd
