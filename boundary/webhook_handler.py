@@ -17,10 +17,10 @@ from BaseHTTPServer import BaseHTTPRequestHandler
 from BaseHTTPServer import HTTPServer
 import json
 import urllib2
-import ssl
+
+
 
 class WebHookBase(object):
-
     def __init__(self):
         pass
 
@@ -35,8 +35,7 @@ class WebHookBase(object):
 Wrapper for metric from Web Hook JSON payload
 """
 class WebHookMetric(WebHookBase):
-
-    def __init__(self,id,name,type):
+    def __init__(self, id, name, type):
         self._id = id
         self._name = name
 
@@ -58,7 +57,7 @@ class WebHookMetric(WebHookBase):
         return self._id
 
     @id.setter
-    def id(self,value):
+    def id(self, value):
         self._raiseAttributeChangeError('id')
 
     @id.deleter
@@ -73,7 +72,7 @@ class WebHookMetric(WebHookBase):
         return self._name
 
     @name.setter
-    def name(self,value):
+    def name(self, value):
         self._raiseAttributeChangeError('name')
 
     @name.deleter
@@ -88,7 +87,7 @@ class WebHookMetric(WebHookBase):
         return self._type
 
     @type.setter
-    def type(self,value):
+    def type(self, value):
         self._raiseAttributeChangeError('type')
 
     @type.deleter
@@ -100,8 +99,7 @@ class WebHookMetric(WebHookBase):
 Class wrapper for text attribute of Web Hook action JSON payload
 """
 class WebHookText(WebHookBase):
-
-    def __init__(self,isSet,serverName,link,labelHTML,labelText):
+    def __init__(self, isSet, serverName, link, labelHTML, labelText):
         self._isSet = isSet
         self._serverName = serverName
         self._link = link
@@ -131,7 +129,7 @@ class WebHookText(WebHookBase):
         self._serverName
 
     @serverName.setter
-    def serverName(self,value):
+    def serverName(self, value):
         self._raiseAttributeChangeError('serverName')
 
     @serverName.deleter
@@ -139,15 +137,7 @@ class WebHookText(WebHookBase):
         self._raiseAttributeDeleteError('serverName')
 
 
-    # "isSet": true,
-    # "serverName": "boundary-snmp-001",
-    # "link": "https://premium.boundary.com/7053/default?ival=60&marker=1431464024000!cpu",
-    # "labelHTML": "Server <strong>boundary-snmp-001</strong>'s avg CPU utilization is <strong style=\"color:#900\">81.7%</strong> which is greater than the threshold of 80.0% for 1.6s now",
-    # "labelText": "Server boundary-snmp-001's avg CPU utilization is 81.7% which is greater than the threshold of 80.0% for 1.6s now"
-
-
 class WebHookServer(WebHookBase):
-
     def __init__(self, isSet, hostname, aggregate, metric, value, threshold, time, link):
         """
         Constructor for a WebHookServer
@@ -172,8 +162,6 @@ class WebHookServer(WebHookBase):
     @isSet.deleter
     def self(self):
         self._raiseAttributeDeleteError('isSet')
-
-
 
 
 """
@@ -215,6 +203,7 @@ class WebHookAction(WebHookBase):
     @property
     def alarmName(self):
         return self._alarmName
+
     #
     # resolvedServers
     #
@@ -239,15 +228,14 @@ class WebHookAction(WebHookBase):
         print(self)
 
 
-
 class WebhookHandler(BaseHTTPRequestHandler):
     def __init__(self, request, client_address, server):
         BaseHTTPRequestHandler.__init__(self, request, client_address, server)
 
     def do_POST(self):
-        '''
+        """
         Handles the POST request sent by Boundary Url Action
-        '''
+        """
         self.send_response(urllib2.httplib.OK)
         self.end_headers()
         contentLength = int(self.headers['Content-Length'])
@@ -263,17 +251,13 @@ class WebhookHandler(BaseHTTPRequestHandler):
 
         return
 
-    def validateData(self,data):
+    def validateData(self, data):
         return True
 
-    def processPayload(self,json_data):
-
+    def processPayload(self, json_data):
         data = json.loads(json_data)
 
-
-
-
-    def handleAction(self,action):
+    def handleAction(self, action):
         print(action)
 
 
