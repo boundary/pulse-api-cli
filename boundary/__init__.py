@@ -50,6 +50,7 @@ from .metric_list import MetricList
 from .metric_ref import MetricRef
 from .metric_update import MetricUpdate
 
+from .plugin_base import PluginBase
 from .plugin_add import PluginAdd
 from .plugin_get import PluginGet
 from .plugin_get_components import PluginGetComponents
