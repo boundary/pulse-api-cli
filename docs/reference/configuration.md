@@ -1,4 +1,5 @@
-The Boundary CLI uses environment variables for configuration information (user, password, etc) to execute against the Boundary REST APIs, and optionally this information can be overridden via the command line.
+The Boundary CLI uses environment variables for authentication information (user, password, etc) and end-point 
+to execute against the Boundary REST APIs, and optionally this information can be overridden via the command line.
 
 ## Environment Variables
 
@@ -11,7 +12,8 @@ Environment variables are used to provide the credentials and the endpoint to ex
 | BOUNDARY\_API\_TOKEN | Boundary API token (e.g. _api.8cb8d721d8-9999_)  |
 
 </br>
-Use the following template to add to your Bash shell to set the environment values specific to your account:
+Use the following template, and replace with your account values, and add to your Bash shell `.bash_profile` or
+`.bashrc` to set the environment values specific to your account:
 
 ```bash
 export BOUNDARY_API_HOST="premium.boundary.com"
@@ -20,10 +22,10 @@ export BOUNDARY_API_TOKEN="api.8cb8d721d8-9999"
 ```
 
 
-
 ## Common Command Line Arguments
 
-Alternatively, you can provide credentials on the command line, as well configure the logging output, and get help on a specific command.
+Alternatively, you can provide credentials on the command line, as well as configure the logging output,
+and get help on a specific command.
 
 | Argument | Description                                    |
 |:---------|:-----------------------------------------------|
@@ -54,7 +56,9 @@ optional arguments:
 
 ## Command Specific Command Line Arguments
 
-Some CLI commands may require additional command line arguments to provide additional data required for an API call. Command line specific options can be displayed by running the command with a `-h` or `--help` as shown here for `metric-create`:
+Some CLI commands may require additional arguments to provide additional data required for an API call.
+Command line specific options can be displayed by running the command
+with a `-h` or `--help` as shown here for `metric-create`:
 
 ```bash
 $ metric-create -h
