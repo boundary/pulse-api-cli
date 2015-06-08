@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-from api_cli import ApiCli
+from boundary import ApiCli
 
 
 class MetricCommon (ApiCli):

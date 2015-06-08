@@ -13,11 +13,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-from api_cli import ApiCli
 import socket
 import time
-import requests
 import json
+
+from boundary import ApiCli
+import requests
 
 """
 Implements command line utility to add a measurement value to a Boundary account

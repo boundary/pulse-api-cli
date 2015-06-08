@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-from host_group_modify import HostGroupModify
+from boundary import HostGroupModify
 
 
 class HostGroupUpdate(HostGroupModify):

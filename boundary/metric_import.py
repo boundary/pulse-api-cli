@@ -15,8 +15,9 @@
 # limitations under the License.
 #
 
-from metric_common import MetricCommon
 import json
+
+from boundary import MetricCommon
 from six.moves import http_client
 
 """

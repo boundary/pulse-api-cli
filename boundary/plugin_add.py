@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-from plugin_base import PluginBase
+from boundary import PluginBase
 
 class PluginAdd (PluginBase):
      

@@ -13,8 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-from api_cli import ApiCli
 import json
+
+from boundary import ApiCli
 
 
 class HostGroupModify(ApiCli):

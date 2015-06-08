@@ -13,10 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-from boundary.metric_common import MetricCommon
-from six.moves import http_client
 import json
-import sys
+
+from boundary import MetricCommon
+from six.moves import http_client
 
 
 class MetricList(MetricCommon):

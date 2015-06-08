@@ -13,9 +13,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+import json
+
 from six.moves import http_client
 from metric_common import MetricCommon
-import json
+
 
 class MetricGet (MetricCommon):
      

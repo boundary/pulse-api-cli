@@ -16,12 +16,12 @@
 
 from boundary import ApiCli
 
-class SourceList (ApiCli):
-     
+
+class SourceList(ApiCli):
     def __init__(self):
         ApiCli.__init__(self)
         self.path = "v1/account/sources/"
         self.method = "GET"
-        
+
     def getDescription(self):
         return "Lists the sources in a Boundary account"

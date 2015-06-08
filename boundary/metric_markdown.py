@@ -15,11 +15,12 @@
 # limitations under the License.
 #
 
-from boundary.api_cli import ApiCli
 import json
-from boundary.plugin_manifest import PluginManifest
 import logging
 import urllib2
+
+from boundary import ApiCli
+from boundary import PluginManifest
 
 """
 Reads the plugin.json manifest file looks up the definition and then outputs a markdown table

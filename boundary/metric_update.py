@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-from metric_modify import MetricModify
+from boundary import MetricModify
 
 class MetricUpdate (MetricModify):
      
