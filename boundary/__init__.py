@@ -25,6 +25,7 @@ from .action_installed import ActionInstalled
 from .action_types import ActionTypes
 
 from .event_create import EventCreate
+from .event_get import EventGet
 from .event_list import EventList
 
 from .host_group_modify import HostGroupModify
@@ -46,6 +47,7 @@ from .metric_delete import MetricDelete
 from .metric_get import MetricGet
 from .metric_list import MetricList
 from .metric_ref import MetricRef
+from .metric_update import MetricUpdate
 
 from .plugin_add import PluginAdd
 from .plugin_get import PluginGet
