@@ -20,6 +20,7 @@ from .api_cli import ApiCli
 
 from .alarm_create import AlarmCreate
 from .alarm_list import AlarmList
+from .alarm_update import AlarmUpdate
 
 from .action_installed import ActionInstalled
 from .action_types import ActionTypes

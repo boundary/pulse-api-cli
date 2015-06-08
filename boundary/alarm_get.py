@@ -17,7 +17,7 @@
 Implements a command to get the information about an alarm
 """
 
-from api_cli import ApiCli
+from boundary import ApiCli
 
 """
 Uses the following Boundary API:
