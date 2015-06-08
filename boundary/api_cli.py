@@ -163,14 +163,14 @@ class ApiCli(object):
         self.parser.add_argument('-t', '--api-token', dest='apitoken', required=False, action='store',
                                  metavar="api_token",
                                  help='API token for given e-mail that has access to the Boundary account')
-    
+
     def parseArgs(self):
         """
         Handles the parse of the command line arguments
         """
         self.addArguments()
         self.args = self.parser.parse_args()
-    
+
     def configureLogging(self):
         """
         Configure logging based on command line options
@@ -186,24 +186,24 @@ class ApiCli(object):
         API Host, user, password, etc.
         """
         self.configureLogging()
-    
+
         if self.args.apihost is not None:
             self.apihost = self.args.apihost
         if self.args.email is not None:
             self.email = self.args.email
         if self.args.apitoken is not None:
             self.apitoken = self.args.apitoken
-        
+
         logging.debug("apihost: {0}".format(self.apihost))
         logging.debug("email: {0}".format(self.email))
         logging.debug("apitoken: {0}".format(self.apitoken))
-      
+
     def setErrorMessage(self, message):
         """
         Sets the error message to be displayed if an error occurs
         """
         self.message = message
-      
+
     def validateArguments(self):
         """
         Validates the command line arguments passed to the CLI
@@ -251,6 +251,12 @@ class ApiCli(object):
         """
         return requests.put(self.url, data=self.data, headers=self.headers, auth=(self.email, self.apitoken))
 
+    def good_response(self, status_code):
+        """
+        Determines what status codes represent a good response from an API call.
+        """
+        return status_code == urllib2.httplib.OK
+
     def callAPI(self):
         """
         Make an API call to get the metric definition
@@ -260,21 +266,21 @@ class ApiCli(object):
 
         result = self.methods[self.method]()
 
-        if result.status_code != urllib2.httplib.OK:
+        if not self.good_response(result.status_code):
             logging.error(self.url)
             logging.error(self.method)
             if self.data is not None:
                 logging.error(self.data)
             logging.error(result)
         self.handleResults(result)
-      
+
     def handleResults(self, result):
         """
         Call back function to be implemented by the CLI.
         Default is to just print the results to standard out
         """
         print(result.text)
-  
+
     def execute(self):
         """
         Run the steps to execute the CLI
