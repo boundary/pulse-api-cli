@@ -1,5 +1,12 @@
 ## action-installed
 
+
+**API Documentation**
+
+[http://premium-documentation.boundary.com/v1/get/actions/installed](http://premium-documentation.boundary.com/v1/get/actions/installed)
+
+**Usage**
+
 ```
 usage: action-installed [-h] [-l {debug,info,warning,error,critical}]
                         [-a api_host] [-e e_mail] [-t api_token]
@@ -23,6 +30,14 @@ optional arguments:
 
 
 ## action-types
+
+Commands to administer actions in a Boundary account.
+
+**API Documentation**
+
+http://premium-documentation.boundary.com/v1/get/actions
+
+**Usage**
 
 ```
 usage: action-types [-h] [-l {debug,info,warning,error,critical}]
