@@ -2,6 +2,12 @@ Commands to administer definitions of metric alarms in a Boundary account.
 
 ## alarm-create
 
+**API Documentation**
+
+[http://premium-documentation.boundary.com/v1/post/alarms](http://premium-documentation.boundary.com/v1/post/alarms)
+
+**Usage**
+
 ```bash
 (python)lerma:boundary-api-cli davidg$ alarm-create -h
 usage: alarm-create [-h] [-l {debug,info,warning,error,critical}]
@@ -55,6 +61,12 @@ optional arguments:
 
 ## alarm-delete
 
+**API Documentation**
+
+[http://premium-documentation.boundary.com/v1/delete/alarm/:alarmId](http://premium-documentation.boundary.com/v1/delete/alarm/:alarmId)
+
+**Usage**
+
 ```bash
 usage: alarm-delete [-h] [-l {debug,info,warning,error,critical}]
                     [-a api_host] [-e e_mail] [-t api_token] -i alarm-id
@@ -80,6 +92,12 @@ optional arguments:
 
 ## alarm-list
 
+**API Documentation**
+
+[http://premium-documentation.boundary.com/v1/get/alarms](http://premium-documentation.boundary.com/v1/get/alarms)
+
+**Usage**
+
 ```bash
 usage: alarm-list [-h] [-l {debug,info,warning,error,critical}] [-a api_host]
                   [-e e_mail] [-t api_token]
@@ -101,3 +119,10 @@ optional arguments:
                         Boundary account
 
 ```
+
+## alarm-update
+
+**API Documentation**
+
+
+**Usage**

@@ -1,8 +1,8 @@
 site_name: Boundary API CLI
 theme: readthedocs
 pages:
-- [index.md, Home]
-- ['reference/install.md','Getting Started','Install']
+- ['index.md', 'Home']
+- ['install.md','Getting Started','Install']
 - ['reference/configuration.md','Getting Started','Configuring']
 - ['reference/examples.md','Using','Examples']
 - ['reference/actions.md','Reference','Actions']
