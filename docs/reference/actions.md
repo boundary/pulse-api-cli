@@ -1,5 +1,6 @@
-## action-installed
+Commands to administer actions in a Boundary account.
 
+## action-installed
 
 **API Documentation**
 
@@ -31,11 +32,9 @@ optional arguments:
 
 ## action-types
 
-Commands to administer actions in a Boundary account.
-
 **API Documentation**
 
-http://premium-documentation.boundary.com/v1/get/actions
+[http://premium-documentation.boundary.com/v1/get/actions](http://premium-documentation.boundary.com/v1/get/actions)
 
 **Usage**
 

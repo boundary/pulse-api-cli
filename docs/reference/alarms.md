@@ -9,7 +9,6 @@ Commands to administer definitions of metric alarms in a Boundary account.
 **Usage**
 
 ```bash
-(python)lerma:boundary-api-cli davidg$ alarm-create -h
 usage: alarm-create [-h] [-l {debug,info,warning,error,critical}]
                     [-a api_host] [-e e_mail] [-t api_token] -n alarm_name -m
                     metric_name -g {sum,avg,max,min} -o {eq,gt,lt} -v value -r

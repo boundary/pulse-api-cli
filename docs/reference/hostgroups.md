@@ -1,5 +1,12 @@
+Commands to administer host groups in a Boundary account.
 
 ## hostgroup-delete
+
+**API Documentation**
+
+[http://premium-documentation.boundary.com/v1/delete/hostgroup/:hostgroupId](http://premium-documentation.boundary.com/v1/delete/hostgroup/:hostgroupId)
+
+**Usage**
 
 ```bash
 usage: hostgroup-delete [-h] [-l {debug,info,warning,error,critical}]
@@ -29,6 +36,12 @@ optional arguments:
 
 ## hostgroup-get
 
+**API Documentation**
+
+[http://premium-documentation.boundary.com/v1/get/hostgroup/:hostgroupId](http://premium-documentation.boundary.com/v1/get/hostgroup/:hostgroupId)
+
+**Usage**
+
 ```bash
 usage: hostgroup-get [-h] [-l {debug,info,warning,error,critical}]
                      [-a api_host] [-e e_mail] [-t api_token] -i host_group_id
@@ -54,6 +67,12 @@ optional arguments:
 
 ## hostgroup-list
 
+**API Documentation**
+
+[http://premium-documentation.boundary.com/v1/get/hostgroups](http://premium-documentation.boundary.com/v1/get/hostgroups)
+
+**Usage**
+
 ```bash
 usage: hostgroup-list [-h] [-l {debug,info,warning,error,critical}]
                       [-a api_host] [-e e_mail] [-t api_token]
@@ -77,6 +96,12 @@ optional arguments:
 
 
 ## hostgroup-search
+
+**API Documentation**
+
+[http://premium-documentation.boundary.com/v1/get/hostgroups/search](http://premium-documentation.boundary.com/v1/get/hostgroups/search)
+
+**Usage**
 
 ```bash
 usage: hostgroup-search [-h] [-l {debug,info,warning,error,critical}]

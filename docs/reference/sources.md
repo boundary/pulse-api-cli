@@ -1,7 +1,12 @@
+Commands to administer sources in a Boundary account.
+
 ## source-delete
 
+**API Documentation**
+
+**Usage**
+
 ```bash
-(python)lerma:boundary-api-cli davidg$ source-delete -h
 usage: source-delete [-h] [-l {debug,info,warning,error,critical}]
                      [-a api_host] [-e e_mail] [-t api_token] -s
                      source1[,source2]
@@ -23,10 +28,15 @@ optional arguments:
                         Boundary account
   -s source1[,source2], --sources source1[,source2]
                         List of sources to delete
-
 ```
 
 ## source-list
+
+**API Documentation**
+
+[http://premium-documentation.boundary.com/v1/get/account/sources/:lastModified?](http://premium-documentation.boundary.com/v1/get/account/sources/:lastModified?)
+
+**Usage**
 
 ```bash
 usage: source-list [-h] [-l {debug,info,warning,error,critical}] [-a api_host]
