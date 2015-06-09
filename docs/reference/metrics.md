@@ -14,9 +14,8 @@ Commands to administer metric definitions in a Boundary account.
 usage: metric-create [-h] [-l {debug,info,warning,error,critical}]
                      [-a api_host] [-e e_mail] [-t api_token] -n metric_name
                      -d display_name -s display_short_name [-i description] -g
-                     {AVG,MAX,MIN,SUM}
-                     [-u {percent,number,bytecount,duration}] [-r resolution]
-                     [-x]
+                     {AVG,MAX,MIN,SUM} -u {percent,number,bytecount,duration}
+                     [-r resolution] [-x]
 
 Creates a new metric definition in an Boundary account
 
@@ -180,15 +179,16 @@ optional arguments:
 
 **API Documentation**
 
+[http://premium-documentation.boundary.com/v1/put/metrics/:metricName](http://premium-documentation.boundary.com/v1/put/metrics/:metricName)
+
 **Usage**
 
 ```bash
 usage: metric-update [-h] [-l {debug,info,warning,error,critical}]
                      [-a api_host] [-e e_mail] [-t api_token] -n metric_name
                      -d display_name -s display_short_name [-i description] -g
-                     {AVG,MAX,MIN,SUM}
-                     [-u {percent,number,bytecount,duration}] [-r resolution]
-                     [-x]
+                     {AVG,MAX,MIN,SUM} -u {percent,number,bytecount,duration}
+                     [-r resolution] [-x]
 
 Updates a metric definition in an Boundary account
 
