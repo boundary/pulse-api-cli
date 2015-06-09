@@ -13,8 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-from boundary import MetricCommon
 import json
+import logging
+
+from boundary import MetricCommon
 
 """
 Common Base class for defining and update metric definitions
@@ -98,12 +100,12 @@ class MetricModify (MetricCommon):
         if self.aggregate is not None:
             data['defaultAggregate'] = self.aggregate
         if self.unit is not None:
-            data['unit'] = self.unit,
+            data['unit'] = self.unit
         if self.resolution is not None:
             data['defaultResolutionMS'] = self.resolution
         if self.isDisabled is not None:
             data['isDisabled'] = self.isDisabled
-                    
+
         self.path = "v1/metrics/{0}".format(self.metricName)
         self.data = json.dumps(data, sort_keys=True)
         self.headers = {'Content-Type': 'application/json', "Accept": "application/json"}
