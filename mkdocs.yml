@@ -3,8 +3,8 @@ theme: readthedocs
 pages:
 - ['index.md', 'Home']
 - ['install.md','Getting Started','Install']
-- ['reference/configuration.md','Getting Started','Configuring']
-- ['reference/examples.md','Using','Examples']
+- ['configuration.md','Getting Started','Configuring']
+- ['examples.md','Using','Examples']
 - ['reference/actions.md','Reference','Actions']
 - ['reference/alarms.md','Reference','Alarms']
 - ['reference/hostgroups.md','Reference','Host Groups']
