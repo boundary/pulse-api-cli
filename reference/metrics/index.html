@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+
+        <title>Metrics - Boundary API CLI</title>
+
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.0.3.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-63924130-1', 'http://boundary.github.io/boundary-api-cli/');
+            ga('send', 'pageview');
+        </script>
+        
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+            <a class="navbar-brand" href="../..">Boundary API CLI</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Getting Started <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            <li >
+                                <a href="../../install">Installing</a>
+                            </li>
+                        
+                            <li >
+                                <a href="../../configuration">Configuring</a>
+                            </li>
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Using <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            <li >
+                                <a href="../../examples">Examples</a>
+                            </li>
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            <li >
+                                <a href="../actions">Actions</a>
+                            </li>
+                        
+                            <li >
+                                <a href="../alarms">Alarms</a>
+                            </li>
+                        
+                            <li >
+                                <a href="../hostgroups">Host Groups</a>
+                            </li>
+                        
+                            <li >
+                                <a href="../measurements">Measurements</a>
+                            </li>
+                        
+                            <li class="active">
+                                <a href=".">Metrics</a>
+                            </li>
+                        
+                            <li >
+                                <a href="../plugins">Plugins</a>
+                            </li>
+                        
+                            <li >
+                                <a href="../sources">Sources</a>
+                            </li>
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+            
+
+            
+            <!-- Search, Navigation and Repo links -->
+            <ul class="nav navbar-nav navbar-right">
+                
+                
+                <li >
+                    <a rel="next" href="../measurements">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </li>
+                <li >
+                    <a rel="prev" href="../plugins">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </li>
+                
+                
+            </ul>
+            
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#metrics">Metrics</a></li>
+        
+            <li><a href="#metric-create">metric-create</a></li>
+        
+            <li><a href="#metric-delete">metric-delete</a></li>
+        
+            <li><a href="#metric-export">metric-export</a></li>
+        
+            <li><a href="#metric-get">metric-get</a></li>
+        
+            <li><a href="#metric-import">metric-import</a></li>
+        
+            <li><a href="#metric-update">metric-update</a></li>
+        
+    
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h2 id="metrics">Metrics</h2>
+<p>Commands to administer metric definitions in a Boundary account.</p>
+<h3 id="metric-create">metric-create</h3>
+<p><strong>API Documentation</strong></p>
+<p><a href="http://premium-documentation.boundary.com/v1/post/metrics">http://premium-documentation.boundary.com/v1/post/metrics</a></p>
+<p><strong>Usage</strong></p>
+<pre><code class="bash">usage: metric-create [-h] [-l {debug,info,warning,error,critical}]
+                     [-a api_host] [-e e_mail] [-t api_token] -n metric_name
+                     -d display_name -s display_short_name [-i description] -g
+                     {AVG,MAX,MIN,SUM}
+                     [-u {percent,number,bytecount,duration}] [-r resolution]
+                     [-x]
+
+Creates a new metric definition in an Boundary account
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -l {debug,info,warning,error,critical}, --log-level {debug,info,warning,error,critical}
+                        Sets logging level to one of
+                        debug,info,warning,error,critical.Default is logging
+                        is disabled
+  -a api_host, --api-host api_host
+                        Boundary API host endpoint
+  -e e_mail, --email e_mail
+                        e-mail that has access to the Boundary account
+  -t api_token, --api-token api_token
+                        API token for given e-mail that has access to the
+                        Boundary account
+  -n metric_name, --metric-name metric_name
+                        Metric identifier
+  -d display_name, --display-name display_name
+                        Metric display name
+  -s display_short_name, --display-name-short display_short_name
+                        Metric short display name
+  -i description, --description description
+                        Metric description
+  -g {AVG,MAX,MIN,SUM}, --aggregate {AVG,MAX,MIN,SUM}
+                        Metric default aggregate
+  -u {percent,number,bytecount,duration}, --unit {percent,number,bytecount,duration}
+                        Metric unit
+  -r resolution, --resolution resolution
+                        Metric default resolution
+  -x, --is-disabled     Disable metric
+
+</code></pre>
+
+<h3 id="metric-delete">metric-delete</h3>
+<p><strong>API Documentation</strong></p>
+<p><a href="http://premium-documentation.boundary.com/v1/delete/metrics/:metric">http://premium-documentation.boundary.com/v1/delete/metrics/:metric</a></p>
+<p><strong>Usage</strong></p>
+<pre><code class="bash">usage: metric-delete [-h] [-l {debug,info,warning,error,critical}]
+                     [-a api_host] [-e e_mail] [-t api_token] -n metric_name
+
+Deletes a metric definition from a Boundary account
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -l {debug,info,warning,error,critical}, --log-level {debug,info,warning,error,critical}
+                        Sets logging level to one of
+                        debug,info,warning,error,critical.Default is logging
+                        is disabled
+  -a api_host, --api-host api_host
+                        Boundary API host endpoint
+  -e e_mail, --email e_mail
+                        e-mail that has access to the Boundary account
+  -t api_token, --api-token api_token
+                        API token for given e-mail that has access to the
+                        Boundary account
+  -n metric_name, --metric-name metric_name
+                        Metric identifier
+</code></pre>
+
+<h3 id="metric-export">metric-export</h3>
+<p><strong>API Documentation</strong></p>
+<p><a href="http://premium-documentation.boundary.com/v1/get/metrics">http://premium-documentation.boundary.com/v1/get/metrics</a></p>
+<p><strong>Usage</strong></p>
+<pre><code class="bash">usage: metric-export [-h] [-l {debug,info,warning,error,critical}]
+                     [-a api_host] [-e e_mail] [-t api_token] [-p pattern]
+
+Export the metric definitions from a Boundary account
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -l {debug,info,warning,error,critical}, --log-level {debug,info,warning,error,critical}
+                        Sets logging level to one of
+                        debug,info,warning,error,critical.Default is logging
+                        is disabled
+  -a api_host, --api-host api_host
+                        Boundary API host endpoint
+  -e e_mail, --email e_mail
+                        e-mail that has access to the Boundary account
+  -t api_token, --api-token api_token
+                        API token for given e-mail that has access to the
+                        Boundary account
+  -p pattern, --pattern pattern
+                        regular expression pattern to use search the name of
+                        the metric
+</code></pre>
+
+<h3 id="metric-get">metric-get</h3>
+<p><strong>API Documentation</strong></p>
+<p><a href="http://premium-documentation.boundary.com/v1/get/metrics">http://premium-documentation.boundary.com/v1/get/metrics</a></p>
+<p><strong>Usage</strong></p>
+<pre><code class="bash">usage: metric-get [-h] [-l {debug,info,warning,error,critical}] [-a api_host]
+                  [-e e_mail] [-t api_token] -n metric_name
+
+Lists the defined metrics in a Boundary account
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -l {debug,info,warning,error,critical}, --log-level {debug,info,warning,error,critical}
+                        Sets logging level to one of
+                        debug,info,warning,error,critical.Default is logging
+                        is disabled
+  -a api_host, --api-host api_host
+                        Boundary API host endpoint
+  -e e_mail, --email e_mail
+                        e-mail that has access to the Boundary account
+  -t api_token, --api-token api_token
+                        API token for given e-mail that has access to the
+                        Boundary account
+  -n metric_name, --metric-name metric_name
+                        Metric identifier
+</code></pre>
+
+<h3 id="metric-import">metric-import</h3>
+<p><strong>API Documentation</strong></p>
+<p><a href="http://premium-documentation.boundary.com/v1/post/metrics">http://premium-documentation.boundary.com/v1/post/metrics</a></p>
+<p><strong>Usage</strong></p>
+<pre><code class="bash">usage: metric-import [-h] [-l {debug,info,warning,error,critical}]
+                     [-a api_host] [-e e_mail] [-t api_token] -f path
+
+Imports metric definitions from a file into a Boundary account
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -l {debug,info,warning,error,critical}, --log-level {debug,info,warning,error,critical}
+                        Sets logging level to one of
+                        debug,info,warning,error,critical.Default is logging
+                        is disabled
+  -a api_host, --api-host api_host
+                        Boundary API host endpoint
+  -e e_mail, --email e_mail
+                        e-mail that has access to the Boundary account
+  -t api_token, --api-token api_token
+                        API token for given e-mail that has access to the
+                        Boundary account
+  -f path, --file path  Path to JSON file
+</code></pre>
+
+<h3 id="metric-update">metric-update</h3>
+<p><strong>API Documentation</strong></p>
+<p><strong>Usage</strong></p>
+<pre><code class="bash">usage: metric-update [-h] [-l {debug,info,warning,error,critical}]
+                     [-a api_host] [-e e_mail] [-t api_token] -n metric_name
+                     -d display_name -s display_short_name [-i description] -g
+                     {AVG,MAX,MIN,SUM}
+                     [-u {percent,number,bytecount,duration}] [-r resolution]
+                     [-x]
+
+Updates a metric definition in an Boundary account
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -l {debug,info,warning,error,critical}, --log-level {debug,info,warning,error,critical}
+                        Sets logging level to one of
+                        debug,info,warning,error,critical.Default is logging
+                        is disabled
+  -a api_host, --api-host api_host
+                        Boundary API host endpoint
+  -e e_mail, --email e_mail
+                        e-mail that has access to the Boundary account
+  -t api_token, --api-token api_token
+                        API token for given e-mail that has access to the
+                        Boundary account
+  -n metric_name, --metric-name metric_name
+                        Metric identifier
+  -d display_name, --display-name display_name
+                        Metric display name
+  -s display_short_name, --display-name-short display_short_name
+                        Metric short display name
+  -i description, --description description
+                        Metric description
+  -g {AVG,MAX,MIN,SUM}, --aggregate {AVG,MAX,MIN,SUM}
+                        Metric default aggregate
+  -u {percent,number,bytecount,duration}, --unit {percent,number,bytecount,duration}
+                        Metric unit
+  -r resolution, --resolution resolution
+                        Metric default resolution
+  -x, --is-disabled     Disable metric
+</code></pre>
+
+</div>
+            
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        
+
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/prettify-1.0.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script>
+        <script src="../../js/base.js"></script>
+    </body>
+</html>
