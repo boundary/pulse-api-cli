@@ -1,5 +1,5 @@
 TARGET=boundary
-VERSION=0.0.7
+VERSION=0.1.0
 TAR_FILE=dist/boundary-$(VERSION).tar.gz
 
 install: build
