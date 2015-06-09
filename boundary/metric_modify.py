@@ -50,9 +50,11 @@ class MetricModify (MetricCommon):
         self.parser.add_argument('-i', '--description', dest='description', action='store',
                                  metavar='description', help='Metric description')
         self.parser.add_argument('-g', '--aggregate', dest='aggregate', action='store',
-                                 required=True, choices=['AVG', 'MAX', 'MIN', 'SUM'], help='Metric default aggregate')
+                                 required=True, choices=['AVG', 'MAX', 'MIN', 'SUM'],
+                                 help='Metric default aggregate')
         self.parser.add_argument('-u', '--unit', dest='unit', action='store',
-                                 choices=['percent', 'number', 'bytecount', 'duration'], help='Metric unit')
+                                 required=True, choices=['percent', 'number', 'bytecount', 'duration'],
+                                 help='Metric unit')
         self.parser.add_argument('-r', '--resolution', dest='resolution', action='store', metavar='resolution',
                                  help='Metric default resolution')
         self.parser.add_argument('-x', '--is-disabled', dest='isDisabled', action='store_true',
