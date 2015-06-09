@@ -1,6 +1,6 @@
-Commands to administer sources in a Boundary account.
+## Sources
 
-## source-delete
+### source-delete
 
 **API Documentation**
 
@@ -30,7 +30,7 @@ optional arguments:
                         List of sources to delete
 ```
 
-## source-list
+### source-list
 
 **API Documentation**
 

@@ -1,6 +1,8 @@
+## Plugins
+
 Commands to administer plugins in a Boundary account.
 
-## plugin-add
+### plugin-add
 
 **API Documentation**
 
@@ -36,7 +38,7 @@ optional arguments:
                         Name of the github repository
 ```
 
-## plugin-get
+### plugin-get
 
 **API Documentation**
 
@@ -67,7 +69,7 @@ optional arguments:
                         Plugin name
 ```
 
-## plugin-get-components
+### plugin-get-components
 
 **API Documentation**
 
@@ -99,7 +101,7 @@ optional arguments:
                         Plugin name
 ```
 
-## plugin-install
+### plugin-install
 
 **API Documentation**
 
@@ -130,7 +132,7 @@ optional arguments:
                         Plugin name
 ```
 
-## plugin-installed
+### plugin-installed
 
 **API Documentation**
 
@@ -159,7 +161,7 @@ optional arguments:
                         Boundary account
 ```
 
-## plugin-list
+### plugin-list
 
 **API Documentation**
 
@@ -188,7 +190,7 @@ optional arguments:
                         Boundary account
 ```
 
-## plugin-remove
+### plugin-remove
 
 **API Documentation**
 
@@ -219,7 +221,7 @@ optional arguments:
                         Plugin name
 ```
 
-## plugin-uninstall
+### plugin-uninstall
 
 **API Documentation**
 

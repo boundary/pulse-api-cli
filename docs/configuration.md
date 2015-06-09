@@ -1,7 +1,9 @@
+## Configuring
+
 The Boundary CLI uses environment variables for authentication information (user, password, etc) and end-point 
 to execute against the Boundary REST APIs, and optionally this information can be overridden via the command line.
 
-## Environment Variables
+### Environment Variables
 
 Environment variables are used to provide the credentials and the endpoint to execute the Boundary API against.
 
@@ -22,10 +24,10 @@ export BOUNDARY_API_TOKEN="api.8cb8d721d8-9999"
 ```
 
 
-## Common Command Line Arguments
+### Common Arguments
 
 Alternatively, you can provide credentials on the command line, as well as configure the logging output,
-and get help on a specific command.
+and get help on a specific command. These common command line arguments are shown in the table below.
 
 | Argument | Description                                    |
 |:---------|:-----------------------------------------------|
@@ -54,7 +56,7 @@ optional arguments:
                         Boundary account
 ```
 
-## Command Specific Command Line Arguments
+### Command Specific Arguments
 
 Some CLI commands may require additional arguments to provide additional data required for an API call.
 Command line specific options can be displayed by running the command

@@ -1,6 +1,7 @@
+## Host Groups
 Commands to administer host groups in a Boundary account.
 
-## hostgroup-delete
+### hostgroup-delete
 
 **API Documentation**
 
@@ -34,7 +35,7 @@ optional arguments:
                         or alarm
 ```
 
-## hostgroup-get
+### hostgroup-get
 
 **API Documentation**
 
@@ -65,7 +66,7 @@ optional arguments:
                         Host group id
 ```
 
-## hostgroup-list
+### hostgroup-list
 
 **API Documentation**
 
@@ -94,8 +95,7 @@ optional arguments:
                         Boundary account
 ```
 
-
-## hostgroup-search
+### hostgroup-search
 
 **API Documentation**
 

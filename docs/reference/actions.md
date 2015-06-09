@@ -1,6 +1,8 @@
+## Actions
+
 Commands to administer actions in a Boundary account.
 
-## action-installed
+### action-installed
 
 **API Documentation**
 
@@ -30,7 +32,7 @@ optional arguments:
 ```
 
 
-## action-types
+### action-types
 
 **API Documentation**
 

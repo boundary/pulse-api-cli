@@ -1,4 +1,6 @@
-Sample usage of some the Boundary CLIs
+## Examples
+
+Sample usage of selected Boundary CLIs
 
 ### Create a new metric definition
 **NOTE** It can take up to a minute to add a create a new metric in a Boundary account
@@ -76,7 +78,7 @@ Given the following `json` file named `metrics.json`:
 }
 ```
 
-Import the metrics into an account
+Import the metrics into an Boundary account by running the following:
 
 ```bash
 $ metric-import -f metrics.json

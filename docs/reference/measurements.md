@@ -1,7 +1,9 @@
+## Measurements
+
 Commands to insert and extract measurements from a Boundary account.
 
 
-## measurement-create
+### measurement-create
 
 **API Documentation**
 
@@ -45,7 +47,7 @@ optional arguments:
 
 ```
 
-## measurement-get
+### measurement-get
 
 ** API Documentation **
 

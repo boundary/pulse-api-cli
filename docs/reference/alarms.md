@@ -1,6 +1,7 @@
+## Alarms
 Commands to administer definitions of metric alarms in a Boundary account.
 
-## alarm-create
+### alarm-create
 
 **API Documentation**
 
@@ -58,7 +59,7 @@ optional arguments:
   -x, --is-disabled     Enable or disable the alarm
 ```
 
-## alarm-delete
+### alarm-delete
 
 **API Documentation**
 
@@ -89,7 +90,7 @@ optional arguments:
                         Alarm identifier
 ```
 
-## alarm-list
+### alarm-list
 
 **API Documentation**
 
@@ -119,7 +120,7 @@ optional arguments:
 
 ```
 
-## alarm-update
+### alarm-update
 
 **API Documentation**
 

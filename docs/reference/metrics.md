@@ -1,7 +1,8 @@
+## Metrics
 Commands to administer metric definitions in a Boundary account.
 
 
-# metric-create
+### metric-create
 
 **API Documentation**
 
@@ -51,8 +52,7 @@ optional arguments:
 ```
 
 
-
-## metric-delete
+### metric-delete
 
 **API Documentation**
 
@@ -83,7 +83,7 @@ optional arguments:
                         Metric identifier
 ```
 
-## metric-export
+### metric-export
 
 **API Documentation**
 
@@ -115,7 +115,7 @@ optional arguments:
                         the metric
 ```
 
-## metric-get
+### metric-get
 
 **API Documentation**
 
@@ -146,7 +146,7 @@ optional arguments:
                         Metric identifier
 ```
 
-## metric-import
+### metric-import
 
 **API Documentation**
 
@@ -176,7 +176,7 @@ optional arguments:
   -f path, --file path  Path to JSON file
 ```
 
-## metric-update
+### metric-update
 
 **API Documentation**
 
