@@ -1,10 +1,4 @@
-Metric Definition
------------------
-
-
-Examples
---------
-Usage of the Boundary CLI
+Sample usage of some the Boundary CLIs
 
 ### Create a new metric definition
 **NOTE** It can take up to a minute to add a create a new metric in a Boundary account
@@ -18,14 +12,6 @@ $ metric-create -n BOUNDARY_FOO_METRIC_IN -d "Boundary Foo Metric In" -s "Foo In
 }
 ```
 
-### Reference a metric definition in another account
-
-Adds a already defined metric definition into an acounnt
-
-```bash
-$ metric-ref -n BOUNDARY_BIG_BYTES_OUT
-```
-
 ### Add a Measurement Value
 **NOTE** Requires that the environment variables as outlined above are set since 
 
@@ -34,69 +20,59 @@ $ measurement-create -n BOUNDARY_MEASUREMENT_TEST -m 3456 -s foobar
 {"result":{"success":true}}
 ```
 
-### List all of the metric definitions
-`metric-list` provides complete details of each of the metrics installed into an account
-```bash
-$ metric-list
-{
-  "result": [
-    {
-      "id": 6028,
-      "name": "LOAD_1_MINUTE",
-      "displayName": "CPU Load 1 Minute",
-      "description": "CPU load for the last minute",
-      "drillFromMetricName": null,
-      "unit": "number",
-      "catalogId": 2110,
-      "displayNameShort": "Load 1 Minute",
-      "defaultAggregate": "avg",
-      "isDisabled": 0,
-      "isDeleted": 0,
-      "isBuiltin": 0
-    },
-...
-```
-
 ### Export metric definitions to a <code>json</code> file
 
 Export all of the metric definitions that begin with `BOUNDARY`
+
 ```bash
 $ metric-export -p '^BOUNDARY'
 {
-    "result": [
-        {
-            "defaultAggregate": "ave",
-            "defaultResolutionMS": 1000,
-            "description": "Example Metric",
-            "displayName": "Boundary Big Bytes Out",
-            "displayNameShort": "B Out",
-            "isDisabled": 0,
-            "name": "BOUNDARY_BIG_BYTES_OUT",
-            "unit": "number"
-        }
-    ]
+    "BOUNDARY_FOO_TEST_1": {
+        "defaultAggregate": "AVG",
+        "defaultResolutionMS": 1000,
+        "description": "BOUNDARY_FOO_TEST_1",
+        "displayName": "BOUNDARY_FOO_TEST_1",
+        "displayNameShort": "BOUNDARY_FOO_TEST_1",
+        "isDisabled": false,
+        "unit": "number"
+    },
+    "BOUNDARY_HELLO_WORLD": {
+        "defaultAggregate": "AVG",
+        "defaultResolutionMS": 1000,
+        "description": "Example metric for the Hello World Boundary meter plugin",
+        "displayName": "Hello World",
+        "displayNameShort": "Hello World",
+        "isDisabled": false,
+        "unit": "number"
+    }
 }
 
 ```
 
 ### Batch Import Metrics
-**Note** It can take up a to a minute per metric definition that is added to a Boundary account
 
 Given the following `json` file named `metrics.json`:
 ```json
 {
-    "result": [
-        {
-            "defaultAggregate": "ave",
-            "defaultResolutionMS": 1000,
-            "description": "Example Metric",
-            "displayName": "Boundary Big Bytes Out",
-            "displayNameShort": "B Out",
-            "isDisabled": 0,
-            "name": "BOUNDARY_BIG_BYTES_OUT",
-            "unit": "number"
-        }
-    ]
+    "BOUNDARY_METRIC_TEST_ONE": {
+        "defaultAggregate": "AVG",
+        "defaultResolutionMS": 0,
+        "description": "Boundary test metric one",
+        "displayName": "BOUNDARY_METRIC_TEST_TWO",
+        "displayNameShort": "BOUNDARY_METRIC_TEST_TWO",
+        "isDisabled": false,
+        "unit": "bytecount"
+    },
+    "BOUNDARY_METRIC_TEST_TWO": {
+        "defaultAggregate": "AVG",
+        "defaultResolutionMS": 0,
+        "description": "Boundary test metric two",
+        "displayName": "BOUNDARY_METRIC_TEST_TWO",
+        "displayNameShort": "BOUNDARY_METRIC_TEST_TWO",
+        "isDisabled": false,
+        "unit": "number"
+    }
+
 }
 ```
 
