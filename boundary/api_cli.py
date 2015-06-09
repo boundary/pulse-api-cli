@@ -263,6 +263,10 @@ class ApiCli(object):
         """
 
         self.url = "{0}://{1}/{2}{3}".format(self.scheme, self.apihost, self.path, self.getUrlParameters())
+        if self.headers is not None:
+            logging.debug(self.headers)
+        if self.data is not None:
+            logging.debug(self.data)
 
         result = self.methods[self.method]()
 
