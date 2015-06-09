@@ -76,7 +76,7 @@ InstallPackage xz-libs
 
 PYTHON_VERSION=2.7.9
 
-wget http://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tar.xz
+wget --no-check-certificate http://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tar.xz
 
 
 # Let's decode (-d) the XZ encoded tar archive:
