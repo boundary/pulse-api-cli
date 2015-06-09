@@ -1,7 +1,10 @@
 *.class
+.coverage
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
+
+MANIFEST
 
 # Python compiled files
 *.pyc
@@ -15,4 +18,8 @@
 hs_err_pid*
 /target/
 
-.idea/workspace.xml
+.idea/*
+site/*
+python/*
+dist/*
+
