@@ -57,5 +57,6 @@ class MetricGet (MetricCommon):
                     if key == self.metricName:
                         metric = self.metrics[key]
             # pretty print the JSON output
-            out = json.dumps(self.extractFields(metric), sort_keys=True, indent=4, separators=(',', ': '))
-            print out
+            if metric is not None:
+                out = json.dumps(self.extractFields(metric), sort_keys=True, indent=4, separators=(',', ': '))
+                print(out)
