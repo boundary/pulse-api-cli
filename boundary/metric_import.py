@@ -36,6 +36,9 @@ class MetricImport(MetricCommon):
         self.metrics = None
         self.path = None
         self.v2Metrics = None
+
+    def getDescription(self):
+        return "Imports metric definitions from a file into a Boundary account"
        
     def addArguments(self):
         """
