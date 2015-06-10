@@ -57,8 +57,8 @@ class MetricModify (MetricCommon):
                                  help='Metric unit')
         self.parser.add_argument('-r', '--resolution', dest='resolution', action='store', metavar='resolution',
                                  help='Metric default resolution')
-        self.parser.add_argument('-x', '--is-disabled', dest='isDisabled', action='store_true',
-                                 help='Disable metric', default=None)
+        self.parser.add_argument('-x', '--is-disabled', dest='isDisabled', action='store', default=None,
+                                 choices=['yes', 'no'], help='Enable or disable the metric definition')
         
     def getArguments(self):
         """
@@ -106,7 +106,7 @@ class MetricModify (MetricCommon):
         if self.resolution is not None:
             data['defaultResolutionMS'] = self.resolution
         if self.isDisabled is not None:
-            data['isDisabled'] = self.isDisabled
+            data['isDisabled'] = True if self.isDisabled == 'yes' else False
 
         self.path = "v1/metrics/{0}".format(self.metricName)
         self.data = json.dumps(data, sort_keys=True)
