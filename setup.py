@@ -1,8 +1,8 @@
 from distutils.core import setup
 setup(
     name='boundary',
-    version='0.1.0',
-    url="https://github.com/boundary/boundary-api-cli",
+    version='0.1.2',
+    url="http://boundary.github.io/boundary-api-cli/",
     author='David Gwartney',
     author_email='davidg@boundary.com',
     packages=['boundary',],
@@ -11,6 +11,7 @@ setup(
       'bin/alarm-delete',
       'bin/alarm-get',
       'bin/alarm-list',
+      'bin/alarm-update',
       'bin/action-installed',
       'bin/action-types',
       'bin/event-list',
@@ -46,7 +47,7 @@ setup(
       'bin/user-get',
     ],
     license='LICENSE.txt',
-    description='Command line interface to Boundary REST APIs',
+    description='Command line tools for using the Boundary REST APIs',
     long_description=open('README.txt').read(),
     install_requires=[
         "requests >= 2.3.0",

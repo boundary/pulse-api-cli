@@ -13,8 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-from boundary import MetricCommon
 import json
+import logging
+
+from boundary import MetricCommon
 
 """
 Common Base class for defining and update metric definitions
@@ -48,9 +50,11 @@ class MetricModify (MetricCommon):
         self.parser.add_argument('-i', '--description', dest='description', action='store',
                                  metavar='description', help='Metric description')
         self.parser.add_argument('-g', '--aggregate', dest='aggregate', action='store',
-                                 required=True, choices=['AVG', 'MAX', 'MIN', 'SUM'], help='Metric default aggregate')
+                                 required=True, choices=['AVG', 'MAX', 'MIN', 'SUM'],
+                                 help='Metric default aggregate')
         self.parser.add_argument('-u', '--unit', dest='unit', action='store',
-                                 choices=['percent', 'number', 'bytecount', 'duration'], help='Metric unit')
+                                 required=True, choices=['percent', 'number', 'bytecount', 'duration'],
+                                 help='Metric unit')
         self.parser.add_argument('-r', '--resolution', dest='resolution', action='store', metavar='resolution',
                                  help='Metric default resolution')
         self.parser.add_argument('-x', '--is-disabled', dest='isDisabled', action='store_true',
@@ -98,12 +102,12 @@ class MetricModify (MetricCommon):
         if self.aggregate is not None:
             data['defaultAggregate'] = self.aggregate
         if self.unit is not None:
-            data['unit'] = self.unit,
+            data['unit'] = self.unit
         if self.resolution is not None:
             data['defaultResolutionMS'] = self.resolution
         if self.isDisabled is not None:
             data['isDisabled'] = self.isDisabled
-                    
+
         self.path = "v1/metrics/{0}".format(self.metricName)
         self.data = json.dumps(data, sort_keys=True)
         self.headers = {'Content-Type': 'application/json', "Accept": "application/json"}

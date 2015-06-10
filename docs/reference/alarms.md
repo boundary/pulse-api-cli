@@ -12,9 +12,9 @@ Commands to administer definitions of metric alarms in a Boundary account.
 ```bash
 usage: alarm-create [-h] [-l {debug,info,warning,error,critical}]
                     [-a api_host] [-e e_mail] [-t api_token] -n alarm_name -m
-                    metric_name -g {sum,avg,max,min} -o {eq,gt,lt} -v value -r
+                    metric_name -g {SUM,AVG,MAX,MIN} -o {eq,gt,lt} -v value -r
                     {1 second,15 seconds,1 minute,5 minutes,1 hour,1.5 hours,3
-                    hours,6 hours,12 hours} [-i hostgroup_id] [-d note]
+                    hours,6 hours,12 hours} [-u hostgroup_id] [-d note]
                     [-c action-id] [-p] [-x]
 
 Creates a new metric definition in an Boundary account
@@ -36,7 +36,7 @@ optional arguments:
                         Name of the alarm
   -m metric_name, --metric metric_name
                         Name of the metric to alarm
-  -g {sum,avg,max,min}, --trigger-aggregate {sum,avg,max,min}
+  -g {SUM,AVG,MAX,MIN}, --trigger-aggregate {SUM,AVG,MAX,MIN}
                         Metric aggregate to alarm upon
   -o {eq,gt,lt}, --trigger-operation {eq,gt,lt}
                         Trigger threshold comparison
@@ -44,7 +44,7 @@ optional arguments:
                         Trigger threshold value
   -r {1 second,15 seconds,1 minute,5 minutes,1 hour,1.5 hours,3 hours,6 hours,12 hours}, --trigger-interval {1 second,15 seconds,1 minute,5 minutes,1 hour,1.5 hours,3 hours,6 hours,12 hours}
                         Interval to alarm upon
-  -i hostgroup_id, --host-group-id hostgroup_id
+  -u hostgroup_id, --host-group-id hostgroup_id
                         Host group the alarm applies to
   -d note, --note note  A description or resolution of the alarm
   -c action-id, --action action-id
@@ -57,6 +57,30 @@ optional arguments:
                         true, the actions will run when ANY server in the
                         group violates and falls back within the threshold.
   -x, --is-disabled     Enable or disable the alarm
+```
+
+**Examples**
+
+Create an alarm when the maximum value of `BOUNDARY_METRIC_TEST` is greater than a 100 in a 5 minute
+period.
+
+```bash
+$ alarm-create -n "my-alarm" -m BOUNDARY_METRIC_TEST -g max -o gt -v 100 -r "5 minutes"
+{
+  "result": {
+    "id": 45040,
+    "name": "my-alarm",
+    "triggerPredicate": {
+      "agg": "max",
+      "op": "gt",
+      "val": "100"
+    },
+    "metricName": "BOUNDARY_METRIC_TEST",
+    "interval": 900,
+    "perHostNotify": false,
+    "actions": []
+  }
+}
 ```
 
 ### alarm-delete
@@ -90,6 +114,14 @@ optional arguments:
                         Alarm identifier
 ```
 
+**Examples**
+
+Delete an alarm definition with id of 45041
+
+```bash
+$ alarm-delete -i 45041
+```
+
 ### alarm-list
 
 **API Documentation**
@@ -119,6 +151,57 @@ optional arguments:
                         Boundary account
 
 ```
+
+**Examples**
+
+List the defined alarms
+
+```bash
+$ alarm-list
+{
+  "result": [
+    {
+      "id": 16329,
+      "name": "CPU usage is high",
+      "triggerPredicate": {
+        "agg": "avg",
+        "op": "gt",
+        "val": 0.8
+      },
+      "metricName": "CPU",
+      "interval": 60,
+      "hostgroupId": null,
+      "note": "auto generated",
+      "perHostNotify": false,
+      "actions": [
+        {
+          "id": 2491,
+          "name": "Email davidg5"
+        }
+      ]
+    },
+    {
+      "id": 16335,
+      "name": "Disk Writes are high",
+      "triggerPredicate": {
+        "agg": "sum",
+        "op": "gt",
+        "val": 209715200
+      },
+      "metricName": "DISKWB",
+      "interval": 60,
+      "hostgroupId": null,
+      "note": "auto generated",
+      "perHostNotify": false,
+      "actions": [
+        {
+          "id": 2491,
+          "name": "Email davidg5"
+        }
+      ]
+    },
+```
+
 
 ### alarm-update
 

@@ -1,6 +1,6 @@
 site_name: Boundary API CLI
 theme: mkdocs
-google_analytics: ['UA-63924130-1','http://boundary.github.io/boundary-api-cli/']
+google_analytics: ['UA-47528703-5','auto']
 pages:
 - ['index.md', 'Home']
 - ['install.md','Getting Started','Installing']

@@ -6,7 +6,7 @@ Sample usage of selected Boundary CLIs
 **NOTE** It can take up to a minute to add a create a new metric in a Boundary account
 
 ```bash
-$ metric-create -n BOUNDARY_FOO_METRIC_IN -d "Boundary Foo Metric In" -s "Foo In" -i "Tracks the Boundary Foo Metric" -g avg -i number -r 1000
+$ metric-create -n BOUNDARY_FOO_METRIC_IN -d "Boundary Foo Metric In" -s "Foo In" -i "Tracks the Boundary Foo Metric" -g AVG -u number -r 1000
 {
   "result": {
     "success": true
