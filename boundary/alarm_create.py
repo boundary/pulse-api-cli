@@ -54,7 +54,7 @@ class AlarmCreate(ApiCli):
         self.parser.add_argument('-m', '--metric', dest='metricName', action='store', required=True,
                                  metavar='metric_name', help='Name of the metric to alarm')
         self.parser.add_argument('-g', '--trigger-aggregate', dest='aggregate', action='store', required=True,
-                                 choices=['sum', 'avg', 'max', 'min'], help='Metric aggregate to alarm upon')
+                                 choices=['SUM', 'AVG', 'MAX', 'MIN'], help='Metric aggregate to alarm upon')
         self.parser.add_argument('-o', '--trigger-operation', dest='operation', action='store', required=True,
                                  choices=['eq', 'gt', 'lt'], help='Trigger threshold comparison')
         self.parser.add_argument('-v', '--trigger-threshold', dest='threshold', action='store', required=True,
@@ -63,7 +63,7 @@ class AlarmCreate(ApiCli):
                                  choices=['1 second', '15 seconds', '1 minute', '5 minutes', '1 hour', '1.5 hours',
                                           '3 hours', '6 hours', '12 hours'],
                                  help='Interval to alarm upon')
-        self.parser.add_argument('-i', '--host-group-id', dest='hostGroupId', action='store',metavar='hostgroup_id',
+        self.parser.add_argument('-u', '--host-group-id', dest='hostGroupId', action='store',metavar='hostgroup_id',
                                  type=int, help='Host group the alarm applies to')
         self.parser.add_argument('-d', '--note', dest='note', action='store', metavar='note',
                                  help='A description or resolution of the alarm')
@@ -139,7 +139,7 @@ class AlarmCreate(ApiCli):
         self.headers = {'Content-Type': 'application/json'}
 
     def getDescription(self):
-        return "Creates a new metric definition in an Boundary account"
+        return 'Creates a alarm definition in an Boundary account'
 
 
 
