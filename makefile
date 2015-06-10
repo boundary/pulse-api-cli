@@ -1,5 +1,5 @@
 TARGET=boundary
-VERSION=0.1.0
+VERSION=0.1.1
 TAR_FILE=dist/boundary-$(VERSION).tar.gz
 
 install: build
@@ -7,6 +7,9 @@ install: build
 
 build:
 	python setup.py sdist
+
+doc:
+	pandoc -f markdown -t plain README.md > README.txt
 
 upload:
 	python setup.py sdist upload
