@@ -18,7 +18,7 @@ from boundary import AlarmModify
 
 class AlarmUpdate(AlarmModify):
     def __init__(self):
-        AlarmModify.__init__(self)
+        AlarmModify.__init__(self, True)
         self.alarm_id = None
         self.method = "PUT"
 
@@ -46,4 +46,4 @@ class AlarmUpdate(AlarmModify):
         self.path = "v1/alarm/{0}".format(self.alarm_id)
 
     def getDescription(self):
-        return 'Updates a alarm definition in an Boundary account'
+        return 'Updates an alarm definition in an Boundary account'
