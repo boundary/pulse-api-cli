@@ -29,7 +29,7 @@
             m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
             })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-            ga('create', 'UA-63924130-1', 'http://boundary.github.io/boundary-api-cli/');
+            ga('create', 'UA-47528703-5', 'auto');
             ga('send', 'pageview');
         </script>
         
@@ -183,9 +183,9 @@
 <p><strong>Usage</strong></p>
 <pre><code class="bash">usage: alarm-create [-h] [-l {debug,info,warning,error,critical}]
                     [-a api_host] [-e e_mail] [-t api_token] -n alarm_name -m
-                    metric_name -g {sum,avg,max,min} -o {eq,gt,lt} -v value -r
+                    metric_name -g {SUM,AVG,MAX,MIN} -o {eq,gt,lt} -v value -r
                     {1 second,15 seconds,1 minute,5 minutes,1 hour,1.5 hours,3
-                    hours,6 hours,12 hours} [-i hostgroup_id] [-d note]
+                    hours,6 hours,12 hours} [-u hostgroup_id] [-d note]
                     [-c action-id] [-p] [-x]
 
 Creates a new metric definition in an Boundary account
@@ -207,7 +207,7 @@ optional arguments:
                         Name of the alarm
   -m metric_name, --metric metric_name
                         Name of the metric to alarm
-  -g {sum,avg,max,min}, --trigger-aggregate {sum,avg,max,min}
+  -g {SUM,AVG,MAX,MIN}, --trigger-aggregate {SUM,AVG,MAX,MIN}
                         Metric aggregate to alarm upon
   -o {eq,gt,lt}, --trigger-operation {eq,gt,lt}
                         Trigger threshold comparison
@@ -215,7 +215,7 @@ optional arguments:
                         Trigger threshold value
   -r {1 second,15 seconds,1 minute,5 minutes,1 hour,1.5 hours,3 hours,6 hours,12 hours}, --trigger-interval {1 second,15 seconds,1 minute,5 minutes,1 hour,1.5 hours,3 hours,6 hours,12 hours}
                         Interval to alarm upon
-  -i hostgroup_id, --host-group-id hostgroup_id
+  -u hostgroup_id, --host-group-id hostgroup_id
                         Host group the alarm applies to
   -d note, --note note  A description or resolution of the alarm
   -c action-id, --action action-id
@@ -228,6 +228,27 @@ optional arguments:
                         true, the actions will run when ANY server in the
                         group violates and falls back within the threshold.
   -x, --is-disabled     Enable or disable the alarm
+</code></pre>
+
+<p><strong>Examples</strong></p>
+<p>Create an alarm when the maximum value of <code>BOUNDARY_METRIC_TEST</code> is greater than a 100 in a 5 minute
+period.</p>
+<pre><code class="bash">$ alarm-create -n &quot;my-alarm&quot; -m BOUNDARY_METRIC_TEST -g max -o gt -v 100 -r &quot;5 minutes&quot;
+{
+  &quot;result&quot;: {
+    &quot;id&quot;: 45040,
+    &quot;name&quot;: &quot;my-alarm&quot;,
+    &quot;triggerPredicate&quot;: {
+      &quot;agg&quot;: &quot;max&quot;,
+      &quot;op&quot;: &quot;gt&quot;,
+      &quot;val&quot;: &quot;100&quot;
+    },
+    &quot;metricName&quot;: &quot;BOUNDARY_METRIC_TEST&quot;,
+    &quot;interval&quot;: 900,
+    &quot;perHostNotify&quot;: false,
+    &quot;actions&quot;: []
+  }
+}
 </code></pre>
 
 <h3 id="alarm-delete">alarm-delete</h3>
@@ -256,6 +277,11 @@ optional arguments:
                         Alarm identifier
 </code></pre>
 
+<p><strong>Examples</strong></p>
+<p>Delete an alarm definition with id of 45041</p>
+<pre><code class="bash">$ alarm-delete -i 45041
+</code></pre>
+
 <h3 id="alarm-list">alarm-list</h3>
 <p><strong>API Documentation</strong></p>
 <p><a href="http://premium-documentation.boundary.com/v1/get/alarms">http://premium-documentation.boundary.com/v1/get/alarms</a></p>
@@ -279,6 +305,53 @@ optional arguments:
                         API token for given e-mail that has access to the
                         Boundary account
 
+</code></pre>
+
+<p><strong>Examples</strong></p>
+<p>List the defined alarms</p>
+<pre><code class="bash">$ alarm-list
+{
+  &quot;result&quot;: [
+    {
+      &quot;id&quot;: 16329,
+      &quot;name&quot;: &quot;CPU usage is high&quot;,
+      &quot;triggerPredicate&quot;: {
+        &quot;agg&quot;: &quot;avg&quot;,
+        &quot;op&quot;: &quot;gt&quot;,
+        &quot;val&quot;: 0.8
+      },
+      &quot;metricName&quot;: &quot;CPU&quot;,
+      &quot;interval&quot;: 60,
+      &quot;hostgroupId&quot;: null,
+      &quot;note&quot;: &quot;auto generated&quot;,
+      &quot;perHostNotify&quot;: false,
+      &quot;actions&quot;: [
+        {
+          &quot;id&quot;: 2491,
+          &quot;name&quot;: &quot;Email davidg5&quot;
+        }
+      ]
+    },
+    {
+      &quot;id&quot;: 16335,
+      &quot;name&quot;: &quot;Disk Writes are high&quot;,
+      &quot;triggerPredicate&quot;: {
+        &quot;agg&quot;: &quot;sum&quot;,
+        &quot;op&quot;: &quot;gt&quot;,
+        &quot;val&quot;: 209715200
+      },
+      &quot;metricName&quot;: &quot;DISKWB&quot;,
+      &quot;interval&quot;: 60,
+      &quot;hostgroupId&quot;: null,
+      &quot;note&quot;: &quot;auto generated&quot;,
+      &quot;perHostNotify&quot;: false,
+      &quot;actions&quot;: [
+        {
+          &quot;id&quot;: 2491,
+          &quot;name&quot;: &quot;Email davidg5&quot;
+        }
+      ]
+    },
 </code></pre>
 
 <h3 id="alarm-update">alarm-update</h3>

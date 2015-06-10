@@ -29,7 +29,7 @@
             m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
             })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-            ga('create', 'UA-63924130-1', 'http://boundary.github.io/boundary-api-cli/');
+            ga('create', 'UA-47528703-5', 'auto');
             ga('send', 'pageview');
         </script>
         
@@ -177,7 +177,7 @@
 <p>Sample usage of selected Boundary CLIs</p>
 <h3 id="create-a-new-metric-definition">Create a new metric definition</h3>
 <p><strong>NOTE</strong> It can take up to a minute to add a create a new metric in a Boundary account</p>
-<pre><code class="bash">$ metric-create -n BOUNDARY_FOO_METRIC_IN -d &quot;Boundary Foo Metric In&quot; -s &quot;Foo In&quot; -i &quot;Tracks the Boundary Foo Metric&quot; -g avg -i number -r 1000
+<pre><code class="bash">$ metric-create -n BOUNDARY_FOO_METRIC_IN -d &quot;Boundary Foo Metric In&quot; -s &quot;Foo In&quot; -i &quot;Tracks the Boundary Foo Metric&quot; -g AVG -u number -r 1000
 {
   &quot;result&quot;: {
     &quot;success&quot;: true

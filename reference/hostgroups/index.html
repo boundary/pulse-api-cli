@@ -29,7 +29,7 @@
             m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
             })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-            ga('create', 'UA-63924130-1', 'http://boundary.github.io/boundary-api-cli/');
+            ga('create', 'UA-47528703-5', 'auto');
             ga('send', 'pageview');
         </script>
         
@@ -162,6 +162,8 @@
     
         <li class="main active"><a href="#host-groups">Host Groups</a></li>
         
+            <li><a href="#hostgroup-create">hostgroup-create</a></li>
+        
             <li><a href="#hostgroup-delete">hostgroup-delete</a></li>
         
             <li><a href="#hostgroup-get">hostgroup-get</a></li>
@@ -177,6 +179,67 @@
 
 <h2 id="host-groups">Host Groups</h2>
 <p>Commands to administer host groups in a Boundary account.</p>
+<h3 id="hostgroup-create">hostgroup-create</h3>
+<p><strong>API Documentation</strong></p>
+<p><a href="http://premium-documentation.boundary.com/v1/post/hostgroups">http://premium-documentation.boundary.com/v1/post/hostgroups</a></p>
+<p><strong>Usage</strong></p>
+<pre><code class="bash">usage: hostgroup-create [-h] [-l {debug,info,warning,error,critical}]
+                        [-a api_host] [-e e_mail] [-t api_token] -n
+                        host_group_name -s sources
+
+Creates host group definition in a Boundary account
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -l {debug,info,warning,error,critical}, --log-level {debug,info,warning,error,critical}
+                        Sets logging level to one of
+                        debug,info,warning,error,critical.Default is logging
+                        is disabled
+  -a api_host, --api-host api_host
+                        Boundary API host endpoint
+  -e e_mail, --email e_mail
+                        e-mail that has access to the Boundary account
+  -t api_token, --api-token api_token
+                        API token for given e-mail that has access to the
+                        Boundary account
+  -n host_group_name, --host-group-name host_group_name
+                        Host group name
+  -s sources, --sources sources
+                        Comma separated sources to add to the host group. If
+                        empty adds all hosts.
+</code></pre>
+
+<p><strong>Examples</strong></p>
+<p>Create a host group with a single source/host</p>
+<pre><code class="bash">$ hostgroup-create -n 'single-source-hostgroup' -s my-server1
+{
+  &quot;result&quot;: {
+    &quot;id&quot;: 17876,
+    &quot;name&quot;: &quot;single-source-hostgroup&quot;,
+    &quot;hostnames&quot;: [
+      &quot;my-server1&quot;
+    ],
+    &quot;system&quot;: false
+  }
+}
+</code></pre>
+
+<p>Create a hostgroup <code>my-host-group</code> with multiple sources/hosts <code>server</code>, <code>server2</code>, and <code>server 3</code></p>
+<pre><code class="bash">$ hostgroup-create -n 'my-host-group' -s server1,server2,server3
+{
+  &quot;result&quot;: {
+    &quot;id&quot;: 17875,
+    &quot;name&quot;: &quot;my-host-group&quot;,
+    &quot;hostnames&quot;: [
+      &quot;server1&quot;,
+      &quot;server2&quot;,
+      &quot;server3&quot;
+    ],
+    &quot;system&quot;: false
+  }
+}
+</code></pre>
+
 <h3 id="hostgroup-delete">hostgroup-delete</h3>
 <p><strong>API Documentation</strong></p>
 <p><a href="http://premium-documentation.boundary.com/v1/delete/hostgroup/:hostgroupId">http://premium-documentation.boundary.com/v1/delete/hostgroup/:hostgroupId</a></p>
@@ -206,6 +269,15 @@ optional arguments:
                         or alarm
 </code></pre>
 
+<p><strong>Examples</strong></p>
+<pre><code class="bash">$ hostgroup-delete -i 17874
+{
+  &quot;result&quot;: {
+    &quot;success&quot;: true
+  }
+}
+</code></pre>
+
 <h3 id="hostgroup-get">hostgroup-get</h3>
 <p><strong>API Documentation</strong></p>
 <p><a href="http://premium-documentation.boundary.com/v1/get/hostgroup/:hostgroupId">http://premium-documentation.boundary.com/v1/get/hostgroup/:hostgroupId</a></p>
@@ -232,6 +304,23 @@ optional arguments:
                         Host group id
 </code></pre>
 
+<p><strong>Examples</strong></p>
+<p>Show the host group definition using the host group id</p>
+<pre><code class="bash">$ hostgroup-get -i 17875
+{
+  &quot;result&quot;: {
+    &quot;id&quot;: 17875,
+    &quot;name&quot;: &quot;my-host-group&quot;,
+    &quot;system&quot;: false,
+    &quot;hostnames&quot;: [
+      &quot;server1&quot;,
+      &quot;server2&quot;,
+      &quot;server3&quot;
+    ]
+  }
+}
+</code></pre>
+
 <h3 id="hostgroup-list">hostgroup-list</h3>
 <p><strong>API Documentation</strong></p>
 <p><a href="http://premium-documentation.boundary.com/v1/get/hostgroups">http://premium-documentation.boundary.com/v1/get/hostgroups</a></p>
@@ -254,6 +343,43 @@ optional arguments:
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
                         Boundary account
+</code></pre>
+
+<p><strong>Examples</strong></p>
+<p>List all of the host groups configured</p>
+<pre><code class="bash">$ hostgroup-list
+{
+  &quot;result&quot;: [
+    {
+      &quot;id&quot;: 17877,
+      &quot;name&quot;: &quot;database-hosts&quot;,
+      &quot;system&quot;: false,
+      &quot;hostnames&quot;: [
+        &quot;db-server1&quot;,
+        &quot;db-server2&quot;,
+        &quot;db-server3&quot;
+      ]
+    },
+    {
+      &quot;id&quot;: 15241,
+      &quot;name&quot;: &quot;default&quot;,
+      &quot;system&quot;: true,
+      &quot;hostnames&quot;: []
+    },
+    {
+      &quot;id&quot;: 17878,
+      &quot;name&quot;: &quot;web-hosts&quot;,
+      &quot;system&quot;: false,
+      &quot;hostnames&quot;: [
+        &quot;web-server1&quot;,
+        &quot;web-server2&quot;,
+        &quot;web-server3&quot;,
+        &quot;web-server4&quot;,
+        &quot;web-server5&quot;
+      ]
+    }
+  ]
+}
 </code></pre>
 
 <h3 id="hostgroup-search">hostgroup-search</h3>
@@ -281,6 +407,25 @@ optional arguments:
                         Boundary account
   -n host_group_name, --host-group-name host_group_name
                         Host group name
+</code></pre>
+
+<p><strong>Examples</strong></p>
+<p>Search for a host group name <code>my-host-group</code></p>
+<pre><code class="bash">$ hostgroup-search -n 'my-host-group' 
+{
+  &quot;result&quot;: [
+    {
+      &quot;id&quot;: 17873,
+      &quot;name&quot;: &quot;my-host-group&quot;,
+      &quot;system&quot;: false,
+      &quot;hostnames&quot;: [
+        &quot;red&quot;,
+        &quot;green&quot;,
+        &quot;blue&quot;
+      ]
+    }
+  ]
+}
 </code></pre>
 
 </div>
