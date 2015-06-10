@@ -31,6 +31,17 @@ optional arguments:
                         Boundary account
 ```
 
+**Examples**
+
+```bash
+$ action-installed
+{
+  "result": [
+    {
+      "name": "boundary-enterprise",
+  ...
+```
+
 
 ### action-types
 
@@ -59,5 +70,16 @@ optional arguments:
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
                         Boundary account
+```
+
+**Examples**
+
+```bash
+$ action-types
+{
+  "result": [
+    {
+      "name": "boundary-enterprise",
+    ...
 ```
 
