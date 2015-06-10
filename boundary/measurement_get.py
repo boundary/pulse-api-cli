@@ -14,9 +14,12 @@
 # limitations under the License.
 #
 from datetime import datetime
+import json
 
 from boundary import ApiCli
 from dateutil import parser
+from six.moves import http_client
+
 
 """
 Gets measurements from a Boundary account
@@ -115,3 +118,14 @@ class MeasurementGet(ApiCli):
         Returns the description of this command
         """
         return "Retrieves measurement values from a metric in a Boundary account"
+
+    def handleResults(self, result):
+        """
+        Call back function to be implemented by the CLI.
+        """
+
+        # Only process if we get HTTP result of 200
+        if result.status_code == http_client.OK:
+            payload = json.loads(result.text)
+            out = json.dumps(payload, sort_keys=True, indent=4, separators=(',', ': '))
+            print(out)
