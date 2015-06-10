@@ -11,6 +11,7 @@ setup(
       'bin/alarm-delete',
       'bin/alarm-get',
       'bin/alarm-list',
+      'bin/alarm-update',
       'bin/action-installed',
       'bin/action-types',
       'bin/event-list',
