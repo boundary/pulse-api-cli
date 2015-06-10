@@ -16,14 +16,14 @@
 #
 
 import unittest
-from boundary import AlarmCreate
+from boundary import AlarmUpdate
 
 class TestCommand(unittest.TestCase):
 
     def setUp(self):
-        self.alarm_create = AlarmCreate()
+        self.alarm_update = AlarmUpdate()
         pass
 
     def test_cli_description(self):
-        self.assertEqual('Creates a alarm definition in an Boundary account',
-                         self.alarm_create.getDescription(), 'Check AlarmCreate description')
+        self.assertEqual('Updates a alarm definition in an Boundary account',
+                         self.alarm_update.getDescription(), 'Check AlarmCreate description')
