@@ -267,6 +267,8 @@ class ApiCli(object):
             logging.debug(self.headers)
         if self.data is not None:
             logging.debug(self.data)
+        if len(self.getUrlParameters()) > 0:
+            logging.debug(self.getUrlParameters())
 
         result = self.methods[self.method]()
 
