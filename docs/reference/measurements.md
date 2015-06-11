@@ -47,6 +47,20 @@ optional arguments:
 
 ```
 
+**Examples**
+
+Send a measurement value of 100 for the metric `BOUNDARY_HELLO_WORLD`
+
+```bash
+$ measurement-create -n BOUNDARY_HELLO_WORLD -m 100
+{
+    "result": {
+        "success": true
+    }
+}
+
+```
+
 ### measurement-get
 
 ** API Documentation **
@@ -85,6 +99,33 @@ optional arguments:
                         Start of time range as ISO 8601 string or epoch
                         seconds
   -d end, --end end     End of time range as ISO 8601 string or epoch seconds
+```
+
+**Examples**
+
+
+
+```bash
+measurement-get -n BOUNDARY_HELLO_WORLD -b 2015-06-10
+{
+    "result": {
+        "aggregates": [
+            [
+                [
+                    1433973154000,
+                    null
+                ],
+                [
+                    [
+                        "lerma",
+                        100
+                    ]
+                ]
+            ]
+        ],
+        "timestamp": 1433973185845
+    }
+}
 ```
 
 

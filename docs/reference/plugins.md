@@ -38,6 +38,20 @@ optional arguments:
                         Name of the github repository
 ```
 
+**Examples**
+
+Adds a plugin from a github repository `jdgwartney/boundary-plugin-disk-summary` with the name `diskuse-summary` into
+a Boundary account
+
+```bash
+$ plugin-add -n diskuse-summary -o jdgwartney -r boundary-plugin-diskuse-summary
+{
+  "result": {
+    "success": true
+  }
+}
+```
+
 ### plugin-get
 
 **API Documentation**
@@ -68,6 +82,10 @@ optional arguments:
   -n plugin_name, --plugin-Name plugin_name
                         Plugin name
 ```
+
+**Examples**
+
+
 
 ### plugin-get-components
 
@@ -101,6 +119,25 @@ optional arguments:
                         Plugin name
 ```
 
+**Examples**
+
+Displays runtime and metadata about a plugin `diskuse-summary`
+
+```bash
+$ plugin-get-components -n diskuse-summary
+{
+  "result": {
+    "projectId": 7053,
+    "pluginName": "diskuse-summary",
+    "metrics": [
+      "DISKUSE_SUMMARY"
+    ],
+    "dashboards": [],
+    "relays": []
+  }
+}
+```
+
 ### plugin-install
 
 **API Documentation**
@@ -131,6 +168,18 @@ optional arguments:
   -n plugin_name, --plugin-name plugin_name
                         Plugin name
 ```
+
+**Examples**
+
+Installs a plugin `diskuse-summary` into a Boundary account so the plugin can be deployed to a meter
+
+```bash
+$ plugin-install -n diskuse-summary 
+{
+  "result": {}
+}
+```
+
 
 ### plugin-installed
 
@@ -190,6 +239,26 @@ optional arguments:
                         Boundary account
 ```
 
+**Examples**
+
+List all of the plugins in a Boundary account
+
+```bash
+$ plugin-list
+{
+  "result": {
+    "aerospike": {
+      "download": "https://github.com/boundary/boundary-plugin-aerospike-server/archive/e6a08431789523419714d14fda725b4578e5e41a.zip",
+      "repoUrl": "https://github.com/boundary/boundary-plugin-aerospike-server/tree/e6a08431789523419714d14fda725b4578e5e41a",
+      "name": "aerospike",
+      "description": "Aerospike Server",
+      "postExtract": "npm install",
+      "command": "node . --interval $(pollInterval)",
+      "ignore": "node_modules",
+      
+  ...
+```
+
 ### plugin-remove
 
 **API Documentation**
@@ -219,6 +288,19 @@ optional arguments:
                         Boundary account
   -n plugin_name, --plugin-name plugin_name
                         Plugin name
+```
+
+**Examples**
+
+Remove a plugin named `diskuse-summary` from an account
+
+```bash
+$ plugin-remove -n diskuse-summary 
+{
+  "result": {
+    "success": true
+  }
+}
 ```
 
 ### plugin-uninstall
@@ -253,4 +335,17 @@ optional arguments:
                         Plugin name
   -d, --remove-Dashes   Remove dashboards associated with the plugin
   -r, --remove-Metrics  Remove metrics associated with the plugin
+```
+
+**Examples**
+
+Uninstall a plugin from all meters in an account
+
+```bash
+$ plugin-uninstall -n diskuse-summary 
+{
+  "result": {
+    "success": true
+  }
+}
 ```

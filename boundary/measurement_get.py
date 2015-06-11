@@ -14,9 +14,11 @@
 # limitations under the License.
 #
 from datetime import datetime
+import json
 
 from boundary import ApiCli
 from dateutil import parser
+from six.moves import http_client
 
 """
 Gets measurements from a Boundary account
@@ -32,6 +34,7 @@ class MeasurementGet(ApiCli):
         self.aggregate = None
         self.startTime = None
         self.stopTime = None
+        self.now = datetime.now()
 
     def addArguments(self):
         """
@@ -72,40 +75,34 @@ class MeasurementGet(ApiCli):
         else:
             self.aggregate = "avg"
 
-        # The start time is a required argument on
-        # the command line so self.start.args should never
-        # have a value of None
-        if self.args.start is None:
-            startTime = int(datetime.now().strftime("%s"))
-        else:
-            startTime = int(self.parseTimeDate(self.args.start).strftime("%s"))
+        start_time = int(self.parse_time_date(self.args.start).strftime("%s"))
 
         # If the end time is not specified then
         # default to the current time
         if self.args.end is None:
-            stopTime = int(datetime.now().strftime("%s"))
+            stop_time = int(self.now.strftime("%s"))
         else:
-            stopTime = int(self.parseTimeDate(self.args.end).strftime("%s"))
+            stop_time = int(self.parse_time_date(self.args.end).strftime("%s"))
 
         # Convert to epoch time in milli-seconds
-        startTime *= 1000
-        stopTime *= 1000
+        start_time *= 1000
+        stop_time *= 1000
 
         self.path = "v1/measurements/{0}".format(self.metricName)
-        self.url_parameters = {"source": self.source, "start": str(startTime), "end": str(stopTime),
+        self.url_parameters = {"source": self.source, "start": str(start_time), "end": str(stop_time),
                                "agg": self.aggregate}
 
-    def parseTimeDate(self, s):
+    def parse_time_date(self, s):
         """
         Attempt to parse the passed in string into a valid datetime.
         If we get a parse error then assume the string is an epoch time
         and convert to a datetime.
         """
         try:
-            ret = parser.parse(s)
+            ret = parser.parse(str(s))
         except ValueError:
             try:
-                ret = datetime.utcfromtimestamp(s)
+                ret = datetime.fromtimestamp(int(s))
             except TypeError:
                 ret = None
         return ret
@@ -115,3 +112,14 @@ class MeasurementGet(ApiCli):
         Returns the description of this command
         """
         return "Retrieves measurement values from a metric in a Boundary account"
+
+    def handleResults(self, result):
+        """
+        Call back function to be implemented by the CLI.
+        """
+
+        # Only process if we get HTTP result of 200
+        if result.status_code == http_client.OK:
+            payload = json.loads(result.text)
+            out = json.dumps(payload, sort_keys=True, indent=4, separators=(',', ': '))
+            print(out)

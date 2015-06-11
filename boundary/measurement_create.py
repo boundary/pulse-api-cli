@@ -17,6 +17,7 @@ import socket
 import time
 import json
 
+from six.moves import http_client
 from boundary import ApiCli
 import requests
 
@@ -27,6 +28,7 @@ Uses the following Boundary API:
 http://premium-documentation.boundary.com/v1/post/measurements
 
 """
+
 
 class MeasurementCreate(ApiCli):
     def __init__(self):
@@ -94,3 +96,14 @@ class MeasurementCreate(ApiCli):
 
     def getDescription(self):
         return "Adds a measurement value to a Boundary account"
+
+    def handleResults(self, result):
+        """
+        Call back function to be implemented by the CLI.
+        """
+
+        # Only process if we get HTTP result of 200
+        if result.status_code == http_client.OK:
+            payload = json.loads(result.text)
+            out = json.dumps(payload, sort_keys=True, indent=4, separators=(',', ': '))
+            print(out)

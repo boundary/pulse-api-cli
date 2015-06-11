@@ -10,17 +10,20 @@ Commands to administer definitions of metric alarms in a Boundary account.
 **Usage**
 
 ```bash
-usage: alarm-create [-h] [-l {debug,info,warning,error,critical}]
-                    [-a api_host] [-e e_mail] [-t api_token] -n alarm_name -m
-                    metric_name -g {SUM,AVG,MAX,MIN} -o {eq,gt,lt} -v value -r
-                    {1 second,15 seconds,1 minute,5 minutes,1 hour,1.5 hours,3
-                    hours,6 hours,12 hours} [-u hostgroup_id] [-d note]
-                    [-c action-id] [-p] [-x]
+usage: alarm-create [-h] -n alarm_name
+                    [-l {debug,info,warning,error,critical}] [-a api_host]
+                    [-e e_mail] [-t api_token] -m metric_name -g
+                    {SUM,AVG,MAX,MIN} -o {eq,gt,lt} -v value -r {1 second,15
+                    seconds,1 minute,5 minutes,1 hour,1.5 hours,3 hours,6
+                    hours,12 hours} [-u host_group_id] [-d note]
+                    [-c action-id] [-p {yes,no}] [-x {yes,no}]
 
-Creates a new metric definition in an Boundary account
+Creates an alarm definition in an Boundary account
 
 optional arguments:
   -h, --help            show this help message and exit
+  -n alarm_name, --alarm-name alarm_name
+                        Name of the alarm
   -l {debug,info,warning,error,critical}, --log-level {debug,info,warning,error,critical}
                         Sets logging level to one of
                         debug,info,warning,error,critical.Default is logging
@@ -32,8 +35,6 @@ optional arguments:
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
                         Boundary account
-  -n alarm_name, --alarm-name alarm_name
-                        Name of the alarm
   -m metric_name, --metric metric_name
                         Name of the metric to alarm
   -g {SUM,AVG,MAX,MIN}, --trigger-aggregate {SUM,AVG,MAX,MIN}
@@ -44,19 +45,20 @@ optional arguments:
                         Trigger threshold value
   -r {1 second,15 seconds,1 minute,5 minutes,1 hour,1.5 hours,3 hours,6 hours,12 hours}, --trigger-interval {1 second,15 seconds,1 minute,5 minutes,1 hour,1.5 hours,3 hours,6 hours,12 hours}
                         Interval to alarm upon
-  -u hostgroup_id, --host-group-id hostgroup_id
+  -u host_group_id, --host-group-id host_group_id
                         Host group the alarm applies to
   -d note, --note note  A description or resolution of the alarm
   -c action-id, --action action-id
                         An action to be performed when an alarm is triggered
-  -p, --per-host-notify
+  -p {yes,no}, --per-host-notify {yes,no}
                         An alarm by default will run the associated actions
                         when any server in the host group violates the
                         threshold, and then at the end when all servers are
                         back within the threshold. If perHostNotify is set to
                         true, the actions will run when ANY server in the
                         group violates and falls back within the threshold.
-  -x, --is-disabled     Enable or disable the alarm
+  -x {yes,no}, --is-disabled {yes,no}
+                        Enable or disable the alarm definition
 ```
 
 **Examples**
@@ -149,7 +151,6 @@ optional arguments:
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
                         Boundary account
-
 ```
 
 **Examples**
@@ -207,5 +208,86 @@ $ alarm-list
 
 **API Documentation**
 
+[http://premium-documentation.boundary.com/v1/put/alarm/:alarmId](http://premium-documentation.boundary.com/v1/put/alarm/:alarmId)
+
 
 **Usage**
+
+```bash
+usage: alarm-update [-h] -i alarm_id [-n alarm_name]
+                    [-l {debug,info,warning,error,critical}] [-a api_host]
+                    [-e e_mail] [-t api_token] [-m metric_name]
+                    [-g {SUM,AVG,MAX,MIN}] [-o {eq,gt,lt}] [-v value]
+                    [-r {1 second,15 seconds,1 minute,5 minutes,1 hour,1.5 hours,3 hours,6 hours,12 hours}]
+                    [-u host_group_id] [-d note] [-c action-id] [-p {yes,no}]
+                    [-x {yes,no}]
+
+Updates an alarm definition in an Boundary account
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i alarm_id, --alarm-id alarm_id
+                        Id of the alarm to update
+  -n alarm_name, --alarm-name alarm_name
+                        Name of the alarm
+  -l {debug,info,warning,error,critical}, --log-level {debug,info,warning,error,critical}
+                        Sets logging level to one of
+                        debug,info,warning,error,critical.Default is logging
+                        is disabled
+  -a api_host, --api-host api_host
+                        Boundary API host endpoint
+  -e e_mail, --email e_mail
+                        e-mail that has access to the Boundary account
+  -t api_token, --api-token api_token
+                        API token for given e-mail that has access to the
+                        Boundary account
+  -m metric_name, --metric metric_name
+                        Name of the metric to alarm
+  -g {SUM,AVG,MAX,MIN}, --trigger-aggregate {SUM,AVG,MAX,MIN}
+                        Metric aggregate to alarm upon
+  -o {eq,gt,lt}, --trigger-operation {eq,gt,lt}
+                        Trigger threshold comparison
+  -v value, --trigger-threshold value
+                        Trigger threshold value
+  -r {1 second,15 seconds,1 minute,5 minutes,1 hour,1.5 hours,3 hours,6 hours,12 hours}, --trigger-interval {1 second,15 seconds,1 minute,5 minutes,1 hour,1.5 hours,3 hours,6 hours,12 hours}
+                        Interval to alarm upon
+  -u host_group_id, --host-group-id host_group_id
+                        Host group the alarm applies to
+  -d note, --note note  A description or resolution of the alarm
+  -c action-id, --action action-id
+                        An action to be performed when an alarm is triggered
+  -p {yes,no}, --per-host-notify {yes,no}
+                        An alarm by default will run the associated actions
+                        when any server in the host group violates the
+                        threshold, and then at the end when all servers are
+                        back within the threshold. If perHostNotify is set to
+                        true, the actions will run when ANY server in the
+                        group violates and falls back within the threshold.
+  -x {yes,no}, --is-disabled {yes,no}
+                        Enable or disable the alarm definition
+```
+
+**Examples**
+
+```bash
+$ alarm-update -i 45086 -m BOUNDARY_METRIC_TEST -g AVG -o gt -v 50 -r "1 minute" -u 17878 -c 6614
+{
+  "result": {
+    "id": 45086,
+    "name": "green",
+    "triggerPredicate": {
+      "agg": "AVG",
+      "op": "gt",
+      "val": "50"
+    },
+    "metricName": "BOUNDARY_METRIC_TEST",
+    "interval": 60,
+    "hostgroupId": 17878,
+    "note": null,
+    "perHostNotify": false,
+    "actions": [
+      6614
+    ]
+  }
+}
+```

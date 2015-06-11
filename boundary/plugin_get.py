@@ -21,12 +21,12 @@ class PluginGet(ApiCli):
         ApiCli.__init__(self)
         self.method = "GET"
         self.path = "v1/plugins"
-        self.pluginName = None
+        self.plugin_name = None
 
     def addArguments(self):
         ApiCli.addArguments(self)
 
-        self.parser.add_argument('-n', '--plugin-Name', dest='pluginName', action='store', metavar='plugin_name',
+        self.parser.add_argument('-n', '--plugin-Name', dest='plugin_name', action='store', metavar='plugin_name',
                                  required=True, help='Plugin name')
 
     def getArguments(self):
@@ -34,10 +34,10 @@ class PluginGet(ApiCli):
         Extracts the specific arguments of this CLI
         """
         ApiCli.getArguments(self)
-        if self.args.pluginName is not None:
-            self.pluginName = self.args.pluginName
+        if self.args.plugin_name is not None:
+            self.plugin_name = self.args.plugin_name
 
-        self.path = "v1/plugins/{0}".format(self.pluginName)
+        self.path = "v1/plugins/{0}".format(self.plugin_name)
 
     def getDescription(self):
         return "Get the details of a plugin in a Boundary account"
