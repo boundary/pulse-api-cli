@@ -80,19 +80,6 @@
                 
                 
                 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Using <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        
-                            <li >
-                                <a href="../../examples">Examples</a>
-                            </li>
-                        
-                        </ul>
-                    </li>
-                
-                
-                
                     <li class="dropdown active">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -216,6 +203,17 @@ optional arguments:
                         Name of the github repository
 </code></pre>
 
+<p><strong>Examples</strong></p>
+<p>Adds a plugin from a github repository <code>jdgwartney/boundary-plugin-disk-summary</code> with the name <code>diskuse-summary</code> into
+a Boundary account</p>
+<pre><code class="bash">$ plugin-add -n diskuse-summary -o jdgwartney -r boundary-plugin-diskuse-summary
+{
+  &quot;result&quot;: {
+    &quot;success&quot;: true
+  }
+}
+</code></pre>
+
 <h3 id="plugin-get">plugin-get</h3>
 <p><strong>API Documentation</strong></p>
 <p><a href="http://premium-documentation.boundary.com/v1/get/plugins/:plugin">http://premium-documentation.boundary.com/v1/get/plugins/:plugin</a></p>
@@ -242,6 +240,7 @@ optional arguments:
                         Plugin name
 </code></pre>
 
+<p><strong>Examples</strong></p>
 <h3 id="plugin-get-components">plugin-get-components</h3>
 <p><strong>API Documentation</strong></p>
 <p><a href="http://premium-documentation.boundary.com/v1/get/plugins/:plugin/components">http://premium-documentation.boundary.com/v1/get/plugins/:plugin/components</a></p>
@@ -269,6 +268,22 @@ optional arguments:
                         Plugin name
 </code></pre>
 
+<p><strong>Examples</strong></p>
+<p>Displays runtime and metadata about a plugin <code>diskuse-summary</code></p>
+<pre><code class="bash">$ plugin-get-components -n diskuse-summary
+{
+  &quot;result&quot;: {
+    &quot;projectId&quot;: 7053,
+    &quot;pluginName&quot;: &quot;diskuse-summary&quot;,
+    &quot;metrics&quot;: [
+      &quot;DISKUSE_SUMMARY&quot;
+    ],
+    &quot;dashboards&quot;: [],
+    &quot;relays&quot;: []
+  }
+}
+</code></pre>
+
 <h3 id="plugin-install">plugin-install</h3>
 <p><strong>API Documentation</strong></p>
 <p><a href="http://premium-documentation.boundary.com/v1/put/plugins/installed/:plugin">http://premium-documentation.boundary.com/v1/put/plugins/installed/:plugin</a></p>
@@ -293,6 +308,14 @@ optional arguments:
                         Boundary account
   -n plugin_name, --plugin-name plugin_name
                         Plugin name
+</code></pre>
+
+<p><strong>Examples</strong></p>
+<p>Installs a plugin <code>diskuse-summary</code> into a Boundary account so the plugin can be deployed to a meter</p>
+<pre><code class="bash">$ plugin-install -n diskuse-summary 
+{
+  &quot;result&quot;: {}
+}
 </code></pre>
 
 <h3 id="plugin-installed">plugin-installed</h3>
@@ -343,6 +366,23 @@ optional arguments:
                         Boundary account
 </code></pre>
 
+<p><strong>Examples</strong></p>
+<p>List all of the plugins in a Boundary account</p>
+<pre><code class="bash">$ plugin-list
+{
+  &quot;result&quot;: {
+    &quot;aerospike&quot;: {
+      &quot;download&quot;: &quot;https://github.com/boundary/boundary-plugin-aerospike-server/archive/e6a08431789523419714d14fda725b4578e5e41a.zip&quot;,
+      &quot;repoUrl&quot;: &quot;https://github.com/boundary/boundary-plugin-aerospike-server/tree/e6a08431789523419714d14fda725b4578e5e41a&quot;,
+      &quot;name&quot;: &quot;aerospike&quot;,
+      &quot;description&quot;: &quot;Aerospike Server&quot;,
+      &quot;postExtract&quot;: &quot;npm install&quot;,
+      &quot;command&quot;: &quot;node . --interval $(pollInterval)&quot;,
+      &quot;ignore&quot;: &quot;node_modules&quot;,
+
+  ...
+</code></pre>
+
 <h3 id="plugin-remove">plugin-remove</h3>
 <p><strong>API Documentation</strong></p>
 <p><a href="http://premium-documentation.boundary.com/v1/delete/plugins/private/:plugin">http://premium-documentation.boundary.com/v1/delete/plugins/private/:plugin</a></p>
@@ -367,6 +407,16 @@ optional arguments:
                         Boundary account
   -n plugin_name, --plugin-name plugin_name
                         Plugin name
+</code></pre>
+
+<p><strong>Examples</strong></p>
+<p>Remove a plugin named <code>diskuse-summary</code> from an account</p>
+<pre><code class="bash">$ plugin-remove -n diskuse-summary 
+{
+  &quot;result&quot;: {
+    &quot;success&quot;: true
+  }
+}
 </code></pre>
 
 <h3 id="plugin-uninstall">plugin-uninstall</h3>
@@ -396,6 +446,16 @@ optional arguments:
                         Plugin name
   -d, --remove-Dashes   Remove dashboards associated with the plugin
   -r, --remove-Metrics  Remove metrics associated with the plugin
+</code></pre>
+
+<p><strong>Examples</strong></p>
+<p>Uninstall a plugin from all meters in an account</p>
+<pre><code class="bash">$ plugin-uninstall -n diskuse-summary 
+{
+  &quot;result&quot;: {
+    &quot;success&quot;: true
+  }
+}
 </code></pre>
 
 </div>

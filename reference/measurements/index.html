@@ -80,19 +80,6 @@
                 
                 
                 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Using <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        
-                            <li >
-                                <a href="../../examples">Examples</a>
-                            </li>
-                        
-                        </ul>
-                    </li>
-                
-                
-                
                     <li class="dropdown active">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -211,6 +198,17 @@ optional arguments:
 
 </code></pre>
 
+<p><strong>Examples</strong></p>
+<p>Send a measurement value of 100 for the metric <code>BOUNDARY_HELLO_WORLD</code></p>
+<pre><code class="bash">$ measurement-create -n BOUNDARY_HELLO_WORLD -m 100
+{
+    &quot;result&quot;: {
+        &quot;success&quot;: true
+    }
+}
+
+</code></pre>
+
 <h3 id="measurement-get">measurement-get</h3>
 <p><strong> API Documentation </strong></p>
 <p><a href="http://premium-documentation.boundary.com/v1/get/measurements/:metric">http://premium-documentation.boundary.com/v1/get/measurements/:metric</a></p>
@@ -244,6 +242,29 @@ optional arguments:
                         Start of time range as ISO 8601 string or epoch
                         seconds
   -d end, --end end     End of time range as ISO 8601 string or epoch seconds
+</code></pre>
+
+<p><strong>Examples</strong></p>
+<pre><code class="bash">measurement-get -n BOUNDARY_HELLO_WORLD -b 2015-06-10
+{
+    &quot;result&quot;: {
+        &quot;aggregates&quot;: [
+            [
+                [
+                    1433973154000,
+                    null
+                ],
+                [
+                    [
+                        &quot;lerma&quot;,
+                        100
+                    ]
+                ]
+            ]
+        ],
+        &quot;timestamp&quot;: 1433973185845
+    }
+}
 </code></pre>
 
 </div>

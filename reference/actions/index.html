@@ -80,19 +80,6 @@
                 
                 
                 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Using <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        
-                            <li >
-                                <a href="../../examples">Examples</a>
-                            </li>
-                        
-                        </ul>
-                    </li>
-                
-                
-                
                     <li class="dropdown active">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -138,7 +125,7 @@
                 
                 
                 <li >
-                    <a rel="next" href="../../examples">
+                    <a rel="next" href="../../configuration">
                         <i class="fa fa-arrow-left"></i> Previous
                     </a>
                 </li>
@@ -197,6 +184,15 @@ optional arguments:
                         Boundary account
 </code></pre>
 
+<p><strong>Examples</strong></p>
+<pre><code class="bash">$ action-installed
+{
+  &quot;result&quot;: [
+    {
+      &quot;name&quot;: &quot;boundary-enterprise&quot;,
+  ...
+</code></pre>
+
 <h3 id="action-types">action-types</h3>
 <p><strong>API Documentation</strong></p>
 <p><a href="http://premium-documentation.boundary.com/v1/get/actions">http://premium-documentation.boundary.com/v1/get/actions</a></p>
@@ -219,6 +215,15 @@ optional arguments:
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
                         Boundary account
+</code></pre>
+
+<p><strong>Examples</strong></p>
+<pre><code class="bash">$ action-types
+{
+  &quot;result&quot;: [
+    {
+      &quot;name&quot;: &quot;boundary-enterprise&quot;,
+    ...
 </code></pre>
 
 </div>

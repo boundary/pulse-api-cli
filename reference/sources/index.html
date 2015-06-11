@@ -80,19 +80,6 @@
                 
                 
                 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Using <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        
-                            <li >
-                                <a href="../../examples">Examples</a>
-                            </li>
-                        
-                        </ul>
-                    </li>
-                
-                
-                
                     <li class="dropdown active">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -198,6 +185,16 @@ optional arguments:
                         List of sources to delete
 </code></pre>
 
+<p><strong>Examples</strong></p>
+<p>Remove the source <code>my-web-server-001</code> from an account</p>
+<pre><code class="bash">$ source-delete -s my-web-server-001
+{
+  &quot;result&quot;: {
+    &quot;success&quot;: true
+  }
+}
+</code></pre>
+
 <h3 id="source-list">source-list</h3>
 <p><strong>API Documentation</strong></p>
 <p><a href="http://premium-documentation.boundary.com/v1/get/account/sources/:lastModified?">http://premium-documentation.boundary.com/v1/get/account/sources/:lastModified?</a></p>
@@ -220,6 +217,48 @@ optional arguments:
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
                         Boundary account
+</code></pre>
+
+<p><strong>Examples</strong></p>
+<p>Display the sources in an account</p>
+<pre><code class="bash">$ source-list
+{
+  &quot;result&quot;: {
+    &quot;lastModified&quot;: 1433982466486,
+    &quot;sources&quot;: [
+      {
+        &quot;name&quot;: &quot;my-web-server-001&quot;,
+        &quot;type&quot;: &quot;source&quot;,
+        &quot;displayName&quot;: null,
+        &quot;enabled&quot;: true,
+        &quot;visible&quot;: true,
+        &quot;removed&quot;: false,
+        &quot;streams&quot;: {
+          &quot;BOUNDARY_RANDOM_NUMBER&quot;: {
+            &quot;enabled&quot;: false,
+            &quot;removed&quot;: false,
+            &quot;visible&quot;: true
+          }
+        }
+      },
+      {
+        &quot;name&quot;: &quot;my-web-server-002&quot;,
+        &quot;type&quot;: &quot;source&quot;,
+        &quot;displayName&quot;: null,
+        &quot;enabled&quot;: true,
+        &quot;visible&quot;: true,
+        &quot;removed&quot;: false,
+        &quot;streams&quot;: {
+          &quot;BOUNDARY_RANDOM_NUMBER&quot;: {
+            &quot;enabled&quot;: false,
+            &quot;removed&quot;: false,
+            &quot;visible&quot;: true
+          }
+        }
+      }
+    ]
+  }
+}
 </code></pre>
 
 </div>

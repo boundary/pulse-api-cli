@@ -81,19 +81,6 @@
                 
                 
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Using <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        
-                            <li >
-                                <a href="examples/">Examples</a>
-                            </li>
-                        
-                        </ul>
-                    </li>
-                
-                
-                
-                    <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                         
@@ -170,6 +157,8 @@
         
             <li><a href="#authentication">Authentication</a></li>
         
+            <li><a href="#examples">Examples</a></li>
+        
     
     </ul>
 </div></div>
@@ -188,6 +177,23 @@ PyPi <a href="https://pypi.python.org/pypi/boundary">https://pypi.python.org/pyp
 See <a href="install/">Installing</a> for complete instructions on installing.</p>
 <h2 id="authentication">Authentication</h2>
 <p>Your Boundary e-mail and API token are used for authentication see <a href="configuration/">Configuring</a> for instructions.</p>
+<h2 id="examples">Examples</h2>
+<p>Sample usage of selected Boundary CLIs. The reference section
+the commands.</p>
+<h3 id="create-a-new-metric-definition">Create a new metric definition</h3>
+<pre><code class="bash">$ metric-create -n BOUNDARY_FOO_METRIC_IN -d &quot;Boundary Foo Metric In&quot; -s &quot;Foo In&quot; -i &quot;Tracks the Boundary Foo Metric&quot; -g AVG -u number -r 1000
+{
+  &quot;result&quot;: {
+    &quot;success&quot;: true
+  }
+}
+</code></pre>
+
+<h3 id="add-a-measurement-value">Add a measurement value</h3>
+<pre><code class="bash">$ measurement-create -n BOUNDARY_MEASUREMENT_TEST -m 3456 -s foobar
+{&quot;result&quot;:{&quot;success&quot;:true}}
+</code></pre>
+
 </div>
             
         </div>

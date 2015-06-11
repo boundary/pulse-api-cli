@@ -80,19 +80,6 @@
                 
                 
                 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Using <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        
-                            <li >
-                                <a href="../../examples">Examples</a>
-                            </li>
-                        
-                        </ul>
-                    </li>
-                
-                
-                
                     <li class="dropdown active">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -185,11 +172,10 @@
 <p><strong>API Documentation</strong></p>
 <p><a href="http://premium-documentation.boundary.com/v1/post/metrics">http://premium-documentation.boundary.com/v1/post/metrics</a></p>
 <p><strong>Usage</strong></p>
-<pre><code class="bash">usage: metric-create [-h] [-l {debug,info,warning,error,critical}]
-                     [-a api_host] [-e e_mail] [-t api_token] -n metric_name
+<pre><code class="bash">                     [-a api_host] [-e e_mail] [-t api_token] -n metric_name
                      -d display_name -s display_short_name [-i description] -g
                      {AVG,MAX,MIN,SUM} -u {percent,number,bytecount,duration}
-                     [-r resolution] [-x]
+                     [-r resolution] [-x {yes,no}]
 
 Creates a new metric definition in an Boundary account
 
@@ -220,7 +206,24 @@ optional arguments:
                         Metric unit
   -r resolution, --resolution resolution
                         Metric default resolution
-  -x, --is-disabled     Disable metric
+  -x {yes,no}, --is-disabled {yes,no}
+                        Enable or disable the metric definition
+</code></pre>
+
+<p><strong>Examples</strong></p>
+<p>Create a new metric, <code>BOUNDARY_CLI_METRIC</code> with a display name of <em>Boundary CLI Metric</em>, a short display of <em>CLI Metric</em>,
+default aggregate of <em>AVG</em>, and unit of <em>number</em>.</p>
+<pre><code class="bash">$ metric-create -n BOUNDARY_CLI_METRIC -d &quot;Boundary CLI Metric&quot; -s &quot;CLI Metric&quot; -g AVG -u number
+{
+  &quot;result&quot;: {
+    &quot;name&quot;: &quot;BOUNDARY_CLI_METRIC&quot;,
+    &quot;displayName&quot;: &quot;Boundary CLI Metric&quot;,
+    &quot;displayNameShort&quot;: &quot;CLI Metric&quot;,
+    &quot;unit&quot;: &quot;number&quot;,
+    &quot;defaultAggregate&quot;: &quot;AVG&quot;,
+    &quot;id&quot;: 151327
+  }
+}
 
 </code></pre>
 
@@ -250,6 +253,16 @@ optional arguments:
                         Metric identifier
 </code></pre>
 
+<p><strong>Examples</strong></p>
+<p>Delete a metric definition identified by a metric identifier of <code>BOUNDARY_DELETE_METRIC</code></p>
+<pre><code class="bash">$ metric-delete -n BOUNDARY_DELETE_METRIC 
+{
+  &quot;result&quot;: {
+    &quot;success&quot;: true
+  }
+}
+</code></pre>
+
 <h3 id="metric-export">metric-export</h3>
 <p><strong>API Documentation</strong></p>
 <p><a href="http://premium-documentation.boundary.com/v1/get/metrics">http://premium-documentation.boundary.com/v1/get/metrics</a></p>
@@ -275,6 +288,85 @@ optional arguments:
   -p pattern, --pattern pattern
                         regular expression pattern to use search the name of
                         the metric
+</code></pre>
+
+<p><strong>Examples</strong></p>
+<p>Export metric where the metric identifier begins with <code>BOUNDARY</code></p>
+<pre><code class="bash">$ metric-export -p ^BOUNDARY
+{
+    &quot;BOUNDARY_CPU_LOAD_15_MINUTE&quot;: {
+        &quot;defaultAggregate&quot;: &quot;AVG&quot;,
+        &quot;defaultResolutionMS&quot;: null,
+        &quot;description&quot;: &quot;CPU load in the last 15 minutes.&quot;,
+        &quot;displayName&quot;: &quot;CPU Load 15 Minute&quot;,
+        &quot;displayNameShort&quot;: &quot;Load 15 Minute&quot;,
+        &quot;isDisabled&quot;: false,
+        &quot;unit&quot;: &quot;number&quot;
+    },
+    &quot;BOUNDARY_CPU_LOAD_1_MINUTE&quot;: {
+        &quot;defaultAggregate&quot;: &quot;AVG&quot;,
+        &quot;defaultResolutionMS&quot;: null,
+        &quot;description&quot;: &quot;Load on the CPU in the last minute.&quot;,
+        &quot;displayName&quot;: &quot;CPU Load 1 Minute&quot;,
+        &quot;displayNameShort&quot;: &quot;Load 1 Minute&quot;,
+        &quot;isDisabled&quot;: false,
+        &quot;unit&quot;: &quot;number&quot;
+    },
+    &quot;BOUNDARY_CPU_LOAD_5_MINUTE&quot;: {
+        &quot;defaultAggregate&quot;: &quot;AVG&quot;,
+        &quot;defaultResolutionMS&quot;: null,
+        &quot;description&quot;: &quot;CPU load in the last 5 minutes.&quot;,
+        &quot;displayName&quot;: &quot;CPU Load 5 Minute&quot;,
+        &quot;displayNameShort&quot;: &quot;Load 5 Minute&quot;,
+        &quot;isDisabled&quot;: false,
+        &quot;unit&quot;: &quot;number&quot;
+    },
+    &quot;BOUNDARY_FILE_SPACE_CAPACITY&quot;: {
+        &quot;defaultAggregate&quot;: &quot;AVG&quot;,
+        &quot;defaultResolutionMS&quot;: null,
+        &quot;description&quot;: &quot;Percentage used of a file system.&quot;,
+        &quot;displayName&quot;: &quot;File Space Capacity&quot;,
+        &quot;displayNameShort&quot;: &quot;File Space Capacity&quot;,
+        &quot;isDisabled&quot;: false,
+        &quot;unit&quot;: &quot;percent&quot;
+    },
+    &quot;BOUNDARY_PORT_AVAILABILITY&quot;: {
+        &quot;defaultAggregate&quot;: &quot;AVG&quot;,
+        &quot;defaultResolutionMS&quot;: null,
+        &quot;description&quot;: &quot;Reports on the availability of TCP/IP port.&quot;,
+        &quot;displayName&quot;: &quot;Port Availability&quot;,
+        &quot;displayNameShort&quot;: &quot;Port Availability&quot;,
+        &quot;isDisabled&quot;: false,
+        &quot;unit&quot;: &quot;number&quot;
+    },
+    &quot;BOUNDARY_PORT_RESPONSE&quot;: {
+        &quot;defaultAggregate&quot;: &quot;AVG&quot;,
+        &quot;defaultResolutionMS&quot;: null,
+        &quot;description&quot;: &quot;Port Response&quot;,
+        &quot;displayName&quot;: &quot;Port Response&quot;,
+        &quot;displayNameShort&quot;: &quot;Port Response&quot;,
+        &quot;isDisabled&quot;: false,
+        &quot;unit&quot;: &quot;number&quot;
+    },
+    &quot;BOUNDARY_PROCESS_COUNT&quot;: {
+        &quot;defaultAggregate&quot;: &quot;AVG&quot;,
+        &quot;defaultResolutionMS&quot;: null,
+        &quot;description&quot;: &quot;Number of processes running on a host.&quot;,
+        &quot;displayName&quot;: &quot;Process Count&quot;,
+        &quot;displayNameShort&quot;: &quot;Process Count&quot;,
+        &quot;isDisabled&quot;: false,
+        &quot;unit&quot;: &quot;number&quot;
+    },
+    &quot;BOUNDARY_RANDOM_NUMBER&quot;: {
+        &quot;defaultAggregate&quot;: &quot;SUM&quot;,
+        &quot;defaultResolutionMS&quot;: null,
+        &quot;description&quot;: &quot;An example metric definition for using the boundary plugin shell&quot;,
+        &quot;displayName&quot;: &quot;Random Number&quot;,
+        &quot;displayNameShort&quot;: &quot;Random Number&quot;,
+        &quot;isDisabled&quot;: false,
+        &quot;unit&quot;: &quot;number&quot;
+    }
+}
 </code></pre>
 
 <h3 id="metric-get">metric-get</h3>
@@ -303,6 +395,21 @@ optional arguments:
                         Metric identifier
 </code></pre>
 
+<p><strong>Examples</strong></p>
+<p>Display the metric definition identified by the metric identifier <code>BOUNDARY_CLI_METRIC</code></p>
+<pre><code class="bash">$ metric-get -n BOUNDARY_CLI_METRIC 
+{
+    &quot;defaultAggregate&quot;: &quot;AVG&quot;,
+    &quot;defaultResolutionMS&quot;: null,
+    &quot;description&quot;: null,
+    &quot;displayName&quot;: &quot;Boundary CLI Metric&quot;,
+    &quot;displayNameShort&quot;: &quot;CLI Metric&quot;,
+    &quot;isDisabled&quot;: false,
+    &quot;name&quot;: &quot;BOUNDARY_CLI_METRIC&quot;,
+    &quot;unit&quot;: &quot;number&quot;
+}
+</code></pre>
+
 <h3 id="metric-import">metric-import</h3>
 <p><strong>API Documentation</strong></p>
 <p><a href="http://premium-documentation.boundary.com/v1/post/metrics">http://premium-documentation.boundary.com/v1/post/metrics</a></p>
@@ -328,15 +435,52 @@ optional arguments:
   -f path, --file path  Path to JSON file
 </code></pre>
 
+<p><strong>Examples</strong></p>
+<p>Given the following JSON document of metric definitions in a file <code>metrics.json</code>:</p>
+<pre><code class="json">{
+  &quot;BOUNDARY_METRIC_CLI_ONE&quot;: {
+    &quot;defaultAggregate&quot;: &quot;AVG&quot;,
+    &quot;defaultResolutionMS&quot;: 5000,
+    &quot;description&quot;: &quot;Example metric BOUNDARY_METRIC_CLI_ONE&quot;,
+    &quot;displayName&quot;: &quot;Boundary CLI Metric One&quot;,
+    &quot;displayNameShort&quot;: &quot;CLI Metric One&quot;,
+    &quot;isDisabled&quot;: false,
+    &quot;unit&quot;: &quot;percent&quot;
+  },
+  &quot;BOUNDARY_METRIC_CLI_TWO&quot;: {
+    &quot;defaultAggregate&quot;: &quot;SUM&quot;,
+    &quot;defaultResolutionMS&quot;: 5000,
+    &quot;description&quot;: &quot;Example metric BOUNDARY_METRIC_CLI_TWO&quot;,
+    &quot;displayName&quot;: &quot;Boundary CLI Metric Two&quot;,
+    &quot;displayNameShort&quot;: &quot;CLI Metric Two&quot;,
+    &quot;isDisabled&quot;: false,
+    &quot;unit&quot;: &quot;number&quot;
+  },
+  &quot;BOUNDARY_METRIC_CLI_THREE&quot;: {
+    &quot;defaultAggregate&quot;: &quot;MAX&quot;,
+    &quot;defaultResolutionMS&quot;: 5000,
+    &quot;description&quot;: &quot;Example metric BOUNDARY_METRIC_CLI_THREE&quot;,
+    &quot;displayName&quot;: &quot;Boundary CLI Metric Three&quot;,
+    &quot;displayNameShort&quot;: &quot;CLI Metric Three&quot;,
+    &quot;isDisabled&quot;: false,
+    &quot;unit&quot;: &quot;number&quot;
+  }
+}
+</code></pre>
+
+<p>Run the following command to import the metric definitions:</p>
+<pre><code class="bash">$ metric-import -f metrics.json
+</code></pre>
+
 <h3 id="metric-update">metric-update</h3>
 <p><strong>API Documentation</strong></p>
 <p><a href="http://premium-documentation.boundary.com/v1/put/metrics/:metricName">http://premium-documentation.boundary.com/v1/put/metrics/:metricName</a></p>
 <p><strong>Usage</strong></p>
-<pre><code class="bash">usage: metric-update [-h] [-l {debug,info,warning,error,critical}]
+<pre><code class="bash">metric-update [-h] [-l {debug,info,warning,error,critical}]
                      [-a api_host] [-e e_mail] [-t api_token] -n metric_name
                      -d display_name -s display_short_name [-i description] -g
                      {AVG,MAX,MIN,SUM} -u {percent,number,bytecount,duration}
-                     [-r resolution] [-x]
+                     [-r resolution] [-x {yes,no}]
 
 Updates a metric definition in an Boundary account
 
@@ -367,7 +511,24 @@ optional arguments:
                         Metric unit
   -r resolution, --resolution resolution
                         Metric default resolution
-  -x, --is-disabled     Disable metric
+  -x {yes,no}, --is-disabled {yes,no}
+                        Enable or disable the metric definition
+</code></pre>
+
+<p><strong>Examples</strong></p>
+<p>Update a metric definition</p>
+<pre><code class="bash">$ metric-update -n BOUNDARY_TEST_METRIC -d &quot;Boundary Test Metric&quot; -s &quot;CLI Metric&quot; -g AVG -u number -i 'New metric to update'
+{
+  &quot;result&quot;: {
+    &quot;name&quot;: &quot;BOUNDARY_TEST_METRIC&quot;,
+    &quot;description&quot;: &quot;New metric to update&quot;,
+    &quot;displayName&quot;: &quot;Boundary Test Metric&quot;,
+    &quot;displayNameShort&quot;: &quot;CLI Metric&quot;,
+    &quot;unit&quot;: &quot;number&quot;,
+    &quot;defaultAggregate&quot;: &quot;AVG&quot;,
+    &quot;id&quot;: 151332
+  }
+}
 </code></pre>
 
 </div>
