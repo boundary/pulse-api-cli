@@ -30,6 +30,19 @@ optional arguments:
                         List of sources to delete
 ```
 
+**Examples**
+
+Remove the source `my-web-server-001` from an account
+
+```bash
+$ source-delete -s my-web-server-001
+{
+  "result": {
+    "success": true
+  }
+}
+```
+
 ### source-list
 
 **API Documentation**
@@ -57,4 +70,49 @@ optional arguments:
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
                         Boundary account
+```
+
+**Examples**
+
+Display the sources in an account
+
+```bash
+$ source-list
+{
+  "result": {
+    "lastModified": 1433982466486,
+    "sources": [
+      {
+        "name": "my-web-server-001",
+        "type": "source",
+        "displayName": null,
+        "enabled": true,
+        "visible": true,
+        "removed": false,
+        "streams": {
+          "BOUNDARY_RANDOM_NUMBER": {
+            "enabled": false,
+            "removed": false,
+            "visible": true
+          }
+        }
+      },
+      {
+        "name": "my-web-server-002",
+        "type": "source",
+        "displayName": null,
+        "enabled": true,
+        "visible": true,
+        "removed": false,
+        "streams": {
+          "BOUNDARY_RANDOM_NUMBER": {
+            "enabled": false,
+            "removed": false,
+            "visible": true
+          }
+        }
+      }
+    ]
+  }
+}
 ```
