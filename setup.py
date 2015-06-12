@@ -5,8 +5,7 @@ setup(
     url="http://boundary.github.io/boundary-api-cli/",
     author='David Gwartney',
     author_email='davidg@boundary.com',
-    packages=['boundary',],
-    package_data={'boundary': ['boundary/templates/*']},
+    packages=['boundary', ],
     scripts=[
       'bin/alarm-create',
       'bin/alarm-delete',
@@ -49,6 +48,7 @@ setup(
       'bin/user-get',
       'bin/user-get',
     ],
+    package_data={'boundary': ['templates/*']},
     license='LICENSE.txt',
     description='Command line tools for using the Boundary REST APIs',
     long_description=open('README.txt').read(),

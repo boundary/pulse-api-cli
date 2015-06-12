@@ -62,7 +62,7 @@ None
 
 |Field Name|Description                                       |
 |:----------|:------------------------------------------------|
-|Disk Name  |The name of the disk to be appended to the hostname to display in the legend for the Disk Use Summary data."|
+|Disk Name  |The name of the disk to be appended to the hostname to display in the legend for the Disk Use Summary templates."|
 |Mount Point|The mounted point to check for free space. (either this or the Mounted device need to be set for the plugin to function properly)|
 |Device     |The mounted device to check for free space. (either this or the Mount Point directory need to be set for the plugin to function properly)|
 |Poll Interval | How often to poll for metrics |
@@ -132,6 +132,6 @@ None
         template = self.env.get_template('readme.md')
         context = {}
         context['plugin_name'] = 'Foo'
-        print(template.render(name='John Doe'))
+        print(template.render(context))
 
 

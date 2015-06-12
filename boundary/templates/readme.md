@@ -1,4 +1,4 @@
-# {{plugin_name}} Plugin
+## {{plugin_name}} Plugin
 
 
 ### Prerequisites
