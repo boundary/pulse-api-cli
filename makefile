@@ -11,9 +11,11 @@ build:
 doc:
 	pandoc -f markdown -t plain README.md > README.txt
 
+rebuild: clean install
+
 upload:
 	python setup.py sdist upload
 	
 clean:
 	/bin/rm -rf build dist site
-	pip freeze | grep "boundary==$(VERSION)" && pip uninstall $(TARGET)
+	pip freeze | grep "boundary==$(VERSION)" && pip uninstall -y $(TARGET)
