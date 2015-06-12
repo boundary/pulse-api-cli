@@ -59,6 +59,7 @@ from .plugin_install import PluginInstall
 from .plugin_installed import PluginInstalled
 from .plugin_list import PluginList
 from .plugin_manifest import PluginManifest
+from .plugin_readme import PluginReadme
 from .plugin_remove import PluginRemove
 from .plugin_uninstall import PluginUninstall
 
