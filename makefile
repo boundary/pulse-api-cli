@@ -1,5 +1,5 @@
 TARGET=boundary
-VERSION=0.2.0
+VERSION=0.2.1
 TAR_FILE=dist/boundary-$(VERSION).tar.gz
 
 install: build
@@ -15,5 +15,5 @@ upload:
 	python setup.py sdist upload
 	
 clean:
-	/bin/rm -rf build dist
+	/bin/rm -rf build dist site
 	pip freeze | grep "boundary==$(VERSION)" && pip uninstall $(TARGET)
