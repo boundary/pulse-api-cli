@@ -15,5 +15,5 @@ upload:
 	python setup.py sdist upload
 	
 clean:
-	/bin/rm -rf build dist
+	/bin/rm -rf build dist site
 	pip freeze | grep "boundary==$(VERSION)" && pip uninstall $(TARGET)
