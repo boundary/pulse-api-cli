@@ -1,0 +1,37 @@
+{
+  "name" : "Boundary Disk Use Summary",
+  "version" : "2.0",
+  "tags" : "meter",
+  "description" : "Scans the given device mount paths and reports the one with the least free space",
+  "icon" : "icon.png",
+  "command" : "node index.js $(pollInterval) $(devices)",
+  "command_lua" : "boundary-meter init.lua",
+  "postExtract" : "npm install",
+  "postExtract_lua" : "",
+  "ignore" : "node_modules",
+  "metrics" : ["DISKUSE_SUMMARY"],
+  "paramArray" : { "itemTitle" : ["diskname","dir","device"], "schemaTitle" : "Endpoint"},
+  "paramSchema" : [
+    {
+      "title" : "Disk Name",
+      "name" : "diskname",
+      "description" : "The name of the disk to be appended to the hostname to display in the legend for the Disk Use Summary data.",
+      "type" : "string",
+      "required" : "true"
+    },
+    {
+      "title" : "Mount Point",
+      "name" : "dir",
+      "description" : "The mounted point to check for free space. (either this or the Mounted device need to be set for the plugin to function properly)",
+      "type" : "string",
+      "required" : false
+    },
+    {
+      "title" : "Device",
+      "name" : "device",
+      "description" : "The mounted device to check for free space. (either this or the Mount Point directory need to be set for the plugin to function properly)",
+      "type" : "string",
+      "required" : false
+    }
+  ]
+}
