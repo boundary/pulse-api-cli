@@ -125,10 +125,13 @@ None
         logging.debug("readme_path: " + str(self.plugin_manifest_path))
         pass
 
+    def
+
     def getDescription(self):
         return '"Generates README from plugin.json and template"'
 
     def callAPI(self):
+
         template = self.env.get_template('readme.md')
         context = {}
         context['plugin_name'] = 'Foo'

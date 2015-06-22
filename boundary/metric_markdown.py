@@ -73,7 +73,7 @@ class MetricMarkdown(ApiCli):
         """
         manifest = PluginManifest(self.file_path)
         manifest.get()
-        self.manifest = manifest.getManifest()
+        self.manifest = manifest.get_manifest()
 
     def getMetricDefinition(self, name):
         """

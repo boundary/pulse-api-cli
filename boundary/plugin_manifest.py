@@ -16,8 +16,7 @@
 #
 
 import json
-from pprint import pprint
-import sys
+import logging
 
 """
 Reads and provides access to a plugin.json file the manifest of plugins.
@@ -25,7 +24,7 @@ Reads and provides access to a plugin.json file the manifest of plugins.
 
 
 class PluginManifest():
-    def __init__(self, path=None):
+    def __init__(self, path="plugin.json"):
         """
         Initialize the PluginManifest instance
         """
@@ -33,13 +32,13 @@ class PluginManifest():
         self.manifest_json = None
         self.manifest = None
 
-    def getMetricNames(self):
+    def get_metric_names(self):
         """
         Returns the list of metrics associated with the plugin manifest
         """
         return self.manifest['metrics']
 
-    def load(self):
+    def read(self):
         """
         Load the metrics file from the given path
         """
@@ -52,26 +51,65 @@ class PluginManifest():
         """
         self.manifest = json.loads(self.manifest_json)
 
-    def get(self):
+    def load(self):
         """
         Read the JSON file and parse into a dictionary
         """
-        self.load()
+        self.read()
         self.parse()
 
-    def getManifest(self):
+    @property
+    def command(self):
+        return self.manifest['command']
+
+    @property
+    def command_lua(self):
+        return self.manifest['command_lua']
+
+    @property
+    def description(self):
+        return self.manifest['description']
+
+    @property
+    def icon(self):
+        return self.manifest['icon']
+
+    @property
+    def ignore(self):
+        return self.manifest['ignore']
+
+    @property
+    def metrics(self):
+        return self.manifest['metrics']
+
+    @property
+    def name(self):
+        logging.debug(self.manifest)
+        return self.manifest['name']
+
+    @property
+    def param_array(self):
+        return self.manifest['paramArray']
+
+    @property
+    def post_extract(self):
+        return self.manifest['postExtract']
+
+    @property
+    def post_extract_lua(self):
+        return self.manifest['postExtract_lua']
+
+    @property
+    def tags(self):
+        return self.manifest['tags']
+
+    @property
+    def version(self):
+        return self.manifest['version']
+
+    def get_manifest(self):
         """
         Returns the dictionary from the parse JSON plugin manifest
         """
         return self.manifest
 
-
-if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        sys.stderr.write("No file")
-        sys.exit(1)
-
-    p = PluginManifest(sys.argv[1])
-    p.get()
-    pprint(p.getManifest())
-    pprint(p.getMetricNames())
