@@ -23,6 +23,7 @@ setup(
       'bin/hostgroup-update',
       'bin/measurement-create',
       'bin/measurement-get',
+      'bin/meter-client',
       'bin/metric-create',
       'bin/metric-create-batch',
       'bin/metric-delete',

@@ -148,14 +148,17 @@ class ApiCli(object):
         else:
             self.apihost = 'premium-api.boundary.com'
 
-    def addArguments(self):
-        """
-        Configure handling of command line arguments.
-        """
+    def addLoggingArgument(self):
         self.parser.add_argument('-l', '--log-level', dest='logLevel', action='store',
                                  choices=['debug', 'info', 'warning', 'error', 'critical'],
                                  help='Sets logging level to one of debug,info,warning,error,critical.' +
                                       'Default is logging is disabled')
+
+    def addArguments(self):
+        """
+        Configure handling of command line arguments.
+        """
+        self.addLoggingArgument()
         self.parser.add_argument('-a', '--api-host', dest='apihost', action='store', metavar="api_host",
                                  help='Boundary API host endpoint')
         self.parser.add_argument('-e', '--email', dest='email', action='store', metavar="e_mail",
