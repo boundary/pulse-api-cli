@@ -175,7 +175,7 @@ to execute against the Boundary REST APIs, and optionally this information can b
 <tbody>
 <tr>
 <td align="left">BOUNDARY_API_HOST</td>
-<td align="left">Boundary API host  (e.g. <em>premium.boundary.com</em>)</td>
+<td align="left">Boundary API host  (e.g. <em>premium-api.boundary.com</em>)</td>
 </tr>
 <tr>
 <td align="left">BOUNDARY_EMAIL</td>
@@ -190,7 +190,7 @@ to execute against the Boundary REST APIs, and optionally this information can b
 <p></br>
 Use the following template, and replace with your account values, and add to your Bash shell <code>.bash_profile</code> or
 <code>.bashrc</code> to set the environment values specific to your account:</p>
-<pre><code class="bash">export BOUNDARY_API_HOST=&quot;premium.boundary.com&quot;
+<pre><code class="bash">export BOUNDARY_API_HOST=&quot;premium-api.boundary.com&quot;
 export BOUNDARY_EMAIL=&quot;dude@some.company.com&quot;
 export BOUNDARY_API_TOKEN=&quot;api.8cb8d721d8-9999&quot;
 </code></pre>
@@ -207,20 +207,24 @@ and get help on a specific command. These common command line arguments are show
 </thead>
 <tbody>
 <tr>
-<td align="left">help</td>
+<td align="left">--help</td>
 <td align="left">shows the command help and exits</td>
 </tr>
 <tr>
-<td align="left">log level</td>
+<td align="left">--log-level</td>
 <td align="left">configures output of command execution</td>
 </tr>
 <tr>
-<td align="left">api host</td>
-<td align="left">Boundary API host endpont</td>
+<td align="left">--api-host</td>
+<td align="left">Boundary API host endpoint</td>
 </tr>
 <tr>
-<td align="left">e-mail</td>
+<td align="left">--email</td>
 <td align="left">E-mail that has access to the Boundary account</td>
+</tr>
+<tr>
+<td align="left">--api-token</td>
+<td align="left">Api token for given e-mail that has access to the Boundary account</td>
 </tr>
 </tbody>
 </table>
