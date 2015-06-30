@@ -9,7 +9,7 @@ Environment variables are used to provide the credentials and the endpoint to ex
 
 | Environment Variable | Description                                    |
 |:---------------------|:-----------------------------------------------|
-| BOUNDARY\_API\_HOST  | Boundary API host  (e.g. _premium.boundary.com_) |
+| BOUNDARY\_API\_HOST  | Boundary API host  (e.g. _premium-api.boundary.com_) |
 | BOUNDARY\_EMAIL      | Boundary email     (e.g. _dude@some.company.com_)|
 | BOUNDARY\_API\_TOKEN | Boundary API token (e.g. _api.8cb8d721d8-9999_)  |
 
@@ -18,7 +18,7 @@ Use the following template, and replace with your account values, and add to you
 `.bashrc` to set the environment values specific to your account:
 
 ```bash
-export BOUNDARY_API_HOST="premium.boundary.com"
+export BOUNDARY_API_HOST="premium-api.boundary.com"
 export BOUNDARY_EMAIL="dude@some.company.com"
 export BOUNDARY_API_TOKEN="api.8cb8d721d8-9999"
 ```
@@ -31,10 +31,11 @@ and get help on a specific command. These common command line arguments are show
 
 | Argument | Description                                    |
 |:---------|:-----------------------------------------------|
-|help      | shows the command help and exits               |
-|log level | configures output of command execution         |
-|api host  | Boundary API host endpont                      |
-|e-mail    | E-mail that has access to the Boundary account |
+|--help      | shows the command help and exits               |
+|--log-level | configures output of command execution         |
+|--api-host  | Boundary API host endpoint                      |
+|--email     | E-mail that has access to the Boundary account |
+|--api-token | Api token for given e-mail that has access to the Boundary account |
 
 
 ```bash
