@@ -31,10 +31,11 @@ and get help on a specific command. These common command line arguments are show
 
 | Argument | Description                                    |
 |:---------|:-----------------------------------------------|
-|help      | shows the command help and exits               |
-|log level | configures output of command execution         |
-|api host  | Boundary API host endpont                      |
-|e-mail    | E-mail that has access to the Boundary account |
+|--help      | shows the command help and exits               |
+|--log-level | configures output of command execution         |
+|--api-host  | Boundary API host endpoint                      |
+|--email     | E-mail that has access to the Boundary account |
+|--api-token | Api token for given e-mail that has access to the Boundary account |
 
 
 ```bash
