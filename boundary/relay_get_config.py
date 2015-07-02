@@ -20,19 +20,37 @@ from boundary import ApiCli
 class RelayGetConfig(ApiCli):
 
     def __init__(self):
-        ApiCli.__init__()
-        self.path = "v1/relays"
-        self.sources = None
+        ApiCli.__init__(self)
+
+        self.meter = None
+        self.since = None
 
     def addArguments(self):
         """
         """
-        ApiCli.addArguments()
-        self.parser.add_argument('-n', '--name', metavar='meter', dest='meter', action='store',required=True,
+        ApiCli.addArguments(self)
+        self.parser.add_argument('-n', '--name', metavar='meter_name', dest='meter', action='store', required=True,
                                  help='Name of the meter to set plugin configuration information')
 
+        self.parser.add_argument('-s', '--since', metavar='timestamp', dest='since', action='store', required=False,
+                                 help='Unix timestamp of when configuration was last checked. '
+                                      + 'If configuration has not changed, null is returned.')
+
     def getArguments(self):
-        ApiCli.getArguments()
+        """
+        """
+        ApiCli.getArguments(self)
+
+        if self.args.meter is not None:
+            self.meter = self.args.meter
+
+        if self.args.since is not None:
+            self.since = self.args.since
+
+        self.path = 'v1/relays/{0}/config'.format(self.meter)
+
+        if self.since is not None:
+            self.url_parameters = {"since": self.since}
 
     def getDescription(self):
-        return "Pushes relay configuration to a meter"
+        return "Returns relay configuration from a Boundary account"

@@ -19,8 +19,8 @@ from boundary import ApiCli
 
 class RelaySetConfig(ApiCli):
     def __init__(self):
-        ApiCli.__init__()
-        self.method = 'GET'
+        ApiCli.__init__(self)
+        self.method = 'PUT'
         self.path = None
         self.sources = None
 

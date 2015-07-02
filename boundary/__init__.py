@@ -67,6 +67,7 @@ from .plugin_uninstall import PluginUninstall
 from .source_delete import SourceDelete
 from .source_list import SourceList
 
+from .relay_get_config import RelayGetConfig
 from .relay_list import RelayList
 
 from .user_get import UserGet
