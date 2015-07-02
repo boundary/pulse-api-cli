@@ -44,6 +44,7 @@ setup(
       'bin/plugin-remove',
       'bin/plugin-uninstall',
       'bin/relay-list',
+      'bin/relay-get-config',
       'bin/source-delete',
       'bin/source-list',
       'bin/user-get',
