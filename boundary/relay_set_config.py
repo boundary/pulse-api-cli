@@ -21,21 +21,21 @@ class RelaySetConfig(ApiCli):
     def __init__(self):
         ApiCli.__init__(self)
         self.method = 'PUT'
-        self.path = None
-        self.sources = None
+        self.file = None
 
     def addArguments(self):
         """
         """
         ApiCli.addArguments()
-        self.parser.add_argument('-n', '--name', metavar='meter', dest='meter', action='store', required=True,
-                                 help='Name of the meter to get plugin configuration information')
 
-        self.parser.add_argument('-s', '--since', metavar='meter', dest='meter', action='store', required=False,
-                                 help='Unix timestamp of when configuration was last checked. If configuration has not changed, null is returned.')
+        self.parser.add_argument('-f', '--file', metavar='path', dest='file', action='store', required=True,
+                                 help='Name of the meter to get plugin configuration information')
 
     def getArguments(self):
         ApiCli.getArguments()
+
+        if self.args.file is not None:
+            self.file = self.args.path
 
         self.path = 'v1/relays/{0}/config'.format(self.meter)
 
