@@ -19,7 +19,6 @@ import argparse
 import logging
 import os
 import requests
-import urllib2
 import urllib
 
 """
@@ -273,7 +272,7 @@ class ApiCli(object):
         """
         Determines what status codes represent a good response from an API call.
         """
-        return status_code == urllib2.httplib.OK
+        return status_code == requests.codes.ok
 
     def callAPI(self):
         """
