@@ -14,25 +14,30 @@
 # limitations under the License.
 #
 
-from api_cli import ApiCli
+from boundary import ApiCli
 
 
 class RelaySetConfig(ApiCli):
-
     def __init__(self):
-        ApiCli.__init__()
-        self.path = "v1/relays"
-        self.sources = None
+        ApiCli.__init__(self)
+        self.method = 'PUT'
+        self.file = None
 
     def addArguments(self):
         """
         """
         ApiCli.addArguments()
-        self.parser.add_argument('-n', '--name', metavar='meter', dest='meter', action='store',required=True,
-                                 help='Name of the meter to set plugin configuration information')
+
+        self.parser.add_argument('-f', '--file', metavar='path', dest='file', action='store', required=True,
+                                 help='Name of the meter to get plugin configuration information')
 
     def getArguments(self):
         ApiCli.getArguments()
 
+        if self.args.file is not None:
+            self.file = self.args.path
+
+        self.path = 'v1/relays/{0}/config'.format(self.meter)
+
     def getDescription(self):
-        return "Pushes relay configuration to a meter"
+        return "Returns relay configuration from a Boundary account"

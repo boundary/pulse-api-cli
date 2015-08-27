@@ -41,6 +41,7 @@ from .host_group_update import HostGroupUpdate
 from .measurement_create import MeasurementCreate
 from .measurement_get import MeasurementGet
 
+from .meter_client import MeterClient
 from .metric_common import MetricCommon
 from .metric_modify import MetricModify
 from .metric_create import MetricCreate
@@ -66,6 +67,7 @@ from .plugin_uninstall import PluginUninstall
 from .source_delete import SourceDelete
 from .source_list import SourceList
 
+from .relay_get_config import RelayGetConfig
 from .relay_list import RelayList
 
 from .user_get import UserGet

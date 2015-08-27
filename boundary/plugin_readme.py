@@ -125,8 +125,6 @@ None
         logging.debug("readme_path: " + str(self.plugin_manifest_path))
         pass
 
-    def
-
     def getDescription(self):
         return '"Generates README from plugin.json and template"'
 

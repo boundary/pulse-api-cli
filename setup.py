@@ -1,7 +1,7 @@
 from distutils.core import setup
 setup(
     name='boundary',
-    version='0.2.1',
+    version='0.3.0',
     url="http://boundary.github.io/boundary-api-cli/",
     author='David Gwartney',
     author_email='davidg@boundary.com',
@@ -23,6 +23,7 @@ setup(
       'bin/hostgroup-update',
       'bin/measurement-create',
       'bin/measurement-get',
+      'bin/meter-client',
       'bin/metric-create',
       'bin/metric-create-batch',
       'bin/metric-delete',
@@ -43,6 +44,7 @@ setup(
       'bin/plugin-remove',
       'bin/plugin-uninstall',
       'bin/relay-list',
+      'bin/relay-get-config',
       'bin/source-delete',
       'bin/source-list',
       'bin/user-get',
