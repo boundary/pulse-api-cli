@@ -58,6 +58,15 @@ class ApiCli(object):
         self.headers = None
         self.data = None
         self.url = None
+        self._aggregate_times = ['1 second',
+                                 '15 seconds',
+                                 '1 minute',
+                                 '5 minutes',
+                                 '1 hour',
+                                 '1.5 hours',
+                                 '3 hours',
+                                 '6 hours',
+                                 '12 hours']
 
     @staticmethod
     def raise_attribute_change_error(name):
@@ -66,6 +75,12 @@ class ApiCli(object):
     @staticmethod
     def raise_attribute_delete_error(name):
         raise AttributeError("Cannot delete property " + name)
+
+    def get_aggregate_grains(self):
+        """
+        Returns the standard cube aggregates in the alarm/measurement APIs
+        """
+        return self._aggregate_times
 
     #
     # Description

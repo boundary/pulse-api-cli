@@ -30,6 +30,8 @@ class MeasurementGet(ApiCli):
         ApiCli.__init__(self)
         self.method = "GET"
         self.metricName = None
+        self.format = "json"
+        self.sample = 1
         self.source = None
         self.aggregate = None
         self.startTime = None
@@ -45,16 +47,20 @@ class MeasurementGet(ApiCli):
         ApiCli.addArguments(self)
 
         # Command specific arguments
+        self.parser.add_argument('-f', '--format', dest='metricName', action='store', required=False,
+                                 metavar="metric_name", help='Metric identifier')
         self.parser.add_argument('-n', '--name', dest='metricName', action='store', required=True,
                                  metavar="metric_name", help='Metric identifier')
-        self.parser.add_argument('-g', '--aggregate', dest='aggregate', action='store',
+        self.parser.add_argument('-g', '--aggregate', dest='aggregate', action='store', required=False,
                                  choices=['sum', 'avg', 'max', 'min'], metavar='aggregate',
                                  help='Metric default aggregate')
-        self.parser.add_argument('-s', '--source', dest='source', action='store', metavar="source",
+        self.parser.add_argument('-r', '--sample', dest='sample', action='store', metavar="sample",required=False,
+                                 help='Down sample rate sample in seconds')
+        self.parser.add_argument('-s', '--source', dest='source', action='store', metavar="source",required=False,
                                  help='Source of measurement')
         self.parser.add_argument('-b', '--start', dest='start', action='store', required=True, metavar="start",
                                  help='Start of time range as ISO 8601 string or epoch seconds')
-        self.parser.add_argument('-d', '--end', dest='end', action='store', metavar="end",
+        self.parser.add_argument('-d', '--end', dest='end', action='store', metavar="end", required=False,
                                  help='End of time range as ISO 8601 string or epoch seconds')
 
     def getArguments(self):
@@ -64,6 +70,9 @@ class MeasurementGet(ApiCli):
         ApiCli.getArguments(self)
         if self.args.metricName is not None:
             self.metricName = self.args.metricName
+
+        if self.args.sample is not None:
+            self.sample = self.args.sample
 
         if self.args.source is not None:
             self.source = self.args.source
@@ -89,7 +98,10 @@ class MeasurementGet(ApiCli):
         stop_time *= 1000
 
         self.path = "v1/measurements/{0}".format(self.metricName)
-        self.url_parameters = {"source": self.source, "start": str(start_time), "end": str(stop_time),
+        self.url_parameters = {"source": self.source,
+                               "start": str(start_time),
+                               "end": str(stop_time),
+                               "sample": str(self.sample),
                                "agg": self.aggregate}
 
     def parse_time_date(self, s):
@@ -113,6 +125,17 @@ class MeasurementGet(ApiCli):
         """
         return "Retrieves measurement values from a metric in a Boundary account"
 
+    def output_csv(self):
+        pass
+
+    def output_json(self, text):
+        payload = json.loads(text)
+        out = json.dumps(payload, sort_keys=True, indent=4, separators=(',', ': '))
+        print(out)
+
+    def output_csv(self):
+        pass
+
     def handleResults(self, result):
         """
         Call back function to be implemented by the CLI.
@@ -120,6 +143,11 @@ class MeasurementGet(ApiCli):
 
         # Only process if we get HTTP result of 200
         if result.status_code == http_client.OK:
-            payload = json.loads(result.text)
-            out = json.dumps(payload, sort_keys=True, indent=4, separators=(',', ': '))
-            print(out)
+            if self.format == "json":
+                self.output_json(result.text)
+            elif self.format == "csv":
+                pass
+            elif self.format == "xml":
+                pass
+            else
+                pass
