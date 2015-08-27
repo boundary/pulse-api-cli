@@ -14,6 +14,7 @@
 # limitations under the License.
 #
 from datetime import datetime
+import requests
 import json
 
 from boundary import ApiCli
@@ -28,9 +29,11 @@ Gets measurements from a Boundary account
 class MeasurementGet(ApiCli):
     def __init__(self):
         ApiCli.__init__(self)
+        self._indent = 4
         self.method = "GET"
         self.metricName = None
         self.format = "json"
+        # Default to 1 second sample period
         self.sample = 1
         self.source = None
         self.aggregate = None
@@ -48,13 +51,13 @@ class MeasurementGet(ApiCli):
 
         # Command specific arguments
         self.parser.add_argument('-f', '--format', dest='metricName', action='store', required=False,
-                                 metavar="metric_name", help='Metric identifier')
+                                 choices=['csv', 'json', 'xml'], help='Output format')
         self.parser.add_argument('-n', '--name', dest='metricName', action='store', required=True,
                                  metavar="metric_name", help='Metric identifier')
         self.parser.add_argument('-g', '--aggregate', dest='aggregate', action='store', required=False,
                                  choices=['sum', 'avg', 'max', 'min'], metavar='aggregate',
                                  help='Metric default aggregate')
-        self.parser.add_argument('-r', '--sample', dest='sample', action='store', metavar="sample",required=False,
+        self.parser.add_argument('-r', '--sample', dest='sample', action='store', type=int, metavar="sample",
                                  help='Down sample rate sample in seconds')
         self.parser.add_argument('-s', '--source', dest='source', action='store', metavar="source",required=False,
                                  help='Source of measurement')
@@ -125,16 +128,16 @@ class MeasurementGet(ApiCli):
         """
         return "Retrieves measurement values from a metric in a Boundary account"
 
-    def output_csv(self):
-        pass
+    def output_csv(self,text):
+        self.output_json(text)
 
     def output_json(self, text):
         payload = json.loads(text)
-        out = json.dumps(payload, sort_keys=True, indent=4, separators=(',', ': '))
+        out = json.dumps(payload, sort_keys=True, indent=self._indent, separators=(',', ': '))
         print(out)
 
-    def output_csv(self):
-        pass
+    def output_csv(self, text):
+        self.output_json(text)
 
     def handleResults(self, result):
         """
@@ -142,12 +145,12 @@ class MeasurementGet(ApiCli):
         """
 
         # Only process if we get HTTP result of 200
-        if result.status_code == http_client.OK:
+        if result.status_code == requests.codes.ok:
             if self.format == "json":
                 self.output_json(result.text)
             elif self.format == "csv":
-                pass
+                self.output_csv(result.text)
             elif self.format == "xml":
-                pass
-            else
+                self.output_xml(result.text)
+            else:
                 pass
