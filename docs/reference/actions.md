@@ -1,6 +1,6 @@
 ## Actions
 
-Commands to administer actions in a Boundary account.
+Commands to administer actions in a TrueSight Pulse account.
 
 ### action-installed
 
@@ -14,7 +14,7 @@ Commands to administer actions in a Boundary account.
 usage: action-installed [-h] [-l {debug,info,warning,error,critical}]
                         [-a api_host] [-e e_mail] [-t api_token]
 
-Returns the actions configured within a Boundary account
+Returns the actions configured within a TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -23,12 +23,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
 ```
 
 **Examples**
@@ -55,7 +55,7 @@ $ action-installed
 usage: action-types [-h] [-l {debug,info,warning,error,critical}]
                     [-a api_host] [-e e_mail] [-t api_token]
 
-List action types associated with the Boundary account
+List action types associated with the TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -64,12 +64,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
 ```
 
 **Examples**

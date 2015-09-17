@@ -1,6 +1,6 @@
 ## Installing
 
-The Boundary CLIs can be installed directly into your systems global installation of python, but it is highly
+The TrueSight Pulse CLIs can be installed directly into your systems global installation of python, but it is highly
 recommended that you set up a virtual Python installation as described below.
 
 ### Global Install
@@ -14,9 +14,9 @@ $ sudo pip install boundary
 
 It is highly recommended that you use the python [`virtualenv`](http://docs.python-guide.org/en/latest/dev/virtualenvs/)
 package to create an alternative python installation and then install the boundary package into this alternate
-python environment. Python can be an integral part of the operating system and installing the Boundary CLI package
+python environment. Python can be an integral part of the operating system and installing the TrueSight Pulse CLI package
 in a separate python environment prevents disturbing the global installation by upgrading to newer packages that
-may be required by the Boundary CLI package.
+may be required by the TrueSight Pulse CLI package.
 
 ```bash
 # Install python virtual environment in home directory

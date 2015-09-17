@@ -1,6 +1,6 @@
 ## Measurements
 
-Commands to insert and extract measurements from a Boundary account.
+Commands to insert and extract measurements from a TrueSight Pulse account.
 
 
 ### measurement-create
@@ -18,7 +18,7 @@ usage: measurement-create [-h] [-l {debug,info,warning,error,critical}]
                           metric_name -m measurement [-s source]
                           [-d timestamp]
 
-Adds a measurement value to a Boundary account
+Adds a measurement value to a TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -27,12 +27,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
   -n metric_name, --metric-name metric_name
                         Metric identifier
   -m measurement, --measurement measurement
@@ -43,16 +43,16 @@ optional arguments:
   -d timestamp, --timestamp timestamp
                         Time of occurrence of the measurement in either epoch
                         seconds or epoch milliseconds. Defaults to the receipt
-                        time at Boundary
+                        time at TrueSight Pulse
 
 ```
 
 **Examples**
 
-Send a measurement value of 100 for the metric `BOUNDARY_HELLO_WORLD`
+Send a measurement value of 100 for the metric `TRUESIGHT_PULSE_HELLO_WORLD`
 
 ```bash
-$ measurement-create -n BOUNDARY_HELLO_WORLD -m 100
+$ measurement-create -n TRUESIGHT_PULSE_HELLO_WORLD -m 100
 {
     "result": {
         "success": true
@@ -74,7 +74,7 @@ usage: measurement-get [-h] [-l {debug,info,warning,error,critical}]
                        [-a api_host] [-e e_mail] [-t api_token] -n metric_name
                        [-g aggregate] [-s source] -b start [-d end]
 
-Retrieves measurement values from a metric in a Boundary account
+Retrieves measurement values from a metric in a TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -83,12 +83,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
   -n metric_name, --name metric_name
                         Metric identifier
   -g aggregate, --aggregate aggregate
@@ -106,7 +106,7 @@ optional arguments:
 
 
 ```bash
-measurement-get -n BOUNDARY_HELLO_WORLD -b 2015-06-10
+measurement-get -n TRUESIGHT_PULSE_HELLO_WORLD -b 2015-06-10
 {
     "result": {
         "aggregates": [

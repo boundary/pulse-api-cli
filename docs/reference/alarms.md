@@ -1,5 +1,5 @@
 ## Alarms
-Commands to administer definitions of metric alarms in a Boundary account.
+Commands to administer definitions of metric alarms in a TrueSight Pulse account.
 
 ### alarm-create
 
@@ -18,7 +18,7 @@ usage: alarm-create [-h] -n alarm_name
                     hours,12 hours} [-u host_group_id] [-d note]
                     [-c action-id] [-p {yes,no}] [-x {yes,no}]
 
-Creates an alarm definition in an Boundary account
+Creates an alarm definition in an TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -29,12 +29,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
   -m metric_name, --metric metric_name
                         Name of the metric to alarm
   -g {SUM,AVG,MAX,MIN}, --trigger-aggregate {SUM,AVG,MAX,MIN}
@@ -63,11 +63,11 @@ optional arguments:
 
 **Examples**
 
-Create an alarm when the maximum value of `BOUNDARY_METRIC_TEST` is greater than a 100 in a 5 minute
+Create an alarm when the maximum value of `TRUESIGHT_PULSE_METRIC_TEST` is greater than a 100 in a 5 minute
 period.
 
 ```bash
-$ alarm-create -n "my-alarm" -m BOUNDARY_METRIC_TEST -g max -o gt -v 100 -r "5 minutes"
+$ alarm-create -n "my-alarm" -m TRUESIGHT_PULSE_METRIC_TEST -g max -o gt -v 100 -r "5 minutes"
 {
   "result": {
     "id": 45040,
@@ -77,7 +77,7 @@ $ alarm-create -n "my-alarm" -m BOUNDARY_METRIC_TEST -g max -o gt -v 100 -r "5 m
       "op": "gt",
       "val": "100"
     },
-    "metricName": "BOUNDARY_METRIC_TEST",
+    "metricName": "TRUESIGHT_PULSE_METRIC_TEST",
     "interval": 900,
     "perHostNotify": false,
     "actions": []
@@ -97,7 +97,7 @@ $ alarm-create -n "my-alarm" -m BOUNDARY_METRIC_TEST -g max -o gt -v 100 -r "5 m
 usage: alarm-delete [-h] [-l {debug,info,warning,error,critical}]
                     [-a api_host] [-e e_mail] [-t api_token] -i alarm-id
 
-Deletes an alarm definition from a Boundary account
+Deletes an alarm definition from a TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -106,12 +106,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
   -i alarm-id, --alarm-id alarm-id
                         Alarm identifier
 ```
@@ -136,7 +136,7 @@ $ alarm-delete -i 45041
 usage: alarm-list [-h] [-l {debug,info,warning,error,critical}] [-a api_host]
                   [-e e_mail] [-t api_token]
 
-List alarm definitions associated with the Boundary account
+List alarm definitions associated with the TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -145,12 +145,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
 ```
 
 **Examples**
@@ -222,7 +222,7 @@ usage: alarm-update [-h] -i alarm_id [-n alarm_name]
                     [-u host_group_id] [-d note] [-c action-id] [-p {yes,no}]
                     [-x {yes,no}]
 
-Updates an alarm definition in an Boundary account
+Updates an alarm definition in an TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -235,12 +235,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
   -m metric_name, --metric metric_name
                         Name of the metric to alarm
   -g {SUM,AVG,MAX,MIN}, --trigger-aggregate {SUM,AVG,MAX,MIN}
@@ -270,7 +270,7 @@ optional arguments:
 **Examples**
 
 ```bash
-$ alarm-update -i 45086 -m BOUNDARY_METRIC_TEST -g AVG -o gt -v 50 -r "1 minute" -u 17878 -c 6614
+$ alarm-update -i 45086 -m TRUESIGHT_PULSE_METRIC_TEST -g AVG -o gt -v 50 -r "1 minute" -u 17878 -c 6614
 {
   "result": {
     "id": 45086,
@@ -280,7 +280,7 @@ $ alarm-update -i 45086 -m BOUNDARY_METRIC_TEST -g AVG -o gt -v 50 -r "1 minute"
       "op": "gt",
       "val": "50"
     },
-    "metricName": "BOUNDARY_METRIC_TEST",
+    "metricName": "TRUESIGHT_PULSE_METRIC_TEST",
     "interval": 60,
     "hostgroupId": 17878,
     "note": null,

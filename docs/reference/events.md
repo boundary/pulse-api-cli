@@ -21,7 +21,7 @@ An event appears as a moment in time on one or more graphs. Events can be color 
 usage: alarm-list [-h] [-l {debug,info,warning,error,critical}] [-a api_host]
                   [-e e_mail] [-t api_token]
 
-List alarm definitions associated with the Boundary account
+List alarm definitions associated with the TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -30,10 +30,10 @@ optional arguments:
                         debug,info,warning,error,critical. Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access the
-                        Boundary account
+                        TrueSight Pulse account
 ```
