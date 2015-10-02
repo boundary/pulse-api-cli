@@ -1,17 +1,17 @@
 ## Configuring
 
-The Boundary CLI uses environment variables for authentication information (user, password, etc) and end-point 
-to execute against the Boundary REST APIs, and optionally this information can be overridden via the command line.
+The TrueSight Pulse CLI uses environment variables for authentication information (user, password, etc) and end-point 
+to execute against the TrueSight Pulse REST APIs, and optionally this information can be overridden via the command line.
 
 ### Environment Variables
 
-Environment variables are used to provide the credentials and the endpoint to execute the Boundary API against.
+Environment variables are used to provide the credentials and the endpoint to execute the TrueSight Pulse API against.
 
 | Environment Variable | Description                                    |
 |:---------------------|:-----------------------------------------------|
-| BOUNDARY\_API\_HOST  | Boundary API host  (e.g. _premium-api.boundary.com_) |
-| BOUNDARY\_EMAIL      | Boundary email     (e.g. _dude@some.company.com_)|
-| BOUNDARY\_API\_TOKEN | Boundary API token (e.g. _api.8cb8d721d8-9999_)  |
+| BOUNDARY\_API\_HOST  | TrueSight Pulse API host  (e.g. _premium-api.boundary.com_) |
+| BOUNDARY\_EMAIL      | TrueSight Pulse email     (e.g. _dude@some.company.com_)|
+| BOUNDARY\_API\_TOKEN | TrueSight Pulse API token (e.g. _api.8cb8d721d8-9999_)  |
 
 </br>
 Use the following template, and replace with your account values, and add to your Bash shell `.bash_profile` or
@@ -33,9 +33,9 @@ and get help on a specific command. These common command line arguments are show
 |:---------|:-----------------------------------------------|
 |--help      | shows the command help and exits               |
 |--log-level | configures output of command execution         |
-|--api-host  | Boundary API host endpoint                      |
-|--email     | E-mail that has access to the Boundary account |
-|--api-token | Api token for given e-mail that has access to the Boundary account |
+|--api-host  | TrueSight Pulse API host endpoint                      |
+|--email     | E-mail that has access to the TrueSight Pulse account |
+|--api-token | Api token for given e-mail that has access to the TrueSight Pulse account |
 
 
 ```bash
@@ -49,12 +49,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
 ```
 
 ### Command Specific Arguments
@@ -72,7 +72,7 @@ usage: metric-create [-h] [-l {debug,info,warning,error,critical}]
                      [-u {percent,number,bytecount,duration}] [-r resolution]
                      [-x]
 
-Creates a new metric definition in an Boundary account
+Creates a new metric definition in an TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -81,12 +81,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
   -n metric_name, --metric-name metric_name
                         Metric identifier
   -d display_name, --display-name display_name

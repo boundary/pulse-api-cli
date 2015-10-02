@@ -1,6 +1,6 @@
 ## Plugins
 
-Commands to administer plugins in a Boundary account.
+Commands to administer plugins in a TrueSight Pulse account.
 
 ### plugin-add
 
@@ -15,7 +15,7 @@ usage: plugin-add [-h] [-l {debug,info,warning,error,critical}] [-a api_host]
                   [-e e_mail] [-t api_token] -n plugin_name -o
                   organization_name -r respository_name
 
-Imports a meter plugin from a github repository into a Boundary account
+Imports a meter plugin from a github repository into a TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -24,12 +24,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
   -n plugin_name, --plugin-name plugin_name
                         Plugin name
   -o organization_name, --organization-name organization_name
@@ -41,7 +41,7 @@ optional arguments:
 **Examples**
 
 Adds a plugin from a github repository `jdgwartney/boundary-plugin-disk-summary` with the name `diskuse-summary` into
-a Boundary account
+a TrueSight Pulse account
 
 ```bash
 $ plugin-add -n diskuse-summary -o jdgwartney -r boundary-plugin-diskuse-summary
@@ -64,7 +64,7 @@ $ plugin-add -n diskuse-summary -o jdgwartney -r boundary-plugin-diskuse-summary
 usage: plugin-get [-h] [-l {debug,info,warning,error,critical}] [-a api_host]
                   [-e e_mail] [-t api_token] -n plugin_name
 
-Get the details of a plugin in a Boundary account
+Get the details of a plugin in a TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -73,12 +73,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
   -n plugin_name, --plugin-Name plugin_name
                         Plugin name
 ```
@@ -100,7 +100,7 @@ usage: plugin-get-components [-h] [-l {debug,info,warning,error,critical}]
                              [-a api_host] [-e e_mail] [-t api_token] -n
                              plugin_name
 
-Get the components of a plugin in a Boundary account
+Get the components of a plugin in a TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -109,12 +109,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
   -n plugin_name, --plugin-Name plugin_name
                         Plugin name
 ```
@@ -150,7 +150,7 @@ $ plugin-get-components -n diskuse-summary
 usage: plugin-install [-h] [-l {debug,info,warning,error,critical}]
                       [-a api_host] [-e e_mail] [-t api_token] -n plugin_name
 
-Installs a plugin into a Boundary account
+Installs a plugin into a TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -159,19 +159,19 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
   -n plugin_name, --plugin-name plugin_name
                         Plugin name
 ```
 
 **Examples**
 
-Installs a plugin `diskuse-summary` into a Boundary account so the plugin can be deployed to a meter
+Installs a plugin `diskuse-summary` into a TrueSight Pulse account so the plugin can be deployed to a meter
 
 ```bash
 $ plugin-install -n diskuse-summary 
@@ -193,7 +193,7 @@ $ plugin-install -n diskuse-summary
 usage: plugin-installed [-h] [-l {debug,info,warning,error,critical}]
                         [-a api_host] [-e e_mail] [-t api_token]
 
-Gets the plugins installed into a Boundary account
+Gets the plugins installed into a TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -202,12 +202,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
 ```
 
 ### plugin-list
@@ -222,7 +222,7 @@ optional arguments:
 usage: plugin-list [-h] [-l {debug,info,warning,error,critical}] [-a api_host]
                    [-e e_mail] [-t api_token]
 
-Lists the plugins in a Boundary account
+Lists the plugins in a TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -231,17 +231,17 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
 ```
 
 **Examples**
 
-List all of the plugins in a Boundary account
+List all of the plugins in a TrueSight Pulse account
 
 ```bash
 $ plugin-list
@@ -271,7 +271,7 @@ $ plugin-list
 usage: plugin-remove [-h] [-l {debug,info,warning,error,critical}]
                      [-a api_host] [-e e_mail] [-t api_token] -n plugin_name
 
-Remove a staged pre-release meter plugin from a Boundary account
+Remove a staged pre-release meter plugin from a TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -280,12 +280,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
   -n plugin_name, --plugin-name plugin_name
                         Plugin name
 ```
@@ -316,7 +316,7 @@ usage: plugin-uninstall [-h] [-l {debug,info,warning,error,critical}]
                         [-a api_host] [-e e_mail] [-t api_token] -n
                         plugin_name [-d] [-r]
 
-Uninstalls a plugin from a Boundary account
+Uninstalls a plugin from a TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -325,12 +325,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
   -n plugin_name, --plugin-name plugin_name
                         Plugin name
   -d, --remove-Dashes   Remove dashboards associated with the plugin

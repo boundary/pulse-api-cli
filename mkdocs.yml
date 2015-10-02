@@ -1,5 +1,5 @@
 site_name: Boundary API CLI
-theme: mkdocs
+theme: united
 google_analytics: ['UA-47528703-5','auto']
 pages:
 - ['index.md', 'Home']

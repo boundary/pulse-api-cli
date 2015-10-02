@@ -1,5 +1,5 @@
 ## Host Groups
-Commands to administer host groups in a Boundary account.
+Commands to administer host groups in a TrueSight Pulse account.
 
 ### hostgroup-create
 
@@ -14,7 +14,7 @@ usage: hostgroup-create [-h] [-l {debug,info,warning,error,critical}]
                         [-a api_host] [-e e_mail] [-t api_token] -n
                         host_group_name -s sources
 
-Creates host group definition in a Boundary account
+Creates host group definition in a TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -23,12 +23,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
   -n host_group_name, --host-group-name host_group_name
                         Host group name
   -s sources, --sources sources
@@ -85,7 +85,7 @@ usage: hostgroup-delete [-h] [-l {debug,info,warning,error,critical}]
                         [-a api_host] [-e e_mail] [-t api_token] -i
                         host_group_id [-f]
 
-Deletes a host group definition by id from a Boundary account
+Deletes a host group definition by id from a TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -94,12 +94,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
   -i host_group_id, --host-group-id host_group_id
                         Host group id to delete
   -f, --force           Remove the host group, even if in use by a dashboard
@@ -129,7 +129,7 @@ $ hostgroup-delete -i 17874
 usage: hostgroup-get [-h] [-l {debug,info,warning,error,critical}]
                      [-a api_host] [-e e_mail] [-t api_token] -i host_group_id
 
-Retrieves a single host group definition by id from a Boundary account
+Retrieves a single host group definition by id from a TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -138,12 +138,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
   -i host_group_id, --host-group-id host_group_id
                         Host group id
 ```
@@ -180,7 +180,7 @@ $ hostgroup-get -i 17875
 usage: hostgroup-list [-h] [-l {debug,info,warning,error,critical}]
                       [-a api_host] [-e e_mail] [-t api_token]
 
-Lists the Host Groups in an Boundary account
+Lists the Host Groups in an TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -189,12 +189,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
 ```
 
 **Examples**
@@ -250,7 +250,7 @@ usage: hostgroup-search [-h] [-l {debug,info,warning,error,critical}]
                         [-a api_host] [-e e_mail] [-t api_token] -n
                         host_group_name
 
-Searches for Host Group by name in an Boundary account
+Searches for Host Group by name in an TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -259,12 +259,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
   -n host_group_name, --host-group-name host_group_name
                         Host group name
 ```
