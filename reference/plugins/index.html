@@ -9,12 +9,12 @@
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
 
-        <title>Plugins - Boundary API CLI</title>
+	<title>Plugins - Boundary API CLI</title>
 
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome-4.0.3.css" rel="stylesheet">
-        <link href="../../css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="../../css/highlight.css">
+        <link href="../../css/base.css" rel="stylesheet">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -42,7 +42,6 @@
 
         <!-- Collapsed navigation -->
         <div class="navbar-header">
-            
             <!-- Expander button -->
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -50,7 +49,6 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            
 
             <!-- Main title -->
             <a class="navbar-brand" href="../..">Boundary API CLI</a>
@@ -58,93 +56,91 @@
 
         <!-- Expanded navigation -->
         <div class="navbar-collapse collapse">
+            <!-- Main navigation -->
+            <ul class="nav navbar-nav">
             
-                <!-- Main navigation -->
-                <ul class="nav navbar-nav">
-                
-                
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Getting Started <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        
-                            <li >
-                                <a href="../../install">Installing</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../../configuration">Configuring</a>
-                            </li>
-                        
-                        </ul>
-                    </li>
-                
-                
-                
-                    <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        
-                            <li >
-                                <a href="../actions">Actions</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../alarms">Alarms</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../hostgroups">Host Groups</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../measurements">Measurements</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../metrics">Metrics</a>
-                            </li>
-                        
-                            <li class="active">
-                                <a href=".">Plugins</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../sources">Sources</a>
-                            </li>
-                        
-                        </ul>
-                    </li>
-                
-                
-                </ul>
             
+                <li >
+                    <a href="../..">Home</a>
+                </li>
+            
+            
+            
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Getting Started <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="../../install/">Installing</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../../configuration/">Configuring</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
+            
+                <li class="dropdown active">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="../actions/">Actions</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../alarms/">Alarms</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../hostgroups/">Host Groups</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../measurements/">Measurements</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../metrics/">Metrics</a>
+                        </li>
+                    
+                        <li class="active">
+                            <a href="./">Plugins</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../sources/">Sources</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
+            </ul>
 
-            
             <!-- Search, Navigation and Repo links -->
             <ul class="nav navbar-nav navbar-right">
-                
-                
                 <li >
-                    <a rel="next" href="../metrics">
+                    <a rel="next" href="../metrics/">
                         <i class="fa fa-arrow-left"></i> Previous
                     </a>
                 </li>
                 <li >
-                    <a rel="prev" href="../sources">
+                    <a rel="prev" href="../sources/">
                         Next <i class="fa fa-arrow-right"></i>
                     </a>
                 </li>
                 
-                
             </ul>
-            
         </div>
     </div>
 </div>
 
         <div class="container">
-            
-                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+            <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
         <li class="main active"><a href="#plugins">Plugins</a></li>
@@ -168,10 +164,10 @@
     
     </ul>
 </div></div>
-                <div class="col-md-9" role="main">
+            <div class="col-md-9" role="main">
 
 <h2 id="plugins">Plugins</h2>
-<p>Commands to administer plugins in a Boundary account.</p>
+<p>Commands to administer plugins in a TrueSight Pulse account.</p>
 <h3 id="plugin-add">plugin-add</h3>
 <p><strong>API Documentation</strong></p>
 <p>(http://premium-documentation.boundary.com/v1/put/plugins/private/:plugin/:org/:repo)[http://premium-documentation.boundary.com/v1/put/plugins/private/:plugin/:org/:repo]</p>
@@ -180,7 +176,7 @@
                   [-e e_mail] [-t api_token] -n plugin_name -o
                   organization_name -r respository_name
 
-Imports a meter plugin from a github repository into a Boundary account
+Imports a meter plugin from a github repository into a TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -189,12 +185,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
   -n plugin_name, --plugin-name plugin_name
                         Plugin name
   -o organization_name, --organization-name organization_name
@@ -205,7 +201,7 @@ optional arguments:
 
 <p><strong>Examples</strong></p>
 <p>Adds a plugin from a github repository <code>jdgwartney/boundary-plugin-disk-summary</code> with the name <code>diskuse-summary</code> into
-a Boundary account</p>
+a TrueSight Pulse account</p>
 <pre><code class="bash">$ plugin-add -n diskuse-summary -o jdgwartney -r boundary-plugin-diskuse-summary
 {
   &quot;result&quot;: {
@@ -221,7 +217,7 @@ a Boundary account</p>
 <pre><code class="bash">usage: plugin-get [-h] [-l {debug,info,warning,error,critical}] [-a api_host]
                   [-e e_mail] [-t api_token] -n plugin_name
 
-Get the details of a plugin in a Boundary account
+Get the details of a plugin in a TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -230,12 +226,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
   -n plugin_name, --plugin-Name plugin_name
                         Plugin name
 </code></pre>
@@ -249,7 +245,7 @@ optional arguments:
                              [-a api_host] [-e e_mail] [-t api_token] -n
                              plugin_name
 
-Get the components of a plugin in a Boundary account
+Get the components of a plugin in a TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -258,12 +254,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
   -n plugin_name, --plugin-Name plugin_name
                         Plugin name
 </code></pre>
@@ -291,7 +287,7 @@ optional arguments:
 <pre><code class="bash">usage: plugin-install [-h] [-l {debug,info,warning,error,critical}]
                       [-a api_host] [-e e_mail] [-t api_token] -n plugin_name
 
-Installs a plugin into a Boundary account
+Installs a plugin into a TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -300,18 +296,18 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
   -n plugin_name, --plugin-name plugin_name
                         Plugin name
 </code></pre>
 
 <p><strong>Examples</strong></p>
-<p>Installs a plugin <code>diskuse-summary</code> into a Boundary account so the plugin can be deployed to a meter</p>
+<p>Installs a plugin <code>diskuse-summary</code> into a TrueSight Pulse account so the plugin can be deployed to a meter</p>
 <pre><code class="bash">$ plugin-install -n diskuse-summary 
 {
   &quot;result&quot;: {}
@@ -325,7 +321,7 @@ optional arguments:
 <pre><code class="bash">usage: plugin-installed [-h] [-l {debug,info,warning,error,critical}]
                         [-a api_host] [-e e_mail] [-t api_token]
 
-Gets the plugins installed into a Boundary account
+Gets the plugins installed into a TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -334,12 +330,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
 </code></pre>
 
 <h3 id="plugin-list">plugin-list</h3>
@@ -349,7 +345,7 @@ optional arguments:
 <pre><code class="bash">usage: plugin-list [-h] [-l {debug,info,warning,error,critical}] [-a api_host]
                    [-e e_mail] [-t api_token]
 
-Lists the plugins in a Boundary account
+Lists the plugins in a TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -358,16 +354,16 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
 </code></pre>
 
 <p><strong>Examples</strong></p>
-<p>List all of the plugins in a Boundary account</p>
+<p>List all of the plugins in a TrueSight Pulse account</p>
 <pre><code class="bash">$ plugin-list
 {
   &quot;result&quot;: {
@@ -390,7 +386,7 @@ optional arguments:
 <pre><code class="bash">usage: plugin-remove [-h] [-l {debug,info,warning,error,critical}]
                      [-a api_host] [-e e_mail] [-t api_token] -n plugin_name
 
-Remove a staged pre-release meter plugin from a Boundary account
+Remove a staged pre-release meter plugin from a TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -399,12 +395,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
   -n plugin_name, --plugin-name plugin_name
                         Plugin name
 </code></pre>
@@ -427,7 +423,7 @@ optional arguments:
                         [-a api_host] [-e e_mail] [-t api_token] -n
                         plugin_name [-d] [-r]
 
-Uninstalls a plugin from a Boundary account
+Uninstalls a plugin from a TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -436,12 +432,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
   -n plugin_name, --plugin-name plugin_name
                         Plugin name
   -d, --remove-Dashes   Remove dashboards associated with the plugin
@@ -456,23 +452,17 @@ optional arguments:
     &quot;success&quot;: true
   }
 }
-</code></pre>
-
-</div>
-            
+</code></pre></div>
         </div>
 
         <footer class="col-md-12">
             <hr>
             
-            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</center>
         </footer>
 
-        
-
-        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="../../js/jquery-1.10.2.min.js"></script>
         <script src="../../js/bootstrap-3.0.3.min.js"></script>
-        <script src="../../js/prettify-1.0.min.js"></script>
         <script src="../../js/highlight.pack.js"></script>
         <script src="../../js/base.js"></script>
     </body>

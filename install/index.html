@@ -9,12 +9,12 @@
         
         <link rel="shortcut icon" href="../img/favicon.ico">
 
-        <title>Installing - Boundary API CLI</title>
+	<title>Installing - Boundary API CLI</title>
 
         <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
-        <link href="../css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="../css/highlight.css">
+        <link href="../css/base.css" rel="stylesheet">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -42,7 +42,6 @@
 
         <!-- Collapsed navigation -->
         <div class="navbar-header">
-            
             <!-- Expander button -->
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -50,7 +49,6 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            
 
             <!-- Main title -->
             <a class="navbar-brand" href="..">Boundary API CLI</a>
@@ -58,93 +56,91 @@
 
         <!-- Expanded navigation -->
         <div class="navbar-collapse collapse">
+            <!-- Main navigation -->
+            <ul class="nav navbar-nav">
             
-                <!-- Main navigation -->
-                <ul class="nav navbar-nav">
-                
-                
-                    <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Getting Started <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        
-                            <li class="active">
-                                <a href=".">Installing</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../configuration">Configuring</a>
-                            </li>
-                        
-                        </ul>
-                    </li>
-                
-                
-                
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        
-                            <li >
-                                <a href="../reference/actions">Actions</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../reference/alarms">Alarms</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../reference/hostgroups">Host Groups</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../reference/measurements">Measurements</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../reference/metrics">Metrics</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../reference/plugins">Plugins</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../reference/sources">Sources</a>
-                            </li>
-                        
-                        </ul>
-                    </li>
-                
-                
-                </ul>
             
+                <li >
+                    <a href="..">Home</a>
+                </li>
+            
+            
+            
+                <li class="dropdown active">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Getting Started <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li class="active">
+                            <a href="./">Installing</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../configuration/">Configuring</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
+            
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="../reference/actions/">Actions</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../reference/alarms/">Alarms</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../reference/hostgroups/">Host Groups</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../reference/measurements/">Measurements</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../reference/metrics/">Metrics</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../reference/plugins/">Plugins</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../reference/sources/">Sources</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
+            </ul>
 
-            
             <!-- Search, Navigation and Repo links -->
             <ul class="nav navbar-nav navbar-right">
-                
-                
                 <li >
                     <a rel="next" href="..">
                         <i class="fa fa-arrow-left"></i> Previous
                     </a>
                 </li>
                 <li >
-                    <a rel="prev" href="../configuration">
+                    <a rel="prev" href="../configuration/">
                         Next <i class="fa fa-arrow-right"></i>
                     </a>
                 </li>
                 
-                
             </ul>
-            
         </div>
     </div>
 </div>
 
         <div class="container">
-            
-                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+            <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
         <li class="main active"><a href="#installing">Installing</a></li>
@@ -156,10 +152,10 @@
     
     </ul>
 </div></div>
-                <div class="col-md-9" role="main">
+            <div class="col-md-9" role="main">
 
 <h2 id="installing">Installing</h2>
-<p>The Boundary CLIs can be installed directly into your systems global installation of python, but it is highly
+<p>The TrueSight Pulse CLIs can be installed directly into your systems global installation of python, but it is highly
 recommended that you set up a virtual Python installation as described below.</p>
 <h3 id="global-install">Global Install</h3>
 <p>The <code>boundary</code> package is installed into the python global installation by using <code>pip</code> and running the following command:</p>
@@ -169,9 +165,9 @@ recommended that you set up a virtual Python installation as described below.</p
 <h3 id="virtual-python-install">Virtual Python Install</h3>
 <p>It is highly recommended that you use the python <a href="http://docs.python-guide.org/en/latest/dev/virtualenvs/"><code>virtualenv</code></a>
 package to create an alternative python installation and then install the boundary package into this alternate
-python environment. Python can be an integral part of the operating system and installing the Boundary CLI package
+python environment. Python can be an integral part of the operating system and installing the TrueSight Pulse CLI package
 in a separate python environment prevents disturbing the global installation by upgrading to newer packages that
-may be required by the Boundary CLI package.</p>
+may be required by the TrueSight Pulse CLI package.</p>
 <pre><code class="bash"># Install python virtual environment in home directory
 $ virtualenv ~/python 
 New python executable in /Users/davidg/python/bin/python
@@ -182,23 +178,17 @@ $ . ~/python/bin/activate
 
 # Install boundary package
 $ pip install boundary
-</code></pre>
-
-</div>
-            
+</code></pre></div>
         </div>
 
         <footer class="col-md-12">
             <hr>
             
-            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</center>
         </footer>
 
-        
-
-        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="../js/jquery-1.10.2.min.js"></script>
         <script src="../js/bootstrap-3.0.3.min.js"></script>
-        <script src="../js/prettify-1.0.min.js"></script>
         <script src="../js/highlight.pack.js"></script>
         <script src="../js/base.js"></script>
     </body>

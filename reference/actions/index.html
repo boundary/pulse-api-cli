@@ -9,12 +9,12 @@
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
 
-        <title>Actions - Boundary API CLI</title>
+	<title>Actions - Boundary API CLI</title>
 
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome-4.0.3.css" rel="stylesheet">
-        <link href="../../css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="../../css/highlight.css">
+        <link href="../../css/base.css" rel="stylesheet">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -42,7 +42,6 @@
 
         <!-- Collapsed navigation -->
         <div class="navbar-header">
-            
             <!-- Expander button -->
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -50,7 +49,6 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            
 
             <!-- Main title -->
             <a class="navbar-brand" href="../..">Boundary API CLI</a>
@@ -58,93 +56,91 @@
 
         <!-- Expanded navigation -->
         <div class="navbar-collapse collapse">
+            <!-- Main navigation -->
+            <ul class="nav navbar-nav">
             
-                <!-- Main navigation -->
-                <ul class="nav navbar-nav">
-                
-                
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Getting Started <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        
-                            <li >
-                                <a href="../../install">Installing</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../../configuration">Configuring</a>
-                            </li>
-                        
-                        </ul>
-                    </li>
-                
-                
-                
-                    <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        
-                            <li class="active">
-                                <a href=".">Actions</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../alarms">Alarms</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../hostgroups">Host Groups</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../measurements">Measurements</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../metrics">Metrics</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../plugins">Plugins</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../sources">Sources</a>
-                            </li>
-                        
-                        </ul>
-                    </li>
-                
-                
-                </ul>
             
+                <li >
+                    <a href="../..">Home</a>
+                </li>
+            
+            
+            
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Getting Started <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="../../install/">Installing</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../../configuration/">Configuring</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
+            
+                <li class="dropdown active">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li class="active">
+                            <a href="./">Actions</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../alarms/">Alarms</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../hostgroups/">Host Groups</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../measurements/">Measurements</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../metrics/">Metrics</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../plugins/">Plugins</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../sources/">Sources</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
+            </ul>
 
-            
             <!-- Search, Navigation and Repo links -->
             <ul class="nav navbar-nav navbar-right">
-                
-                
                 <li >
-                    <a rel="next" href="../../configuration">
+                    <a rel="next" href="../../configuration/">
                         <i class="fa fa-arrow-left"></i> Previous
                     </a>
                 </li>
                 <li >
-                    <a rel="prev" href="../alarms">
+                    <a rel="prev" href="../alarms/">
                         Next <i class="fa fa-arrow-right"></i>
                     </a>
                 </li>
                 
-                
             </ul>
-            
         </div>
     </div>
 </div>
 
         <div class="container">
-            
-                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+            <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
         <li class="main active"><a href="#actions">Actions</a></li>
@@ -156,10 +152,10 @@
     
     </ul>
 </div></div>
-                <div class="col-md-9" role="main">
+            <div class="col-md-9" role="main">
 
 <h2 id="actions">Actions</h2>
-<p>Commands to administer actions in a Boundary account.</p>
+<p>Commands to administer actions in a TrueSight Pulse account.</p>
 <h3 id="action-installed">action-installed</h3>
 <p><strong>API Documentation</strong></p>
 <p><a href="http://premium-documentation.boundary.com/v1/get/actions/installed">http://premium-documentation.boundary.com/v1/get/actions/installed</a></p>
@@ -167,7 +163,7 @@
 <pre><code>usage: action-installed [-h] [-l {debug,info,warning,error,critical}]
                         [-a api_host] [-e e_mail] [-t api_token]
 
-Returns the actions configured within a Boundary account
+Returns the actions configured within a TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -176,12 +172,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
 </code></pre>
 
 <p><strong>Examples</strong></p>
@@ -200,7 +196,7 @@ optional arguments:
 <pre><code>usage: action-types [-h] [-l {debug,info,warning,error,critical}]
                     [-a api_host] [-e e_mail] [-t api_token]
 
-List action types associated with the Boundary account
+List action types associated with the TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -209,12 +205,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
 </code></pre>
 
 <p><strong>Examples</strong></p>
@@ -224,23 +220,17 @@ optional arguments:
     {
       &quot;name&quot;: &quot;boundary-enterprise&quot;,
     ...
-</code></pre>
-
-</div>
-            
+</code></pre></div>
         </div>
 
         <footer class="col-md-12">
             <hr>
             
-            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</center>
         </footer>
 
-        
-
-        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="../../js/jquery-1.10.2.min.js"></script>
         <script src="../../js/bootstrap-3.0.3.min.js"></script>
-        <script src="../../js/prettify-1.0.min.js"></script>
         <script src="../../js/highlight.pack.js"></script>
         <script src="../../js/base.js"></script>
     </body>

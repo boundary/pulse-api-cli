@@ -9,12 +9,12 @@
         
         <link rel="shortcut icon" href="../img/favicon.ico">
 
-        <title>Configuring - Boundary API CLI</title>
+	<title>Configuring - Boundary API CLI</title>
 
         <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
-        <link href="../css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="../css/highlight.css">
+        <link href="../css/base.css" rel="stylesheet">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -42,7 +42,6 @@
 
         <!-- Collapsed navigation -->
         <div class="navbar-header">
-            
             <!-- Expander button -->
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -50,7 +49,6 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            
 
             <!-- Main title -->
             <a class="navbar-brand" href="..">Boundary API CLI</a>
@@ -58,93 +56,91 @@
 
         <!-- Expanded navigation -->
         <div class="navbar-collapse collapse">
+            <!-- Main navigation -->
+            <ul class="nav navbar-nav">
             
-                <!-- Main navigation -->
-                <ul class="nav navbar-nav">
-                
-                
-                    <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Getting Started <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        
-                            <li >
-                                <a href="../install">Installing</a>
-                            </li>
-                        
-                            <li class="active">
-                                <a href=".">Configuring</a>
-                            </li>
-                        
-                        </ul>
-                    </li>
-                
-                
-                
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        
-                            <li >
-                                <a href="../reference/actions">Actions</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../reference/alarms">Alarms</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../reference/hostgroups">Host Groups</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../reference/measurements">Measurements</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../reference/metrics">Metrics</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../reference/plugins">Plugins</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../reference/sources">Sources</a>
-                            </li>
-                        
-                        </ul>
-                    </li>
-                
-                
-                </ul>
             
+                <li >
+                    <a href="..">Home</a>
+                </li>
+            
+            
+            
+                <li class="dropdown active">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Getting Started <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="../install/">Installing</a>
+                        </li>
+                    
+                        <li class="active">
+                            <a href="./">Configuring</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
+            
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="../reference/actions/">Actions</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../reference/alarms/">Alarms</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../reference/hostgroups/">Host Groups</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../reference/measurements/">Measurements</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../reference/metrics/">Metrics</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../reference/plugins/">Plugins</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../reference/sources/">Sources</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
+            </ul>
 
-            
             <!-- Search, Navigation and Repo links -->
             <ul class="nav navbar-nav navbar-right">
-                
-                
                 <li >
-                    <a rel="next" href="../install">
+                    <a rel="next" href="../install/">
                         <i class="fa fa-arrow-left"></i> Previous
                     </a>
                 </li>
                 <li >
-                    <a rel="prev" href="../reference/actions">
+                    <a rel="prev" href="../reference/actions/">
                         Next <i class="fa fa-arrow-right"></i>
                     </a>
                 </li>
                 
-                
             </ul>
-            
         </div>
     </div>
 </div>
 
         <div class="container">
-            
-                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+            <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
         <li class="main active"><a href="#configuring">Configuring</a></li>
@@ -158,13 +154,13 @@
     
     </ul>
 </div></div>
-                <div class="col-md-9" role="main">
+            <div class="col-md-9" role="main">
 
 <h2 id="configuring">Configuring</h2>
-<p>The Boundary CLI uses environment variables for authentication information (user, password, etc) and end-point 
-to execute against the Boundary REST APIs, and optionally this information can be overridden via the command line.</p>
+<p>The TrueSight Pulse CLI uses environment variables for authentication information (user, password, etc) and end-point 
+to execute against the TrueSight Pulse REST APIs, and optionally this information can be overridden via the command line.</p>
 <h3 id="environment-variables">Environment Variables</h3>
-<p>Environment variables are used to provide the credentials and the endpoint to execute the Boundary API against.</p>
+<p>Environment variables are used to provide the credentials and the endpoint to execute the TrueSight Pulse API against.</p>
 <table>
 <thead>
 <tr>
@@ -175,15 +171,15 @@ to execute against the Boundary REST APIs, and optionally this information can b
 <tbody>
 <tr>
 <td align="left">BOUNDARY_API_HOST</td>
-<td align="left">Boundary API host  (e.g. <em>premium-api.boundary.com</em>)</td>
+<td align="left">TrueSight Pulse API host  (e.g. <em>premium-api.boundary.com</em>)</td>
 </tr>
 <tr>
 <td align="left">BOUNDARY_EMAIL</td>
-<td align="left">Boundary email     (e.g. <em>dude@some.company.com</em>)</td>
+<td align="left">TrueSight Pulse email     (e.g. <em>dude@some.company.com</em>)</td>
 </tr>
 <tr>
 <td align="left">BOUNDARY_API_TOKEN</td>
-<td align="left">Boundary API token (e.g. <em>api.8cb8d721d8-9999</em>)</td>
+<td align="left">TrueSight Pulse API token (e.g. <em>api.8cb8d721d8-9999</em>)</td>
 </tr>
 </tbody>
 </table>
@@ -216,15 +212,15 @@ and get help on a specific command. These common command line arguments are show
 </tr>
 <tr>
 <td align="left">--api-host</td>
-<td align="left">Boundary API host endpoint</td>
+<td align="left">TrueSight Pulse API host endpoint</td>
 </tr>
 <tr>
 <td align="left">--email</td>
-<td align="left">E-mail that has access to the Boundary account</td>
+<td align="left">E-mail that has access to the TrueSight Pulse account</td>
 </tr>
 <tr>
 <td align="left">--api-token</td>
-<td align="left">Api token for given e-mail that has access to the Boundary account</td>
+<td align="left">Api token for given e-mail that has access to the TrueSight Pulse account</td>
 </tr>
 </tbody>
 </table>
@@ -238,12 +234,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
 </code></pre>
 
 <h3 id="command-specific-arguments">Command Specific Arguments</h3>
@@ -258,7 +254,7 @@ usage: metric-create [-h] [-l {debug,info,warning,error,critical}]
                      [-u {percent,number,bytecount,duration}] [-r resolution]
                      [-x]
 
-Creates a new metric definition in an Boundary account
+Creates a new metric definition in an TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -267,12 +263,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
   -n metric_name, --metric-name metric_name
                         Metric identifier
   -d display_name, --display-name display_name
@@ -288,23 +284,17 @@ optional arguments:
   -r resolution, --resolution resolution
                         Metric default resolution
   -x, --is-disabled     Disable metric
-</code></pre>
-
-</div>
-            
+</code></pre></div>
         </div>
 
         <footer class="col-md-12">
             <hr>
             
-            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</center>
         </footer>
 
-        
-
-        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="../js/jquery-1.10.2.min.js"></script>
         <script src="../js/bootstrap-3.0.3.min.js"></script>
-        <script src="../js/prettify-1.0.min.js"></script>
         <script src="../js/highlight.pack.js"></script>
         <script src="../js/base.js"></script>
     </body>

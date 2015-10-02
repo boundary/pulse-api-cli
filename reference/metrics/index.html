@@ -9,12 +9,12 @@
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
 
-        <title>Metrics - Boundary API CLI</title>
+	<title>Metrics - Boundary API CLI</title>
 
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome-4.0.3.css" rel="stylesheet">
-        <link href="../../css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="../../css/highlight.css">
+        <link href="../../css/base.css" rel="stylesheet">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -42,7 +42,6 @@
 
         <!-- Collapsed navigation -->
         <div class="navbar-header">
-            
             <!-- Expander button -->
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -50,7 +49,6 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            
 
             <!-- Main title -->
             <a class="navbar-brand" href="../..">Boundary API CLI</a>
@@ -58,93 +56,91 @@
 
         <!-- Expanded navigation -->
         <div class="navbar-collapse collapse">
+            <!-- Main navigation -->
+            <ul class="nav navbar-nav">
             
-                <!-- Main navigation -->
-                <ul class="nav navbar-nav">
-                
-                
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Getting Started <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        
-                            <li >
-                                <a href="../../install">Installing</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../../configuration">Configuring</a>
-                            </li>
-                        
-                        </ul>
-                    </li>
-                
-                
-                
-                    <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        
-                            <li >
-                                <a href="../actions">Actions</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../alarms">Alarms</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../hostgroups">Host Groups</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../measurements">Measurements</a>
-                            </li>
-                        
-                            <li class="active">
-                                <a href=".">Metrics</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../plugins">Plugins</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../sources">Sources</a>
-                            </li>
-                        
-                        </ul>
-                    </li>
-                
-                
-                </ul>
             
+                <li >
+                    <a href="../..">Home</a>
+                </li>
+            
+            
+            
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Getting Started <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="../../install/">Installing</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../../configuration/">Configuring</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
+            
+                <li class="dropdown active">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="../actions/">Actions</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../alarms/">Alarms</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../hostgroups/">Host Groups</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../measurements/">Measurements</a>
+                        </li>
+                    
+                        <li class="active">
+                            <a href="./">Metrics</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../plugins/">Plugins</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../sources/">Sources</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
+            </ul>
 
-            
             <!-- Search, Navigation and Repo links -->
             <ul class="nav navbar-nav navbar-right">
-                
-                
                 <li >
-                    <a rel="next" href="../measurements">
+                    <a rel="next" href="../measurements/">
                         <i class="fa fa-arrow-left"></i> Previous
                     </a>
                 </li>
                 <li >
-                    <a rel="prev" href="../plugins">
+                    <a rel="prev" href="../plugins/">
                         Next <i class="fa fa-arrow-right"></i>
                     </a>
                 </li>
                 
-                
             </ul>
-            
         </div>
     </div>
 </div>
 
         <div class="container">
-            
-                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+            <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
         <li class="main active"><a href="#metrics">Metrics</a></li>
@@ -164,10 +160,10 @@
     
     </ul>
 </div></div>
-                <div class="col-md-9" role="main">
+            <div class="col-md-9" role="main">
 
 <h2 id="metrics">Metrics</h2>
-<p>Commands to administer metric definitions in a Boundary account.</p>
+<p>Commands to administer metric definitions in a TrueSight Pulse account.</p>
 <h3 id="metric-create">metric-create</h3>
 <p><strong>API Documentation</strong></p>
 <p><a href="http://premium-documentation.boundary.com/v1/post/metrics">http://premium-documentation.boundary.com/v1/post/metrics</a></p>
@@ -177,7 +173,7 @@
                      {AVG,MAX,MIN,SUM} -u {percent,number,bytecount,duration}
                      [-r resolution] [-x {yes,no}]
 
-Creates a new metric definition in an Boundary account
+Creates a new metric definition in an TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -186,12 +182,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
   -n metric_name, --metric-name metric_name
                         Metric identifier
   -d display_name, --display-name display_name
@@ -211,13 +207,13 @@ optional arguments:
 </code></pre>
 
 <p><strong>Examples</strong></p>
-<p>Create a new metric, <code>BOUNDARY_CLI_METRIC</code> with a display name of <em>Boundary CLI Metric</em>, a short display of <em>CLI Metric</em>,
+<p>Create a new metric, <code>TRUESIGHT_PULSE_CLI_METRIC</code> with a display name of <em>TrueSight Pulse CLI Metric</em>, a short display of <em>CLI Metric</em>,
 default aggregate of <em>AVG</em>, and unit of <em>number</em>.</p>
-<pre><code class="bash">$ metric-create -n BOUNDARY_CLI_METRIC -d &quot;Boundary CLI Metric&quot; -s &quot;CLI Metric&quot; -g AVG -u number
+<pre><code class="bash">$ metric-create -n TRUESIGHT_PULSE_CLI_METRIC -d &quot;TrueSight Pulse CLI Metric&quot; -s &quot;CLI Metric&quot; -g AVG -u number
 {
   &quot;result&quot;: {
-    &quot;name&quot;: &quot;BOUNDARY_CLI_METRIC&quot;,
-    &quot;displayName&quot;: &quot;Boundary CLI Metric&quot;,
+    &quot;name&quot;: &quot;TRUESIGHT_PULSE_CLI_METRIC&quot;,
+    &quot;displayName&quot;: &quot;TrueSight Pulse CLI Metric&quot;,
     &quot;displayNameShort&quot;: &quot;CLI Metric&quot;,
     &quot;unit&quot;: &quot;number&quot;,
     &quot;defaultAggregate&quot;: &quot;AVG&quot;,
@@ -234,7 +230,7 @@ default aggregate of <em>AVG</em>, and unit of <em>number</em>.</p>
 <pre><code class="bash">usage: metric-delete [-h] [-l {debug,info,warning,error,critical}]
                      [-a api_host] [-e e_mail] [-t api_token] -n metric_name
 
-Deletes a metric definition from a Boundary account
+Deletes a metric definition from a TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -243,19 +239,19 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
   -n metric_name, --metric-name metric_name
                         Metric identifier
 </code></pre>
 
 <p><strong>Examples</strong></p>
-<p>Delete a metric definition identified by a metric identifier of <code>BOUNDARY_DELETE_METRIC</code></p>
-<pre><code class="bash">$ metric-delete -n BOUNDARY_DELETE_METRIC 
+<p>Delete a metric definition identified by a metric identifier of <code>TRUESIGHT_PULSE_DELETE_METRIC</code></p>
+<pre><code class="bash">$ metric-delete -n TRUESIGHT_PULSE_DELETE_METRIC 
 {
   &quot;result&quot;: {
     &quot;success&quot;: true
@@ -270,7 +266,7 @@ optional arguments:
 <pre><code class="bash">usage: metric-export [-h] [-l {debug,info,warning,error,critical}]
                      [-a api_host] [-e e_mail] [-t api_token] [-p pattern]
 
-Export the metric definitions from a Boundary account
+Export the metric definitions from a TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -279,22 +275,22 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
   -p pattern, --pattern pattern
                         regular expression pattern to use search the name of
                         the metric
 </code></pre>
 
 <p><strong>Examples</strong></p>
-<p>Export metric where the metric identifier begins with <code>BOUNDARY</code></p>
-<pre><code class="bash">$ metric-export -p ^BOUNDARY
+<p>Export metric where the metric identifier begins with <code>TRUESIGHT_PULSE</code></p>
+<pre><code class="bash">$ metric-export -p ^TRUESIGHT_PULSE
 {
-    &quot;BOUNDARY_CPU_LOAD_15_MINUTE&quot;: {
+    &quot;TRUESIGHT_PULSE_CPU_LOAD_15_MINUTE&quot;: {
         &quot;defaultAggregate&quot;: &quot;AVG&quot;,
         &quot;defaultResolutionMS&quot;: null,
         &quot;description&quot;: &quot;CPU load in the last 15 minutes.&quot;,
@@ -303,7 +299,7 @@ optional arguments:
         &quot;isDisabled&quot;: false,
         &quot;unit&quot;: &quot;number&quot;
     },
-    &quot;BOUNDARY_CPU_LOAD_1_MINUTE&quot;: {
+    &quot;TRUESIGHT_PULSE_CPU_LOAD_1_MINUTE&quot;: {
         &quot;defaultAggregate&quot;: &quot;AVG&quot;,
         &quot;defaultResolutionMS&quot;: null,
         &quot;description&quot;: &quot;Load on the CPU in the last minute.&quot;,
@@ -312,7 +308,7 @@ optional arguments:
         &quot;isDisabled&quot;: false,
         &quot;unit&quot;: &quot;number&quot;
     },
-    &quot;BOUNDARY_CPU_LOAD_5_MINUTE&quot;: {
+    &quot;TRUESIGHT_PULSE_CPU_LOAD_5_MINUTE&quot;: {
         &quot;defaultAggregate&quot;: &quot;AVG&quot;,
         &quot;defaultResolutionMS&quot;: null,
         &quot;description&quot;: &quot;CPU load in the last 5 minutes.&quot;,
@@ -321,7 +317,7 @@ optional arguments:
         &quot;isDisabled&quot;: false,
         &quot;unit&quot;: &quot;number&quot;
     },
-    &quot;BOUNDARY_FILE_SPACE_CAPACITY&quot;: {
+    &quot;TRUESIGHT_PULSE_FILE_SPACE_CAPACITY&quot;: {
         &quot;defaultAggregate&quot;: &quot;AVG&quot;,
         &quot;defaultResolutionMS&quot;: null,
         &quot;description&quot;: &quot;Percentage used of a file system.&quot;,
@@ -330,7 +326,7 @@ optional arguments:
         &quot;isDisabled&quot;: false,
         &quot;unit&quot;: &quot;percent&quot;
     },
-    &quot;BOUNDARY_PORT_AVAILABILITY&quot;: {
+    &quot;TRUESIGHT_PULSE_PORT_AVAILABILITY&quot;: {
         &quot;defaultAggregate&quot;: &quot;AVG&quot;,
         &quot;defaultResolutionMS&quot;: null,
         &quot;description&quot;: &quot;Reports on the availability of TCP/IP port.&quot;,
@@ -339,7 +335,7 @@ optional arguments:
         &quot;isDisabled&quot;: false,
         &quot;unit&quot;: &quot;number&quot;
     },
-    &quot;BOUNDARY_PORT_RESPONSE&quot;: {
+    &quot;TRUESIGHT_PULSE_PORT_RESPONSE&quot;: {
         &quot;defaultAggregate&quot;: &quot;AVG&quot;,
         &quot;defaultResolutionMS&quot;: null,
         &quot;description&quot;: &quot;Port Response&quot;,
@@ -348,7 +344,7 @@ optional arguments:
         &quot;isDisabled&quot;: false,
         &quot;unit&quot;: &quot;number&quot;
     },
-    &quot;BOUNDARY_PROCESS_COUNT&quot;: {
+    &quot;TRUESIGHT_PULSE_PROCESS_COUNT&quot;: {
         &quot;defaultAggregate&quot;: &quot;AVG&quot;,
         &quot;defaultResolutionMS&quot;: null,
         &quot;description&quot;: &quot;Number of processes running on a host.&quot;,
@@ -357,7 +353,7 @@ optional arguments:
         &quot;isDisabled&quot;: false,
         &quot;unit&quot;: &quot;number&quot;
     },
-    &quot;BOUNDARY_RANDOM_NUMBER&quot;: {
+    &quot;TRUESIGHT_PULSE_RANDOM_NUMBER&quot;: {
         &quot;defaultAggregate&quot;: &quot;SUM&quot;,
         &quot;defaultResolutionMS&quot;: null,
         &quot;description&quot;: &quot;An example metric definition for using the boundary plugin shell&quot;,
@@ -376,7 +372,7 @@ optional arguments:
 <pre><code class="bash">usage: metric-get [-h] [-l {debug,info,warning,error,critical}] [-a api_host]
                   [-e e_mail] [-t api_token] -n metric_name
 
-Lists the defined metrics in a Boundary account
+Lists the defined metrics in a TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -385,27 +381,27 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
   -n metric_name, --metric-name metric_name
                         Metric identifier
 </code></pre>
 
 <p><strong>Examples</strong></p>
-<p>Display the metric definition identified by the metric identifier <code>BOUNDARY_CLI_METRIC</code></p>
-<pre><code class="bash">$ metric-get -n BOUNDARY_CLI_METRIC 
+<p>Display the metric definition identified by the metric identifier <code>TRUESIGHT_PULSE_CLI_METRIC</code></p>
+<pre><code class="bash">$ metric-get -n TRUESIGHT_PULSE_CLI_METRIC 
 {
     &quot;defaultAggregate&quot;: &quot;AVG&quot;,
     &quot;defaultResolutionMS&quot;: null,
     &quot;description&quot;: null,
-    &quot;displayName&quot;: &quot;Boundary CLI Metric&quot;,
+    &quot;displayName&quot;: &quot;TrueSight Pulse CLI Metric&quot;,
     &quot;displayNameShort&quot;: &quot;CLI Metric&quot;,
     &quot;isDisabled&quot;: false,
-    &quot;name&quot;: &quot;BOUNDARY_CLI_METRIC&quot;,
+    &quot;name&quot;: &quot;TRUESIGHT_PULSE_CLI_METRIC&quot;,
     &quot;unit&quot;: &quot;number&quot;
 }
 </code></pre>
@@ -417,7 +413,7 @@ optional arguments:
 <pre><code class="bash">usage: metric-import [-h] [-l {debug,info,warning,error,critical}]
                      [-a api_host] [-e e_mail] [-t api_token] -f path
 
-Imports metric definitions from a file into a Boundary account
+Imports metric definitions from a file into a TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -426,41 +422,41 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
   -f path, --file path  Path to JSON file
 </code></pre>
 
 <p><strong>Examples</strong></p>
 <p>Given the following JSON document of metric definitions in a file <code>metrics.json</code>:</p>
 <pre><code class="json">{
-  &quot;BOUNDARY_METRIC_CLI_ONE&quot;: {
+  &quot;TRUESIGHT_PULSE_METRIC_CLI_ONE&quot;: {
     &quot;defaultAggregate&quot;: &quot;AVG&quot;,
     &quot;defaultResolutionMS&quot;: 5000,
-    &quot;description&quot;: &quot;Example metric BOUNDARY_METRIC_CLI_ONE&quot;,
-    &quot;displayName&quot;: &quot;Boundary CLI Metric One&quot;,
+    &quot;description&quot;: &quot;Example metric TRUESIGHT_PULSE_METRIC_CLI_ONE&quot;,
+    &quot;displayName&quot;: &quot;TrueSight Pulse CLI Metric One&quot;,
     &quot;displayNameShort&quot;: &quot;CLI Metric One&quot;,
     &quot;isDisabled&quot;: false,
     &quot;unit&quot;: &quot;percent&quot;
   },
-  &quot;BOUNDARY_METRIC_CLI_TWO&quot;: {
+  &quot;TRUESIGHT_PULSE_METRIC_CLI_TWO&quot;: {
     &quot;defaultAggregate&quot;: &quot;SUM&quot;,
     &quot;defaultResolutionMS&quot;: 5000,
-    &quot;description&quot;: &quot;Example metric BOUNDARY_METRIC_CLI_TWO&quot;,
-    &quot;displayName&quot;: &quot;Boundary CLI Metric Two&quot;,
+    &quot;description&quot;: &quot;Example metric TRUESIGHT_PULSE_METRIC_CLI_TWO&quot;,
+    &quot;displayName&quot;: &quot;TrueSight Pulse CLI Metric Two&quot;,
     &quot;displayNameShort&quot;: &quot;CLI Metric Two&quot;,
     &quot;isDisabled&quot;: false,
     &quot;unit&quot;: &quot;number&quot;
   },
-  &quot;BOUNDARY_METRIC_CLI_THREE&quot;: {
+  &quot;TRUESIGHT_PULSE_METRIC_CLI_THREE&quot;: {
     &quot;defaultAggregate&quot;: &quot;MAX&quot;,
     &quot;defaultResolutionMS&quot;: 5000,
-    &quot;description&quot;: &quot;Example metric BOUNDARY_METRIC_CLI_THREE&quot;,
-    &quot;displayName&quot;: &quot;Boundary CLI Metric Three&quot;,
+    &quot;description&quot;: &quot;Example metric TRUESIGHT_PULSE_METRIC_CLI_THREE&quot;,
+    &quot;displayName&quot;: &quot;TrueSight Pulse CLI Metric Three&quot;,
     &quot;displayNameShort&quot;: &quot;CLI Metric Three&quot;,
     &quot;isDisabled&quot;: false,
     &quot;unit&quot;: &quot;number&quot;
@@ -482,7 +478,7 @@ optional arguments:
                      {AVG,MAX,MIN,SUM} -u {percent,number,bytecount,duration}
                      [-r resolution] [-x {yes,no}]
 
-Updates a metric definition in an Boundary account
+Updates a metric definition in an TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -491,12 +487,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
   -n metric_name, --metric-name metric_name
                         Metric identifier
   -d display_name, --display-name display_name
@@ -517,35 +513,29 @@ optional arguments:
 
 <p><strong>Examples</strong></p>
 <p>Update a metric definition</p>
-<pre><code class="bash">$ metric-update -n BOUNDARY_TEST_METRIC -d &quot;Boundary Test Metric&quot; -s &quot;CLI Metric&quot; -g AVG -u number -i 'New metric to update'
+<pre><code class="bash">$ metric-update -n TRUESIGHT_PULSE_TEST_METRIC -d &quot;TrueSight Pulse Test Metric&quot; -s &quot;CLI Metric&quot; -g AVG -u number -i 'New metric to update'
 {
   &quot;result&quot;: {
-    &quot;name&quot;: &quot;BOUNDARY_TEST_METRIC&quot;,
+    &quot;name&quot;: &quot;TRUESIGHT_PULSE_TEST_METRIC&quot;,
     &quot;description&quot;: &quot;New metric to update&quot;,
-    &quot;displayName&quot;: &quot;Boundary Test Metric&quot;,
+    &quot;displayName&quot;: &quot;TrueSight Pulse Test Metric&quot;,
     &quot;displayNameShort&quot;: &quot;CLI Metric&quot;,
     &quot;unit&quot;: &quot;number&quot;,
     &quot;defaultAggregate&quot;: &quot;AVG&quot;,
     &quot;id&quot;: 151332
   }
 }
-</code></pre>
-
-</div>
-            
+</code></pre></div>
         </div>
 
         <footer class="col-md-12">
             <hr>
             
-            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</center>
         </footer>
 
-        
-
-        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="../../js/jquery-1.10.2.min.js"></script>
         <script src="../../js/bootstrap-3.0.3.min.js"></script>
-        <script src="../../js/prettify-1.0.min.js"></script>
         <script src="../../js/highlight.pack.js"></script>
         <script src="../../js/base.js"></script>
     </body>

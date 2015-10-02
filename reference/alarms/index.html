@@ -9,12 +9,12 @@
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
 
-        <title>Alarms - Boundary API CLI</title>
+	<title>Alarms - Boundary API CLI</title>
 
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome-4.0.3.css" rel="stylesheet">
-        <link href="../../css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="../../css/highlight.css">
+        <link href="../../css/base.css" rel="stylesheet">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -42,7 +42,6 @@
 
         <!-- Collapsed navigation -->
         <div class="navbar-header">
-            
             <!-- Expander button -->
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -50,7 +49,6 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            
 
             <!-- Main title -->
             <a class="navbar-brand" href="../..">Boundary API CLI</a>
@@ -58,93 +56,91 @@
 
         <!-- Expanded navigation -->
         <div class="navbar-collapse collapse">
+            <!-- Main navigation -->
+            <ul class="nav navbar-nav">
             
-                <!-- Main navigation -->
-                <ul class="nav navbar-nav">
-                
-                
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Getting Started <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        
-                            <li >
-                                <a href="../../install">Installing</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../../configuration">Configuring</a>
-                            </li>
-                        
-                        </ul>
-                    </li>
-                
-                
-                
-                    <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        
-                            <li >
-                                <a href="../actions">Actions</a>
-                            </li>
-                        
-                            <li class="active">
-                                <a href=".">Alarms</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../hostgroups">Host Groups</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../measurements">Measurements</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../metrics">Metrics</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../plugins">Plugins</a>
-                            </li>
-                        
-                            <li >
-                                <a href="../sources">Sources</a>
-                            </li>
-                        
-                        </ul>
-                    </li>
-                
-                
-                </ul>
             
+                <li >
+                    <a href="../..">Home</a>
+                </li>
+            
+            
+            
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Getting Started <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="../../install/">Installing</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../../configuration/">Configuring</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
+            
+                <li class="dropdown active">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="../actions/">Actions</a>
+                        </li>
+                    
+                        <li class="active">
+                            <a href="./">Alarms</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../hostgroups/">Host Groups</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../measurements/">Measurements</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../metrics/">Metrics</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../plugins/">Plugins</a>
+                        </li>
+                    
+                        <li >
+                            <a href="../sources/">Sources</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
+            </ul>
 
-            
             <!-- Search, Navigation and Repo links -->
             <ul class="nav navbar-nav navbar-right">
-                
-                
                 <li >
-                    <a rel="next" href="../actions">
+                    <a rel="next" href="../actions/">
                         <i class="fa fa-arrow-left"></i> Previous
                     </a>
                 </li>
                 <li >
-                    <a rel="prev" href="../hostgroups">
+                    <a rel="prev" href="../hostgroups/">
                         Next <i class="fa fa-arrow-right"></i>
                     </a>
                 </li>
                 
-                
             </ul>
-            
         </div>
     </div>
 </div>
 
         <div class="container">
-            
-                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+            <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
         <li class="main active"><a href="#alarms">Alarms</a></li>
@@ -160,10 +156,10 @@
     
     </ul>
 </div></div>
-                <div class="col-md-9" role="main">
+            <div class="col-md-9" role="main">
 
 <h2 id="alarms">Alarms</h2>
-<p>Commands to administer definitions of metric alarms in a Boundary account.</p>
+<p>Commands to administer definitions of metric alarms in a TrueSight Pulse account.</p>
 <h3 id="alarm-create">alarm-create</h3>
 <p><strong>API Documentation</strong></p>
 <p><a href="http://premium-documentation.boundary.com/v1/post/alarms">http://premium-documentation.boundary.com/v1/post/alarms</a></p>
@@ -176,7 +172,7 @@
                     hours,12 hours} [-u host_group_id] [-d note]
                     [-c action-id] [-p {yes,no}] [-x {yes,no}]
 
-Creates an alarm definition in an Boundary account
+Creates an alarm definition in an TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -187,12 +183,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
   -m metric_name, --metric metric_name
                         Name of the metric to alarm
   -g {SUM,AVG,MAX,MIN}, --trigger-aggregate {SUM,AVG,MAX,MIN}
@@ -220,9 +216,9 @@ optional arguments:
 </code></pre>
 
 <p><strong>Examples</strong></p>
-<p>Create an alarm when the maximum value of <code>BOUNDARY_METRIC_TEST</code> is greater than a 100 in a 5 minute
+<p>Create an alarm when the maximum value of <code>TRUESIGHT_PULSE_METRIC_TEST</code> is greater than a 100 in a 5 minute
 period.</p>
-<pre><code class="bash">$ alarm-create -n &quot;my-alarm&quot; -m BOUNDARY_METRIC_TEST -g max -o gt -v 100 -r &quot;5 minutes&quot;
+<pre><code class="bash">$ alarm-create -n &quot;my-alarm&quot; -m TRUESIGHT_PULSE_METRIC_TEST -g max -o gt -v 100 -r &quot;5 minutes&quot;
 {
   &quot;result&quot;: {
     &quot;id&quot;: 45040,
@@ -232,7 +228,7 @@ period.</p>
       &quot;op&quot;: &quot;gt&quot;,
       &quot;val&quot;: &quot;100&quot;
     },
-    &quot;metricName&quot;: &quot;BOUNDARY_METRIC_TEST&quot;,
+    &quot;metricName&quot;: &quot;TRUESIGHT_PULSE_METRIC_TEST&quot;,
     &quot;interval&quot;: 900,
     &quot;perHostNotify&quot;: false,
     &quot;actions&quot;: []
@@ -247,7 +243,7 @@ period.</p>
 <pre><code class="bash">usage: alarm-delete [-h] [-l {debug,info,warning,error,critical}]
                     [-a api_host] [-e e_mail] [-t api_token] -i alarm-id
 
-Deletes an alarm definition from a Boundary account
+Deletes an alarm definition from a TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -256,12 +252,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
   -i alarm-id, --alarm-id alarm-id
                         Alarm identifier
 </code></pre>
@@ -278,7 +274,7 @@ optional arguments:
 <pre><code class="bash">usage: alarm-list [-h] [-l {debug,info,warning,error,critical}] [-a api_host]
                   [-e e_mail] [-t api_token]
 
-List alarm definitions associated with the Boundary account
+List alarm definitions associated with the TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -287,12 +283,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
 </code></pre>
 
 <p><strong>Examples</strong></p>
@@ -354,7 +350,7 @@ optional arguments:
                     [-u host_group_id] [-d note] [-c action-id] [-p {yes,no}]
                     [-x {yes,no}]
 
-Updates an alarm definition in an Boundary account
+Updates an alarm definition in an TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -367,12 +363,12 @@ optional arguments:
                         debug,info,warning,error,critical.Default is logging
                         is disabled
   -a api_host, --api-host api_host
-                        Boundary API host endpoint
+                        TrueSight Pulse API host endpoint
   -e e_mail, --email e_mail
-                        e-mail that has access to the Boundary account
+                        e-mail that has access to the TrueSight Pulse account
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
-                        Boundary account
+                        TrueSight Pulse account
   -m metric_name, --metric metric_name
                         Name of the metric to alarm
   -g {SUM,AVG,MAX,MIN}, --trigger-aggregate {SUM,AVG,MAX,MIN}
@@ -400,7 +396,7 @@ optional arguments:
 </code></pre>
 
 <p><strong>Examples</strong></p>
-<pre><code class="bash">$ alarm-update -i 45086 -m BOUNDARY_METRIC_TEST -g AVG -o gt -v 50 -r &quot;1 minute&quot; -u 17878 -c 6614
+<pre><code class="bash">$ alarm-update -i 45086 -m TRUESIGHT_PULSE_METRIC_TEST -g AVG -o gt -v 50 -r &quot;1 minute&quot; -u 17878 -c 6614
 {
   &quot;result&quot;: {
     &quot;id&quot;: 45086,
@@ -410,7 +406,7 @@ optional arguments:
       &quot;op&quot;: &quot;gt&quot;,
       &quot;val&quot;: &quot;50&quot;
     },
-    &quot;metricName&quot;: &quot;BOUNDARY_METRIC_TEST&quot;,
+    &quot;metricName&quot;: &quot;TRUESIGHT_PULSE_METRIC_TEST&quot;,
     &quot;interval&quot;: 60,
     &quot;hostgroupId&quot;: 17878,
     &quot;note&quot;: null,
@@ -420,23 +416,17 @@ optional arguments:
     ]
   }
 }
-</code></pre>
-
-</div>
-            
+</code></pre></div>
         </div>
 
         <footer class="col-md-12">
             <hr>
             
-            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</center>
         </footer>
 
-        
-
-        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="../../js/jquery-1.10.2.min.js"></script>
         <script src="../../js/bootstrap-3.0.3.min.js"></script>
-        <script src="../../js/prettify-1.0.min.js"></script>
         <script src="../../js/highlight.pack.js"></script>
         <script src="../../js/base.js"></script>
     </body>
