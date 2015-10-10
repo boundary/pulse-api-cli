@@ -59,4 +59,4 @@ class MetricGet (MetricCommon):
             # pretty print the JSON output
             if metric is not None:
                 out = json.dumps(self.extractFields(metric), sort_keys=True, indent=4, separators=(',', ': '))
-                print(out)
+                print(self.colorize_json(out))

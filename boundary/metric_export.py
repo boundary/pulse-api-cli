@@ -115,4 +115,4 @@ class MetricExport(MetricCommon):
             self.metrics = json.loads(result.text)
             self.filter()
             out = json.dumps(self.metrics, sort_keys=True, indent=4, separators=(',', ': '))
-            print(out)
+            print(self.colorize_json(out))

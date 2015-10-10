@@ -63,4 +63,4 @@ class AlarmDelete(ApiCli):
 
         # Only process if we get HTTP return code other 200.
         if result.status_code != http_client.OK:
-            print(result.text)
+            print(self.colorize_json(result.text))

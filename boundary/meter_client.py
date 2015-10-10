@@ -63,7 +63,7 @@ class MeterClient(ApiCli):
             self.rpc_parameters = self.args.rpc_parameters
 
     def handleResults(self, result):
-        print(self.rpc_data[0])
+        print(self.colorize_json(self.rpc_data[0]))
 
     def parse_rpc_parameters(self):
         p = {}

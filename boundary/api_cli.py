@@ -278,12 +278,15 @@ class ApiCli(object):
             logging.error(result)
         self.handleResults(result)
 
+    def colorize_json(self, json):
+        return highlight(json, lexers.JsonLexer(), formatters.TerminalFormatter())
+
     def handleResults(self, result):
         """
         Call back function to be implemented by the CLI.
         Default is to just print the results to standard out
         """
-        print(result.text)
+        print(self.colorize_json(result.text))
 
     def execute(self):
         """

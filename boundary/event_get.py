@@ -43,4 +43,4 @@ class EventGet(ApiCli):
         # Only process if we get HTTP result of 200
         if result.status_code == http_client.OK:
             out = json.dumps(json.loads(result.text), sort_keys=True, indent=4, separators=(',', ': '))
-            print(out)
+            print(self.colorize_json(out))
