@@ -54,7 +54,7 @@ class AlarmDelete(ApiCli):
     def getDescription(self):
         """
         """
-        return "Deletes an alarm definition from a Boundary account"
+        return "Deletes an alarm definition from a {0} account".format(self.product_name)
 
     def handleResults(self, result):
         """

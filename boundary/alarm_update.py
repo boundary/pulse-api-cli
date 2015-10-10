@@ -22,7 +22,7 @@ class AlarmUpdate(AlarmModify):
         self.alarm_id = None
         self.method = "PUT"
 
-        self.cli_description = "Creates a new metric definition in an Boundary account"
+#        self.cli_description = 'Updates an alarm definition in an {0} account'.format(self.product_name)
 
     def addArguments(self):
 
@@ -46,4 +46,4 @@ class AlarmUpdate(AlarmModify):
         self.path = "v1/alarm/{0}".format(self.alarm_id)
 
     def getDescription(self):
-        return 'Updates an alarm definition in an Boundary account'
+        return 'Updates an alarm definition in an {0} account'.format(self.product_name)

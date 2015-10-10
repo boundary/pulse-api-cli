@@ -39,7 +39,7 @@ class AlarmCreate(AlarmModify):
         self.path = 'v1/alarms'
 
     def getDescription(self):
-        return 'Creates an alarm definition in an Boundary account'
+        return 'Creates an alarm definition in an {0} account'.format(self.product_name)
 
 
 

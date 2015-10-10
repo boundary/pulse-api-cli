@@ -30,20 +30,20 @@ class MetricDelete(ApiCli):
     def __init__(self):
         ApiCli.__init__(self)
         self.method = "DELETE"
-        self.metricName = None
+        self.metric_name = None
 
     def addArguments(self):
         ApiCli.addArguments(self)
-        self.parser.add_argument('-n', '--metric-name', dest='metricName', action='store', required=True,
+        self.parser.add_argument('-n', '--metric-name', dest='metric_name', action='store', required=True,
                                  metavar='metric_name', help='Metric identifier')
 
     def getArguments(self):
-        '''
+        """
         Extracts the specific arguments of this CLI
-        '''
+        """
         ApiCli.getArguments(self)
-        if self.args.metricName != None:
-            self.metricName = self.args.metricName
+        if self.args.metric_name != None:
+            self.metric_name = self.args.metric_name
 
         self.path = "v1/metrics/{0}".format(self.metricName)
 
@@ -51,4 +51,4 @@ class MetricDelete(ApiCli):
         return ApiCli.validateArguments(self)
 
     def getDescription(self):
-        return "Deletes a metric definition from a Boundary account"
+        return 'Deletes a metric definition from a {0} account'.format(self.product_name)

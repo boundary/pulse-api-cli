@@ -38,7 +38,7 @@ class MetricImport(MetricCommon):
         self.v2Metrics = None
 
     def getDescription(self):
-        return "Imports metric definitions from a file into a Boundary account"
+        return 'Imports metric definitions from a file into a {0} account'.format(self.product_name)
        
     def addArguments(self):
         """

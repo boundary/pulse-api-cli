@@ -31,6 +31,7 @@ Format of output table:
 |:-----------|:--------|
 """
 
+
 class MetricMarkdown(ApiCli):
     def __init__(self):
         ApiCli.__init__(self)
@@ -57,6 +58,9 @@ class MetricMarkdown(ApiCli):
         self.path = "v1/metrics"
 
         self.load()
+
+    def getDescription(self):
+        return 'Generates a README file'
 
     def handleResults(self, result):
         if result.status_code == urllib2.httplib.OK:

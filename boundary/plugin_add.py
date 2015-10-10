@@ -16,6 +16,7 @@
 #
 from boundary import PluginBase
 
+
 class PluginAdd (PluginBase):
      
     def __init__(self):
@@ -29,23 +30,25 @@ class PluginAdd (PluginBase):
         
     def addArguments(self):
         PluginBase.addArguments(self)
-        self.parser.add_argument('-o', '--organization-name', dest='organizationName', action='store', required=True, metavar="organization_name",
+        self.parser.add_argument('-o', '--organization-name', dest='organizationName', action='store',
+                                 required=True, metavar="organization_name",
                                  help='Name of the github user or organization')
-        self.parser.add_argument('-r', '--repository-name', dest='repositoryName', action='store', required=True, metavar="respository_name",
+        self.parser.add_argument('-r', '--repository-name', dest='repositoryName', action='store',
+                                 required=True, metavar="respository_name",
                                  help='Name of the github repository')
 
     def getArguments(self):
-        '''
+        """
         Extracts the specific arguments of this CLI
-        '''
+        """
         PluginBase.getArguments(self)
-        if self.args.organizationName != None:
+        if self.args.organizationName is not None:
             self.organizationName = self.args.organizationName
-        if self.args.repositoryName != None:
+        if self.args.repositoryName is not None:
             self.repositoryName = self.args.repositoryName
             
         self.path = "v1/plugins/private/{0}/{1}/{2}".format(self.pluginName, self.organizationName, self.repositoryName)
          
     def getDescription(self):
-        return "Imports a meter plugin from a github repository into a Boundary account"
-    
+        return 'Imports a meter plugin from a GitHub repository into a {0} account'.format(self.product_name)
+

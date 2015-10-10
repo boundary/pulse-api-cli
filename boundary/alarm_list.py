@@ -23,4 +23,4 @@ class AlarmList(ApiCli):
         self.path = "v1/alarms"
 
     def getDescription(self):
-        return "List alarm definitions associated with the Boundary account"
+        return "List alarm definitions associated with the {0} account".format(self.product_name)

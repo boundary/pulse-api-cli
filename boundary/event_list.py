@@ -27,7 +27,7 @@ class EventList(ApiCli):
         ApiCli.addArguments(self)
 
     def getDescription(self):
-        return "Lists the events in a Boundary account"
+        return "Lists the events in a {0} account".format(self.product_name)
 
     def handleResults(self, result):
         # Only process if we get HTTP result of 200

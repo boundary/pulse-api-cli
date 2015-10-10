@@ -25,4 +25,4 @@ class RelayList(ApiCli):
         ApiCli.addArguments(self)
 
     def getDescription(self):
-        return "Lists the relays in a Boundary account"
+        return 'Lists the relays in a {0} account'.format(self.product_name)

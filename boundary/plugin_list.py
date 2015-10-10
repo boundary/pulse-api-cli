@@ -25,4 +25,4 @@ class PluginList(ApiCli):
         ApiCli.addArguments(self)
 
     def getDescription(self):
-        return "Lists the plugins in a Boundary account"
+        return 'Lists the plugins in a {0} account'.format(self.product_name)

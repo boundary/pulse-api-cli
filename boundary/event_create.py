@@ -150,7 +150,7 @@ class EventCreate(ApiCli):
         return ApiCli.validateArguments(self)
 
     def getDescription(self):
-        return "Creates a new metric event in an Boundary account"
+        return "Creates a new event in an {0} account".format(self.product_name)
 
     def good_response(self, status_code):
         """

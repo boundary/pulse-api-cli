@@ -126,7 +126,7 @@ class MeasurementGet(ApiCli):
         """
         Returns the description of this command
         """
-        return "Retrieves measurement values from a metric in a Boundary account"
+        return 'Retrieves measurement values from a metric in a {0} account'.format(self.product_name)
 
     def output_csv(self,text):
         self.output_json(text)

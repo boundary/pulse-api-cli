@@ -53,4 +53,4 @@ class RelayGetConfig(ApiCli):
             self.url_parameters = {"since": self.since}
 
     def getDescription(self):
-        return "Returns relay configuration from a Boundary account"
+        return 'Returns relay configuration from a {0} account'.format(self.product_name)

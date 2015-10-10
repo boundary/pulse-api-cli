@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 #
 # Copyright 2014-2015 Boundary, Inc.
 #
@@ -5,7 +6,7 @@
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#     http://www.apache.org/licenses/LICENSE-2.0
+#      http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,19 +15,17 @@
 # limitations under the License.
 #
 
-from boundary import MetricModify
+from unittest import TestCase
+from boundary import AlarmGet
+from cli_test import CLITest
 
 
-class MetricUpdate(MetricModify):
-     
-    def __init__(self):
-        """
-        """
-        MetricModify.__init__(self)
-        self.method = "PUT"
-        self.description = "Updates a metric definition in an Boundary account"
-         
-    def getDescription(self):
-        """
-        """
-        return 'Updates a metric definition in an {0} account'.format(self.product_name)
+class AlarmGetTest(TestCase):
+
+    def setUp(self):
+        self.cli = AlarmGet()
+
+    def test_cli_description(self):
+        CLITest.check_description(self, self.cli)
+
+

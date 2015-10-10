@@ -37,4 +37,4 @@ class PluginUninstall(PluginBase):
         self.url_parameters = {"removeMetrics": self.removeMetrics, "removeDashes": self.removeDashes}
 
     def getDescription(self):
-        return "Uninstalls a plugin from a Boundary account"
+        return 'Uninstalls a plugin from a {0} account'.format(self.product_name)

@@ -1,0 +1,24 @@
+{
+  "Foo": {
+    "red": 1,
+    "green": "bar",
+    "blue": {
+      "cyan": 1,
+      "magenta": "foo",
+      "yellow": {
+        "a": 100
+      }
+    }
+  },
+  "Bar": {
+    "red": 2,
+    "green": "FOO",
+    "blue": {
+      "cyan": 100,
+      "magenta": "BAR",
+      "yellow": {
+        "b": 1000
+      }
+    }
+  }
+}

@@ -15,6 +15,7 @@
 #
 from boundary import MetricModify
 
+
 class MetricCreate (MetricModify):
      
     def __init__(self):
@@ -31,8 +32,6 @@ class MetricCreate (MetricModify):
         self.resolution = None
         self.isDisabled = None
 
-        self.cli_description = "Creates a new metric definition in an Boundary account"
-
     def getArguments(self):
         """
         Extracts the specific arguments of this CLI
@@ -44,5 +43,5 @@ class MetricCreate (MetricModify):
     def getDescription(self):
         """
         """
-        return "Creates a new metric definition in an Boundary account"
+        return 'Creates a new metric definition in an {0} account'.format(self.product_name)
 

@@ -41,7 +41,7 @@ class MetricExport(MetricCommon):
     def getDescription(self):
         """
         """
-        return 'Export the metric definitions from a Boundary account'
+        return 'Export the metric definitions from a {0} account'.format(self.product_name)
 
     def addArguments(self):
         """

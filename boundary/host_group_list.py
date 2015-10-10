@@ -23,4 +23,4 @@ class HostGroupList(ApiCli):
         self.path = "v1/hostgroups"
 
     def getDescription(self):
-        return "Lists the Host Groups in an Boundary account"
+        return 'Lists the Host Groups in an {0} account'.format(self.product_name)

@@ -15,15 +15,15 @@
 # limitations under the License.
 #
 
-import unittest
+from unittest import TestCase
 from boundary import AlarmUpdate
+from cli_test import CLITest
 
-class TestCommand(unittest.TestCase):
+
+class TestCommand(TestCase):
 
     def setUp(self):
-        self.alarm_update = AlarmUpdate()
-        pass
+        self.cli = AlarmUpdate()
 
     def test_cli_description(self):
-        self.assertEqual('Updates a alarm definition in an Boundary account',
-                         self.alarm_update.getDescription(), 'Check AlarmCreate description')
+        CLITest.check_description(self, self.cli)

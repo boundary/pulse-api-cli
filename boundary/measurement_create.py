@@ -95,7 +95,7 @@ class MeasurementCreate(ApiCli):
             None
 
     def getDescription(self):
-        return "Adds a measurement value to a Boundary account"
+        return 'Adds a measurement value to a {0} account'.format(self.product_name)
 
     def handleResults(self, result):
         """

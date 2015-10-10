@@ -39,4 +39,4 @@ class HostGroupUpdate(HostGroupModify):
         self.path = "v1/hostgroup/" + str(self.hostGroupId)
 
     def getDescription(self):
-        return "Updates host group definition in a Boundary account"
+        return 'Updates host group definition in a {0} account'.format(self.product_name)

@@ -27,4 +27,4 @@ class PluginInstall(PluginBase):
         self.path = "v1/plugins/installed/{0}".format(self.pluginName)
 
     def getDescription(self):
-        return "Installs a plugin into a Boundary account"
+        return 'Installs a plugin into a {0} account'.format(self.product_name)

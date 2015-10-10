@@ -53,6 +53,5 @@ class RelayToggle(ApiCli):
         self.data = json.dumps(payload, sort_keys=True)
         self.headers = {'Content-Type': 'application/json', "Accept": "application/json"}
 
-
     def getDescription(self):
-        return "Set a relay to be disabled or enabled"
+        return 'Set a relay to be disabled or enabled'.format(self.product_name)

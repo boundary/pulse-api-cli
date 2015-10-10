@@ -32,7 +32,7 @@ class MetricGet (MetricCommon):
         self.parser.add_argument('-n', '--metric-name', dest='metricName', action='store', required=True, metavar='metric_name', help='Metric identifier')
         
     def getDescription(self):
-        return "Lists the defined metrics in a Boundary account"
+        return 'Lists the defined metrics in a {0} account'.format(self.product_name)
     
     def getArguments(self):
         MetricCommon.getArguments(self)

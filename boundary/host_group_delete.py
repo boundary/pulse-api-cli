@@ -48,4 +48,4 @@ class HostGroupDelete(ApiCli):
         self.path = "v1/hostgroup/{0}".format(str(self.hostGroupId))
 
     def getDescription(self):
-        return "Deletes a host group definition by id from a Boundary account"
+        return "Deletes a host group definition by id from a {0} account".format(self.product_name)

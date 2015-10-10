@@ -15,18 +15,21 @@
 # limitations under the License.
 #
 
-import unittest
-
+from unittest import TestCase
 from boundary import PluginManifest
+import os.path
 
-class TestPluginManifest(unittest.TestCase):
+
+class TestPluginManifest(TestCase):
 
     def setUp(self):
-        self.pm = PluginManifest('../../../plugin.json')
+        self.filename = os.path.join(os.path.dirname(__file__), 'plugin.json')
+        self.pm = PluginManifest(self.filename)
+
         self.pm.load()
 
     def test_load(self):
-        pm = PluginManifest('../../../plugin.json')
+        pm = PluginManifest(self.filename)
         pm.load()
 
     def test_check_data_members(self):
@@ -52,11 +55,3 @@ class TestPluginManifest(unittest.TestCase):
     def test_check_param_array(self):
         pass
 
-  # "paramArray": {
-  #   "itemTitle": [
-  #     "parameter_a",
-  #     "parameter_b",
-  #     "parameter_c"
-  #   ],
-  #   "schemaTitle": "Configuration"
-  # },

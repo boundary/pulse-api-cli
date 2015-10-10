@@ -24,4 +24,4 @@ class ActionTypes (ApiCli):
         self.path = "v1/actions"
                  
     def getDescription(self):
-        return "List action types associated with the Boundary account"
+        return 'List action types associated with the {0} account'.format(self.product_name)

@@ -15,12 +15,12 @@
 #
 from boundary import HostGroupModify
 
-class HostGroupCreate (HostGroupModify):
-     
-    def __init__(self,update):
-        HostGroupModify.__init__(self,False)
-        self.path="v1/hostgroups"
+
+class HostGroupCreate(HostGroupModify):
+    def __init__(self):
+        HostGroupModify.__init__(self, False)
+        self.path = "v1/hostgroups"
         self.sources = None
-                        
+
     def getDescription(self):
-        return "Creates host group definition in a Boundary account"
+        return "Creates host group definition in a {0} account".format(self.product_name)

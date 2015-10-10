@@ -126,7 +126,7 @@ None
         pass
 
     def getDescription(self):
-        return '"Generates README from plugin.json and template"'
+        return 'Generates README from plugin.json and template'
 
     def callAPI(self):
 

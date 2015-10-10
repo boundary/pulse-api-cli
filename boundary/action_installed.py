@@ -15,6 +15,7 @@
 #
 from api_cli import ApiCli
 
+
 class ActionInstalled (ApiCli):
      
     def __init__(self):
@@ -23,5 +24,5 @@ class ActionInstalled (ApiCli):
         self.path = "v1/actions/installed"
                  
     def getDescription(self):
-        return "Returns the actions configured within a Boundary account"
+        return "Returns the actions configured within a {0} account".format(self.product_name)
 

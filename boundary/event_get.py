@@ -37,7 +37,7 @@ class EventGet(ApiCli):
         self.path = "v1/events/{0}".format(self.event_id)
 
     def getDescription(self):
-        return "Gets a single event by id from a Boundary account"
+        return "Gets a single event by id from a {0} account".format(self.product_name)
 
     def handleResults(self, result):
         # Only process if we get HTTP result of 200

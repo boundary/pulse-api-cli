@@ -76,4 +76,4 @@ class AlarmGet(ApiCli):
     def getDescription(self):
         """
         """
-        return "Retrieves an alarm definition from a Boundary account"
+        return "Retrieves an alarm definition from a {0} account".format(self.product_name)

@@ -22,4 +22,4 @@ class PluginInstalled(ApiCli):
         self.path = "v1/plugins/installed"
 
     def getDescription(self):
-        return "Gets the plugins installed into a Boundary account"
+        return 'Gets the plugins installed into a {0} account'.format(self.product_name)

@@ -20,6 +20,7 @@ import logging
 import os
 import requests
 import urllib
+from pygments import highlight, lexers, formatters
 
 """
 Base class for all the Boundary CLI commands
@@ -29,6 +30,7 @@ Base class for all the Boundary CLI commands
 class ApiCli(object):
 
     def __init__(self):
+        self.product_name = 'TrueSight Pulse'
         # Construct a dictionary with each of the HTTP methods that we support
         self.methods = {"DELETE": self.doDelete, "GET": self.doGet, "POST": self.doPost, "PUT": self.doPut}
         self.levels = {"debug": logging.DEBUG,
@@ -80,27 +82,6 @@ class ApiCli(object):
         Returns the standard cube aggregates in the alarm/measurement APIs
         """
         return self._aggregate_times
-
-    #
-    # Description
-    #
-    @property
-    def cli_description(self):
-        """
-        """
-        return self._cli_description
-
-    @cli_description.setter
-    def cli_description(self, value):
-        """
-        """
-        self._cli_description = value
-
-    @cli_description.deleter
-    def cli_description(self):
-        """
-        """
-        ApiCli.raise_attribute_delete_error(self, 'cli_description')
 
     #
     # method
@@ -174,12 +155,12 @@ class ApiCli(object):
         """
         self.addLoggingArgument()
         self.parser.add_argument('-a', '--api-host', dest='apihost', action='store', metavar="api_host",
-                                 help='Boundary API host endpoint')
+                                 help='{0} API host endpoint'.format(self.product_name))
         self.parser.add_argument('-e', '--email', dest='email', action='store', metavar="e_mail",
-                                 help='e-mail that has access to the Boundary account')
+                                 help='e-mail that has access to the {0} account'.format(self.product_name))
         self.parser.add_argument('-t', '--api-token', dest='apitoken', required=False, action='store',
                                  metavar="api_token",
-                                 help='API token for given e-mail that has access to the Boundary account')
+                                 help='API token for given e-mail that has access to the {0} account'.format(self.product_name))
 
     def parseArgs(self):
         """

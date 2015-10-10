@@ -40,4 +40,4 @@ class RelaySetConfig(ApiCli):
         self.path = 'v1/relays/{0}/config'.format(self.meter)
 
     def getDescription(self):
-        return "Returns relay configuration from a Boundary account"
+        return 'Sets the configuration of a relay in a {0} account'.format(self.product_name)

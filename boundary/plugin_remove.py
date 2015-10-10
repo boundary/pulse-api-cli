@@ -29,4 +29,4 @@ class PluginRemove(PluginBase):
         self.path = "v1/plugins/private/{0}".format(self.pluginName)
 
     def getDescription(self):
-        return "Remove a staged pre-release meter plugin from a Boundary account"
+        return 'Remove a staged pre-release meter plugin from a {0} account'.format(self.product_name)

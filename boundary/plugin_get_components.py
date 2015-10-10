@@ -39,4 +39,4 @@ class PluginGetComponents(ApiCli):
         self.path = "v1/plugins/{0}/components".format(self.pluginName)
 
     def getDescription(self):
-        return "Get the components of a plugin in a Boundary account"
+        return 'Get the components of a plugin in a {0} account'.format(self.product_name)

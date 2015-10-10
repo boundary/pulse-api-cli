@@ -24,4 +24,4 @@ class SourceList(ApiCli):
         self.method = "GET"
 
     def getDescription(self):
-        return "Lists the sources in a Boundary account"
+        return 'Lists the sources in a Boundary account'.format(self.product_name)

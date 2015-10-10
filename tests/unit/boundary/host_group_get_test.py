@@ -15,15 +15,17 @@
 # limitations under the License.
 #
 
-import unittest
+from unittest import TestCase
+from boundary import HostGroupGet
+from cli_test import CLITest
 
-class TestCommand(unittest.TestCase):
+
+class HostGroupGetTest(TestCase):
 
     def setUp(self):
-        pass
+        self.cli = HostGroupGet()
 
-    def tearDown(self):
-        pass
+    def test_cli_description(self):
+        CLITest.check_description(self, self.cli)
 
-    def test_mock_arguments(self):
-        sys.argv = ['programname', '-iq', '-q', directory]
+

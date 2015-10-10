@@ -36,7 +36,7 @@ class MeterClient(ApiCli):
         """
         Text describing this command
         """
-        return "Communicates with an meter using JSON RPC"
+        return 'Communicates with an {0} meter using JSON RPC'.format(self.product_name)
 
     def addArguments(self):
         self.addLoggingArgument()

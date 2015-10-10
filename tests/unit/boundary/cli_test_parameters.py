@@ -15,17 +15,25 @@
 # limitations under the License.
 #
 
-from unittest import TestCase
-from boundary import AlarmCreate
-from cli_test import CLITest
+import json
+import os.path
 
 
-class AlarmCreateTest(TestCase):
+class CLITestParameters:
 
-    def setUp(self):
-        self.cli = AlarmCreate()
+    def __init__(self, filename='cli_test_parameters.json'):
+        self.filename = os.path.join(os.path.dirname(__file__), filename)
+        self.parameters = None
+        pass
 
-    def test_cli_description(self):
-        CLITest.check_description(self, self.cli)
+    def load(self):
+        with open(self.filename, "r") as f:
+            self.parameters = json.load(f)
 
+    def get(self, name):
+        if self.parameters is None:
+            self.load()
+        return self.parameters[name]
 
+    def get_description(self, name):
+        return self.get(name)['description']

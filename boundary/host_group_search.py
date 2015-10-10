@@ -76,4 +76,4 @@ class HostGroupSearch(ApiCli):
             self.url_parameters = {"name": self.args.hostGroupName}
 
     def getDescription(self):
-        return "Searches for Host Group by name in an Boundary account"
+        return 'Searches for Host Group by name in an {0} account'.format(self.product_name)
