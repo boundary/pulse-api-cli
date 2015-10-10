@@ -169,4 +169,4 @@ class EventCreate(ApiCli):
                 "eventId": int(out)
             }
             out = json.dumps(event_id, sort_keys=True, indent=4, separators=(',', ': '))
-            print(out)
+            print(self.colorize_json(out))

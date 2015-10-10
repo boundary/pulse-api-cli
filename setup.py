@@ -23,7 +23,6 @@ setup(
       'bin/hostgroup-update',
       'bin/measurement-create',
       'bin/measurement-get',
-      'bin/meter-client',
       'bin/metric-create',
       'bin/metric-create-batch',
       'bin/metric-delete',
@@ -55,6 +54,7 @@ setup(
     description='Command line tools for using the Boundary REST APIs',
     long_description=open('README.txt').read(),
     install_requires=[
+        "Pygments >=2.0.2",
         "python-dateutil >= 2.4.1",
         "requests >= 2.3.0",
         "jinja2 >= 2.7.3",

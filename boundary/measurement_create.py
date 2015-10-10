@@ -106,4 +106,4 @@ class MeasurementCreate(ApiCli):
         if result.status_code == http_client.OK:
             payload = json.loads(result.text)
             out = json.dumps(payload, sort_keys=True, indent=4, separators=(',', ': '))
-            print(out)
+            print(self.colorize_json(out))

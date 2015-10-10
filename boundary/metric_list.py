@@ -43,5 +43,5 @@ class MetricList(MetricCommon):
             metrics['result'] = m
             # pretty print the JSON output
             out = json.dumps(metrics, sort_keys=True, indent=4, separators=(',', ': '))
-            print(out)
+            print(self.colorize_json(out))
 

@@ -20,6 +20,8 @@ import logging
 import os
 import requests
 import urllib
+from pygments import highlight, lexers, formatters
+
 
 """
 Base class for all the Boundary CLI commands
@@ -174,7 +176,7 @@ class ApiCli(object):
         """
         self.addLoggingArgument()
         self.parser.add_argument('-a', '--api-host', dest='apihost', action='store', metavar="api_host",
-                                 help='Boundary API host endpoint')
+                                 help='Boundary API host endpoint', required=False)
         self.parser.add_argument('-e', '--email', dest='email', action='store', metavar="e_mail",
                                  help='e-mail that has access to the Boundary account')
         self.parser.add_argument('-t', '--api-token', dest='apitoken', required=False, action='store',
@@ -297,12 +299,15 @@ class ApiCli(object):
             logging.error(result)
         self.handleResults(result)
 
+    def colorize_json(self, json):
+        return highlight(json, lexers.JsonLexer(), formatters.TerminalFormatter())
+
     def handleResults(self, result):
         """
         Call back function to be implemented by the CLI.
         Default is to just print the results to standard out
         """
-        print(result.text)
+        print(self.colorize_json(result.text))
 
     def execute(self):
         """

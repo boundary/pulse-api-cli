@@ -104,5 +104,5 @@ class MetricCreateBatch(MetricCommon):
         Default is to just print the results to standard out
         """
         if result.status_code != http_client.OK:
-            print(result.text)
+            print(self.colorize_json(result.text))
 

@@ -134,7 +134,7 @@ class MeasurementGet(ApiCli):
     def output_json(self, text):
         payload = json.loads(text)
         out = json.dumps(payload, sort_keys=True, indent=self._indent, separators=(',', ': '))
-        print(out)
+        print(self.colorize_json(out))
 
     def output_csv(self, text):
         self.output_json(text)
