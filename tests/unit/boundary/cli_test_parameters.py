@@ -37,3 +37,14 @@ class CLITestParameters:
 
     def get_description(self, name):
         return self.get(name)['description']
+
+    def get_file_contents(self, name):
+        path = os.path.join(os.path.dirname(__file__), 'cli_help', name)
+        size = os.path.getsize(path)
+        with open(path, "r") as f:
+            contents = f.read(size)
+        return contents
+
+    def get_cli_help(self, name):
+        return self.get_file_contents(name)
+

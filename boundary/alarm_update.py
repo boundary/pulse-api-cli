@@ -22,8 +22,6 @@ class AlarmUpdate(AlarmModify):
         self.alarm_id = None
         self.method = "PUT"
 
-#        self.cli_description = 'Updates an alarm definition in an {0} account'.format(self.product_name)
-
     def addArguments(self):
 
         self.parser.add_argument('-i', '--alarm-id', dest='alarm_id', action='store', required=True,

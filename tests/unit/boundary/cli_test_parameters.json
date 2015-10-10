@@ -1,50 +1,62 @@
 {
-  "<class 'boundary.alarm_update.AlarmUpdate'>": {
-    "description": "Updates an alarm definition in an TrueSight Pulse account"
-  },
-  "<class 'boundary.action_installed.ActionInstalled'>": {
+  "ActionInstalled": {
     "description": "Returns the actions configured within a TrueSight Pulse account"
   },
-  "<class 'boundary.action_types.ActionTypes'>": {
+  "ActionTypes": {
     "description": "List action types associated with the TrueSight Pulse account"
   },
-  "<class 'boundary.alarm_create.AlarmCreate'>": {
+  "AlarmCreate": {
     "description": "Creates an alarm definition in an TrueSight Pulse account"
   },
-  "<class 'boundary.alarm_get.AlarmGet'>": {
+  "AlarmGet": {
     "description": "Retrieves an alarm definition from a TrueSight Pulse account"
   },
-  "<class 'boundary.alarm_list.AlarmList'>": {
+  "AlarmList": {
     "description": "List alarm definitions associated with the TrueSight Pulse account"
   },
-  "<class 'boundary.alarm_create.AlarmUpdate'>": {
-    "description": "List action types associated with the TrueSight Pulse account"
+  "AlarmUpdate": {
+    "description": "Updates an alarm definition in an TrueSight Pulse account"
   },
-  "<class 'boundary.event_create.EventCreate'>": {
+  "EventCreate": {
     "description": "Creates a new event in an TrueSight Pulse account"
   },
-  "<class 'boundary.event_list.EventList'>": {
+  "EventList": {
     "description": "Lists the events in a TrueSight Pulse account"
   },
-  "<class 'boundary.host_group_create.HostGroupCreate'>": {
+  "HostGroupCreate": {
     "description": "Creates host group definition in a TrueSight Pulse account"
   },
-  "<class 'boundary.host_group_delete.HostGroupDelete'>": {
+  "HostGroupDelete": {
     "description": "Deletes a host group definition by id from a TrueSight Pulse account"
   },
-  "<class 'boundary.host_group_get.HostGroupGet'>": {
+  "HostGroupGet": {
     "description": "Retrieves a single host group definition by id from a TrueSight Pulse account"
   },
-  "<class 'boundary.host_group_list.HostGroupList'>": {
+  "HostGroupList": {
     "description": "Lists the Host Groups in an TrueSight Pulse account"
   },
-  "<class 'boundary.host_group_search.HostGroupSearch'>": {
+  "HostGroupSearch": {
     "description": "Searches for Host Group by name in an TrueSight Pulse account"
   },
-  "<class 'boundary.host_group_update.HostGroupUpdate'>": {
+  "HostGroupUpdate": {
     "description": "Updates host group definition in a TrueSight Pulse account"
   },
-  "<class 'boundary.metric_list.MetricList'>": {
+  "MeasurementGet": {
+    "description": "Retrieves measurement values from a metric in a TrueSight Pulse account"
+  },
+  "MetricCreate": {
+    "description": "Creates a new metric definition in an TrueSight Pulse account"
+  },
+  "MetricCreateBatch": {
+    "description": "General API CLI"
+  },
+  "MetricDelete": {
+    "description": "Deletes a metric definition from a TrueSight Pulse account"
+  },
+  "MetricExport": {
+    "description": "Export the metric definitions from a TrueSight Pulse account"
+  },
+  "MetricList": {
     "description": "Lists the defined metrics in a TrueSight Pulse account"
   }
 

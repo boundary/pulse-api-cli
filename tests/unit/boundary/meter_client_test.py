@@ -15,19 +15,23 @@
 # limitations under the License.
 #
 
-import unittest
+from unittest import TestCase
+from cli_test import CLITest
 import datetime
 import json
 from boundary import MeasurementGet
 
 
-class MeasurementGetTest(unittest.TestCase):
+class MeterClientTest(TestCase):
 
     def setUp(self):
-        self.mg = MeasurementGet()
+        self.cli = MeasurementGet()
         self.now = datetime.datetime.now()
         self.now_epoch = self.now.strftime("%s")
         pass
+
+    def test_get_description(self):
+        CLITest.check_description(self, self.cli)
 
     # def test_parse_datetime(self):
     #     out = self.mg.parse_time_date('2015-06-10')
@@ -42,7 +46,7 @@ class MeasurementGetTest(unittest.TestCase):
         j['start'] =self.now.strftime('%s')
         out = json.dumps(j)
         print(out)
-        out = self.mg.parse_time_date(self.now.strftime("%s"))
+        out = self.cli.parse_time_date(self.now.strftime("%s"))
         print(out.strftime("%s"))
         print(self.now_epoch)
 

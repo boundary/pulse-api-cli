@@ -17,6 +17,7 @@
 
 from unittest import TestCase
 from cli_test_parameters import CLITestParameters
+import os.path
 
 
 class CliTestParametersTest(TestCase):
@@ -44,5 +45,9 @@ class CliTestParametersTest(TestCase):
         self.assertEqual(100, p['blue']['cyan'])
         self.assertEqual("BAR", p['blue']['magenta'])
         self.assertEqual(1000, p['blue']['yellow']['b'])
+
+    def test_get_file_contents(self):
+        contents = self.test_parameters.get_cli_help('UserGet')
+        print(contents)
 
 

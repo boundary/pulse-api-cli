@@ -16,14 +16,14 @@
 #
 
 from unittest import TestCase
-from boundary import AlarmUpdate
 from cli_test import CLITest
+from boundary import MetricCreate
 
 
-class AlarmUpdateTest(TestCase):
+class MetricCreateTest(TestCase):
 
     def setUp(self):
-        self.cli = AlarmUpdate()
+        self.cli = MetricCreate()
 
-    def test_cli_description(self):
+    def test_get_description(self):
         CLITest.check_description(self, self.cli)

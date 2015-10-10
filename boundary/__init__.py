@@ -48,6 +48,7 @@ from .metric_modify import MetricModify
 from .metric_create import MetricCreate
 from .metric_create_batch import MetricCreateBatch
 from .metric_delete import MetricDelete
+from .metric_export import MetricExport
 from .metric_get import MetricGet
 from .metric_list import MetricList
 from .metric_ref import MetricRef

@@ -42,7 +42,7 @@ class MetricDelete(ApiCli):
         Extracts the specific arguments of this CLI
         """
         ApiCli.getArguments(self)
-        if self.args.metric_name != None:
+        if self.args.metric_name is not None:
             self.metric_name = self.args.metric_name
 
         self.path = "v1/metrics/{0}".format(self.metricName)
