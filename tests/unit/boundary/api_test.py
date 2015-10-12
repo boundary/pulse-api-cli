@@ -16,13 +16,13 @@
 #
 
 from unittest import TestCase
-from boundary import API
+from boundary import api
 
 
 class ApiTest(TestCase):
 
     def setUp(self):
-        self.api = API()
+        self.api = api()
 
     # def test_get_metric(self):
     #     metric_definitions = self.api.metric_get()

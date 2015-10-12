@@ -18,7 +18,7 @@
 from boundary import ApiCall
 import argparse
 import logging
-
+import sys
 from pygments import highlight, lexers, formatters
 
 """
@@ -143,7 +143,10 @@ class ApiCli(ApiCall):
         return True
 
     def colorize_json(self, json):
-        return highlight(json, lexers.JsonLexer(), formatters.TerminalFormatter())
+        if sys.stdout.isatty():
+            return highlight(json, lexers.JsonLexer(), formatters.TerminalFormatter())
+        else:
+            return json
 
     def _handle_results(self):
         """
