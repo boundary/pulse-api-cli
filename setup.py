@@ -31,7 +31,6 @@ setup(
       'bin/metric-import',
       'bin/metric-list',
       'bin/metric-markdown',
-      'bin/metric-ref',
       'bin/metric-update',
       'bin/plugin-add',
       'bin/plugin-get',
