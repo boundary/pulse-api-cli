@@ -18,6 +18,7 @@
 import argparse
 import logging
 import os
+import sys
 import requests
 import urllib
 from pygments import highlight, lexers, formatters
@@ -300,7 +301,10 @@ class ApiCli(object):
         self.handleResults(result)
 
     def colorize_json(self, json):
-        return highlight(json, lexers.JsonLexer(), formatters.TerminalFormatter())
+        if sys.stdout.isatty():
+            return highlight(json, lexers.JsonLexer(), formatters.TerminalFormatter())
+        else:
+            return json
 
     def handleResults(self, result):
         """
