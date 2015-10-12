@@ -1,5 +1,5 @@
 site_name: BMC TrueSight Pulse
-theme: united
+theme: mkdocs
 google_analytics: ['UA-47528703-5','auto']
 pages:
 - Home: index.md
