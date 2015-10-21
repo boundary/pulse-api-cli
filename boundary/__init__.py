@@ -51,7 +51,6 @@ from .metric_delete import MetricDelete
 from .metric_export import MetricExport
 from .metric_get import MetricGet
 from .metric_list import MetricList
-from .metric_ref import MetricRef
 from .metric_update import MetricUpdate
 
 from .plugin_base import PluginBase
