@@ -13,18 +13,55 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-import json
 
-from six.moves import http_client
+import json
+import requests
+
 from api_cli import ApiCli
-from metric_get import MetricDefinition
+
+
+class Metric:
+
+    def __init__(self, display_name=None):
+        self._display_name = display_name
+
+    @property
+    def display_name(self):
+        return self._display_name
+
+    @display_name.setter
+    def method(self, value):
+        self._display_name = value
+
+    def __repr__(self):
+        return 'Metric(display_name="{0}")'.format(self._display_name)
+
+
+class Metrics:
+
+    def __init__(self, metrics):
+        self._metrics = metrics
+
+    def __len__(self):
+        return len(self._metrics)
+
+    def __getitem__(self, position):
+        metric_values = self._metrics["result"][position]
+        metric = None
+        if metric_values is not None:
+            metric = Metric(display_name=metric_values["displayName"])
+
+        return metric
+
+    def __str__(self):
+        print("foo")
+        return str(self._metrics)
 
 
 class API(ApiCli):
 
     def __init__(self, api_host="premium-api.boundary.com", email=None, api_token=None):
         ApiCli.__init__(self)
-        self.path = "v1/metrics"
         self.metrics = None
         self.getEnvironment()
         if api_host is not None:
@@ -34,7 +71,7 @@ class API(ApiCli):
         if api_token is not None:
             self.apitoken = api_token
 
-    def metric_get(self,enabled=False, custom=False):
+    def metric_get(self, enabled=False, custom=False):
         """
         Returns a metric definition identified by name
         :param name:
@@ -42,28 +79,14 @@ class API(ApiCli):
         """
         self.path = 'v1/metrics?enabled={0}&{1}'.format(enabled, custom)
         self.callAPI();
-        return MetricDefinition()
+        return self.metrics
 
-    # def handleResults(self, result):
-    #     metric = None
-    #     # Only process if we get HTTP result of 200
-    #     if result.status_code == http_client.OK:
-    #         self.metrics = json.loads(result.text)
-    #
-    #         # Handle old style metrics
-    #         if 'result' in self.metrics:
-    #             for m in self.metrics['result']:
-    #                 if m['name'] == self.metricName:
-    #                     metric = m
-    #         # Handle new style metrics
-    #         else:
-    #             for key in self.metrics:
-    #                 if key == self.metricName:
-    #                     metric = self.metrics[key]
-    #         # pretty print the JSON output
-    #         if metric is not None:
-    #             out = json.dumps(self.extractFields(metric), sort_keys=True, indent=4, separators=(',', ': '))
-    #             print(self.colorize_json(out))
+    def handleResults(self, result):
+        # Only process if we get HTTP result of 200
+        if result.status_code == requests.codes.ok:
+            metrics = json.loads(result.text)
+            self.metrics = Metrics(metrics)
+
 
 if __name__ == "__main__":
     api = API()

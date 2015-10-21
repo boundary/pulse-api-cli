@@ -22,9 +22,20 @@ from boundary import API
 class ApiTest(TestCase):
 
     def setUp(self):
-        self.api = API;
+        self.api = API()
 
     def test_get_metric(self):
-        self.api.metric_get()
+        metric_definitions = self.api.metric_get()
+        self.assertIsNotNone(metric_definitions)
+
+    def test_metrics_count(self):
+        metric_definitions = self.api.metric_get()
+        self.assertGreaterEqual(1, len(metric_definitions))
+
+    def test_metrics_iter(self):
+        metric_definitions = self.api.metric_get()
+        print(metric_definitions)
+        for metric in metric_definitions:
+            print(metric)
 
 

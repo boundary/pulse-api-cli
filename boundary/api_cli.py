@@ -43,6 +43,7 @@ class ApiCli(object):
         self._cli_description = None
         self._method = None
         self._path = None
+        self.api_call_result = None
 
         self.args = None
         self.logLevel = None
@@ -276,7 +277,7 @@ class ApiCli(object):
             if self.data is not None:
                 logging.error(self.data)
             logging.error(result)
-        self.handleResults(result)
+        self.api_call_result = result
 
     def colorize_json(self, json):
         return highlight(json, lexers.JsonLexer(), formatters.TerminalFormatter())
@@ -297,6 +298,7 @@ class ApiCli(object):
         self.getArguments()
         if self.validateArguments():
             self.callAPI()
+            self.handleResults(self.api_call_result)
         else:
             print(self.message)
 
