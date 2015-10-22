@@ -16,8 +16,8 @@
 """
 Implements command to remove an alarm definition from a Boundary account.
 """
-from six.moves import http_client
 from boundary import ApiCli
+import requests
 
 """
 Uses the following Boundary API:
@@ -56,11 +56,11 @@ class AlarmDelete(ApiCli):
         """
         return "Deletes an alarm definition from a {0} account".format(self.product_name)
 
-    def handleResults(self, result):
+    def _handle_results(self):
         """
         Handle the results of the API call
         """
 
         # Only process if we get HTTP return code other 200.
-        if result.status_code != http_client.OK:
-            print(self.colorize_json(result.text))
+        if self._api_result.status_code != requests.codes.ok:
+            print(self.colorize_json(self._api_result.text))

@@ -18,10 +18,9 @@
 """
 Exports metrics from a Boundary account with the ability to filter on metric name
 """
-import json
-
-from six.moves import http_client
 from boundary import MetricCommon
+import json
+import requests
 import re
 
 
@@ -94,7 +93,7 @@ class MetricExport(MetricCommon):
         """
         Apply the criteria to filter out on the metrics required
         """
-        if self.filter_expression != None:
+        if self.filter_expression is not None:
             new_metrics = []
             metrics = self.metrics['result']
             for m in metrics:
@@ -105,14 +104,14 @@ class MetricExport(MetricCommon):
 
         self.metrics = self.extractDictionary(new_metrics)
 
-    def handleResults(self, result):
+    def _handle_results(self):
         """
         Call back function to be implemented by the CLI.
         """
         
         # Only process if we get HTTP result of 200
-        if result.status_code == http_client.OK:
-            self.metrics = json.loads(result.text)
+        if self._api_result.status_code == requests.ok.codes:
+            self.metrics = json.loads(self._api_result.text)
             self.filter()
             out = json.dumps(self.metrics, sort_keys=True, indent=4, separators=(',', ': '))
             print(self.colorize_json(out))

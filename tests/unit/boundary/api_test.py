@@ -34,7 +34,6 @@ class ApiTest(TestCase):
 
     def test_metrics_iter(self):
         metric_definitions = self.api.metric_get()
-        print(metric_definitions)
         for metric in metric_definitions:
             print(metric)
 

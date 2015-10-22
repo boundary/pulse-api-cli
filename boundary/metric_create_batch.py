@@ -17,7 +17,7 @@
 
 from boundary import MetricCommon
 import json
-from six.moves import http_client
+import requests
 
 """
 Class definition for import metric definitions
@@ -52,7 +52,7 @@ class MetricCreateBatch(MetricCommon):
         if self.args.path is not None:
             self.path = self.args.path
         
-    def loadAndParse(self):
+    def load_and_parse(self):
         """
         Load the metrics file from the given path
         """
@@ -83,15 +83,15 @@ class MetricCreateBatch(MetricCommon):
                 metric['name'] = m
             else:
                 metric = m
-            self.createUpdate(metric)
+            self.create_update(metric)
       
-    def callAPI(self):
+    def _call_api(self):
         """
         """
-        self.loadAndParse()
-        self.importMetrics()
+        self.load_and_parse()
+        self.import_metrics()
 
-    def createUpdate(self, metric):
+    def create_update(self, metric):
         """
         """
         self.path = "v1/metrics/{0}".format(metric['name'])
@@ -99,10 +99,10 @@ class MetricCreateBatch(MetricCommon):
         self.data = json.dumps(metric)
         MetricCommon.callAPI(self)
 
-    def handleResults(self, result):
+    def _handle_results(self):
         """
         Default is to just print the results to standard out
         """
-        if result.status_code != http_client.OK:
-            print(self.colorize_json(result.text))
+        if self._api_result.status_code != requests.codes.ok:
+            print(self.colorize_json(self._api_result.text))
 

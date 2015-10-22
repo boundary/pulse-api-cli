@@ -119,7 +119,7 @@ class MeterClient(ApiCli):
         self.rpc_message = json.dumps(message)
         logging.debug('rpc_message: ' + self.rpc_message)
 
-    def callAPI(self):
+    def _call_api(self):
         """
         Make a call to the meter via JSON RPC
         """

@@ -15,7 +15,7 @@
 #
 from boundary import ApiCli
 import json
-from six.moves import http_client
+import requests
 
 
 class Source(object):
@@ -143,11 +143,11 @@ class EventCreate(ApiCli):
         self.data = json.dumps(event, sort_keys=True)
         self.headers = {'Content-Type': 'application/json', "Accept": "application/json"}
 
-    def validateArguments(self):
+    def _validate_arguments(self):
         """
         TODO: Implement validation of event creation arguments
         """
-        return ApiCli.validateArguments(self)
+        return ApiCli._validate_arguments(self)
 
     def getDescription(self):
         return "Creates a new event in an {0} account".format(self.product_name)
@@ -157,11 +157,11 @@ class EventCreate(ApiCli):
         A successful call to the Event Creation API returns a 201 and not 200
         so check for that response and return True when we receive a 201 response
         """
-        return status_code == http_client.CREATED
+        return status_code == requests.codes.created
 
-    def handleResults(self, result):
+    def _handle_results(self, result):
         # Only process if we get HTTP result of 201
-        if result.status_code == http_client.CREATED:
+        if result.status_code == requests.codes.created:
             location = result.headers['location']
             s = str.split(location, '/')
             out = s[-1]

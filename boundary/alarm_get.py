@@ -68,10 +68,10 @@ class AlarmGet(ApiCli):
             self.path = "v1/alarms/search"
             self.url_parameters={"name": self.alarmName}
 
-    def validateArguments(self):
+    def _validate_arguments(self):
         """
         """
-        return ApiCli.validateArguments(self)
+        return ApiCli._validate_arguments(self)
 
     def getDescription(self):
         """

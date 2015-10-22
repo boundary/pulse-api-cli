@@ -15,11 +15,10 @@
 # limitations under the License.
 #
 
+from boundary import API
 import argparse
 import logging
-import os
-import requests
-import urllib
+
 from pygments import highlight, lexers, formatters
 
 """
@@ -27,12 +26,13 @@ Base class for all the Boundary CLI commands
 """
 
 
-class ApiCli(object):
+class ApiCli(API):
 
     def __init__(self):
+        API.__init__(self)
         self.product_name = 'TrueSight Pulse'
         # Construct a dictionary with each of the HTTP methods that we support
-        self.methods = {"DELETE": self.doDelete, "GET": self.doGet, "POST": self.doPost, "PUT": self.doPut}
+
         self.levels = {"debug": logging.DEBUG,
                        "info": logging.INFO,
                        "warn": logging.WARN,
@@ -41,25 +41,11 @@ class ApiCli(object):
 
         # Properties
         self._cli_description = None
-        self._method = None
-        self._path = None
-        self.api_call_result = None
+        self._message = None
 
         self.args = None
-        self.logLevel = None
-        self.message = None
-        self.path = None
-        self.apihost = "premium-api.boundary.com"
-        self.email = None
-        self.apitoken = None
+
         self.parser = argparse.ArgumentParser(description=self.getDescription())
-        self.scheme = "https"
-        self.path = None
-        self.url_parameters = None
-        self.method = "GET"
-        self.headers = None
-        self.data = None
-        self.url = None
         self._aggregate_times = ['1 second',
                                  '15 seconds',
                                  '1 minute',
@@ -70,79 +56,17 @@ class ApiCli(object):
                                  '6 hours',
                                  '12 hours']
 
-    @staticmethod
-    def raise_attribute_change_error(name):
-        raise AttributeError("Cannot change property " + name)
-
-    @staticmethod
-    def raise_attribute_delete_error(name):
-        raise AttributeError("Cannot delete property " + name)
-
     def get_aggregate_grains(self):
         """
         Returns the standard cube aggregates in the alarm/measurement APIs
         """
         return self._aggregate_times
 
-    #
-    # method
-    #
-    @property
-    def method(self):
-        """
-        """
-        return self._method
-
-    @method.setter
-    def method(self, value):
-        """
-        Before assigning the value validate that is in one of the
-        HTTP methods we implement
-        """
-        keys = self.methods.keys()
-        if value not in keys:
-            raise AttributeError("Method value not in " + str(keys))
-        else:
-            self._method = value
-
-    @method.deleter
-    def method(self):
-        print("delete")
-        ApiCli.raise_attribute_delete_error('method')
-
-    #
-    # path
-    #
-    @property
-    def path(self):
-        return self._path
-
-    @path.setter
-    def path(self, value):
-        self._path = value
-
-    @path.deleter
-    def path(self):
-        ApiCli.raise_attribute_delete_error('path')
-
     def getDescription(self):
         """
         Returns a description of the CLI
         """
         return "General API CLI"
-
-    def getEnvironment(self):
-        """
-        Gets the configuration stored in environment variables
-        """
-        if 'BOUNDARY_EMAIL' in os.environ:
-            self.email = os.environ['BOUNDARY_EMAIL']
-        if 'BOUNDARY_API_TOKEN' in os.environ:
-            self.apitoken = os.environ['BOUNDARY_API_TOKEN']
-        if 'BOUNDARY_API_HOST' in os.environ:
-            self.apihost = os.environ['BOUNDARY_API_HOST']
-        else:
-            self.apihost = 'premium-api.boundary.com'
 
     def addLoggingArgument(self):
         self.parser.add_argument('-l', '--log-level', dest='logLevel', action='store',
@@ -161,16 +85,17 @@ class ApiCli(object):
                                  help='e-mail that has access to the {0} account'.format(self.product_name))
         self.parser.add_argument('-t', '--api-token', dest='apitoken', required=False, action='store',
                                  metavar="api_token",
-                                 help='API token for given e-mail that has access to the {0} account'.format(self.product_name))
+                                 help='API token for given e-mail that has access to the {0} account'.format(
+                                     self.product_name))
 
-    def parseArgs(self):
+    def _parse_args(self):
         """
         Handles the parse of the command line arguments
         """
         self.addArguments()
         self.args = self.parser.parse_args()
 
-    def configureLogging(self):
+    def _configure_logging(self):
         """
         Configure logging based on command line options
         """
@@ -184,121 +109,59 @@ class ApiCli(object):
         that are given. This method handles the standard command line arguments for:
         API Host, user, password, etc.
         """
-        self.configureLogging()
+        self._configure_logging()
 
         if self.args.apihost is not None:
-            self.apihost = self.args.apihost
+            self.api_host = self.args.apihost
         if self.args.email is not None:
             self.email = self.args.email
         if self.args.apitoken is not None:
-            self.apitoken = self.args.apitoken
+            self.api_token = self.args.apitoken
 
-        logging.debug("apihost: {0}".format(self.apihost))
-        logging.debug("email: {0}".format(self.email))
-        logging.debug("apitoken: {0}".format(self.apitoken))
+        logging.debug("apihost: {0}".format(self._api_host))
+        logging.debug("email: {0}".format(self._email))
+        logging.debug("apitoken: {0}".format(self._api_token))
 
-    def setErrorMessage(self, message):
+    def set_error_message(self, message):
         """
         Sets the error message to be displayed if an error occurs
         """
-        self.message = message
+        self._message = message
 
-    def validateArguments(self):
+    def _validate_arguments(self):
         """
         Validates the command line arguments passed to the CLI
         Derived classes that override need to call this method before
         validating their arguments
         """
-        if self.email is None:
-            self.setErrorMessage("E-mail for the account not provided")
+        if self._email is None:
+            self.set_error_message("E-mail for the account not provided")
             return False
-        if self.apitoken is None:
-            self.setErrorMessage("API Token for the account not provided")
+        if self._api_token is None:
+            self.set_error_message("API Token for the account not provided")
             return False
         return True
-
-    def getUrlParameters(self):
-        """
-        Encode URL parameters
-        """
-        urlParameters = ''
-        if self.url_parameters is not None:
-            urlParameters = '?' + urllib.urlencode(self.url_parameters)
-        return urlParameters
-
-    def doGet(self):
-        """
-        HTTP Get Request
-        """
-        return requests.get(self.url, data=self.data, headers=self.headers, auth=(self.email, self.apitoken))
-
-    def doDelete(self):
-        """
-        HTTP Delete Request
-        """
-        return requests.delete(self.url, data=self.data, headers=self.headers, auth=(self.email, self.apitoken))
-
-    def doPost(self):
-        """
-        HTTP Post Request
-        """
-        return requests.post(self.url, data=self.data, headers=self.headers, auth=(self.email, self.apitoken))
-
-    def doPut(self):
-        """
-        HTTP Put Request
-        """
-        return requests.put(self.url, data=self.data, headers=self.headers, auth=(self.email, self.apitoken))
-
-    def good_response(self, status_code):
-        """
-        Determines what status codes represent a good response from an API call.
-        """
-        return status_code == requests.codes.ok
-
-    def callAPI(self):
-        """
-        Make an API call to get the metric definition
-        """
-
-        self.url = "{0}://{1}/{2}{3}".format(self.scheme, self.apihost, self.path, self.getUrlParameters())
-        if self.headers is not None:
-            logging.debug(self.headers)
-        if self.data is not None:
-            logging.debug(self.data)
-        if len(self.getUrlParameters()) > 0:
-            logging.debug(self.getUrlParameters())
-
-        result = self.methods[self.method]()
-
-        if not self.good_response(result.status_code):
-            logging.error(self.url)
-            logging.error(self.method)
-            if self.data is not None:
-                logging.error(self.data)
-            logging.error(result)
-        self.api_call_result = result
 
     def colorize_json(self, json):
         return highlight(json, lexers.JsonLexer(), formatters.TerminalFormatter())
 
-    def handleResults(self, result):
+    def _handle_results(self):
         """
         Call back function to be implemented by the CLI.
         Default is to just print the results to standard out
         """
-        print(self.colorize_json(result.text))
+        print(self.colorize_json(self._api_result.text))
 
     def execute(self):
         """
         Run the steps to execute the CLI
         """
-        self.getEnvironment()
-        self.parseArgs()
+        self._get_environment()
+        self._parse_args()
         self.getArguments()
-        if self.validateArguments():
-            self.callAPI()
-            self.handleResults(self.api_call_result)
+        if self._validate_arguments():
+            self._call_api()
+            self._handle_results()
         else:
             print(self.message)
 

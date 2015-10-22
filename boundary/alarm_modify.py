@@ -38,7 +38,7 @@ class AlarmModify(ApiCli):
         self.intervals = {'1 second': 1,
                           '5 seconds': 15,
                           '1 minute': 60,
-                          '5 minutes': 900,
+                          '5 minutes': 300,
                           '1 hour': 3600,
                           '1.5 hours': 5400,
                           '3 hours': 10800,

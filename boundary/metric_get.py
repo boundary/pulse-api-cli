@@ -13,10 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-import json
 
-from six.moves import http_client
-from metric_common import MetricCommon
+import requests
+import json
+from boundary import MetricCommon
 
 
 class MetricGet (MetricCommon):
@@ -39,11 +39,14 @@ class MetricGet (MetricCommon):
         
         if self.args.metricName is not None:
             self.metricName = self.args.metricName
+
+    def _handle_api_results(self, ):
+        pass
     
-    def handleResults(self, result):
+    def _handle_results(self, result):
         metric = None
         # Only process if we get HTTP result of 200
-        if result.status_code == http_client.OK:
+        if result.status_code == requests.codes.ok:
             self.metrics = json.loads(result.text)
             
             # Handle old style metrics

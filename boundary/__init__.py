@@ -16,8 +16,8 @@
 """
 Command line scripts for accessing the Boundary APIs
 """
-from .api_cli import ApiCli
 from .api import API
+from .api_cli import ApiCli
 
 from .alarm_modify import AlarmModify
 from .alarm_create import AlarmCreate

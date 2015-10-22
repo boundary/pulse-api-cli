@@ -82,7 +82,7 @@ class MeasurementCreate(ApiCli):
         self.data = json.dumps(m, sort_keys=True)
         self.headers = {'Content-Type': 'application/json', "Accept": "application/json"}
 
-    def callAPI(self):
+    def _call_api(self):
         """
         Override so we can handle the incomplete read error generated
         by Boundary API that creates a measurement.
@@ -97,13 +97,13 @@ class MeasurementCreate(ApiCli):
     def getDescription(self):
         return 'Adds a measurement value to a {0} account'.format(self.product_name)
 
-    def handleResults(self, result):
+    def _handle_results(self):
         """
         Call back function to be implemented by the CLI.
         """
 
         # Only process if we get HTTP result of 200
-        if result.status_code == http_client.OK:
-            payload = json.loads(result.text)
+        if self._api_result.status_code == requests.codes.ok:
+            payload = json.loads(self._api_result.text)
             out = json.dumps(payload, sort_keys=True, indent=4, separators=(',', ': '))
             print(self.colorize_json(out))

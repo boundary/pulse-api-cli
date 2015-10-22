@@ -16,9 +16,8 @@
 #
 
 import json
-
 from boundary import MetricCommon
-from six.moves import http_client
+import requests
 
 """
 Class definition for import metric definitions
@@ -34,7 +33,7 @@ class MetricImport(MetricCommon):
         MetricCommon.__init__(self)
         self.method = 'PUT'
         self.metrics = None
-        self.path = None
+        self.file_path = None
         self.v2Metrics = None
 
     def getDescription(self):
@@ -47,24 +46,24 @@ class MetricImport(MetricCommon):
         # Call our parent to add the default arguments
         MetricCommon.addArguments(self)
 
-        self.parser.add_argument('-f', '--file', dest='path', metavar='path', action='store', required=True, help='Path to JSON file')
+        self.parser.add_argument('-f', '--file', dest='file_path', metavar='path', action='store', required=True, help='Path to JSON file')
 
     def getArguments(self):
         """
         """
         MetricCommon.getArguments(self)
-        if self.args.path is not None:
-            self.path = self.args.path
+        if self.args.file_path is not None:
+            self.file_path = self.args.file_path
         
-    def loadAndParse(self):
+    def load_and_parse(self):
         """
         Load the metrics file from the given path
         """
-        f = open(self.path, "r")
+        f = open(self.file_path, "r")
         metrics_json = f.read()
         self.metrics = json.loads(metrics_json)
 
-    def importMetrics(self):
+    def import_metrics(self):
         """
         1) Get command line arguments
         2) Read the JSON file
@@ -87,26 +86,29 @@ class MetricImport(MetricCommon):
                 metric['name'] = m
             else:
                 metric = m
-            self.createUpdate(metric)
+            self.create_update(metric)
       
-    def callAPI(self):
+    def _call_api(self):
         """
         """
-        self.loadAndParse()
-        self.importMetrics()
+        self.load_and_parse()
+        self.import_metrics()
 
-    def createUpdate(self, metric):
+    def create_update(self, metric):
         """
         """
         self.path = "v1/metrics/{0}".format(metric['name'])
         self.headers = {'content-type': 'application/json'}
         self.data = json.dumps(metric)
-        MetricCommon.callAPI(self)
+        MetricCommon._call_api(self)
 
-    def handleResults(self, result):
+    def _handle_api_results(self):
+        pass
+
+    def _handle_results(self):
         """
         Default is to just print the results to standard out
         """
-        if result.status_code != http_client.OK:
-            print(self.colorize_json(result.text))
+        if self._api_result.status_code != requests.codes.ok:
+            print(self.colorize_json(self._api_result.text))
 
