@@ -31,7 +31,7 @@ class EventList(ApiCli):
 
     def _handle_results(self):
         # Only process if we get HTTP result of 200
-        if self._api_result.status_code == requests.ok.codes:
+        if self._api_result.status_code == requests.codes.ok:
             out = json.dumps(json.loads(self._api_result.text), sort_keys=True, indent=4, separators=(',', ': '))
             print(self.colorize_json(out))
 
