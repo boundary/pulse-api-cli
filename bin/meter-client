@@ -19,3 +19,4 @@ from boundary import MeterClient
 if __name__ == "__main__":
     c = MeterClient()
     c.execute()
+
