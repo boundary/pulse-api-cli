@@ -15,6 +15,10 @@
 #
 
 from boundary import AlarmCreate
+from boundary import AlarmDelete
+from boundary import AlarmGet
+from boundary import AlarmList
+from boundary import AlarmUpdate
 
 
 class API:
@@ -30,7 +34,14 @@ class API:
         return api.api_call()
 
     def alarm_delete(self, **kwargs):
-        pass
+        api = AlarmDelete()
+        api._kwargs = kwargs
+        return api.api_call()
+
+    def alarm_get(self, **kwargs):
+        api = AlarmGet()
+        api._kwargs = kwargs
+        return api.api_call()
 
     def alarm_list(self, **kwargs):
         pass
