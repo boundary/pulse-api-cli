@@ -129,6 +129,9 @@ class AlarmModify(ApiCli):
         if self.args.is_disabled is not None:
             self.is_disabled = self.args.is_disabled
 
+        self.get_api_parameters()
+
+    def get_api_parameters(self):
         payload = {}
 
         # Create trigger predicate dictionary
@@ -173,3 +176,39 @@ class AlarmModify(ApiCli):
 
         self.data = json.dumps(payload, sort_keys=True)
         self.headers = {'Content-Type': 'application/json'}
+
+    def handle_key_word_args(self):
+
+        if 'name' in self._kwargs:
+            self.alarm_name = self._kwargs['name']
+
+        if 'aggregate' in self._kwargs:
+            self.aggregate = self._kwargs['aggregate']
+
+        if 'operation' in self._kwargs:
+            self.operation = self._kwargs['operation']
+
+        if 'threshold' in self._kwargs:
+            self.threshold = self._kwargs['threshold']
+
+        if 'host_group_id' in self._kwargs:
+            self.host_group_id = self._kwargs['host_group_id']
+
+        if 'interval' in self._kwargs:
+            self.interval = self._kwargs['interval']
+
+        if 'metric_name' in self._kwargs:
+            self.metric_name = self._kwargs['metric_name']
+
+        if 'note' in self._kwargs:
+            self.note = self._kwargs['note']
+
+        if 'actions' in self._kwargs:
+            self.actions = self._kwargs['actions']
+
+        if 'per_host_notify' in self._kwargs:
+            self.per_host_notify = self._kwargs['per_host_notify']
+
+        if 'is_disabled' in self._kwargs:
+            self.is_disabled = self._kwargs["is_disabled"]
+

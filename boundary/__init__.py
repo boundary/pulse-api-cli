@@ -16,9 +16,12 @@
 """
 Command line scripts for accessing the Boundary APIs
 """
-from .api import API
+
+from .api_call import ApiCall
 from .api_cli import ApiCli
 
+from .alarm_common import Alarm
+from .alarm_common import Alarms
 from .alarm_modify import AlarmModify
 from .alarm_create import AlarmCreate
 from .alarm_get import AlarmGet
@@ -73,3 +76,5 @@ from .relay_get_config import RelayGetConfig
 from .relay_list import RelayList
 
 from .user_get import UserGet
+
+from .api import API

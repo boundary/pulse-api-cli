@@ -22,47 +22,7 @@ import logging
 import boundary.util as util
 
 
-class Metric:
-    def __init__(self, display_name=None):
-        """
-        :param display_name:
-        :return:
-        """
-        self._display_name = display_name
-
-    @property
-    def display_name(self):
-        return self._display_name
-
-    @display_name.setter
-    def display_name(self, value):
-        self._display_name = value
-
-    def __repr__(self):
-        return 'Metric(display_name="{0}")'.format(self._display_name)
-
-
-class Metrics:
-    def __init__(self, metrics):
-        self._metrics = metrics
-
-    def __len__(self):
-        return len(self._metrics)
-
-    def __getitem__(self, position):
-        metric_values = self._metrics["result"][position]
-        metric = None
-        if metric_values is not None:
-            metric = Metric(display_name=metric_values["displayName"])
-
-        return metric
-
-    def __str__(self):
-        print("foo")
-        return str(self._metrics)
-
-
-class API(object):
+class ApiCall(object):
     def __init__(self, api_host="premium-api.boundary.com", email=None, api_token=None):
         """
         :param api_host: api end point host
@@ -76,6 +36,7 @@ class API(object):
 
         api = API(email="foo@bary.com", api_token="api.xxxxxxxxxx-yyyy"
         """
+        self._kwargs = None
         self._methods = {"DELETE": self._do_delete,
                          "GET": self._do_get,
                          "POST": self._do_post,
@@ -280,6 +241,16 @@ class API(object):
             logging.error(result)
         self._api_result = result
 
+    def handle_key_word_args(self):
+        pass
+
+    def api_call(self):
+        self._get_environment()
+        self.handle_key_word_args()
+        self.get_api_parameters()
+        self._call_api()
+        return self._handle_api_results()
+
     def _handle_api_results(self):
         result = None
         # Only process if we get HTTP result of 200
@@ -287,8 +258,3 @@ class API(object):
             result = json.loads(self._api_result.text)
         return result
 
-    def _handle_results(self):
-        # Only process if we get HTTP result of 200
-        if self._api_result.status_code == requests.codes.ok:
-            metrics = json.loads(self._api_result.text)
-            self.metrics = Metrics(metrics)

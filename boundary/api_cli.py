@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-from boundary import API
+from boundary import ApiCall
 import argparse
 import logging
 
@@ -26,10 +26,10 @@ Base class for all the Boundary CLI commands
 """
 
 
-class ApiCli(API):
+class ApiCli(ApiCall):
 
     def __init__(self):
-        API.__init__(self)
+        ApiCall.__init__(self)
         self.product_name = 'TrueSight Pulse'
         # Construct a dictionary with each of the HTTP methods that we support
 
