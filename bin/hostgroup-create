@@ -17,5 +17,5 @@
 from boundary import HostGroupCreate
 
 if __name__ == "__main__":
-    c = HostGroupCreate(False)
+    c = HostGroupCreate()
     c.execute()
