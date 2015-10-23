@@ -8,6 +8,9 @@
   "AlarmCreate": {
     "description": "Creates an alarm definition in an TrueSight Pulse account"
   },
+  "AlarmDelete": {
+    "description": "Deletes an alarm definition from a TrueSight Pulse account"
+  },
   "AlarmGet": {
     "description": "Retrieves an alarm definition from a TrueSight Pulse account"
   },
