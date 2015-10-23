@@ -110,7 +110,7 @@ class MetricExport(MetricCommon):
         """
         
         # Only process if we get HTTP result of 200
-        if self._api_result.status_code == requests.ok.codes:
+        if self._api_result.status_code == requests.codes.ok:
             self.metrics = json.loads(self._api_result.text)
             self.filter()
             out = json.dumps(self.metrics, sort_keys=True, indent=4, separators=(',', ': '))
