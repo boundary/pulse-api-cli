@@ -35,9 +35,6 @@ class CLITestParameters:
             self.load()
         return self.parameters[name]
 
-    def get_description(self, name):
-        return self.get(name)['description']
-
     def get_value(self, name, field):
         return self.get(name)[field]
 
