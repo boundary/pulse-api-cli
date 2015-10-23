@@ -1,5 +1,5 @@
 #
-# Copyright 2014, Boundary
+# Copyright 2014-2015, Boundary Inc..
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ function bp-env() {
 #
 # List the currently configured environments
 #
-function bp-acc() {
+function bp-list() {
   local count=1
   for config in $(ls -1 "$HOME/.boundary/accounts")
   do
@@ -64,6 +64,9 @@ function bp-set() {
     rc=1
   fi
 
+  #
+  # Output the current environment
+  #
   bp-env
   return $rc
 }
