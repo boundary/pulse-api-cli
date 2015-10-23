@@ -57,7 +57,7 @@ class MetricExport(MetricCommon):
         if self.args.patterns:
             self.filter_expression = re.compile(self.args.patterns)
 
-    def extractFields(self, metric):
+    def extract_fields(self, metric):
         """
         Extract only the required fields for the create/update API call
         """
@@ -79,13 +79,13 @@ class MetricExport(MetricCommon):
             m['isDisabled'] = metric['isDisabled']
         return m
 
-    def extractDictionary(self, metrics):
+    def extract_dictionary(self, metrics):
         """
         Extract required fields from an array
         """
         new_metrics = {}
         for m in metrics:
-            metric = self.extractFields(m)
+            metric = self.extract_fields(m)
             new_metrics[m['name']] = metric
         return new_metrics
 
@@ -102,7 +102,7 @@ class MetricExport(MetricCommon):
         else:
             new_metrics = self.metrics['result']
 
-        self.metrics = self.extractDictionary(new_metrics)
+        self.metrics = self.extract_dictionary(new_metrics)
 
     def _handle_results(self):
         """
