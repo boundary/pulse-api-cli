@@ -14,6 +14,7 @@
 # limitations under the License.
 #
 from boundary import ApiCli
+import requests
 import json
 
 
@@ -26,7 +27,7 @@ class EventGet(ApiCli):
         ApiCli.addArguments(self)
 
         self.parser.add_argument('-i', '--event-id', dest='event_id', action='store', required=True,
-                                 metavar='event_id', help='Host group the alarm applies to')
+                                 metavar='event_id', help='Event id of the event to fetch')
 
     def getArguments(self):
 
