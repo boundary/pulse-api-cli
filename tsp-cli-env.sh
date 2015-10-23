@@ -16,21 +16,19 @@
 
 export BOUNDARY_API_SHELL_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-alias bsenv="env | grep BOUNDARY | sort"
-
 #
 # Shows the current environment
 #
-function bp-env() {
+function tsp-env() {
   env | grep BOUNDARY | sort
 }
 
 #
 # List the currently configured environments
 #
-function bp-list() {
+function tsp-list() {
   local count=1
-  for config in $(ls -1 "$HOME/.boundary/accounts")
+  for config in $(ls -1 "$HOME/.ts_pulse/accounts")
   do
     printf "%s) %s\n" "$count" "$config"
     count=$((count + 1))
@@ -40,7 +38,7 @@ function bp-list() {
 #
 # Change the environment
 #
-function bp-set() {
+function tsp-set() {
   typeset config=$1
   typeset -i rc=0
 
@@ -67,7 +65,7 @@ function bp-set() {
   #
   # Output the current environment
   #
-  bp-env
+  tsp-env
   return $rc
 }
 
@@ -76,6 +74,6 @@ function bp-set() {
 #
 if [ -r $HOME/.boundary/accounts ]
 then
-  complete -o filenames -W "$(cd $HOME/.boundary/accounts ; ls -1)" bp-set
+  complete -o filenames -W "$(cd $HOME/.boundary/accounts ; ls -1)" tsp-set
 fi
 
