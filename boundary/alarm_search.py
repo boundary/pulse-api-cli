@@ -18,6 +18,9 @@ Implements a command to get the information about an alarm
 """
 
 from boundary import ApiCli
+from boundary.alarm_common import result_to_alarm
+import json
+import requests
 
 """
 Uses the following Boundary API:
@@ -38,12 +41,8 @@ class AlarmSearch(ApiCli):
         """
         ApiCli.addArguments(self)
 
-        # Make these options mutually exclusive where by the user
-        # can only specify fetching of an alarm definition by id or name
-        group = self.parser.add_mutually_exclusive_group()
-
-        group.add_argument('-n', '--alarm-name', dest='alarmName', action='store',
-                           metavar='alarm-name', help='Alarm name')
+        self.parser.add_argument('-n', '--alarm-name', dest='alarm_name', action='store', required=True,
+                                 metavar='alarm-name', help='Alarm name')
 
     def getArguments(self):
         """
@@ -51,9 +50,7 @@ class AlarmSearch(ApiCli):
         """
         ApiCli.getArguments(self)
 
-        if self.args.alarm_name is not None:
-            self._alarm_name = self.args.alarm_name
-
+        self._alarm_name = self.args.alarm_name if self.args.alarm_name is not None else None
         self.get_api_parameters()
 
     def handle_key_word_args(self):
@@ -62,14 +59,15 @@ class AlarmSearch(ApiCli):
     def get_api_parameters(self):
         self.method = "GET"
         self.path = "v1/alarms/search"
-        self.url_parameters = {'name': self._alarm_name}
-
-    def _validate_arguments(self):
-        """
-        """
-        return ApiCli._validate_arguments(self)
+        self.url_parameters = {'alarmName': self._alarm_name}
 
     def getDescription(self):
         """
         """
         return "Searches for an alarm definition by name from a {0} account".format(self.product_name)
+
+    def _handle_api_results(self):
+        # Only process if we get HTTP result of 200
+        if self._api_result.status_code == requests.codes.ok:
+            alarm_result = json.loads(self._api_result.text)
+        return result_to_alarm(alarm_result['result'])

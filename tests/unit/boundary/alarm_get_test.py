@@ -17,15 +17,40 @@
 
 from unittest import TestCase
 from boundary import AlarmGet
+from boundary import API
 from cli_test import CLITest
 
 
 class AlarmGetTest(TestCase):
-
     def setUp(self):
         self.cli = AlarmGet()
+        self.api = API()
 
     def test_cli_description(self):
         CLITest.check_description(self, self.cli)
 
+    def test_api_call(self):
+        self.api = API()
+        name = 'ALARM_GET_TEST'
+        metric_name = 'CPU'
+        interval = '1 minute'
+        aggregate = 'sum'
+        operation = 'gt'
+        threshold = '0.80'
+        alarm_create = self.api.alarm_create(name=name,
+                                             metric_name=metric_name,
+                                             interval=interval,
+                                             aggregate=aggregate,
+                                             operation=operation,
+                                             threshold=threshold)
+
+        alarm_get = self.api.alarm_get(id=alarm_create.id)
+
+        self.assertEqual(alarm_create.id, alarm_get.id)
+        self.assertEqual(alarm_create.name, alarm_get.name)
+        self.assertEqual(alarm_create.metric_name, alarm_get.metric_name)
+        self.assertEqual(alarm_create.interval, alarm_get.interval)
+        self.assertEqual(alarm_create.aggregate, alarm_get.aggregate)
+        self.assertEqual(alarm_create.operation, alarm_get.operation)
+        self.assertEqual(alarm_create.threshold, alarm_get.threshold)
 

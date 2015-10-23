@@ -16,7 +16,6 @@
 
 
 class Alarm(object):
-
     def __init__(self, **kwargs):
         self._operations = ('eq', 'lt', 'gt')
         self._aggregates = ('avg', 'sum', 'max', 'min')
@@ -126,3 +125,33 @@ class Alarms:
             alarm = Alarm(id=alarm_values["id"])
 
         return alarm
+
+
+def result_to_alarm(result):
+    try:
+        # We call these inside a try block since they are suppose to exist
+        alarm_id = result['id']
+        name = result['name']
+        aggregate = result['triggerPredicate']['agg']
+        operation = result['triggerPredicate']['op']
+        threshold = result['triggerPredicate']['val']
+        metric_name = result['metricName']
+
+        # These are optional so explicity check to see if the exist
+        interval = result['interval'] if 'interval' in result else None
+        note = result['note'] if 'note' in result else None
+        per_host_notify = result['perHostNotify'] if 'perHostNotify' in result else None
+        actions = result['interval'] if 'interval' in result else None
+        return Alarm(id=alarm_id,
+                     name=name,
+                     aggregate=aggregate,
+                     operation=operation,
+                     threshold=threshold,
+                     metric_name=metric_name,
+                     interval=interval,
+                     note=note,
+                     per_host_notify=per_host_notify,
+                     actions=actions)
+
+    except NameError:
+        return None

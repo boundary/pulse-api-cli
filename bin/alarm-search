@@ -17,5 +17,5 @@
 from boundary import AlarmSearch
 
 if __name__ == "__main__":
-    c = AlarmGet()
+    c = AlarmSearch()
     c.execute()

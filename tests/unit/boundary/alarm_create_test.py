@@ -19,10 +19,10 @@ from unittest import TestCase
 from boundary import AlarmCreate
 from boundary import API
 from cli_test import CLITest
+from cli_test_parameters import CLITestParameters
 
 
 class AlarmCreateTest(TestCase):
-
     def setUp(self):
         self.cli = AlarmCreate()
         self.api = API()
@@ -31,7 +31,7 @@ class AlarmCreateTest(TestCase):
         CLITest.check_description(self, self.cli)
 
     def test_api_call(self):
-        name = 'ALARM_TEST'
+        name = 'ALARM_CREATE_TEST'
         metric_name = 'CPU'
         interval = '1 minute'
         aggregate = 'sum'
@@ -51,4 +51,32 @@ class AlarmCreateTest(TestCase):
         self.assertEqual(operation, alarm.operation)
         self.assertEqual(threshold, alarm.threshold)
 
+    def test_credentials(self):
+        parameters = CLITestParameters(filename='credentials.json')
+        api_host = parameters.get_value('api-host', 'value')
+        email = parameters.get_value('email', 'value')
+        api_token = parameters.get_value('api-token', 'value')
 
+        api = API(api_host=api_host, email=email, api_token=api_token)
+
+        name = 'ALARM_CREDS_TEST'
+        metric_name = 'CPU'
+        interval = '1 minute'
+        aggregate = 'sum'
+        operation = 'gt'
+        threshold = '0.80'
+        alarm = api.alarm_create(name=name,
+                                 metric_name=metric_name,
+                                 interval=interval,
+                                 aggregate=aggregate,
+                                 operation=operation,
+                                 threshold=threshold)
+
+        self.assertEqual(name, alarm.name)
+        self.assertEqual(metric_name, alarm.metric_name)
+        self.assertEqual(60, alarm.interval)
+        self.assertEqual(aggregate, alarm.aggregate)
+        self.assertEqual(operation, alarm.operation)
+        self.assertEqual(threshold, alarm.threshold)
+
+        api.alarm_delete(id=alarm.id)

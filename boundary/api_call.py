@@ -46,6 +46,7 @@ class ApiCall(object):
         self._email = None
         self._api_token = None
 
+        # All member variables related to REST CALL
         self._scheme = "https"
         self._method = "GET"
         self._headers = None
@@ -57,15 +58,15 @@ class ApiCall(object):
         self._api_result = None
         self.logLevel = None
 
-        self.metrics = None
-
+        # Set the api_host, email, api token set by environment
+        # variables then override with those passed in
         self._get_environment()
         if api_host is not None:
-            self.api_host = api_host
+            self._api_host = api_host
         if email is not None:
-            self.email = email
+            self._email = email
         if api_token is not None:
-            self.api_token = api_token
+            self._api_token = api_token
 
     #
     # data

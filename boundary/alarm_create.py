@@ -16,7 +16,7 @@
 from boundary import AlarmModify
 import requests
 import json
-from boundary import Alarm
+from boundary.alarm_common import result_to_alarm
 
 
 class AlarmCreate(AlarmModify):
@@ -50,55 +50,11 @@ class AlarmCreate(AlarmModify):
         AlarmModify.get_api_parameters(self)
         self.path = 'v1/alarms'
 
-    # {
-    #     "result": {
-    #         "id": 50877,
-    #         "name": "bar2",
-    #         "triggerPredicate": {
-    #             "agg": "AVG",
-    #             "op": "gt",
-    #             "val": "0.80"
-    #         },
-    #         "metricName": "CPU",
-    #         "interval": 60,
-    #         "note": "a note",
-    #         "perHostNotify": false,
-    #         "actions": [
-    #             8428
-    #         ]
-    #     }
-    # }
-    def dict_to_alarm(self):
-        try:
-            alarm_id = self._alarm_result['id']
-            name = self._alarm_result['name']
-            aggregate = self._alarm_result['triggerPredicate']['agg']
-            operation = self._alarm_result['triggerPredicate']['op']
-            threshold = self._alarm_result['triggerPredicate']['val']
-            metric_name = self._alarm_result['metricName']
-
-            # These are optional
-            interval = self._alarm_result['interval'] if 'interval' in self._alarm_result else None
-            note = self._alarm_result['note'] if 'note' in self._alarm_result else None
-            per_host_notify = self._alarm_result['perHostNotify'] if 'perHostNotify' in self._alarm_result else None
-            actions = self._alarm_result['interval'] if 'interval' in self._alarm_result else None
-            return Alarm(id=alarm_id,
-                         name=name,
-                         aggregate=aggregate,
-                         operation=operation,
-                         threshold=threshold,
-                         metric_name=metric_name,
-                         interval=interval,
-                         note=note,
-                         per_host_notify=per_host_notify,
-                         actions=actions)
-
-        except NameError:
-            pass
-
     def _handle_api_results(self):
         # Only process if we get HTTP result of 200
         if self._api_result.status_code == requests.codes.ok:
             alarm_result = json.loads(self._api_result.text)
-            self._alarm_result = alarm_result['result']
-        return self.dict_to_alarm()
+            return result_to_alarm(alarm_result['result'])
+        else:
+            return None
+

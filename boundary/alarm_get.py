@@ -18,6 +18,9 @@ Implements a command to get the information about an alarm
 """
 
 from boundary import ApiCli
+from boundary.alarm_common import result_to_alarm
+import json
+import requests
 
 """
 Uses the following Boundary API:
@@ -31,23 +34,15 @@ class AlarmGet(ApiCli):
         """
         """
         ApiCli.__init__(self)
-        self.method = "GET"
-        self.alarmName = None
-        self.alarmId = None
+        self._alarm_id = None
 
     def addArguments(self):
         """
         """
         ApiCli.addArguments(self)
 
-        # Make these options mutually exclusive where by the user
-        # can only specify fetching of an alarm definition by id or name
-        group = self.parser.add_mutually_exclusive_group()
-
-        group.add_argument('-i', '--alarm-id', dest='alarmId', action='store',
+        self.parser.add_argument('-i', '--alarm-id', dest='alarm_id', action='store', required=True,
                                  metavar='alarm-id', help='Alarm identifier')
-        group.add_argument('-n', '--alarm-name', dest='alarmName', action='store',
-                                 metavar='alarm-name', help='Alarm name')
 
     def getArguments(self):
         """
@@ -55,18 +50,17 @@ class AlarmGet(ApiCli):
         """
         ApiCli.getArguments(self)
 
-        if self.args.alarmName is not None:
-            self.alarmName = self.args.alarmName
+        self._alarm_id = self.args.alarm_id if self.args.alarm_id is not None else None
 
-        if self.args.alarmId is not None:
-            self.alarmId = self.args.alarmId
+        self.get_api_parameters()
 
-        if self.alarmId is not None:
-            self.path = "v1/alarm/{0}".format(self.alarmId)
+    def handle_key_word_args(self):
+        self._alarm_id = self._kwargs['id'] if 'id' in self._kwargs else None
 
-        if self.alarmName is not None:
-            self.path = "v1/alarms/search"
-            self.url_parameters={"name": self.alarmName}
+    def get_api_parameters(self):
+        self.method = "GET"
+        self.path = 'v1/alarms'
+        self.path = "v1/alarm/{0}".format(self._alarm_id)
 
     def _validate_arguments(self):
         """
@@ -77,3 +71,13 @@ class AlarmGet(ApiCli):
         """
         """
         return "Retrieves an alarm definition from a {0} account".format(self.product_name)
+
+    def _handle_api_results(self):
+        # Only process if we get HTTP result of 200
+        if self._api_result.status_code == requests.codes.ok:
+            alarm_result = json.loads(self._api_result.text)
+            return result_to_alarm(alarm_result['result'])
+        else:
+            return None
+
+
