@@ -15,6 +15,7 @@
 #
 
 export BOUNDARY_API_SHELL_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+typeset -r CONFIG_DIR=".ts_pulse"
 
 #
 # Shows the current environment
@@ -28,7 +29,7 @@ function tsp-env() {
 #
 function tsp-list() {
   local count=1
-  for config in $(ls -1 "$HOME/.ts_pulse/accounts")
+  for config in $(ls -1 "$HOME/$CONFIG_DIR/accounts")
   do
     printf "%s) %s\n" "$count" "$config"
     count=$((count + 1))
@@ -45,7 +46,7 @@ function tsp-set() {
   # Create a menu if a configuration was not specified
   if [ -z "$config" ]
   then
-    select opt in $(ls -1 $HOME/.boundary/accounts); do
+    select opt in $(ls -1 $HOME/$CONFIG_DIR/accounts); do
       config="$opt"
       break
     done
@@ -54,9 +55,9 @@ function tsp-set() {
   #
   # If the configuration exists then source it
   #
-  if [ -r "$HOME/.boundary/accounts/$config" ]
+  if [ -r "$HOME/$CONFIG_DIR/accounts/$config" ]
   then
-    source "$HOME/.boundary/accounts/$config"
+    source "$HOME/$CONFIG_DIR/accounts/$config"
     rc=0
   else
     rc=1
@@ -74,6 +75,6 @@ function tsp-set() {
 #
 if [ -r $HOME/.boundary/accounts ]
 then
-  complete -o filenames -W "$(cd $HOME/.boundary/accounts ; ls -1)" tsp-set
+  complete -o filenames -W "$(cd $HOME/$CONFIG_DIR/accounts ; ls -1)" tsp-set
 fi
 
