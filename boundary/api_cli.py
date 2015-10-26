@@ -26,7 +26,7 @@ Base class for all the Boundary CLI commands
 """
 
 
-class ApiCli(ApiCall):
+class ApiCli(object):
     def __init__(self):
         ApiCall.__init__(self)
         self.product_name = 'TrueSight Pulse'
@@ -39,7 +39,6 @@ class ApiCli(ApiCall):
                        "critical": logging.CRITICAL}
 
         # Properties
-        self._cli_description = None
         self._message = None
 
         self.args = None

@@ -26,8 +26,6 @@ class AlarmCreate(AlarmModify):
         self.method = "POST"
         self._alarm_result = None
 
-        self.cli_description = "Creates a new alarm definition in an Boundary account"
-
     def addArguments(self):
 
         self.parser.add_argument('-n', '--alarm-name', dest='alarm_name', action='store', required=True,
