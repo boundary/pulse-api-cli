@@ -41,8 +41,6 @@ class AlarmCreate(AlarmModify):
         """
         AlarmModify.getArguments(self)
 
-        self.get_api_parameters()
-
     def getDescription(self):
         return 'Creates an alarm definition in an {0} account'.format(self.product_name)
 
@@ -50,11 +48,4 @@ class AlarmCreate(AlarmModify):
         AlarmModify.get_api_parameters(self)
         self.path = 'v1/alarms'
 
-    def _handle_api_results(self):
-        # Only process if we get HTTP result of 200
-        if self._api_result.status_code == requests.codes.ok:
-            alarm_result = json.loads(self._api_result.text)
-            return result_to_alarm(alarm_result['result'])
-        else:
-            return None
 

@@ -48,10 +48,8 @@ class AlarmDelete(ApiCli):
         ApiCli.getArguments(self)
 
         self._alarm_id = self.args.alarm_id if self.args.alarm_id is not None else None
-        self.path = "v1/alarm/{0}".format(self._alarm_id)
 
     def handle_key_word_args(self):
-
         self._alarm_id = self._kwargs['id'] if 'id' in self._kwargs else None
 
     def get_api_parameters(self):

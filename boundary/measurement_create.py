@@ -90,7 +90,7 @@ class MeasurementCreate(ApiCli):
         to other API calls.
         """
         try:
-            ApiCli.callAPI(self)
+            ApiCli._call_api(self)
         except requests.exceptions.ChunkedEncodingError:
             None
 

@@ -49,9 +49,7 @@ class AlarmSearch(ApiCli):
         Extracts the specific arguments of this CLI
         """
         ApiCli.getArguments(self)
-
         self._alarm_name = self.args.alarm_name if self.args.alarm_name is not None else None
-        self.get_api_parameters()
 
     def handle_key_word_args(self):
         self._alarm_name = self._kwargs['name'] if 'name' in self._kwargs else None
@@ -59,7 +57,7 @@ class AlarmSearch(ApiCli):
     def get_api_parameters(self):
         self.method = "GET"
         self.path = "v1/alarms/search"
-        self.url_parameters = {'alarmName': self._alarm_name}
+        self.url_parameters = {'name': self._alarm_name}
 
     def getDescription(self):
         """

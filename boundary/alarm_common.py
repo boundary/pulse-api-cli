@@ -22,14 +22,28 @@ class Alarm(object):
 
         self._actions = kwargs['actions'] if 'actions' in kwargs else None
         self._aggregate = kwargs['aggregate'] if 'aggregate' in kwargs else None
+        self._host_group_id = kwargs['host_group_id'] if 'host_group_id' in kwargs else None
         self._id = kwargs['id'] if 'id' in kwargs else None
         self._interval = kwargs['interval'] if 'interval' in kwargs else None
+        self._is_disabled = kwargs['is_disabled'] if 'is_disabled' in kwargs else None
         self._metric_name = kwargs['metric_name'] if 'metric_name' in kwargs else None
         self._name = kwargs['name'] if 'name' in kwargs else None
         self._note = kwargs['note'] if 'note' in kwargs else None
         self._operation = kwargs['operation'] if 'operation' in kwargs else None
         self._per_host_notify = kwargs['per_host_notify'] if 'per_host_notify' in kwargs else None
         self._threshold = kwargs['threshold'] if 'threshold' in kwargs else None
+
+    def __repr__(self):
+        return 'Alarm(aggregate={0}, actions={1}, host_group_id={2}, id={3}, ' \
+               'interval={4}, is_disabled={5}, metric_name={6}, name={7}, note={8}, operation={9}, ' \
+               'per_host_notify={10}, ' \
+               'threshold={11}'.format('"{0}"'.format(self._aggregate) if self._aggregate is not None else None,
+                                       self._actions, self._host_group_id,self._id, self._interval, self._is_disabled,
+                                       '"{0}"'.format(self._metric_name) if self._metric_name is not None else None,
+                                       '"{0}"'.format(self._name) if self._name is not None else None,
+                                       '"{0}"'.format(self._note) if self._note is not None else None,
+                                       '"{0}"'.format(self._operation) if self._operation is not None else None,
+                                       self._per_host_notify, self._threshold)
 
     @property
     def actions(self):
@@ -50,6 +64,14 @@ class Alarm(object):
         self._aggregate = value
 
     @property
+    def host_group_id(self):
+        return self._host_group_id
+
+    @host_group_id.setter
+    def host_group_id(self, host_group_id):
+        self._host_group_id = host_group_id
+
+    @property
     def id(self):
         return self._id
 
@@ -64,6 +86,14 @@ class Alarm(object):
     @interval.setter
     def interval(self, interval):
         self._interval = interval
+
+    @property
+    def is_disabled(self):
+        return self._is_disabled
+
+    @is_disabled.setter
+    def is_disabled(self, is_disabled):
+        self._is_disabled = is_disabled
 
     @property
     def metric_name(self):
@@ -114,19 +144,6 @@ class Alarm(object):
         self._threshold = threshold
 
 
-class Alarms:
-    def __init__(self, alarms):
-        self._alarms = alarms
-
-    def __getitem__(self, item):
-        alarm_values = self._metrics["result"][item]
-        alarm = None
-        if alarm_values is not None:
-            alarm = Alarm(id=alarm_values["id"])
-
-        return alarm
-
-
 def result_to_alarm(result):
     try:
         # We call these inside a try block since they are suppose to exist
@@ -137,21 +154,27 @@ def result_to_alarm(result):
         threshold = result['triggerPredicate']['val']
         metric_name = result['metricName']
 
-        # These are optional so explicity check to see if the exist
+        # These are optional so explicitly check to see if the exist
+        hostgroup_id = result['hostgroupId'] if 'hostgroupId' in result else None
         interval = result['interval'] if 'interval' in result else None
+        is_disabled = result['isDisabled'] if 'isDisabled' in result else None
         note = result['note'] if 'note' in result else None
         per_host_notify = result['perHostNotify'] if 'perHostNotify' in result else None
-        actions = result['interval'] if 'interval' in result else None
-        return Alarm(id=alarm_id,
-                     name=name,
-                     aggregate=aggregate,
-                     operation=operation,
-                     threshold=threshold,
-                     metric_name=metric_name,
-                     interval=interval,
-                     note=note,
-                     per_host_notify=per_host_notify,
-                     actions=actions)
+        actions = result['actions'] if 'actions' in result else None
+        return Alarm(
+            actions=actions,
+            aggregate=aggregate,
+            host_group_id=hostgroup_id,
+            id=alarm_id,
+            interval=interval,
+            is_disabled=is_disabled,
+            metric_name=metric_name,
+            name=name,
+            note=note,
+            operation=operation,
+            per_host_notify=per_host_notify,
+            threshold=threshold
+        )
 
     except NameError:
         return None

@@ -17,6 +17,7 @@
 
 from unittest import TestCase
 from boundary import AlarmList
+from boundary import API
 from cli_test import CLITest
 
 
@@ -24,8 +25,15 @@ class AlarmGetTest(TestCase):
 
     def setUp(self):
         self.cli = AlarmList()
+        self.api = API()
 
     def test_cli_description(self):
         CLITest.check_description(self, self.cli)
 
+    def test_api_call(self):
+        alarm_list = self.api.alarm_list()
+
+        self.assertGreaterEqual(len(alarm_list), 1)
+        for alarm in alarm_list:
+            print(alarm)
 

@@ -27,7 +27,6 @@ Base class for all the Boundary CLI commands
 
 
 class ApiCli(ApiCall):
-
     def __init__(self):
         ApiCall.__init__(self)
         self.product_name = 'TrueSight Pulse'
@@ -79,11 +78,11 @@ class ApiCli(ApiCall):
         Configure handling of command line arguments.
         """
         self.addLoggingArgument()
-        self.parser.add_argument('-a', '--api-host', dest='apihost', action='store', metavar="api_host",
+        self.parser.add_argument('-a', '--api-host', dest='api_host', action='store', metavar="api_host",
                                  help='{0} API host endpoint'.format(self.product_name))
         self.parser.add_argument('-e', '--email', dest='email', action='store', metavar="e_mail",
                                  help='e-mail that has access to the {0} account'.format(self.product_name))
-        self.parser.add_argument('-t', '--api-token', dest='apitoken', required=False, action='store',
+        self.parser.add_argument('-t', '--api-token', dest='api_token', required=False, action='store',
                                  metavar="api_token",
                                  help='API token for given e-mail that has access to the {0} account'.format(
                                      self.product_name))
@@ -110,13 +109,12 @@ class ApiCli(ApiCall):
         API Host, user, password, etc.
         """
         self._configure_logging()
-
-        if self.args.apihost is not None:
-            self.api_host = self.args.apihost
+        if self.args.api_host is not None:
+            self._api_host = self.args.api_host
         if self.args.email is not None:
-            self.email = self.args.email
-        if self.args.apitoken is not None:
-            self.api_token = self.args.apitoken
+            self._email = self.args.email
+        if self.args.api_token is not None:
+            self._api_token = self.args.api_token
 
         logging.debug("apihost: {0}".format(self._api_host))
         logging.debug("email: {0}".format(self._email))
@@ -162,13 +160,13 @@ class ApiCli(ApiCall):
         self._get_environment()
         self._parse_args()
         self.getArguments()
+        self.get_api_parameters()
         if self._validate_arguments():
             self._call_api()
             self._handle_results()
         else:
-            print(self.message)
+            print(self._message)
 
     if __name__ == "__main__":
         import doctest
         doctest.testmod()
-

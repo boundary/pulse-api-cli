@@ -44,7 +44,11 @@ class API:
         return api.api_call()
 
     def alarm_list(self, **kwargs):
-        pass
+        api = AlarmList()
+        api._kwargs = kwargs
+        return api.api_call()
 
     def alarm_update(self, **kwargs):
-        pass
+        api = AlarmUpdate()
+        api._kwargs = kwargs
+        return api.api_call()

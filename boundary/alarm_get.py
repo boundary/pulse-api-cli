@@ -49,23 +49,14 @@ class AlarmGet(ApiCli):
         Extracts the specific arguments of this CLI
         """
         ApiCli.getArguments(self)
-
         self._alarm_id = self.args.alarm_id if self.args.alarm_id is not None else None
-
-        self.get_api_parameters()
 
     def handle_key_word_args(self):
         self._alarm_id = self._kwargs['id'] if 'id' in self._kwargs else None
 
     def get_api_parameters(self):
         self.method = "GET"
-        self.path = 'v1/alarms'
         self.path = "v1/alarm/{0}".format(self._alarm_id)
-
-    def _validate_arguments(self):
-        """
-        """
-        return ApiCli._validate_arguments(self)
 
     def getDescription(self):
         """
@@ -79,5 +70,7 @@ class AlarmGet(ApiCli):
             return result_to_alarm(alarm_result['result'])
         else:
             return None
+
+
 
 

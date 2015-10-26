@@ -21,7 +21,6 @@ from .api_call import ApiCall
 from .api_cli import ApiCli
 
 from .alarm_common import Alarm
-from .alarm_common import Alarms
 from .alarm_modify import AlarmModify
 from .alarm_create import AlarmCreate
 from .alarm_delete import AlarmDelete

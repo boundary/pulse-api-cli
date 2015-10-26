@@ -20,15 +20,16 @@ from boundary import Alarm
 
 
 class AlarmCreateTest(TestCase):
-
     def setUp(self):
         self.alarm = Alarm()
 
     def test_alarm_defaults(self):
         self.assertIsNone(self.alarm.actions)
         self.assertIsNone(self.alarm.aggregate)
+        self.assertIsNone(self.alarm.host_group_id)
         self.assertIsNone(self.alarm.id)
         self.assertIsNone(self.alarm.interval)
+        self.assertIsNone(self.alarm.is_disabled)
         self.assertIsNone(self.alarm.metric_name)
         self.assertIsNone(self.alarm.name)
         self.assertIsNone(self.alarm.note)
@@ -37,21 +38,46 @@ class AlarmCreateTest(TestCase):
         self.assertIsNone(self.alarm.threshold)
 
     def test_alarm_init(self):
+        actions = [1, 2]
+        aggregate = 'avg'
+        host_group_id = 1000
+        alarm_id = 123456789
+        interval = '1 hour'
+        is_disabled = True
+        metric_name = "TEST_METRIC"
+        name = 'My Alarm'
+        note = 'just a note'
+        operation = 'eq'
+        per_host_notify = True
+        threshold = 1000
+
         alarm = Alarm(
-            aggregate='AVG',
-            id=1000,
-            interval=60,
-            name='foo',
-            operation='eq',
-            threshold=1000
+            actions=actions,
+            aggregate=aggregate,
+            host_group_id=host_group_id,
+            id=alarm_id,
+            interval=interval,
+            is_disabled=is_disabled,
+            metric_name=metric_name,
+            name=name,
+            note=note,
+            operation=operation,
+            per_host_notify=per_host_notify,
+            threshold=threshold
         )
 
-        self.assertEqual(1000, alarm.id)
-        self.assertEqual('foo', alarm.name)
-        self.assertEqual('eq', alarm.operation)
-        self.assertEqual('AVG', alarm.aggregate)
-        self.assertEqual(1000, alarm.threshold)
-        self.assertEqual(60, alarm.interval)
+        self.assertEqual(actions, alarm.actions)
+        self.assertEqual(aggregate, alarm.aggregate)
+        self.assertEqual(host_group_id, alarm.host_group_id)
+        self.assertEqual(alarm_id, alarm.id)
+        self.assertEqual(interval, alarm.interval)
+        self.assertEqual(is_disabled, alarm.is_disabled)
+        self.assertEqual(metric_name, alarm.metric_name)
+        self.assertEqual(name, alarm.name)
+        self.assertEqual(note, alarm.note)
+        self.assertEqual(operation, alarm.operation)
+        self.assertEqual(per_host_notify, alarm.per_host_notify)
+        self.assertEqual(threshold, alarm.threshold)
 
     def test_set_actions(self):
         self.alarm.actions = [1, 2, 3, 4]
@@ -68,6 +94,10 @@ class AlarmCreateTest(TestCase):
     def test_set_interval(self):
         self.alarm.interval = 60
         self.assertEqual(60, self.alarm.interval)
+
+    def test_set_is_disabled(self):
+        self.alarm.is_disabled = True
+        self.assertEqual(True, self.alarm.is_disabled)
 
     def test_set_metric_name(self):
         self.alarm.metric_name = 'toad'
@@ -98,5 +128,23 @@ class AlarmCreateTest(TestCase):
             alarm = Alarm()
             alarm.aggregate = 'foo'
 
+    def test_repr(self):
+        alarm = Alarm(
+            actions=[1, 2],
+            aggregate='avg',
+            host_group_id=1000,
+            alarm_id=123456789,
+            interval=900,
+            is_disabled=True,
+            metric_name='TEST_METRIC',
+            name='My Alarm',
+            note='just a note',
+            operation='eq',
+            per_host_notify=True,
+            threshold=1000
+        )
 
-
+        self.assertEqual('Alarm(aggregate="avg", actions=[1, 2], host_group_id=1000, id=None, interval=900, '
+                         'is_disabled=True, metric_name="TEST_METRIC", name="My Alarm", '
+                         'note="just a note", operation="eq", per_host_notify=True, threshold=1000',
+                         alarm.__repr__())
