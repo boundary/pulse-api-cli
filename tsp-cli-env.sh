@@ -14,8 +14,9 @@
 # limitations under the License.
 #
 
-export BOUNDARY_API_SHELL_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-typeset -r CONFIG_DIR=".ts_pulse"
+export BOUNDARY_API_SHELL_HOME="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+#typeset -r CONFIG_DIR=".ts_pulse"
+CONFIG_DIR=".ts_pulse"
 
 #
 # Shows the current environment
