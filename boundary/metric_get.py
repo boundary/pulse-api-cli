@@ -32,7 +32,7 @@ class MetricGet(MetricCommon):
         MetricCommon.addArguments(self)
         self.parser.add_argument('-n', '--metric-name', dest='metric_name', action='store', required=True,
                                  metavar='metric_name', help='Metric identifier')
-        self.parser.add_argument('-a', '--enabled', dest="enabled", action='store_true', required=False, default=False,
+        self.parser.add_argument('-b', '--enabled', dest="enabled", action='store_true', required=False, default=False,
                                  help='Filter the list of metrics to only return enabled metrics')
         self.parser.add_argument('-c', '--custom', dest="custom", action='store_true', required=False, default=False,
                                  help='Filter the list of metrics to only return custom metrics')
