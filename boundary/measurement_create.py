@@ -17,7 +17,6 @@ import socket
 import time
 import json
 
-from six.moves import http_client
 from boundary import ApiCli
 import requests
 
