@@ -91,7 +91,7 @@ class ApiCli(ApiCall):
         """
         Handles the parse of the command line arguments
         """
-        self.addArguments()
+        # Perform the actual parsing of the command line arguments
         self.args = self.parser.parse_args()
 
     def _configure_logging(self):
@@ -108,7 +108,11 @@ class ApiCli(ApiCall):
         that are given. This method handles the standard command line arguments for:
         API Host, user, password, etc.
         """
+
+        # We call this first so that logging is enabled as soon as possible
         self._configure_logging()
+
+        # Extract the common command line arguments
         if self.args.api_host is not None:
             self._api_host = self.args.api_host
         if self.args.email is not None:
@@ -157,9 +161,21 @@ class ApiCli(ApiCall):
         """
         Run the steps to execute the CLI
         """
+
+        # Set default arguments from environment variables
         self._get_environment()
+
+        # Call our member function to add command line arguments, child classes that override need
+        # to call the ApiCli version first to add standard arguments
+        self.addArguments()
+
+        # Parse the command line arguments
         self._parse_args()
+
+        # Arguments are parsed call back to the instance so that it can extract the command line
+        # arguments for its use
         self.getArguments()
+
         self.get_api_parameters()
         if self._validate_arguments():
             self._call_api()
