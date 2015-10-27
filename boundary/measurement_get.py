@@ -19,7 +19,6 @@ import json
 
 from boundary import ApiCli
 from dateutil import parser
-from six.moves import http_client
 
 """
 Gets measurements from a Boundary account
@@ -32,7 +31,7 @@ class MeasurementGet(ApiCli):
         self._indent = 4
         self.method = "GET"
         self.metricName = None
-        self.format = "json"
+        self.format = None
         # Default to 1 second sample period
         self.sample = 1
         self.source = None
@@ -50,7 +49,7 @@ class MeasurementGet(ApiCli):
         ApiCli.addArguments(self)
 
         # Command specific arguments
-        self.parser.add_argument('-f', '--format', dest='metricName', action='store', required=False,
+        self.parser.add_argument('-f', '--format', dest='format', action='store', required=False,
                                  choices=['csv', 'json', 'xml'], help='Output format')
         self.parser.add_argument('-n', '--name', dest='metricName', action='store', required=True,
                                  metavar="metric_name", help='Metric identifier')
@@ -86,6 +85,11 @@ class MeasurementGet(ApiCli):
             self.aggregate = self.args.aggregate
         else:
             self.aggregate = "avg"
+
+        if self.args.format is not None:
+            self.format = self.args.format
+        else:
+            self.format = "json"
 
         start_time = int(self.parse_time_date(self.args.start).strftime("%s"))
 
@@ -128,15 +132,31 @@ class MeasurementGet(ApiCli):
         """
         return 'Retrieves measurement values from a metric in a {0} account'.format(self.product_name)
 
-    def output_csv(self,text):
-        self.output_json(text)
+    def output_csv(self, text):
+        """
+        Output results in CSV format
+        """
+        payload = json.loads(text)
+        # Print CSV header
+        print("{0},{1},{2}".format('timestamp', 'source', 'value'))
+        # Loop through the aggregates one row per timestamp, and 1 or more source/value pairs
+        for r in payload['result']['aggregates']:
+            timestamp = r[0][0]
+            for s in r[1]:
+                print('{0},"{1}",{2}'.format(timestamp, s[0], s[1]))
 
     def output_json(self, text):
+        """
+        Output results in JSON format
+        """
         payload = json.loads(text)
         out = json.dumps(payload, sort_keys=True, indent=self._indent, separators=(',', ': '))
         print(self.colorize_json(out))
 
     def output_xml(self, text):
+        """
+        Output results in XML format
+        """
         self.output_json(text)
 
     def _handle_results(self):
