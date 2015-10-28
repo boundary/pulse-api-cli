@@ -26,6 +26,7 @@ setup(
         'bin/hostgroup-update',
         'bin/measurement-create',
         'bin/measurement-get',
+        'bin/measurement-plot',
         'bin/metric-create',
         'bin/metric-create-batch',
         'bin/metric-delete',

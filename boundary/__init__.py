@@ -46,6 +46,7 @@ from .host_group_update import HostGroupUpdate
 
 from .measurement_create import MeasurementCreate
 from .measurement_get import MeasurementGet
+from .measurement_plot import MeasurementPlot
 
 from .meter_client import MeterClient
 from .metric_common import MetricCommon
