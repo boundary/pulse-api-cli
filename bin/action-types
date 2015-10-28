@@ -19,3 +19,4 @@ from boundary import ActionTypes
 if __name__ == "__main__":
     c = ActionTypes()
     c.execute()
+
