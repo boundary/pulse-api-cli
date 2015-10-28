@@ -133,7 +133,6 @@ class MeasurementPlot(ApiCli):
             if first:
                 first = False
             else:
-                print('{0},{1},{2},{3}'.format(row[0], row[1], row[2], row[3]))
                 epoch_ts = int(row[0])/1000
                 metric_name = row[1]
                 source = row[2]
@@ -157,6 +156,9 @@ class MeasurementPlot(ApiCli):
             linestyle, marker, color = self._symbols[symbol_index]
             plt.plot(timestamps[source], values[source], color=color, marker=marker, linestyle=linestyle, label=source)
             symbol_index += 1
+
+        # add legend
+        plt.legend(loc=9)
 
         # add a title
         plt.title(metric_name)
