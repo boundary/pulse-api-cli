@@ -30,7 +30,7 @@ class MeasurementGet(ApiCli):
         ApiCli.__init__(self)
         self._indent = 4
         self.method = "GET"
-        self.metricName = None
+        self._metric_name = None
         self.format = None
         # Default to 1 second sample period
         self.sample = 1
@@ -51,7 +51,7 @@ class MeasurementGet(ApiCli):
         # Command specific arguments
         self.parser.add_argument('-f', '--format', dest='format', action='store', required=False,
                                  choices=['csv', 'json', 'xml'], help='Output format')
-        self.parser.add_argument('-n', '--name', dest='metricName', action='store', required=True,
+        self.parser.add_argument('-n', '--name', dest='metric_name', action='store', required=True,
                                  metavar="metric_name", help='Metric identifier')
         self.parser.add_argument('-g', '--aggregate', dest='aggregate', action='store', required=False,
                                  choices=['sum', 'avg', 'max', 'min'], metavar='aggregate',
@@ -70,8 +70,8 @@ class MeasurementGet(ApiCli):
         Extracts the specific arguments of this CLI
         """
         ApiCli.getArguments(self)
-        if self.args.metricName is not None:
-            self.metricName = self.args.metricName
+        if self.args.metric_name is not None:
+            self._metric_name = self.args.metric_name
 
         if self.args.sample is not None:
             self.sample = self.args.sample
@@ -104,7 +104,7 @@ class MeasurementGet(ApiCli):
         start_time *= 1000
         stop_time *= 1000
 
-        self.path = "v1/measurements/{0}".format(self.metricName)
+        self.path = "v1/measurements/{0}".format(self._metric_name)
         self.url_parameters = {"source": self.source,
                                "start": str(start_time),
                                "end": str(stop_time),
@@ -139,11 +139,12 @@ class MeasurementGet(ApiCli):
         payload = json.loads(text)
         # Print CSV header
         print("{0},{1},{2}".format('timestamp', 'source', 'value'))
+        metric_name = self._metric_name
         # Loop through the aggregates one row per timestamp, and 1 or more source/value pairs
         for r in payload['result']['aggregates']:
             timestamp = r[0][0]
             for s in r[1]:
-                print('{0},"{1}",{2}'.format(timestamp, s[0], s[1]))
+                print('{0},"{1}","{2}",{3}'.format(timestamp, metric_name, s[0], s[1]))
 
     def output_json(self, text):
         """
