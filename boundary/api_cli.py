@@ -20,6 +20,7 @@ import argparse
 import logging
 import sys
 from pygments import highlight, lexers, formatters
+import pygments.lexers.html as html
 
 """
 Base class for all the Boundary CLI commands
@@ -149,6 +150,12 @@ class ApiCli(ApiCall):
             return highlight(json, lexers.JsonLexer(), formatters.TerminalFormatter())
         else:
             return json
+
+    def colorize_xml(self, xml):
+        if sys.stdout.isatty():
+            return highlight(xml, html.XmlLexer(), formatters.TerminalFormatter())
+        else:
+            return xml
 
     def _handle_results(self):
         """
