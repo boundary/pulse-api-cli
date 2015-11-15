@@ -117,10 +117,6 @@ class ApiCall(object):
         else:
             self._method = value
 
-    @method.deleter
-    def method(self):
-        print("delete")
-        util.raise_attribute_delete_error('method')
     #
     # path
     #
@@ -132,10 +128,6 @@ class ApiCall(object):
     @path.setter
     def path(self, value):
         self._path = value
-
-    @path.deleter
-    def path(self):
-        util.raise_attribute_delete_error('path')
 
     #
     # url_parameters
