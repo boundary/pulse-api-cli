@@ -27,7 +27,7 @@ Base class for all the Boundary CLI commands
 """
 
 
-class ApiCli(object):
+class ApiCli(ApiCall):
     def __init__(self):
         ApiCall.__init__(self)
         self.product_name = 'TrueSight Pulse'
