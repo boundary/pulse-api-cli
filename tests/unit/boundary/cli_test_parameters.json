@@ -58,6 +58,11 @@
   },
   "MetricList": {
     "description": "Lists the defined metrics in a TrueSight Pulse account"
+  },
+  "PluginAdd": {
+    "description": "Imports a meter plugin from a GitHub repository into a TrueSight Pulse account"
+  },
+  "PluginGet": {
+    "description": "Get the details of a plugin in a TrueSight Pulse account"
   }
-
 }
