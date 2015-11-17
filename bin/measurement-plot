@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-from boundary import MeasurementPlot
+from boundary.measurement_plot import MeasurementPlot
 
 if __name__ == "__main__":
     c = MeasurementPlot()
