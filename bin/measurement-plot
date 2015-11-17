@@ -14,9 +14,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-from boundary import ActionTypes
+
+from boundary.measurement_plot import MeasurementPlot
 
 if __name__ == "__main__":
-    c = ActionTypes()
+    c = MeasurementPlot()
     c.execute()
-
