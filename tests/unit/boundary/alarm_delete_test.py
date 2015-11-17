@@ -16,24 +16,32 @@
 #
 
 from unittest import TestCase
-from boundary import AlarmList
 from boundary import API
+from boundary import AlarmDelete
 from cli_test import CLITest
 
 
-class AlarmGetTest(TestCase):
-
+class AlarmUpdateTest(TestCase):
     def setUp(self):
-        self.cli = AlarmList()
+        self.cli = AlarmDelete()
         self.api = API()
 
     def test_cli_description(self):
         CLITest.check_description(self, self.cli)
 
     def test_api_call(self):
-        alarm_list = self.api.alarm_list()
+        api = API()
+        name = 'ALARM_DELETE_TEST'
+        metric_name = 'CPU'
+        interval = '1 minute'
+        aggregate = 'sum'
+        operation = 'gt'
+        threshold = '0.80'
+        alarm = api.alarm_create(name=name,
+                                 metric_name=metric_name,
+                                 interval=interval,
+                                 aggregate=aggregate,
+                                 operation=operation,
+                                 threshold=threshold)
 
-        self.assertGreaterEqual(len(alarm_list), 1)
-        for alarm in alarm_list:
-            print(alarm)
-
+        self.api.alarm_delete(id=alarm.id)

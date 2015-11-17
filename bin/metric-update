@@ -19,3 +19,4 @@ from boundary import MetricUpdate
 if __name__ == "__main__":
     c = MetricUpdate()
     c.execute()
+

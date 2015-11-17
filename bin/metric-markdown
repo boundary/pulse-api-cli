@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-from boundary.metric_markdown import MetricMarkdown
+from boundary import MetricMarkdown
 
 """
 Reads the plugin.json manifest file looks up the definition and then outputs a markdown table

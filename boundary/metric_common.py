@@ -15,6 +15,45 @@
 from boundary import ApiCli
 
 
+class Metric:
+    def __init__(self, display_name=None):
+        """
+        :param display_name:
+        :return:
+        """
+        self._display_name = display_name
+
+    @property
+    def display_name(self):
+        return self._display_name
+
+    @display_name.setter
+    def display_name(self, value):
+        self._display_name = value
+
+    def __repr__(self):
+        return 'Metric(display_name="{0}")'.format(self._display_name)
+
+
+class Metrics:
+    def __init__(self, metrics):
+        self._metrics = metrics
+
+    def __len__(self):
+        return len(self._metrics)
+
+    def __getitem__(self, position):
+        metric_values = self._metrics["result"][position]
+        metric = None
+        if metric_values is not None:
+            metric = Metric(display_name=metric_values["displayName"])
+
+        return metric
+
+    def __str__(self):
+        return str(self._metrics)
+
+
 class MetricCommon (ApiCli):
     
     def __init__(self):

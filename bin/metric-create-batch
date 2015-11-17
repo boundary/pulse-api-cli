@@ -19,3 +19,4 @@ from boundary import MetricCreateBatch
 if __name__ == "__main__":
     c = MetricCreateBatch()
     c.execute()
+

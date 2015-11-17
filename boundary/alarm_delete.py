@@ -16,8 +16,8 @@
 """
 Implements command to remove an alarm definition from a Boundary account.
 """
-from six.moves import http_client
 from boundary import ApiCli
+import requests
 
 """
 Uses the following Boundary API:
@@ -27,40 +27,31 @@ https://premium-api.boundary.com/v1/alarm/:alarmId
 
 
 class AlarmDelete(ApiCli):
-    def __init__(self):
+    def __init__(self,  **kwargs):
         """
         """
         ApiCli.__init__(self)
+        self._kwargs = kwargs
+        self._alarm_id = None
+
+    def handle_key_word_args(self):
+        self._alarm_id = self._kwargs['id'] if 'id' in self._kwargs else None
+
+    def get_api_parameters(self):
         self.method = "DELETE"
-        self.alarmId = None
+        self.path = "v1/alarm/{0}".format(self._alarm_id)
 
-    def addArguments(self):
-        """
-        """
-        ApiCli.addArguments(self)
-        self.parser.add_argument('-i', '--alarm-id', dest='alarmId', action='store',
-                                 required=True, metavar='alarm-id', help='Alarm identifier')
-
-    def getArguments(self):
-        """
-        Extracts the specific arguments of this CLI
-        """
-        ApiCli.getArguments(self)
-        if self.args.alarmId is not None:
-            self.alarmId = self.args.alarmId
-
-        self.path = "v1/alarm/{0}".format(self.alarmId)
-
-    def getDescription(self):
-        """
-        """
-        return "Deletes an alarm definition from a {0} account".format(self.product_name)
-
-    def handleResults(self, result):
+    def _handle_results(self):
         """
         Handle the results of the API call
         """
 
         # Only process if we get HTTP return code other 200.
-        if result.status_code != http_client.OK:
-            print(self.colorize_json(result.text))
+        if self._api_result.status_code != requests.codes.ok:
+            print(self.colorize_json(self._api_result.text))
+
+    def _handle_api_results(self):
+        # Only process if we get HTTP result of 200
+        if self._api_result.status_code != requests.codes.ok:
+            pass
+        return None

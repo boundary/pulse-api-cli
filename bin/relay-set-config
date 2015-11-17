@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-from boundary.relay_set_config import RelaySetConfig
+from boundary import RelaySetConfig
 
 if __name__ == "__main__":
     c = RelaySetConfig()

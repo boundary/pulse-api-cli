@@ -14,13 +14,33 @@
 # limitations under the License.
 #
 from boundary import ApiCli
+from boundary.alarm_common import result_to_alarm
+import json
+import requests
 
 
 class AlarmList(ApiCli):
     def __init__(self):
         ApiCli.__init__(self)
-        self.method = "GET"
-        self.path = "v1/alarms"
 
     def getDescription(self):
         return "List alarm definitions associated with the {0} account".format(self.product_name)
+
+    def get_api_parameters(self):
+        self.path = "v1/alarms"
+        self.method = "GET"
+
+    def handle_key_word_args(self):
+        pass
+
+    def _handle_api_results(self):
+        # Only process if we get HTTP result of 200
+        if self._api_result.status_code == requests.codes.ok:
+            alarm_result = json.loads(self._api_result.text)
+            alarms = []
+            for alarm in alarm_result['result']:
+                alarms.append(result_to_alarm(alarm))
+            return alarms
+        else:
+            return None
+

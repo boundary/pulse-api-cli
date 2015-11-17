@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 from boundary import ApiCli
-from six.moves import http_client
+import requests
 import json
 
 
@@ -27,7 +27,7 @@ class EventGet(ApiCli):
         ApiCli.addArguments(self)
 
         self.parser.add_argument('-i', '--event-id', dest='event_id', action='store', required=True,
-                                 metavar='event_id', help='Host group the alarm applies to')
+                                 metavar='event_id', help='Event id of the event to fetch')
 
     def getArguments(self):
 
@@ -39,8 +39,8 @@ class EventGet(ApiCli):
     def getDescription(self):
         return "Gets a single event by id from a {0} account".format(self.product_name)
 
-    def handleResults(self, result):
+    def _handle_results(self):
         # Only process if we get HTTP result of 200
-        if result.status_code == http_client.OK:
-            out = json.dumps(json.loads(result.text), sort_keys=True, indent=4, separators=(',', ': '))
+        if self._api_result.status_code == requests.codes.ok:
+            out = json.dumps(json.loads(self._api_result.text), sort_keys=True, indent=4, separators=(',', ': '))
             print(self.colorize_json(out))

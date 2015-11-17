@@ -16,24 +16,25 @@
 #
 
 from unittest import TestCase
-from boundary import AlarmList
-from boundary import API
-from cli_test import CLITest
+from boundary import api
 
 
-class AlarmGetTest(TestCase):
+class ApiTest(TestCase):
 
     def setUp(self):
-        self.cli = AlarmList()
-        self.api = API()
+        self.api = api()
 
-    def test_cli_description(self):
-        CLITest.check_description(self, self.cli)
+    # def test_get_metric(self):
+    #     metric_definitions = self.api.metric_get()
+    #     self.assertIsNotNone(metric_definitions)
+    #
+    # def test_metrics_count(self):
+    #     metric_definitions = self.api.metric_get()
+    #     self.assertGreaterEqual(1, len(metric_definitions))
+    #
+    # def test_metrics_iter(self):
+    #     metric_definitions = self.api.metric_get()
+    #     for metric in metric_definitions:
+    #         print(metric)
 
-    def test_api_call(self):
-        alarm_list = self.api.alarm_list()
-
-        self.assertGreaterEqual(len(alarm_list), 1)
-        for alarm in alarm_list:
-            print(alarm)
 

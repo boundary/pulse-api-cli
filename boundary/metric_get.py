@@ -13,39 +13,54 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+import requests
 import json
-
-from six.moves import http_client
-from metric_common import MetricCommon
+from boundary import MetricCommon
 
 
-class MetricGet (MetricCommon):
-     
+class MetricGet(MetricCommon):
     def __init__(self):
         MetricCommon.__init__(self)
-        self.path = "v1/metrics"
-        self.metricName = None
         self.metrics = None
-        
+
+        self._metric_name = None
+        self._enabled = None
+        self._custom = None
+
     def addArguments(self):
         MetricCommon.addArguments(self)
-        self.parser.add_argument('-n', '--metric-name', dest='metricName', action='store', required=True, metavar='metric_name', help='Metric identifier')
-        
+        self.parser.add_argument('-n', '--metric-name', dest='metric_name', action='store', required=True,
+                                 metavar='metric_name', help='Metric identifier')
+        self.parser.add_argument('-a', '--enabled', dest="enabled", action='store_true', required=False, default=False,
+                                 help='Filter the list of metrics to only return enabled metrics')
+        self.parser.add_argument('-c', '--custom', dest="custom", action='store_true', required=False, default=False,
+                                 help='Filter the list of metrics to only return custom metrics')
+
     def getDescription(self):
         return 'Lists the defined metrics in a {0} account'.format(self.product_name)
-    
+
     def getArguments(self):
         MetricCommon.getArguments(self)
-        
-        if self.args.metricName is not None:
-            self.metricName = self.args.metricName
-    
-    def handleResults(self, result):
+
+        self._metric_name = self.args.metric_name if self.args.metric_name is not None else None
+        self._enabled = self.args.enabled if self.args.enabled is not None else None
+        self._custom = self.args.custom if self.args.custom is not None else None
+
+    def get_api_parameters(self):
+        self.path = "v1/metrics"
+        self.method = "GET"
+        self.url_parameters = {'enabled': self._enabled, 'custom': self._custom}
+
+    def _handle_api_results(self):
+        pass
+
+    def _handle_results(self, result):
         metric = None
         # Only process if we get HTTP result of 200
-        if result.status_code == http_client.OK:
+        if result.status_code == requests.codes.ok:
             self.metrics = json.loads(result.text)
-            
+
             # Handle old style metrics
             if 'result' in self.metrics:
                 for m in self.metrics['result']:

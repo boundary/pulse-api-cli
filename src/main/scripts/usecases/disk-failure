@@ -1,5 +1,0 @@
-#!/bin/bash
-
-snmptrap -v 2c -m +ALL -c public boundary-event-adapter:1162 0 ArrayManager-MIB::virtualDiskFailed ArrayManager-MIB::controllerNameEv s "My Controller" ArrayManager-MIB::virtualDiskNameEv s "/dev/rdev/s01"
-
-

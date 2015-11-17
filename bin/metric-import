@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-from boundary.metric_import import MetricImport
+from boundary import MetricImport
 
 if __name__ == "__main__":
     c = MetricImport()

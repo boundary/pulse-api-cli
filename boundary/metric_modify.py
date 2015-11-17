@@ -21,6 +21,8 @@ from boundary import MetricCommon
 """
 Common Base class for defining and update metric definitions
 """
+
+
 class MetricModify (MetricCommon):
      
     def __init__(self):
@@ -50,7 +52,7 @@ class MetricModify (MetricCommon):
         self.parser.add_argument('-i', '--description', dest='description', action='store',
                                  metavar='description', help='Metric description')
         self.parser.add_argument('-g', '--aggregate', dest='aggregate', action='store',
-                                 required=True, choices=['AVG', 'MAX', 'MIN', 'SUM'],
+                                 required=True, choices=['avg', 'max', 'min', 'sum'],
                                  help='Metric default aggregate')
         self.parser.add_argument('-u', '--unit', dest='unit', action='store',
                                  required=True, choices=['percent', 'number', 'bytecount', 'duration'],

@@ -47,8 +47,5 @@ class MetricDelete(ApiCli):
 
         self.path = "v1/metrics/{0}".format(self.metricName)
 
-    def validateArguments(self):
-        return ApiCli.validateArguments(self)
-
     def getDescription(self):
         return 'Deletes a metric definition from a {0} account'.format(self.product_name)

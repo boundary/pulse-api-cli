@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-from boundary.action_webhook import ActionWebhook
+from boundary import ActionWebhook
 
 if __name__ == '__main__':
     pass

@@ -136,21 +136,21 @@ class MeasurementGet(ApiCli):
         out = json.dumps(payload, sort_keys=True, indent=self._indent, separators=(',', ': '))
         print(self.colorize_json(out))
 
-    def output_csv(self, text):
+    def output_xml(self, text):
         self.output_json(text)
 
-    def handleResults(self, result):
+    def _handle_results(self):
         """
         Call back function to be implemented by the CLI.
         """
 
         # Only process if we get HTTP result of 200
-        if result.status_code == requests.codes.ok:
+        if self._api_result.status_code == requests.codes.ok:
             if self.format == "json":
-                self.output_json(result.text)
+                self.output_json(self._api_result.text)
             elif self.format == "csv":
-                self.output_csv(result.text)
+                self.output_csv(self._api_result.text)
             elif self.format == "xml":
-                self.output_xml(result.text)
+                self.output_xml(self._api_result.text)
             else:
                 pass

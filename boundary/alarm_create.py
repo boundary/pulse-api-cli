@@ -14,14 +14,17 @@
 # limitations under the License.
 #
 from boundary import AlarmModify
+import requests
+import json
+from boundary.alarm_common import result_to_alarm
 
 
 class AlarmCreate(AlarmModify):
-    def __init__(self):
+    def __init__(self, **kwargs):
         AlarmModify.__init__(self, False)
+        self._kwargs = kwargs
         self.method = "POST"
-
-        self.cli_description = "Creates a new alarm definition in an Boundary account"
+        self._alarm_result = None
 
     def addArguments(self):
 
@@ -36,10 +39,11 @@ class AlarmCreate(AlarmModify):
         """
         AlarmModify.getArguments(self)
 
-        self.path = 'v1/alarms'
-
     def getDescription(self):
         return 'Creates an alarm definition in an {0} account'.format(self.product_name)
 
+    def get_api_parameters(self):
+        AlarmModify.get_api_parameters(self)
+        self.path = 'v1/alarms'
 
 

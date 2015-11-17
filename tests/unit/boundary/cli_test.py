@@ -25,7 +25,7 @@ class CLITest:
     @staticmethod
     def check_description(test_case, cli):
         parameters = CLITestParameters()
-        test_case.assertEqual(parameters.get_description(cli.__class__.__name__), cli.getDescription())
+        test_case.assertEqual(parameters.get_value(cli.__class__.__name__, 'description'), cli.getDescription())
 
     @staticmethod
     def check_cli_help(test_case, cli):

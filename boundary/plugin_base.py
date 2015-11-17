@@ -29,9 +29,9 @@ class PluginBase(ApiCli):
                                  metavar="plugin_name", help='Plugin name')
 
     def getArguments(self):
-        '''
+        """
         Extracts the specific arguments of this CLI
-        '''
+        """
         ApiCli.getArguments(self)
-        if self.args.pluginName != None:
+        if self.args.pluginName is not None:
             self.pluginName = self.args.pluginName

@@ -19,8 +19,7 @@ from boundary import AlarmModify
 class AlarmUpdate(AlarmModify):
     def __init__(self):
         AlarmModify.__init__(self, True)
-        self.alarm_id = None
-        self.method = "PUT"
+        self._alarm_id = None
 
     def addArguments(self):
 
@@ -37,11 +36,16 @@ class AlarmUpdate(AlarmModify):
         """
 
         AlarmModify.getArguments(self)
+        self.get_api_parameters()
 
-        if self.args.alarm_id is not None:
-            self.alarm_id = self.args.alarm_id
+    def handle_key_word_args(self):
+        AlarmModify.handle_key_word_args(self)
+        self._alarm_id = self._kwargs['id'] if 'id' in self._kwargs else None
 
-        self.path = "v1/alarm/{0}".format(self.alarm_id)
+    def get_api_parameters(self):
+        AlarmModify.get_api_parameters(self)
+        self.method = "PUT"
+        self.path = "v1/alarm/{0}".format(self._alarm_id)
 
     def getDescription(self):
         return 'Updates an alarm definition in an {0} account'.format(self.product_name)

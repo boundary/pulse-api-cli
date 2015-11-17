@@ -18,10 +18,9 @@
 """
 Exports metrics from a Boundary account with the ability to filter on metric name
 """
-import json
-
-from six.moves import http_client
 from boundary import MetricCommon
+import json
+import requests
 import re
 
 
@@ -58,7 +57,7 @@ class MetricExport(MetricCommon):
         if self.args.patterns:
             self.filter_expression = re.compile(self.args.patterns)
 
-    def extractFields(self, metric):
+    def extract_fields(self, metric):
         """
         Extract only the required fields for the create/update API call
         """
@@ -80,13 +79,13 @@ class MetricExport(MetricCommon):
             m['isDisabled'] = metric['isDisabled']
         return m
 
-    def extractDictionary(self, metrics):
+    def extract_dictionary(self, metrics):
         """
         Extract required fields from an array
         """
         new_metrics = {}
         for m in metrics:
-            metric = self.extractFields(m)
+            metric = self.extract_fields(m)
             new_metrics[m['name']] = metric
         return new_metrics
 
@@ -94,7 +93,7 @@ class MetricExport(MetricCommon):
         """
         Apply the criteria to filter out on the metrics required
         """
-        if self.filter_expression != None:
+        if self.filter_expression is not None:
             new_metrics = []
             metrics = self.metrics['result']
             for m in metrics:
@@ -103,16 +102,16 @@ class MetricExport(MetricCommon):
         else:
             new_metrics = self.metrics['result']
 
-        self.metrics = self.extractDictionary(new_metrics)
+        self.metrics = self.extract_dictionary(new_metrics)
 
-    def handleResults(self, result):
+    def _handle_results(self):
         """
         Call back function to be implemented by the CLI.
         """
         
         # Only process if we get HTTP result of 200
-        if result.status_code == http_client.OK:
-            self.metrics = json.loads(result.text)
+        if self._api_result.status_code == requests.codes.ok:
+            self.metrics = json.loads(self._api_result.text)
             self.filter()
             out = json.dumps(self.metrics, sort_keys=True, indent=4, separators=(',', ': '))
             print(self.colorize_json(out))

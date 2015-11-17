@@ -1,5 +1,5 @@
 #
-# Copyright 2014, Boundary
+# Copyright 2014-2015, Boundary Inc..
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,23 +14,23 @@
 # limitations under the License.
 #
 
-export BOUNDARY_API_SHELL_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
-alias bsenv="env | grep BOUNDARY | sort"
+export BOUNDARY_API_SHELL_HOME="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+#typeset -r CONFIG_DIR=".ts_pulse"
+CONFIG_DIR=".ts_pulse"
 
 #
 # Shows the current environment
 #
-function bp-env() {
+function tsp-env() {
   env | grep BOUNDARY | sort
 }
 
 #
 # List the currently configured environments
 #
-function bp-acc() {
+function tsp-list() {
   local count=1
-  for config in $(ls -1 "$HOME/.boundary/accounts")
+  for config in $(ls -1 "$HOME/$CONFIG_DIR/accounts")
   do
     printf "%s) %s\n" "$count" "$config"
     count=$((count + 1))
@@ -40,14 +40,14 @@ function bp-acc() {
 #
 # Change the environment
 #
-function bp-set() {
+function tsp-set() {
   typeset config=$1
   typeset -i rc=0
 
   # Create a menu if a configuration was not specified
   if [ -z "$config" ]
   then
-    select opt in $(ls -1 $HOME/.boundary/accounts); do
+    select opt in $(ls -1 $HOME/$CONFIG_DIR/accounts); do
       config="$opt"
       break
     done
@@ -56,15 +56,18 @@ function bp-set() {
   #
   # If the configuration exists then source it
   #
-  if [ -r "$HOME/.boundary/accounts/$config" ]
+  if [ -r "$HOME/$CONFIG_DIR/accounts/$config" ]
   then
-    source "$HOME/.boundary/accounts/$config"
+    source "$HOME/$CONFIG_DIR/accounts/$config"
     rc=0
   else
     rc=1
   fi
 
-  bp-env
+  #
+  # Output the current environment
+  #
+  tsp-env
   return $rc
 }
 
@@ -73,6 +76,6 @@ function bp-set() {
 #
 if [ -r $HOME/.boundary/accounts ]
 then
-  complete -o filenames -W "$(cd $HOME/.boundary/accounts ; ls -1)" bp-set
+  complete -o filenames -W "$(cd $HOME/$CONFIG_DIR/accounts ; ls -1)" tsp-set
 fi
 

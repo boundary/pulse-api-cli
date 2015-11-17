@@ -1,6 +1,0 @@
-#!/bin/bash
-set -x
-
-snmptrap -v 2c -c public boundary-event-adapter:1162 0 SNMPv2-MIB::coldStart
-
-
