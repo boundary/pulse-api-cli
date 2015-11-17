@@ -1,9 +1,9 @@
-site_name: BMC TrueSight Pulse
+site_name: BMC TrueSight Pulse CLIs
 theme: mkdocs
 google_analytics: ['UA-47528703-5','auto']
 pages:
 - Home: index.md
-- "Getting Started":
+- Getting Started:
   - Installing: 'install.md'
   - Configuring: 'configuration.md'
 - Reference:
