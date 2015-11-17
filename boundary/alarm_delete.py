@@ -41,6 +41,10 @@ class AlarmDelete(ApiCli):
         self.method = "DELETE"
         self.path = "v1/alarm/{0}".format(self._alarm_id)
 
+    def getDescription(self):
+        return 'Deletes an alarm definition from a {0} account'.format(self.product_name)
+
+
     def _handle_results(self):
         """
         Handle the results of the API call
