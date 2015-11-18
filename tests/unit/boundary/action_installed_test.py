@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -27,4 +27,7 @@ class ActionInstalledTest(TestCase):
 
     def test_cli_description(self):
         CLITest.check_description(self, self.cli)
+
+    def test_cli_help(self):
+        CLITest.check_cli_help(self, self.cli)
 

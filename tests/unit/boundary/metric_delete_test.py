@@ -28,5 +28,6 @@ class MetricDeleteTest(TestCase):
     def test_get_description(self):
         CLITest.check_description(self, self.cli)
 
-#    def test_get_cli_help(self):
-#        CLITest.check_cli_help(self, self.cli)
+    def test_get_cli_help(self):
+        CLITest.check_cli_help(self, self.cli)
+

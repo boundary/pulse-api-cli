@@ -17,17 +17,20 @@
 
 from unittest import TestCase
 from boundary import API
-from boundary import AlarmDelete
+from boundary import AlarmUpdate
 from cli_test import CLITest
 
 
 class AlarmUpdateTest(TestCase):
     def setUp(self):
-        self.cli = AlarmDelete()
+        self.cli = AlarmUpdate()
         self.api = API()
 
     def test_cli_description(self):
         CLITest.check_description(self, self.cli)
+
+    def test_cli_help(self):
+        CLITest.check_cli_help(self, self.cli)
 
     def test_api_call(self):
         api = API()

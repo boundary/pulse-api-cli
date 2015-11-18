@@ -23,6 +23,10 @@ class AlarmCreateTest(TestCase):
     def setUp(self):
         self.alarm = Alarm()
 
+    def test_cli_help(self):
+        CLITest.check_cli_help(self, self.cli)
+
+
     def test_alarm_defaults(self):
         self.assertIsNone(self.alarm.actions)
         self.assertIsNone(self.alarm.aggregate)

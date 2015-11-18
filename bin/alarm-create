@@ -14,14 +14,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-from boundary import ApiCli
+from boundary import AlarmCreate
 
-
-class AlarmCreateCLI(ApiCli):
-
-    def __init__(self):
-        pass
 
 if __name__ == "__main__":
-    c = AlarmCreateCLI()
+    c = AlarmCreate()
     c.execute()

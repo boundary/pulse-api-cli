@@ -16,6 +16,8 @@
 #
 
 from cli_test_parameters import CLITestParameters
+import subprocess
+import re
 
 
 class CLITest:
@@ -31,5 +33,8 @@ class CLITest:
     def check_cli_help(test_case, cli):
         parameters = CLITestParameters()
         name = cli.__class__.__name__
-        contents = parameters.get_cli_help(name)
-        test_case.assertEqual(contents, '')
+        expected_output = parameters.get_cli_help(name)
+        m = re.search('([A-Z]\w+)([A-Z]\w+)', name)
+        command = "{0}-{1}".format(m.group(1).lower(), m.group(2).lower())
+        output = subprocess.check_output([command, '-h'])
+        test_case.assertEqual(expected_output, output)
