@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,15 +17,13 @@
 
 from unittest import TestCase
 from cli_test import CLITest
-from boundary import MeterClient
+from boundary import MetricGet
 
 
-class MeterClientTest(TestCase):
+class MetricGetTest(TestCase):
 
     def setUp(self):
-        self.cli = MeterClient()
+        self.cli = MetricGet()
 
     def test_get_description(self):
         CLITest.check_description(self, self.cli)
-
-

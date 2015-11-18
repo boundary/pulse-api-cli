@@ -23,7 +23,7 @@ import json
 import requests
 
 """
-Uses the following Boundary API:
+Uses the following TrueSight Pulse API:
 
 https://premium-api.boundary.com/v1/alarms/search?name=
 """

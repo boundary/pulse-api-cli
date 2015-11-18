@@ -38,7 +38,7 @@ class MetricGet(MetricCommon):
                                  help='Filter the list of metrics to only return custom metrics')
 
     def getDescription(self):
-        return 'Lists the defined metrics in a {0} account'.format(self.product_name)
+        return 'Get a metric definition from a {0} account'.format(self.product_name)
 
     def getArguments(self):
         MetricCommon.getArguments(self)

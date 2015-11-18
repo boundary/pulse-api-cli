@@ -17,13 +17,13 @@
 
 from unittest import TestCase
 from cli_test import CLITest
-from boundary import MeterClient
+from boundary import PluginRemove
 
 
-class MeterClientTest(TestCase):
+class PluginRemoveTest(TestCase):
 
     def setUp(self):
-        self.cli = MeterClient()
+        self.cli = PluginRemove()
 
     def test_get_description(self):
         CLITest.check_description(self, self.cli)

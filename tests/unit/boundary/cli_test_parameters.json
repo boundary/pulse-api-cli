@@ -17,6 +17,9 @@
   "AlarmList": {
     "description": "List alarm definitions associated with the TrueSight Pulse account"
   },
+  "AlarmSearch": {
+    "description": "Searches for an alarm definition by name from a TrueSight Pulse account"
+  },
   "AlarmUpdate": {
     "description": "Updates an alarm definition in an TrueSight Pulse account"
   },
@@ -44,6 +47,12 @@
   "HostGroupUpdate": {
     "description": "Updates host group definition in a TrueSight Pulse account"
   },
+  "MeasurementCreate": {
+    "description": "Adds a measurement value to a TrueSight Pulse account"
+  },
+  "MeterClient": {
+    "description": "Communicates with an TrueSight Pulse meter using JSON RPC"
+  },
   "MeasurementGet": {
     "description": "Retrieves measurement values from a metric in a TrueSight Pulse account"
   },
@@ -59,13 +68,59 @@
   "MetricExport": {
     "description": "Export the metric definitions from a TrueSight Pulse account"
   },
+  "MetricGet": {
+    "description": "Get a metric definition from a TrueSight Pulse account"
+  },
   "MetricList": {
     "description": "Lists the defined metrics in a TrueSight Pulse account"
+  },
+  "MetricUpdate": {
+    "description": "Updates a metric definition in an TrueSight Pulse account"
   },
   "PluginAdd": {
     "description": "Imports a meter plugin from a GitHub repository into a TrueSight Pulse account"
   },
   "PluginGet": {
     "description": "Get the details of a plugin in a TrueSight Pulse account"
+  },
+  "PluginGetComponents": {
+    "description": "Get the components of a plugin in a TrueSight Pulse account"
+  },
+  "PluginInstall": {
+    "description": "Installs a plugin into a TrueSight Pulse account"
+  },
+  "PluginInstalled": {
+    "description": "Gets the plugins installed into a TrueSight Pulse account"
+  },
+  "PluginList": {
+    "description": "Lists the plugins in a TrueSight Pulse account"
+  },
+  "PluginReadme": {
+    "description": "Generates README from plugin.json and template"
+  },
+  "PluginRemove": {
+    "description": "Remove a staged pre-release meter plugin from a TrueSight Pulse account"
+  },
+  "PluginUninstall": {
+    "description": "Uninstalls a plugin from a TrueSight Pulse account"
+  },
+  "RelayGetConfig": {
+    "description": "Returns relay configuration from a TrueSight Pulse account"
+  },
+  "RelayList": {
+    "description": "Lists the relays in a TrueSight Pulse account"
+  },
+  "RelaySetConfig": {
+    "description": "Sets the configuration of a relay in a TrueSight Pulse account"
+  },
+  "SourceDelete": {
+    "description": "Delete sources from a TrueSight Pulse account"
+  },
+  "SourceList": {
+    "description": "Lists the sources in a TrueSight Pulse account"
+  },
+  "UserGet": {
+    "description": "Returns the user associated with the TrueSight Pulse account"
   }
+
 }

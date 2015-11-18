@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,18 +14,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
 from unittest import TestCase
+from boundary import RelayGetConfig
 from cli_test import CLITest
-from boundary import MeterClient
 
 
-class MeterClientTest(TestCase):
+class RelayGetConfigTest(TestCase):
 
     def setUp(self):
-        self.cli = MeterClient()
+        self.cli = RelayGetConfig()
 
-    def test_get_description(self):
+    def test_cli_description(self):
         CLITest.check_description(self, self.cli)
-
 
