@@ -1,4 +1,3 @@
-#
 # Copyright 2014-2015 Boundary, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,32 +15,25 @@
 from boundary import ApiCli
 
 
-class HostGroupGet(ApiCli):
+class HostgroupSearch(ApiCli):
     def __init__(self):
-        """
-        """
         ApiCli.__init__(self)
         self.method = "GET"
-        self.path = "v1/hostgroups"
-
-        self.hostGroupId = ""
+        self.path = "v1/hostgroups/search"
+        self.hostGroupName = ""
 
     def addArguments(self):
-        """
-        """
         ApiCli.addArguments(self)
-        self.parser.add_argument('-i', '--host-group-id', dest='hostGroupId', action='store', required=True,
-                                 metavar="host_group_id", help='Host group id')
+        self.parser.add_argument('-n', '--host-group-name', dest='hostGroupName', metavar="host_group_name",
+                                 action='store', required=True,help='Host group name')
 
     def getArguments(self):
         """
         Extracts the specific arguments of this CLI
         """
         ApiCli.getArguments(self)
-        if self.args.hostGroupId is not None:
-            self.hostGroupId = self.args.hostGroupId
-
-        self.path = "v1/hostgroup/{0}".format(str(self.hostGroupId))
+        if self.args.hostGroupName is not None:
+            self.url_parameters = {"name": self.args.hostGroupName}
 
     def getDescription(self):
-        return "Retrieves a single host group definition by id from a {0} account".format(self.product_name)
+        return 'Searches for Host Group by name in an {0} account'.format(self.product_name)

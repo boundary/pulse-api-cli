@@ -19,13 +19,9 @@ from unittest import TestCase
 from boundary import Alarm
 
 
-class AlarmCreateTest(TestCase):
+class AlarmCommonTest(TestCase):
     def setUp(self):
         self.alarm = Alarm()
-
-    def test_cli_help(self):
-        CLITest.check_cli_help(self, self.cli)
-
 
     def test_alarm_defaults(self):
         self.assertIsNone(self.alarm.actions)

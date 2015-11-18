@@ -14,8 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-from boundary.host_group_update import HostGroupUpdate
+from boundary import HostgroupUpdate
 
 if __name__ == "__main__":
-    c = HostGroupUpdate()
+    c = HostgroupUpdate()
     c.execute()

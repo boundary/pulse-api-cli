@@ -16,7 +16,7 @@
 from boundary import ApiCli
 
 
-class HostGroupDelete(ApiCli):
+class HostgroupDelete(ApiCli):
     def __init__(self):
         ApiCli.__init__(self)
         self.method = "DELETE"

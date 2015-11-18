@@ -27,3 +27,6 @@ class PluginGetComponentsTest(TestCase):
     def test_cli_description(self):
         CLITest.check_description(self, self.cli)
 
+    def test_cli_help(self):
+        CLITest.check_cli_help(self, self.cli)
+

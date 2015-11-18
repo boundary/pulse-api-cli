@@ -29,22 +29,22 @@
   "EventList": {
     "description": "Lists the events in a TrueSight Pulse account"
   },
-  "HostGroupCreate": {
+  "HostgroupCreate": {
     "description": "Creates host group definition in a TrueSight Pulse account"
   },
-  "HostGroupDelete": {
+  "HostgroupDelete": {
     "description": "Deletes a host group definition by id from a TrueSight Pulse account"
   },
-  "HostGroupGet": {
+  "HostgroupGet": {
     "description": "Retrieves a single host group definition by id from a TrueSight Pulse account"
   },
-  "HostGroupList": {
+  "HostgroupList": {
     "description": "Lists the Host Groups in an TrueSight Pulse account"
   },
-  "HostGroupSearch": {
+  "HostgroupSearch": {
     "description": "Searches for Host Group by name in an TrueSight Pulse account"
   },
-  "HostGroupUpdate": {
+  "HostgroupUpdate": {
     "description": "Updates host group definition in a TrueSight Pulse account"
   },
   "MeasurementCreate": {

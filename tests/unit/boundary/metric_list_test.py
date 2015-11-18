@@ -64,6 +64,9 @@ class MetricListTest(TestCase):
     def test_cli_description(self):
         CLITest.check_description(self, self.cli)
 
+    def test_cli_help(self):
+        CLITest.check_cli_help(self, self.cli)
+
     def test_mock_arguments(self):
         pass
         # sys.argv = ['metric-list', '-l', 'debug']

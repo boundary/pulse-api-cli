@@ -13,17 +13,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-from boundary import HostGroupModify
+from boundary import HostgroupModify
 
 
-class HostGroupUpdate(HostGroupModify):
+class HostgroupUpdate(HostgroupModify):
     def __init__(self):
-        HostGroupModify.__init__(self, True)
+        HostgroupModify.__init__(self, True)
         self.method = "PUT"
         self.hostGroupId = ""
 
     def addArguments(self):
-        HostGroupModify.addArguments(self)
+        HostgroupModify.addArguments(self)
         self.parser.add_argument('-i', '--host-group-id', dest='hostGroupId', action='store',
                                  required=True, metavar='host_group_id', help='Host group id to update')
 

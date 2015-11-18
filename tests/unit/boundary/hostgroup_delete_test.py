@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 #
 # Copyright 2014-2015 Boundary, Inc.
 #
@@ -5,7 +6,7 @@
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#     http://www.apache.org/licenses/LICENSE-2.0
+#      http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,14 +14,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-from boundary import HostGroupModify
+
+from unittest import TestCase
+from boundary import HostgroupDelete
+from cli_test import CLITest
 
 
-class HostGroupCreate(HostGroupModify):
-    def __init__(self):
-        HostGroupModify.__init__(self, False)
-        self.path = "v1/hostgroups"
-        self.sources = None
+class HostgroupDeleteTest(TestCase):
 
-    def getDescription(self):
-        return "Creates host group definition in a {0} account".format(self.product_name)
+    def setUp(self):
+        self.cli = HostgroupDelete()
+
+    def test_cli_description(self):
+        CLITest.check_description(self, self.cli)
+
+    def test_cli_help(self):
+        CLITest.check_cli_help(self, self.cli)

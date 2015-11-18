@@ -19,6 +19,7 @@ import unittest
 import datetime
 import json
 from boundary import MeasurementGet
+from cli_test import CLITest
 
 
 class MeasurementGetTest(unittest.TestCase):
@@ -27,7 +28,10 @@ class MeasurementGetTest(unittest.TestCase):
         self.mg = MeasurementGet()
         self.now = datetime.datetime.now()
         self.now_epoch = self.now.strftime("%s")
-        pass
+        self.cli = MeasurementGet()
+
+    def test_cli_help(self):
+        CLITest.check_cli_help(self, self.cli)
 
     # def test_parse_datetime(self):
     #     out = self.mg.parse_time_date('2015-06-10')

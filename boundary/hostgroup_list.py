@@ -16,7 +16,7 @@
 from boundary import ApiCli
 
 
-class HostGroupList(ApiCli):
+class HostgroupList(ApiCli):
     def __init__(self):
         ApiCli.__init__(self)
         self.method = "GET"

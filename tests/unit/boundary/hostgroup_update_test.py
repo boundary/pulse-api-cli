@@ -16,16 +16,18 @@
 #
 
 from unittest import TestCase
-from boundary import HostGroupSearch
+from boundary import HostgroupUpdate
 from cli_test import CLITest
 
 
-class HostGroupSearchTest(TestCase):
+class HostgroupUpdateTest(TestCase):
 
     def setUp(self):
-        self.cli = HostGroupSearch()
+        self.cli = HostgroupUpdate()
 
     def test_cli_description(self):
         CLITest.check_description(self, self.cli)
 
+    def test_cli_help(self):
+        CLITest.check_cli_help(self, self.cli)
 

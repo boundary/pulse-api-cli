@@ -18,6 +18,7 @@
 from cli_test_parameters import CLITestParameters
 import subprocess
 import re
+import sys
 
 
 class CLITest:
@@ -34,7 +35,12 @@ class CLITest:
         parameters = CLITestParameters()
         name = cli.__class__.__name__
         expected_output = parameters.get_cli_help(name)
-        m = re.search('([A-Z]\w+)([A-Z]\w+)', name)
-        command = "{0}-{1}".format(m.group(1).lower(), m.group(2).lower())
-        output = subprocess.check_output([command, '-h'])
-        test_case.assertEqual(expected_output, output)
+        m = re.findall("([A-Z][a-z]+)", name)
+        m = [a.lower() for a in m]
+        command = str.join('-', m)
+        try:
+            output = subprocess.check_output([command, '-h'])
+            test_case.assertEqual(expected_output, output)
+        except subprocess.CalledProcessError as e:
+            sys.stderr.write("{0}: {1}\n".format(e.output, e.returncode))
+

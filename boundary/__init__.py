@@ -36,13 +36,13 @@ from .event_create import EventCreate
 from .event_get import EventGet
 from .event_list import EventList
 
-from .host_group_modify import HostGroupModify
-from .host_group_create import HostGroupCreate
-from .host_group_delete import HostGroupDelete
-from .host_group_get import HostGroupGet
-from .host_group_list import HostGroupList
-from .host_group_search import HostGroupSearch
-from .host_group_update import HostGroupUpdate
+from .hostgroup_modify import HostgroupModify
+from .hostgroup_create import HostgroupCreate
+from .hostgroup_delete import HostgroupDelete
+from .hostgroup_get import HostgroupGet
+from .hostgroup_list import HostgroupList
+from .hostgroup_search import HostgroupSearch
+from .hostgroup_update import HostgroupUpdate
 
 from .measurement_create import MeasurementCreate
 from .measurement_get import MeasurementGet

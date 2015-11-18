@@ -18,7 +18,7 @@ import json
 from boundary import ApiCli
 
 
-class HostGroupModify(ApiCli):
+class HostgroupModify(ApiCli):
     def __init__(self, update):
         ApiCli.__init__(self)
         self.update = update
