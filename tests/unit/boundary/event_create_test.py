@@ -27,5 +27,3 @@ class EventCreateTest(TestCase):
 
     def test_cli_description(self):
         CLITest.check_description(self, self.cli)
-
-

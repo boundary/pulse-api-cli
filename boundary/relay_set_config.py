@@ -21,23 +21,24 @@ class RelaySetConfig(ApiCli):
     def __init__(self):
         ApiCli.__init__(self)
         self.method = 'PUT'
-        self.file = None
+        self._file = None
+        self._meter = None
 
     def add_arguments(self):
         """
         """
-        ApiCli.add_arguments()
+        ApiCli.add_arguments(self)
 
         self.parser.add_argument('-f', '--file', metavar='path', dest='file', action='store', required=True,
                                  help='Name of the meter to get plugin configuration information')
 
     def get_arguments(self):
-        ApiCli.get_arguments()
+        ApiCli.get_arguments(self)
 
         if self.args.file is not None:
-            self.file = self.args.path
+            self._file = self.args.path
 
-        self.path = 'v1/relays/{0}/config'.format(self.meter)
+        self.path = 'v1/relays/{0}/config'.format(self._meter)
 
     def get_description(self):
         return 'Sets the configuration of a relay in a {0} account'.format(self.product_name)

@@ -13,16 +13,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-from datetime import datetime
-import requests
 import json
-
-from boundary import ApiCli
-from dateutil import parser
 from datetime import datetime
 from xml.dom import minidom
 from xml.etree import ElementTree
-from xml.etree.ElementTree import (Element, SubElement, Comment, tostring)
+from xml.etree.ElementTree import (Element, SubElement, Comment)
+
+import requests
+from boundary import ApiCli
+from dateutil import parser
 
 """
 Gets measurements from a Boundary account
@@ -150,11 +149,11 @@ class MeasurementGet(ApiCli):
             for s in r[1]:
                 print('{0},"{1}","{2}",{3}'.format(timestamp, metric_name, s[0], s[1]))
 
-    def output_json(self, json):
+    def output_json(self, text):
         """
         Output results in JSON format
         """
-        payload = json.loads(json)
+        payload = json.loads(text)
         out = json.dumps(payload, sort_keys=True, indent=self._indent, separators=(',', ': '))
         print(self.colorize_json(out))
 

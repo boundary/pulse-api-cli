@@ -13,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
 from boundary import AlarmCreate
 from boundary import AlarmDelete
 from boundary import AlarmGet

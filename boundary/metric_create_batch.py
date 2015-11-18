@@ -42,7 +42,8 @@ class MetricCreateBatch(MetricCommon):
         # Call our parent to add the default arguments
         MetricCommon.add_arguments(self)
 
-        self.parser.add_argument('-f', '--file', dest='path', metavar='path', action='store', required=True, help='Path to JSON file')
+        self.parser.add_argument('-f', '--file', dest='path', metavar='path', action='store', required=True,
+                                 help='Path to JSON file')
 
     def get_arguments(self):
         """
@@ -59,7 +60,7 @@ class MetricCreateBatch(MetricCommon):
         metrics_json = f.read()
         self.metrics = json.loads(metrics_json)
 
-    def importMetrics(self):
+    def import_metrics(self):
         """
         1) Get command line arguments
         2) Read the JSON file

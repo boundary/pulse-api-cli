@@ -49,4 +49,4 @@ class SourceDelete(ApiCli):
         self.headers = {'Content-Type': 'application/json', "Accept": "application/json"}
 
     def get_description(self):
-        return 'Delete sources from a {0} account'.format(self.product_name)
+        return "Delete sources from a {0} account".format(self.product_name)

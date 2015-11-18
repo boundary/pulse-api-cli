@@ -13,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
 from boundary import MetricCommon
 import json
 import requests
@@ -56,7 +55,7 @@ class MetricList(MetricCommon):
             metrics = json.loads(self._api_result.text)
             m = []
             for metric in metrics['result']:
-                new_metric = self.extractFields(metric)
+                new_metric = self.extract_fields(metric)
                 m.append(new_metric)
 
             metrics['result'] = m

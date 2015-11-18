@@ -39,7 +39,7 @@ class MeterClient(ApiCli):
         return 'Communicates with an {0} meter using JSON RPC'.format(self.product_name)
 
     def add_arguments(self):
-        self.addLoggingArgument()
+        self.add_logging_argument()
         self.parser.add_argument('-m', '--method', dest='rpc_method', action='store', default='query_metric',
                                  choices=['debug', 'discovery', 'event', 'get_process_info', 'get_system_info',
                                           'get_service_listeners', 'metric', 'query_metric', 'status'],

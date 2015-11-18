@@ -31,10 +31,10 @@ class PluginAdd (PluginBase):
         PluginBase.add_arguments(self)
         self.parser.add_argument('-o', '--organization-name', dest='organizationName', action='store',
                                  required=True, metavar="organization_name",
-                                 help='Name of the github user or organization')
+                                 help='Name of the GitHub user or organization')
         self.parser.add_argument('-r', '--repository-name', dest='repositoryName', action='store',
-                                 required=True, metavar="respository_name",
-                                 help='Name of the github repository')
+                                 required=True, metavar="repository_name",
+                                 help='Name of the GitHub repository')
 
     def get_arguments(self):
         """
@@ -50,4 +50,3 @@ class PluginAdd (PluginBase):
          
     def get_description(self):
         return 'Imports a meter plugin from a GitHub repository into a {0} account'.format(self.product_name)
-

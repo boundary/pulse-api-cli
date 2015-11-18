@@ -30,7 +30,7 @@ class MetricDelete(ApiCli):
     def __init__(self):
         ApiCli.__init__(self)
         self.method = "DELETE"
-        self.metric_name = None
+        self._metric_name = None
 
     def add_arguments(self):
         ApiCli.add_arguments(self)
@@ -43,9 +43,9 @@ class MetricDelete(ApiCli):
         """
         ApiCli.get_arguments(self)
         if self.args.metric_name is not None:
-            self.metric_name = self.args.metric_name
+            self._metric_name = self.args.metric_name
 
-        self.path = "v1/metrics/{0}".format(self.metricName)
+        self.path = "v1/metrics/{0}".format(self._metric_name)
 
     def get_description(self):
         return 'Deletes a metric definition from a {0} account'.format(self.product_name)

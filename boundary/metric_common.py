@@ -60,7 +60,7 @@ class MetricCommon (ApiCli):
     def __init__(self):
         ApiCli.__init__(self)
         
-    def extractFields(self, metric):
+    def extract_fields(self, metric):
         """
         Extract only the required fields for the create/update API call
         """

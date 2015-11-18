@@ -21,7 +21,7 @@ from boundary import MetricCommon
 class MetricGet(MetricCommon):
     def __init__(self):
         MetricCommon.__init__(self)
-        self.metrics = None
+        self._metrics = None
 
         self._metric_name = None
         self._enabled = None
@@ -54,23 +54,23 @@ class MetricGet(MetricCommon):
     def _handle_api_results(self):
         pass
 
-    def _handle_results(self, result):
+    def _handle_results(self):
         metric = None
         # Only process if we get HTTP result of 200
-        if result.status_code == requests.codes.ok:
-            self.metrics = json.loads(result.text)
+        if self._api_result.status_code == requests.codes.ok:
+            self._metrics = json.loads(self._api_result.text)
 
             # Handle old style metrics
-            if 'result' in self.metrics:
-                for m in self.metrics['result']:
-                    if m['name'] == self.metricName:
+            if 'result' in self._metrics:
+                for m in self._metrics['result']:
+                    if m['name'] == self._metric_name:
                         metric = m
             # Handle new style metrics
             else:
-                for key in self.metrics:
-                    if key == self.metricName:
-                        metric = self.metrics[key]
+                for key in self._metrics:
+                    if key == self._metric_name:
+                        metric = self._metrics[key]
             # pretty print the JSON output
             if metric is not None:
-                out = json.dumps(self.extractFields(metric), sort_keys=True, indent=4, separators=(',', ': '))
+                out = json.dumps(self.extract_fields(metric), sort_keys=True, indent=4, separators=(',', ': '))
                 print(self.colorize_json(out))

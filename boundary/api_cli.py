@@ -66,7 +66,7 @@ class ApiCli(ApiCall):
         """
         return "General API CLI"
 
-    def addLoggingArgument(self):
+    def add_logging_argument(self):
         self.parser.add_argument('-l', '--log-level', dest='logLevel', action='store',
                                  choices=['debug', 'info', 'warning', 'error', 'critical'],
                                  help='Sets logging level to one of debug,info,warning,error,critical.' +
@@ -76,7 +76,7 @@ class ApiCli(ApiCall):
         """
         Configure handling of command line arguments.
         """
-        self.addLoggingArgument()
+        self.add_logging_argument()
         self.parser.add_argument('-a', '--api-host', dest='api_host', action='store', metavar="api_host",
                                  help='{0} API host endpoint'.format(self.product_name))
         self.parser.add_argument('-e', '--email', dest='email', action='store', metavar="e_mail",

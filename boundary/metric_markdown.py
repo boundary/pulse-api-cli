@@ -16,7 +16,7 @@
 
 import json
 import logging
-import urllib2
+import requests
 
 from boundary import ApiCli
 from boundary import PluginManifest
@@ -61,8 +61,8 @@ class MetricMarkdown(ApiCli):
     def get_description(self):
         return 'Generates a README file'
 
-    def handleResults(self, result):
-        if result.status_code == urllib2.httplib.OK:
+    def handle_sesults(self, result):
+        if result.status_code == requests.codes.ok:
             result = json.loads(result.text)
             self.metric_definitions = result['result']
 

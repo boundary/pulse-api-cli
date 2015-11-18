@@ -14,9 +14,6 @@
 # limitations under the License.
 #
 from boundary import AlarmModify
-import requests
-import json
-from boundary.alarm_common import result_to_alarm
 
 
 class AlarmCreate(AlarmModify):

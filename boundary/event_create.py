@@ -159,10 +159,10 @@ class EventCreate(ApiCli):
         """
         return status_code == requests.codes.created
 
-    def _handle_results(self, result):
+    def _handle_results(self):
         # Only process if we get HTTP result of 201
-        if result.status_code == requests.codes.created:
-            location = result.headers['location']
+        if self._api_result.status_code == requests.codes.ok:
+            location = self._api_result.headers['location']
             s = str.split(location, '/')
             out = s[-1]
             event_id = {

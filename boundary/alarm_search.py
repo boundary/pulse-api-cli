@@ -68,4 +68,6 @@ class AlarmSearch(ApiCli):
         # Only process if we get HTTP result of 200
         if self._api_result.status_code == requests.codes.ok:
             alarm_result = json.loads(self._api_result.text)
-        return result_to_alarm(alarm_result['result'])
+            return result_to_alarm(alarm_result['result'])
+        else:
+            return None

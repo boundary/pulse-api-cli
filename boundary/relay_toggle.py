@@ -14,15 +14,17 @@
 # limitations under the License.
 #
 from boundary import ApiCli
+import json
 
 
 class RelayToggle(ApiCli):
     def __init__(self):
         ApiCli.__init__(self)
-        self.path = None
-        self.name = None
-        self.disable = False
-        self.remove = False
+        self._path = None
+        self._name = None
+        self._disable = False
+        self._remove = False
+        self._sources = None
 
     def add_arguments(self):
         ApiCli.add_arguments(self)
@@ -42,11 +44,11 @@ class RelayToggle(ApiCli):
 
         # Get the list of sources separated by commas
         if self.args.sources is not None:
-            self.sources = self.args.sources
+            self._sources = self.args.sources
 
         payload = {}
-        if self.sources is not None:
-            source_list = str.split(self.sources, ',')
+        if self._sources is not None:
+            source_list = str.split(self._sources, ',')
             for s in source_list:
                 payload['names'].append(s)
 

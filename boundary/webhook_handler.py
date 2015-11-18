@@ -23,13 +23,6 @@ class WebHookBase(object):
     def __init__(self):
         pass
 
-    def _raise_attribute_change_error(self, property_name):
-        raise AttributeError("Cannot change property " + property_name)
-
-    def _raise_attribute_delete_error(self, property_name):
-        raise AttributeError("Cannot delete property " + property_name)
-
-
 """
 Wrapper for metric from Web Hook JSON payload
 """
@@ -59,14 +52,6 @@ class WebHookMetric(WebHookBase):
     def id(self):
         return self._id
 
-    @id.setter
-    def id(self, value):
-        self._raise_attribute_change_error('id')
-
-    @id.deleter
-    def id(self):
-        self._raise_attribute_delete_error('id')
-
     #
     # name
     #
@@ -74,29 +59,12 @@ class WebHookMetric(WebHookBase):
     def name(self):
         return self._name
 
-    @name.setter
-    def name(self, value):
-        self._raise_attribute_change_error('name')
-
-    @name.deleter
-    def name(self):
-        self._raise_attribute_delete_error('name')
-
     #
     # type
     #
     @property
     def type(self):
         return self._type
-
-    @type.setter
-    def type(self, value):
-        self._raise_attribute_change_error('type')
-
-    @type.deleter
-    def type(self):
-        self._raise_attribute_delete_error('type')
-
 
 """
 Class wrapper for text attribute of Web Hook action JSON payload
@@ -119,28 +87,12 @@ class WebHookText(WebHookBase):
     def isSet(self):
         return self._isSet
 
-    @isSet.setter
-    def isSet(self):
-        self._raise_attribute_change_error('isSet')
-
-    @isSet.deleter
-    def isSet(self):
-        self._raise_attribute_delete_error('isSet')
-
     #
     # serverName
     #
     @property
     def server_name(self):
         return self._server_name
-
-    @server_name.setter
-    def server_name(self, value):
-        self._raise_attribute_change_error('serverName')
-
-    @server_name.deleter
-    def server_name(self):
-        self._raise_attribute_delete_error('serverName')
 
 
 class WebHookServer(WebHookBase):
@@ -162,14 +114,6 @@ class WebHookServer(WebHookBase):
     def is_set(self):
         return self.is_set
 
-    @is_set.setter
-    def is_set(self, value):
-        self._raise_attribute_change_error('is_set')
-
-    @is_set.deleter
-    def is_set(self):
-        self._raise_attribute_delete_error('is_set')
-
 
 """
 Class to store POST'ed data from Web Hook
@@ -177,41 +121,35 @@ Class to store POST'ed data from Web Hook
 
 
 class WebHookAction(WebHookBase):
+
     def __init__(self, affected_servers={}):
         self.json = None
-        self._alarmName = self.data['alarmName']
-        self._metric = self.data['metric']
-        self._status = self.data['status']
-        self._resolvedServers
+        self._data = {}
+        self._alarm_name = self._data['alarmName']
+        self._metric = self._data['metric']
+        self._status = self._data['status']
+        self._resolved_servers = None
 
-        if 'affectedServers' in self.data:
-            self._affectedServers = self.data['affectedServers']
+        if 'affectedServers' in self._data:
+            self._affectedServers = self._data['affectedServers']
 
-    def parse_json(self, json_data):
-        self.json = json.loads(json_data)
+    def parse_json(self, text):
+        self.json = json.loads(text)
 
     #
     # affectedServers
     #
 
     @property
-    def affectedServers(self):
-        return self._affectedServers
-
-    @affectedServers.setter
-    def affectedServers(self, value):
-        WebHookAction._raise_attribute_change_error('affectedServers')
-
-    @affectedServers.deleter
-    def affectedServers(self):
-        WebHookAction._raise_attribute_change_error('affectedServers')
+    def affected_servers(self):
+        return self._affected_servers
 
     #
     # alarmName
     #
     @property
-    def alarmName(self):
-        return self._alarmName
+    def alarm_name(self):
+        return self._alarm_name
 
     #
     # resolvedServers

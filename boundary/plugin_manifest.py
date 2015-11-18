@@ -22,7 +22,7 @@ Reads and provides access to a plugin.json file the manifest of plugins.
 """
 
 
-class PluginManifest():
+class PluginManifest(object):
     def __init__(self, path="plugin.json"):
         """
         Initialize the PluginManifest instance
@@ -111,4 +111,3 @@ class PluginManifest():
         Returns the dictionary from the parse JSON plugin manifest
         """
         return self.manifest
-

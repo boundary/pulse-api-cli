@@ -45,7 +45,8 @@ class MetricImport(MetricCommon):
         # Call our parent to add the default arguments
         MetricCommon.add_arguments(self)
 
-        self.parser.add_argument('-f', '--file', dest='file_path', metavar='path', action='store', required=True, help='Path to JSON file')
+        self.parser.add_argument('-f', '--file', dest='file_path', metavar='path', action='store', required=True,
+                                 help='Path to JSON file')
 
     def get_arguments(self):
         """

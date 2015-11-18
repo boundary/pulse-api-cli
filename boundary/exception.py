@@ -13,8 +13,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+
+"""
+Base exception class for pulse exceptions
+"""
+
+
 class APIError(Exception):
-    """Base exception class for pulse exceptions"""
+    pass
 
 
 class APIConnectionError(APIError):
