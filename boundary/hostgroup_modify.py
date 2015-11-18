@@ -1,11 +1,11 @@
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-# http://www.apache.org/licenses/LICENSE-2.0
+#     http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -31,19 +31,19 @@ class HostgroupModify(ApiCli):
 
         self.hostGroupName = ""
 
-    def addArguments(self):
-        ApiCli.addArguments(self)
+    def add_arguments(self):
+        ApiCli.add_arguments(self)
 
         self.parser.add_argument('-n', '--host-group-name', dest='hostGroupName', action='store', required=True,
                                  metavar="host_group_name", help='Host group name')
         self.parser.add_argument('-s', '--sources', dest='sources', action='store', required=True, metavar='sources',
                                  help='Comma separated sources to add to the host group. If empty adds all hosts.')
 
-    def getArguments(self):
+    def get_arguments(self):
         """
         Extracts the specific arguments of this CLI
         """
-        ApiCli.getArguments(self)
+        ApiCli.get_arguments(self)
 
         # Get the host group name
         if self.args.hostGroupName is not None:

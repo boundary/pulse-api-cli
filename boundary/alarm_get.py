@@ -1,11 +1,11 @@
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-# http://www.apache.org/licenses/LICENSE-2.0
+#     http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -36,19 +36,19 @@ class AlarmGet(ApiCli):
         ApiCli.__init__(self)
         self._alarm_id = None
 
-    def addArguments(self):
+    def add_arguments(self):
         """
         """
-        ApiCli.addArguments(self)
+        ApiCli.add_arguments(self)
 
         self.parser.add_argument('-i', '--alarm-id', dest='alarm_id', action='store', required=True,
                                  metavar='alarm-id', help='Alarm identifier')
 
-    def getArguments(self):
+    def get_arguments(self):
         """
         Extracts the specific arguments of this CLI
         """
-        ApiCli.getArguments(self)
+        ApiCli.get_arguments(self)
         self._alarm_id = self.args.alarm_id if self.args.alarm_id is not None else None
 
     def handle_key_word_args(self):
@@ -58,7 +58,7 @@ class AlarmGet(ApiCli):
         self.method = "GET"
         self.path = "v1/alarm/{0}".format(self._alarm_id)
 
-    def getDescription(self):
+    def get_description(self):
         """
         """
         return "Retrieves an alarm definition from a {0} account".format(self.product_name)

@@ -1,5 +1,5 @@
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,8 +21,8 @@ class RelayList(ApiCli):
         ApiCli.__init__(self)
         self.path = "v1/relays"
 
-    def addArguments(self):
-        ApiCli.addArguments(self)
+    def add_arguments(self):
+        ApiCli.add_arguments(self)
 
-    def getDescription(self):
+    def get_description(self):
         return 'Lists the relays in a {0} account'.format(self.product_name)

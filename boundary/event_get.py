@@ -1,5 +1,5 @@
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,20 +23,20 @@ class EventGet(ApiCli):
         ApiCli.__init__(self)
         self.event_id = None
 
-    def addArguments(self):
-        ApiCli.addArguments(self)
+    def add_arguments(self):
+        ApiCli.add_arguments(self)
 
         self.parser.add_argument('-i', '--event-id', dest='event_id', action='store', required=True,
                                  metavar='event_id', help='Event id of the event to fetch')
 
-    def getArguments(self):
+    def get_arguments(self):
 
         if self.args.event_id is not None:
             self.event_id = self.args.event_id
 
         self.path = "v1/events/{0}".format(self.event_id)
 
-    def getDescription(self):
+    def get_description(self):
         return "Gets a single event by id from a {0} account".format(self.product_name)
 
     def _handle_results(self):

@@ -1,5 +1,5 @@
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -25,10 +25,10 @@ class RelayGetConfig(ApiCli):
         self.meter = None
         self.since = None
 
-    def addArguments(self):
+    def add_arguments(self):
         """
         """
-        ApiCli.addArguments(self)
+        ApiCli.add_arguments(self)
         self.parser.add_argument('-n', '--name', metavar='meter_name', dest='meter', action='store', required=True,
                                  help='Name of the meter to set plugin configuration information')
 
@@ -36,10 +36,10 @@ class RelayGetConfig(ApiCli):
                                  help='Unix timestamp of when configuration was last checked. '
                                       + 'If configuration has not changed, null is returned.')
 
-    def getArguments(self):
+    def get_arguments(self):
         """
         """
-        ApiCli.getArguments(self)
+        ApiCli.get_arguments(self)
 
         if self.args.meter is not None:
             self.meter = self.args.meter
@@ -52,5 +52,5 @@ class RelayGetConfig(ApiCli):
         if self.since is not None:
             self.url_parameters = {"since": self.since}
 
-    def getDescription(self):
+    def get_description(self):
         return 'Returns relay configuration from a {0} account'.format(self.product_name)

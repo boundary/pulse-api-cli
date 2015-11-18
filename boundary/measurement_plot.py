@@ -1,6 +1,5 @@
-#!/usr/bin/env python
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -102,16 +101,16 @@ class MeasurementPlot(ApiCli):
 
         self._symbols = [(linestyle, marker, color) for linestyle in linestyles for marker in markers for color in colors]
 
-    def addArguments(self):
-        ApiCli.addArguments(self)
+    def add_arguments(self):
+        ApiCli.add_arguments(self)
         self.parser.add_argument('-f', '--file-name', dest='file_name', action='store', required=False, metavar='path',
                                  help='File name including path of data to plot')
 
-    def getArguments(self):
+    def get_arguments(self):
         """
         Extracts the specific arguments of this CLI
         """
-        # ApiCli.getArguments(self)
+        # ApiCli.get_arguments(self)
         if self.args.file_name is not None:
             self.file_name = self.args.file_name
 
@@ -171,9 +170,9 @@ class MeasurementPlot(ApiCli):
         Run the steps to execute the CLI
         """
         # self._get_environment()
-        self.addArguments()
+        self.add_arguments()
         self._parse_args()
-        self.getArguments()
+        self.get_arguments()
         if self._validate_arguments():
             self._plot_data()
         else:

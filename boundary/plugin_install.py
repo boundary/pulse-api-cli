@@ -1,5 +1,5 @@
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,9 +22,9 @@ class PluginInstall(PluginBase):
         self.method = "PUT"
         self.path = "v1/plugins/installed"
 
-    def getArguments(self):
-        PluginBase.getArguments(self)
+    def get_arguments(self):
+        PluginBase.get_arguments(self)
         self.path = "v1/plugins/installed/{0}".format(self.pluginName)
 
-    def getDescription(self):
+    def get_description(self):
         return 'Installs a plugin into a {0} account'.format(self.product_name)

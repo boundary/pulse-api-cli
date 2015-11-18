@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ class CLITest:
     @staticmethod
     def check_description(test_case, cli):
         parameters = CLITestParameters()
-        test_case.assertEqual(parameters.get_value(cli.__class__.__name__, 'description'), cli.getDescription())
+        test_case.assertEqual(parameters.get_value(cli.__class__.__name__, 'description'), cli.get_description())
 
     @staticmethod
     def check_cli_help(test_case, cli):

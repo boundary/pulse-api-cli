@@ -1,11 +1,11 @@
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-# http://www.apache.org/licenses/LICENSE-2.0
+#     http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,21 +21,21 @@ class AlarmUpdate(AlarmModify):
         AlarmModify.__init__(self, True)
         self._alarm_id = None
 
-    def addArguments(self):
+    def add_arguments(self):
 
         self.parser.add_argument('-i', '--alarm-id', dest='alarm_id', action='store', required=True,
                                  metavar='alarm_id', help='Id of the alarm to update')
         self.parser.add_argument('-n', '--alarm-name', dest='alarm_name', action='store',
                                  metavar='alarm_name', help='Name of the alarm')
 
-        AlarmModify.addArguments(self)
+        AlarmModify.add_arguments(self)
 
-    def getArguments(self):
+    def get_arguments(self):
         """
         Extracts the specific arguments of this CLI
         """
 
-        AlarmModify.getArguments(self)
+        AlarmModify.get_arguments(self)
         self.get_api_parameters()
 
     def handle_key_word_args(self):
@@ -47,5 +47,5 @@ class AlarmUpdate(AlarmModify):
         self.method = "PUT"
         self.path = "v1/alarm/{0}".format(self._alarm_id)
 
-    def getDescription(self):
+    def get_description(self):
         return 'Updates an alarm definition in an {0} account'.format(self.product_name)

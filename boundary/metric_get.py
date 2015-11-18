@@ -1,5 +1,5 @@
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
 import requests
 import json
 from boundary import MetricCommon
@@ -28,8 +27,8 @@ class MetricGet(MetricCommon):
         self._enabled = None
         self._custom = None
 
-    def addArguments(self):
-        MetricCommon.addArguments(self)
+    def add_arguments(self):
+        MetricCommon.add_arguments(self)
         self.parser.add_argument('-n', '--metric-name', dest='metric_name', action='store', required=True,
                                  metavar='metric_name', help='Metric identifier')
         self.parser.add_argument('-b', '--enabled', dest="enabled", action='store_true', required=False, default=False,
@@ -37,11 +36,11 @@ class MetricGet(MetricCommon):
         self.parser.add_argument('-c', '--custom', dest="custom", action='store_true', required=False, default=False,
                                  help='Filter the list of metrics to only return custom metrics')
 
-    def getDescription(self):
+    def get_description(self):
         return 'Get a metric definition from a {0} account'.format(self.product_name)
 
-    def getArguments(self):
-        MetricCommon.getArguments(self)
+    def get_arguments(self):
+        MetricCommon.get_arguments(self)
 
         self._metric_name = self.args.metric_name if self.args.metric_name is not None else None
         self._enabled = self.args.enabled if self.args.enabled is not None else None

@@ -1,5 +1,5 @@
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,8 +24,8 @@ class RelayToggle(ApiCli):
         self.disable = False
         self.remove = False
 
-    def addArguments(self):
-        ApiCli.addArguments(self)
+    def add_arguments(self):
+        ApiCli.add_arguments(self)
 
         self.parser.add_argument('-d', '--disable', dest='disabled', action='store', default=None,
                                  choices=['yes', 'no'], help='Enable or disable the meter')
@@ -34,11 +34,11 @@ class RelayToggle(ApiCli):
         self.parser.add_argument('-r', '--remove', dest='remove', action='store', default=None,
                                  choices=['yes', 'no'], help='Remove the meter')
 
-    def getArguments(self):
+    def get_arguments(self):
         """
         Extracts the specific arguments of this CLI
         """
-        ApiCli.getArguments(self)
+        ApiCli.get_arguments(self)
 
         # Get the list of sources separated by commas
         if self.args.sources is not None:
@@ -53,5 +53,5 @@ class RelayToggle(ApiCli):
         self.data = json.dumps(payload, sort_keys=True)
         self.headers = {'Content-Type': 'application/json', "Accept": "application/json"}
 
-    def getDescription(self):
+    def get_description(self):
         return 'Set a relay to be disabled or enabled'.format(self.product_name)

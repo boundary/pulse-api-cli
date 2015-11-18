@@ -1,5 +1,5 @@
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,21 +22,21 @@ class HostgroupUpdate(HostgroupModify):
         self.method = "PUT"
         self.hostGroupId = ""
 
-    def addArguments(self):
-        HostgroupModify.addArguments(self)
+    def add_arguments(self):
+        HostgroupModify.add_arguments(self)
         self.parser.add_argument('-i', '--host-group-id', dest='hostGroupId', action='store',
                                  required=True, metavar='host_group_id', help='Host group id to update')
 
-    def getArguments(self):
+    def get_arguments(self):
         """
         Extracts the specific arguments of this CLI
         """
-        HostGroupModify.getArguments(self)
+        HostGroupModify.get_arguments(self)
 
         if self.args.hostGroupId is not None:
             self.hostGroupId = self.args.hostGroupId
 
         self.path = "v1/hostgroup/" + str(self.hostGroupId)
 
-    def getDescription(self):
+    def get_description(self):
         return 'Updates host group definition in a {0} account'.format(self.product_name)

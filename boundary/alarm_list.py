@@ -1,5 +1,5 @@
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ class AlarmList(ApiCli):
     def __init__(self):
         ApiCli.__init__(self)
 
-    def getDescription(self):
+    def get_description(self):
         return "List alarm definitions associated with the {0} account".format(self.product_name)
 
     def get_api_parameters(self):

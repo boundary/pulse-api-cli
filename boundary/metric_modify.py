@@ -1,5 +1,5 @@
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -38,11 +38,11 @@ class MetricModify (MetricCommon):
         self.resolution = None
         self.isDisabled = None
         
-    def addArguments(self):
+    def add_arguments(self):
         """
         Add the specific arguments of this CLI
         """
-        MetricCommon.addArguments(self)
+        MetricCommon.add_arguments(self)
         self.parser.add_argument('-n', '--metric-name', dest='metricName', action='store',
                                  required=True, metavar='metric_name', help='Metric identifier')
         self.parser.add_argument('-d', '--display-name', dest='displayName', action='store',
@@ -62,11 +62,11 @@ class MetricModify (MetricCommon):
         self.parser.add_argument('-x', '--is-disabled', dest='isDisabled', action='store', default=None,
                                  choices=['yes', 'no'], help='Enable or disable the metric definition')
         
-    def getArguments(self):
+    def get_arguments(self):
         """
         Extracts the specific arguments of this CLI
         """
-        MetricCommon.getArguments(self)
+        MetricCommon.get_arguments(self)
         
         if self.args.metricName is not None:
             self.metricName = self.args.metricName

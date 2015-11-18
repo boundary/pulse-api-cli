@@ -1,5 +1,5 @@
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,5 +22,5 @@ class HostgroupList(ApiCli):
         self.method = "GET"
         self.path = "v1/hostgroups"
 
-    def getDescription(self):
+    def get_description(self):
         return 'Lists the Host Groups in an {0} account'.format(self.product_name)

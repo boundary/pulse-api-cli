@@ -1,6 +1,5 @@
-#!/usr/bin/env python
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -36,22 +35,22 @@ class MetricImport(MetricCommon):
         self.file_path = None
         self.v2Metrics = None
 
-    def getDescription(self):
+    def get_description(self):
         return 'Imports metric definitions from a file into a {0} account'.format(self.product_name)
        
-    def addArguments(self):
+    def add_arguments(self):
         """
         Configure handling of command line arguments.
         """
         # Call our parent to add the default arguments
-        MetricCommon.addArguments(self)
+        MetricCommon.add_arguments(self)
 
         self.parser.add_argument('-f', '--file', dest='file_path', metavar='path', action='store', required=True, help='Path to JSON file')
 
-    def getArguments(self):
+    def get_arguments(self):
         """
         """
-        MetricCommon.getArguments(self)
+        MetricCommon.get_arguments(self)
         if self.args.file_path is not None:
             self.file_path = self.args.file_path
         

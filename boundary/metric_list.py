@@ -1,5 +1,5 @@
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -26,14 +26,14 @@ class MetricList(MetricCommon):
         self._enabled = None
         self._custom = None
 
-    def addArguments(self):
-        MetricCommon.addArguments(self)
+    def add_arguments(self):
+        MetricCommon.add_arguments(self)
         self.parser.add_argument('-b', '--enabled', dest="enabled", action='store_true', required=False, default=False,
                                  help='Filter the list of metrics to only return enabled metrics')
         self.parser.add_argument('-c', '--custom', dest="custom", action='store_true', required=False, default=False,
                                  help='Filter the list of metrics to only return custom metrics')
 
-    def getArguments(self):
+    def get_arguments(self):
         self._enabled = self.args.enabled if self.args.enabled is not None else None
         self._custom = self.args.custom if self.args.custom is not None else None
 
@@ -44,7 +44,7 @@ class MetricList(MetricCommon):
         self.method = "GET"
         self.url_parameters = {'enabled': self._enabled, 'custom': self._custom}
 
-    def getDescription(self):
+    def get_description(self):
         """
         Text describing this command
         """

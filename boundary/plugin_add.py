@@ -1,6 +1,5 @@
-#!/usr/bin/env python
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -28,8 +27,8 @@ class PluginAdd (PluginBase):
         self.organizationName = None
         self.repositoryName = None
         
-    def addArguments(self):
-        PluginBase.addArguments(self)
+    def add_arguments(self):
+        PluginBase.add_arguments(self)
         self.parser.add_argument('-o', '--organization-name', dest='organizationName', action='store',
                                  required=True, metavar="organization_name",
                                  help='Name of the github user or organization')
@@ -37,11 +36,11 @@ class PluginAdd (PluginBase):
                                  required=True, metavar="respository_name",
                                  help='Name of the github repository')
 
-    def getArguments(self):
+    def get_arguments(self):
         """
         Extracts the specific arguments of this CLI
         """
-        PluginBase.getArguments(self)
+        PluginBase.get_arguments(self)
         if self.args.organizationName is not None:
             self.organizationName = self.args.organizationName
         if self.args.repositoryName is not None:
@@ -49,6 +48,6 @@ class PluginAdd (PluginBase):
             
         self.path = "v1/plugins/private/{0}/{1}/{2}".format(self.pluginName, self.organizationName, self.repositoryName)
          
-    def getDescription(self):
+    def get_description(self):
         return 'Imports a meter plugin from a GitHub repository into a {0} account'.format(self.product_name)
 

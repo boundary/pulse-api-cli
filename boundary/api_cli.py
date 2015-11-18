@@ -1,6 +1,5 @@
-#!/usr/bin/env python
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -44,7 +43,7 @@ class ApiCli(ApiCall):
 
         self.args = None
 
-        self.parser = argparse.ArgumentParser(description=self.getDescription())
+        self.parser = argparse.ArgumentParser(description=self.get_description())
         self._aggregate_times = ['1 second',
                                  '15 seconds',
                                  '1 minute',
@@ -61,7 +60,7 @@ class ApiCli(ApiCall):
         """
         return self._aggregate_times
 
-    def getDescription(self):
+    def get_description(self):
         """
         Returns a description of the CLI
         """
@@ -73,7 +72,7 @@ class ApiCli(ApiCall):
                                  help='Sets logging level to one of debug,info,warning,error,critical.' +
                                       'Default is logging is disabled')
 
-    def addArguments(self):
+    def add_arguments(self):
         """
         Configure handling of command line arguments.
         """
@@ -102,7 +101,7 @@ class ApiCli(ApiCall):
             logging.basicConfig(level=self.levels[self.args.logLevel])
         logging.info("Set logging level to {0}".format(self.args.logLevel))
 
-    def getArguments(self):
+    def get_arguments(self):
         """
         CLIs get called back so that they can process any command line arguments
         that are given. This method handles the standard command line arguments for:
@@ -173,14 +172,14 @@ class ApiCli(ApiCall):
 
         # Call our member function to add command line arguments, child classes that override need
         # to call the ApiCli version first to add standard arguments
-        self.addArguments()
+        self.add_arguments()
 
         # Parse the command line arguments
         self._parse_args()
 
         # Arguments are parsed call back to the instance so that it can extract the command line
         # arguments for its use
-        self.getArguments()
+        self.get_arguments()
 
         self.get_api_parameters()
         if self._validate_arguments():

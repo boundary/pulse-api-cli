@@ -1,5 +1,5 @@
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -32,13 +32,13 @@ class MeterClient(ApiCli):
         self.rpc_parameters = None
         self.MAX_LINE = 1024
 
-    def getDescription(self):
+    def get_description(self):
         """
         Text describing this command
         """
         return 'Communicates with an {0} meter using JSON RPC'.format(self.product_name)
 
-    def addArguments(self):
+    def add_arguments(self):
         self.addLoggingArgument()
         self.parser.add_argument('-m', '--method', dest='rpc_method', action='store', default='query_metric',
                                  choices=['debug', 'discovery', 'event', 'get_process_info', 'get_system_info',
@@ -50,7 +50,7 @@ class MeterClient(ApiCli):
                                  metavar='key=value',
                                  help='Sets the host or ip address to contact the meter on')
 
-    def getArguments(self):
+    def get_arguments(self):
         self.configureLogging()
 
         if self.args.rpc_method is not None:

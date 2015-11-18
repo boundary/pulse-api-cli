@@ -1,5 +1,5 @@
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -66,8 +66,8 @@ class EventCreate(ApiCli):
         self.severity = None
         self.status = None
 
-    def addArguments(self):
-        ApiCli.addArguments(self)
+    def add_arguments(self):
+        ApiCli.add_arguments(self)
         self.parser.add_argument('-b', '--status', dest='status', action='store',
                                  choices=[])
         self.parser.add_argument('-v', '--severity', dest='severity', action='store',
@@ -99,11 +99,11 @@ class EventCreate(ApiCli):
         # self.parser.add_argument('-x', '--tags', dest='isDisabled', action='store_true',
         #                          help='Tags to assi')
 
-    def getArguments(self):
+    def get_arguments(self):
         """
         Extracts the specific arguments of this CLI
         """
-        ApiCli.getArguments(self)
+        ApiCli.get_arguments(self)
         if self.args.fingerprint_fields is not None:
             self.fingerprint_fields = self.args.fingerprint_fields
 
@@ -149,7 +149,7 @@ class EventCreate(ApiCli):
         """
         return ApiCli._validate_arguments(self)
 
-    def getDescription(self):
+    def get_description(self):
         return "Creates a new event in an {0} account".format(self.product_name)
 
     def good_response(self, status_code):

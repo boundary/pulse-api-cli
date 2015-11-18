@@ -1,5 +1,5 @@
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -83,9 +83,9 @@ None
 
 """
 
-    def addArguments(self):
+    def add_arguments(self):
 
-        ApiCli.addArguments(self)
+        ApiCli.add_arguments(self)
 
         self.parser.add_argument('-m', '--metric-manifest-path', dest='metric_manifest_path',
                                  action='store', required=False, metavar='path', default=None,
@@ -103,9 +103,9 @@ None
                                  action='store', required=False, metavar='path', default=None,
                                  help='Path to README.md template. Defaults to internal template')
 
-    def getArguments(self):
+    def get_arguments(self):
 
-        ApiCli.getArguments(self)
+        ApiCli.get_arguments(self)
 
         if self.args.metric_manifest_path is not None:
             self.metric_manifest_path = self.args.metric_manifest_path
@@ -125,7 +125,7 @@ None
         logging.debug("readme_path: " + str(self.plugin_manifest_path))
         pass
 
-    def getDescription(self):
+    def get_description(self):
         return 'Generates README from plugin.json and template'
 
     def callAPI(self):

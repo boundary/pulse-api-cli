@@ -1,6 +1,5 @@
-#!/usr/bin/python
 # 
-#  Copyright 2014-2015 Boundary, Inc.
+#  Copyright 2015 BMC Software, Inc.
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,16 +13,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-"""
-Exports metrics from a Boundary account with the ability to filter on metric name
-"""
 from boundary import MetricCommon
 import json
 import requests
 import re
 
-
+"""
+Exports metrics from a Boundary account with the ability to filter on metric name
+"""
 class MetricExport(MetricCommon):
 
     def __init__(self):
@@ -37,22 +34,22 @@ class MetricExport(MetricCommon):
         self.patterns = None
         self.filter_expression = None
 
-    def getDescription(self):
+    def get_description(self):
         """
         """
         return 'Export the metric definitions from a {0} account'.format(self.product_name)
 
-    def addArguments(self):
+    def add_arguments(self):
         """
         """
-        MetricCommon.addArguments(self)
+        MetricCommon.add_arguments(self)
         self.parser.add_argument('-p', '--pattern', metavar='pattern', dest='patterns', action='store',
                                  help='regular expression pattern to use search the name of the metric')
         
-    def getArguments(self):
+    def get_arguments(self):
         """
         """
-        MetricCommon.getArguments(self)
+        MetricCommon.get_arguments(self)
         
         if self.args.patterns:
             self.filter_expression = re.compile(self.args.patterns)

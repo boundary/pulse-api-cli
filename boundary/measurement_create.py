@@ -1,5 +1,5 @@
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -39,8 +39,8 @@ class MeasurementCreate(ApiCli):
         self.source = None
         self.timestamp = None
 
-    def addArguments(self):
-        ApiCli.addArguments(self)
+    def add_arguments(self):
+        ApiCli.add_arguments(self)
         self.parser.add_argument('-n', '--metric-name', dest='metricName', action='store', required=True,
                                  metavar='metric_name',
                                  help='Metric identifier')
@@ -53,11 +53,11 @@ class MeasurementCreate(ApiCli):
                                  help='Time of occurrence of the measurement in either epoch seconds or \
                                  epoch milliseconds. Defaults to the receipt time at Boundary')
 
-    def getArguments(self):
+    def get_arguments(self):
         """
         Extracts the specific arguments of this CLI
         """
-        ApiCli.getArguments(self)
+        ApiCli.get_arguments(self)
         if self.args.metricName is not None:
             self.metricName = self.args.metricName
 
@@ -93,7 +93,7 @@ class MeasurementCreate(ApiCli):
         except requests.exceptions.ChunkedEncodingError:
             None
 
-    def getDescription(self):
+    def get_description(self):
         return 'Adds a measurement value to a {0} account'.format(self.product_name)
 
     def _handle_results(self):

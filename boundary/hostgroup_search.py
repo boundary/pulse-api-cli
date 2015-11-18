@@ -1,4 +1,5 @@
-# Copyright 2014-2015 Boundary, Inc.
+#
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,18 +23,18 @@ class HostgroupSearch(ApiCli):
         self.path = "v1/hostgroups/search"
         self.hostGroupName = ""
 
-    def addArguments(self):
-        ApiCli.addArguments(self)
+    def add_arguments(self):
+        ApiCli.add_arguments(self)
         self.parser.add_argument('-n', '--host-group-name', dest='hostGroupName', metavar="host_group_name",
                                  action='store', required=True,help='Host group name')
 
-    def getArguments(self):
+    def get_arguments(self):
         """
         Extracts the specific arguments of this CLI
         """
-        ApiCli.getArguments(self)
+        ApiCli.get_arguments(self)
         if self.args.hostGroupName is not None:
             self.url_parameters = {"name": self.args.hostGroupName}
 
-    def getDescription(self):
+    def get_description(self):
         return 'Searches for Host Group by name in an {0} account'.format(self.product_name)

@@ -1,11 +1,11 @@
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-# http://www.apache.org/licenses/LICENSE-2.0
+#     http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -47,8 +47,8 @@ class AlarmModify(ApiCli):
                            '12 hours': 43200
                            }
 
-    def addArguments(self):
-        ApiCli.addArguments(self)
+    def add_arguments(self):
+        ApiCli.add_arguments(self)
         self.parser.add_argument('-m', '--metric', dest='metric_name', action='store',
                                  required=(False if self._update else True),
                                  metavar='metric_name', help='Name of the metric to alarm')
@@ -91,11 +91,11 @@ class AlarmModify(ApiCli):
         self.parser.add_argument('-x', '--is-disabled', dest='is_disabled', action='store', default=None,
                                  choices=['yes', 'no'], help='Enable or disable the alarm definition')
 
-    def getArguments(self):
+    def get_arguments(self):
         """
         Extracts the specific arguments of this CLI
         """
-        ApiCli.getArguments(self)
+        ApiCli.get_arguments(self)
 
         self._actions = self.args.actions if self.args.actions is not None else None
         self._alarm_name = self.args.alarm_name if self.args.alarm_name is not None else None

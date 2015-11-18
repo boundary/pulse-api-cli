@@ -1,5 +1,5 @@
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -44,13 +44,13 @@ class MeasurementGet(ApiCli):
         self.stopTime = None
         self.now = datetime.now()
 
-    def addArguments(self):
+    def add_arguments(self):
         """
         Add specific command line arguments for this command   
         """
 
         # Call our parent to add the default arguments
-        ApiCli.addArguments(self)
+        ApiCli.add_arguments(self)
 
         # Command specific arguments
         self.parser.add_argument('-f', '--format', dest='format', action='store', required=False,
@@ -69,11 +69,11 @@ class MeasurementGet(ApiCli):
         self.parser.add_argument('-d', '--end', dest='end', action='store', metavar="end", required=False,
                                  help='End of time range as ISO 8601 string or epoch seconds')
 
-    def getArguments(self):
+    def get_arguments(self):
         """
         Extracts the specific arguments of this CLI
         """
-        ApiCli.getArguments(self)
+        ApiCli.get_arguments(self)
         if self.args.metric_name is not None:
             self._metric_name = self.args.metric_name
 
@@ -130,7 +130,7 @@ class MeasurementGet(ApiCli):
                 ret = None
         return ret
 
-    def getDescription(self):
+    def get_description(self):
         """
         Returns the description of this command
         """

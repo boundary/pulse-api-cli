@@ -1,11 +1,11 @@
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-# http://www.apache.org/licenses/LICENSE-2.0
+#     http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -36,19 +36,19 @@ class AlarmSearch(ApiCli):
         ApiCli.__init__(self)
         self._alarm_name = None
 
-    def addArguments(self):
+    def add_arguments(self):
         """
         """
-        ApiCli.addArguments(self)
+        ApiCli.add_arguments(self)
 
         self.parser.add_argument('-n', '--alarm-name', dest='alarm_name', action='store', required=True,
                                  metavar='alarm-name', help='Alarm name')
 
-    def getArguments(self):
+    def get_arguments(self):
         """
         Extracts the specific arguments of this CLI
         """
-        ApiCli.getArguments(self)
+        ApiCli.get_arguments(self)
         self._alarm_name = self.args.alarm_name if self.args.alarm_name is not None else None
 
     def handle_key_word_args(self):
@@ -59,7 +59,7 @@ class AlarmSearch(ApiCli):
         self.path = "v1/alarms/search"
         self.url_parameters = {'name': self._alarm_name}
 
-    def getDescription(self):
+    def get_description(self):
         """
         """
         return "Searches for an alarm definition by name from a {0} account".format(self.product_name)
