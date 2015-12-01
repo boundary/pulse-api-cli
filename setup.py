@@ -7,6 +7,11 @@ setup(
     author='David Gwartney',
     author_email='davidg@boundary.com',
     packages=['boundary', ],
+    entry_points={
+        'console_scripts': [
+            'actionhandler = boundary.webhook_handler:main',
+        ],
+    },
     scripts=[
         'tsp-cli-env.sh',
         'bin/alarm-create',
