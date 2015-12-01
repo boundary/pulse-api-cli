@@ -221,7 +221,10 @@ class WebHookApp:
         print("Starting Webhook on {0}:{1}, use <Ctrl-C> to stop".format(self.address, self.port))
         server.serve_forever()
 
-
-if __name__ == "__main__":
+def main():
     c = WebHookApp()
     c.start()
+
+
+if __name__ == "__main__":
+    main()
