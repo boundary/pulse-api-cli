@@ -1,6 +1,6 @@
 usage: plugin-add [-h] [-l {debug,info,warning,error,critical}] [-a api_host]
                   [-e e_mail] [-t api_token] -n plugin_name -o
-                  organization_name -r respository_name
+                  organization_name -r repository_name
 
 Imports a meter plugin from a GitHub repository into a TrueSight Pulse account
 
@@ -20,6 +20,6 @@ optional arguments:
   -n plugin_name, --plugin-name plugin_name
                         Plugin name
   -o organization_name, --organization-name organization_name
-                        Name of the github user or organization
-  -r respository_name, --repository-name respository_name
-                        Name of the github repository
+                        Name of the GitHub user or organization
+  -r repository_name, --repository-name repository_name
+                        Name of the GitHub repository
