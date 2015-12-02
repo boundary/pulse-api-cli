@@ -31,6 +31,14 @@ class CLITest:
         test_case.assertEqual(parameters.get_value(cli.__class__.__name__, 'description'), cli.get_description())
 
     @staticmethod
+    def get_cli_name_from_class(i):
+        name = i.__class__.__name__
+        m = re.findall("([A-Z][a-z]+)", name)
+        m = [a.lower() for a in m]
+        cli_name = str.join('-', m)
+        return cli_name
+
+    @staticmethod
     def check_cli_help(test_case, cli):
         parameters = CLITestParameters()
         name = cli.__class__.__name__
@@ -43,4 +51,15 @@ class CLITest:
             test_case.assertEqual(expected_output, output)
         except subprocess.CalledProcessError as e:
             sys.stderr.write("{0}: {1}\n".format(e.output, e.returncode))
+
+    @staticmethod
+    def get_cli_output(cli, args):
+        output = None
+        try:
+            command = CLITest.get_cli_name_from_class(cli)
+            args.insert(0, command)
+            output = subprocess.check_output(args=args)
+        except subprocess.CalledProcessError as e:
+            sys.stderr.write("{0}: {1}\n".format(e.output, e.returncode))
+        return output
 
