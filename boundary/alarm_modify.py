@@ -120,7 +120,7 @@ class AlarmModify(ApiCli):
         if self._operation is not None:
             predicate['op'] = self._operation
         if self._threshold is not None:
-            predicate['val'] = self._threshold
+            predicate['val'] = float(self._threshold)
 
         if 'agg' in predicate or 'op' in predicate or 'val' in predicate:
             payload['triggerPredicate'] = predicate
