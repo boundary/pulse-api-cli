@@ -33,13 +33,19 @@ class AlarmCreateTest(TestCase):
     def test_cli_help(self):
         CLITest.check_cli_help(self, self.cli)
 
+    def test_cli_create_alarm(self):
+        args = [
+            '-h'
+        ]
+        print(CLITest.get_cli_output(self.cli, args))
+
     def test_api_call(self):
         name = 'ALARM_CREATE_TEST'
         metric_name = 'CPU'
         interval = '1 minute'
         aggregate = 'sum'
         operation = 'gt'
-        threshold = '0.80'
+        threshold = 0.80
         alarm = self.api.alarm_create(name=name,
                                       metric_name=metric_name,
                                       interval=interval,
@@ -67,7 +73,7 @@ class AlarmCreateTest(TestCase):
         interval = '1 minute'
         aggregate = 'sum'
         operation = 'gt'
-        threshold = '0.80'
+        threshold = 0.80
         alarm = api.alarm_create(name=name,
                                  metric_name=metric_name,
                                  interval=interval,

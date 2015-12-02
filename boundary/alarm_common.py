@@ -149,9 +149,10 @@ def result_to_alarm(result):
         # We call these inside a try block since they are suppose to exist
         alarm_id = result['id']
         name = result['name']
-        aggregate = result['triggerPredicate']['agg']
-        operation = result['triggerPredicate']['op']
-        threshold = result['triggerPredicate']['val']
+        if result['triggerPredicate'] is not None:
+            aggregate = result['triggerPredicate']['agg']
+            operation = result['triggerPredicate']['op']
+            threshold = result['triggerPredicate']['val']
         metric_name = result['metricName']
 
         # These are optional so explicitly check to see if the exist
