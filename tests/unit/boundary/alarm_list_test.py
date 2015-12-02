@@ -21,7 +21,7 @@ from boundary import API
 from cli_test import CLITest
 
 
-class AlarmGetTest(TestCase):
+class AlarmListTest(TestCase):
 
     def setUp(self):
         self.cli = AlarmList()
