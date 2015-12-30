@@ -34,6 +34,21 @@ class AlarmDelete(ApiCli):
         self._kwargs = kwargs
         self._alarm_id = None
 
+    def add_arguments(self):
+        """
+        """
+        ApiCli.add_arguments(self)
+
+        self.parser.add_argument('-i', '--alarm-id', dest='alarm_id', action='store', required=True,
+                                 metavar='alarm-id', help='Alarm identifier')
+
+    def get_arguments(self):
+        """
+        Extracts the specific arguments of this CLI
+        """
+        ApiCli.get_arguments(self)
+        self._alarm_id = self.args.alarm_id if self.args.alarm_id is not None else None
+
     def handle_key_word_args(self):
         self._alarm_id = self._kwargs['id'] if 'id' in self._kwargs else None
 
