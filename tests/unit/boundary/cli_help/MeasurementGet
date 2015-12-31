@@ -1,7 +1,7 @@
 usage: measurement-get [-h] [-l {debug,info,warning,error,critical}]
                        [-a api_host] [-e e_mail] [-t api_token]
                        [-f {csv,json,xml}] -n metric_name [-g aggregate]
-                       [-r sample] [-s source] -b start [-d end]
+                       [-r sample] -s source -b start [-d end]
 
 Retrieves measurement values from a metric in a TrueSight Pulse account
 
