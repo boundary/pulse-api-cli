@@ -15,8 +15,13 @@
 # limitations under the License.
 #
 
+import json
 from unittest import TestCase
+
+from boundary import HostgroupCreate
+from boundary import HostgroupDelete
 from boundary import HostgroupGet
+from cli_runner import CLIRunner
 from cli_test import CLITest
 
 
@@ -30,3 +35,33 @@ class HostgroupGetTest(TestCase):
 
     def test_cli_help(self):
         CLITest.check_cli_help(self, self.cli)
+
+    def test_create_hostgroup(self):
+        runner_create = CLIRunner(HostgroupCreate())
+
+        hostgroup_name = 'SAMPLE' + CLITest.random_string(6)
+
+        create = runner_create.get_output(['-n', hostgroup_name,
+                                           '-s', 'FOO,BAR'])
+        hostgroup_create = json.loads(create)
+        hostgroup = hostgroup_create['result']
+
+        self.assertEqual(hostgroup_name, hostgroup['name'])
+        self.assertFalse(hostgroup['system'])
+        self.assertTrue(CLITest.is_int(hostgroup['id']))
+        hostgroup_id = int(hostgroup['id'])
+
+        runner_get = CLIRunner(HostgroupGet())
+        get = runner_get.get_output(['-i', str(hostgroup_id)])
+        hostgroup_get = json.loads(get)
+        hostgroup = hostgroup_get['result']
+
+        self.assertEqual(hostgroup_name, hostgroup['name'])
+        self.assertFalse(hostgroup['system'])
+        self.assertTrue(CLITest.is_int(hostgroup['id']))
+
+        runner_delete = CLIRunner(HostgroupDelete())
+        delete = runner_delete.get_output(['-i', str(hostgroup_id)])
+        hostgroup_get = json.loads(delete)
+        hostgroup = hostgroup_get['result']
+        self.assertTrue(hostgroup['success'])

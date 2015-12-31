@@ -36,15 +36,13 @@ class MetricCreateTest(TestCase):
     def test_cli_help(self):
         CLITest.check_cli_help(self, self.cli)
 
-    def random_string(self, n):
-        return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(n))
 
     def test_create_metric(self):
         runner_create = CLIRunner(MetricCreate())
-        metric_name = 'METRIC' + self.random_string(6)
-        display_name = 'Display Name ' + self.random_string(20)
-        display_name_short = 'Short Display Name' + self.random_string(5)
-        description = self.random_string(30)
+        metric_name = 'METRIC' + CLITest.random_string(6)
+        display_name = 'Display Name ' + CLITest.random_string(20)
+        display_name_short = 'Short Display Name' + CLITest.random_string(5)
+        description = CLITest.random_string(30)
         aggregate = 'avg'
         unit = 'number'
         resolution = 60000
