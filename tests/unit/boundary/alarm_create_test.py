@@ -20,6 +20,8 @@ from boundary import AlarmCreate
 from boundary import API
 from cli_test import CLITest
 from cli_test_parameters import CLITestParameters
+from cli_runner import CLIRunner
+import json
 
 
 class AlarmCreateTest(TestCase):
@@ -32,12 +34,6 @@ class AlarmCreateTest(TestCase):
 
     def test_cli_help(self):
         CLITest.check_cli_help(self, self.cli)
-
-    def test_cli_create_alarm(self):
-        args = [
-            '-h'
-        ]
-        print(CLITest.get_cli_output(self.cli, args))
 
     def test_api_call(self):
         name = 'ALARM_CREATE_TEST'
@@ -89,3 +85,12 @@ class AlarmCreateTest(TestCase):
         self.assertEqual(threshold, alarm.threshold)
 
         api.alarm_delete(id=alarm.id)
+
+    def test_create_alarm(self):
+        runner = CLIRunner(AlarmCreate())
+
+        output = runner.get_output(['-n', 'my-alarm', '-m', 'CPU', '-g', 'max', '-o', 'gt',
+                                    '-v', '0.50', '-r', '5 minutes'])
+        result = json.loads(output)
+        alarm = result['result']
+        self.assertEqual('CPU', alarm['metricName'])
