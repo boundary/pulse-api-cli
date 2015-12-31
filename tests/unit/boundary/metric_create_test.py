@@ -15,13 +15,18 @@
 # limitations under the License.
 #
 
+import json
+import random
+import string
 from unittest import TestCase
-from cli_test import CLITest
+
 from boundary import MetricCreate
+from boundary import MetricDelete
+from cli_runner import CLIRunner
+from cli_test import CLITest
 
 
 class MetricCreateTest(TestCase):
-
     def setUp(self):
         self.cli = MetricCreate()
 
@@ -30,3 +35,40 @@ class MetricCreateTest(TestCase):
 
     def test_cli_help(self):
         CLITest.check_cli_help(self, self.cli)
+
+    def random_string(self, n):
+        return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(n))
+
+    def test_create_metric(self):
+        runner_create = CLIRunner(MetricCreate())
+        metric_name = 'METRIC' + self.random_string(6)
+        display_name = 'Display Name ' + self.random_string(20)
+        display_name_short = 'Short Display Name' + self.random_string(5)
+        description = self.random_string(30)
+        aggregate = 'avg'
+        unit = 'number'
+        resolution = 60000
+        disabled = False
+
+        create = runner_create.get_output(['-n', metric_name,
+                                           '-d', display_name,
+                                           '-s', display_name_short,
+                                           '-i', description,
+                                           '-g', aggregate,
+                                           '-r', str(resolution),
+                                           '-u', unit,
+                                           '-x', str(disabled).lower()])
+        metric_create = json.loads(create)
+        metric = metric_create['result']
+
+        self.assertEqual(metric_name, metric['name'])
+        self.assertEqual(display_name, metric['displayName'])
+        self.assertEqual(display_name_short, metric['displayNameShort'])
+        self.assertFalse(metric['isDisabled'])
+        self.assertEqual(unit, metric['unit'])
+        self.assertEqual(aggregate.upper(), metric['defaultAggregate'])
+        self.assertEqual(resolution, int(metric['defaultResolutionMS']))
+        self.assertEqual(description, metric['description'])
+
+        runner_delete = CLIRunner(MetricDelete())
+        delete = runner_delete.get_output(['-n', metric_name])

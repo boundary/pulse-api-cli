@@ -22,6 +22,7 @@ from io import TextIOWrapper, BytesIO
 import json
 import StringIO
 from cli_test import CLITest
+from cli_runner import CLIRunner
 
 
 class MetricListTest(TestCase):
@@ -90,3 +91,25 @@ class MetricListTest(TestCase):
 #       self.json1 = json.loads(self.out)
 #       self.json2 = json.loads(self.text)
 #       self.assertDictEqual(self.json1, self.json2)
+
+    def test_get_metric(self):
+        found = False
+        runner_create = CLIRunner(MetricList())
+
+        get = runner_create.get_output([])
+        result_get = json.loads(get)
+        metric_get = result_get['result']
+
+        for metric in metric_get:
+            if metric['name'] == 'CPU':
+                found = True
+                self.assertEqual('CPU Utilization', metric['displayName'])
+                self.assertEqual('CPU', metric['displayNameShort'])
+                self.assertTrue(metric['isBuiltin'])
+                self.assertFalse(metric['isDisabled'])
+                self.assertEqual('percent', metric['unit'])
+                self.assertEqual('avg', metric['defaultAggregate'])
+                self.assertEqual(1000, metric['defaultResolutionMS'])
+                self.assertEqual('Overall CPU utilization', metric['description'])
+
+        self.assertTrue(found)
