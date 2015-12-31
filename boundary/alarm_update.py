@@ -36,6 +36,7 @@ class AlarmUpdate(AlarmModify):
         """
 
         AlarmModify.get_arguments(self)
+        self._alarm_id = self.args.alarm_id if self.args.alarm_id is not None else None
         self.get_api_parameters()
 
     def handle_key_word_args(self):

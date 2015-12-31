@@ -100,7 +100,7 @@ class AlarmModify(ApiCli):
 
         self._actions = self.args.actions if self.args.actions is not None else None
         self._alarm_name = self.args.alarm_name if self.args.alarm_name is not None else None
-        self._alarm_id = self.args.alarm_id if self.args.alarm_id is not None else None
+
         self._metric_name = self.args.metric_name if self.args.metric_name is not None else None
         self._aggregate = self.args.aggregate if self.args.aggregate is not None else None
         self._operation = self.args.operation if self.args.operation is not None else None
