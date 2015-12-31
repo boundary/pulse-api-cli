@@ -15,10 +15,13 @@
 # limitations under the License.
 #
 
-from cli_test_parameters import CLITestParameters
+import random
+import string
 import subprocess
-import re
 import sys
+
+import re
+from cli_test_parameters import CLITestParameters
 
 
 class CLITest:
@@ -63,3 +66,14 @@ class CLITest:
             sys.stderr.write("{0}: {1}\n".format(e.output, e.returncode))
         return output
 
+    @staticmethod
+    def random_string(n):
+        return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(n))
+
+    @staticmethod
+    def is_int(s):
+        try:
+            int(s)
+            return True
+        except ValueError:
+            return False
