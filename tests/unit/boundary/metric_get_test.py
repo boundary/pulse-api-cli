@@ -42,4 +42,10 @@ class MetricGetTest(TestCase):
 
         self.assertEqual('CPU', metric_get['name'])
         self.assertEqual('CPU Utilization', metric_get['displayName'])
-        self.assertTrue(True, metric_get['isBuiltin'])
+        self.assertEqual('CPU', metric_get['displayNameShort'])
+        self.assertTrue(metric_get['isBuiltin'])
+        self.assertFalse(metric_get['isDisabled'])
+        self.assertEqual('percent', metric_get['unit'])
+        self.assertEqual('avg', metric_get['defaultAggregate'])
+        self.assertEqual(1000, metric_get['defaultResolutionMS'])
+        self.assertEqual('Overall CPU utilization', metric_get['description'])
