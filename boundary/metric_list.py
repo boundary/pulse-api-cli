@@ -21,18 +21,20 @@ import requests
 class MetricList(MetricCommon):
     def __init__(self):
         MetricCommon.__init__(self)
-
         self._enabled = None
         self._custom = None
 
     def add_arguments(self):
         MetricCommon.add_arguments(self)
-        self.parser.add_argument('-b', '--enabled', dest="enabled", action='store_true', required=False, default=False,
+        self.parser.add_argument('-b', '--enabled', dest="enabled", action='store', required=False,
+                                 default=None, choices=['true', 'false'],
                                  help='Filter the list of metrics to only return enabled metrics')
-        self.parser.add_argument('-c', '--custom', dest="custom", action='store_true', required=False, default=False,
+        self.parser.add_argument('-c', '--custom', dest="custom", action='store', required=False,
+                                 default=None, choices=['true', 'false'],
                                  help='Filter the list of metrics to only return custom metrics')
 
     def get_arguments(self):
+        MetricCommon.get_arguments(self)
         self._enabled = self.args.enabled if self.args.enabled is not None else None
         self._custom = self.args.custom if self.args.custom is not None else None
 
@@ -41,7 +43,12 @@ class MetricList(MetricCommon):
     def get_api_parameters(self):
         self.path = "v1/metrics"
         self.method = "GET"
-        self.url_parameters = {'enabled': self._enabled, 'custom': self._custom}
+        if self._enabled is not None or self._custom is not None:
+            self.url_parameters = {}
+            if self._enabled is not None:
+                self.url_parameters['enabled'] = self._enabled
+            if self._custom is not None:
+                self.url_parameters['custom'] = self._custom
 
     def get_description(self):
         """

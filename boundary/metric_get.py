@@ -22,34 +22,24 @@ class MetricGet(MetricCommon):
     def __init__(self):
         MetricCommon.__init__(self)
         self._metrics = None
-
         self._metric_name = None
-        self._enabled = None
-        self._custom = None
 
     def add_arguments(self):
         MetricCommon.add_arguments(self)
         self.parser.add_argument('-n', '--metric-name', dest='metric_name', action='store', required=True,
                                  metavar='metric_name', help='Metric identifier')
-        self.parser.add_argument('-b', '--enabled', dest="enabled", action='store_true', required=False, default=False,
-                                 help='Filter the list of metrics to only return enabled metrics')
-        self.parser.add_argument('-c', '--custom', dest="custom", action='store_true', required=False, default=False,
-                                 help='Filter the list of metrics to only return custom metrics')
 
     def get_description(self):
         return 'Get a metric definition from a {0} account'.format(self.product_name)
 
     def get_arguments(self):
         MetricCommon.get_arguments(self)
-
         self._metric_name = self.args.metric_name if self.args.metric_name is not None else None
-        self._enabled = self.args.enabled if self.args.enabled is not None else None
-        self._custom = self.args.custom if self.args.custom is not None else None
+        self.get_api_parameters()
 
     def get_api_parameters(self):
         self.path = "v1/metrics"
         self.method = "GET"
-        self.url_parameters = {'enabled': self._enabled, 'custom': self._custom}
 
     def _handle_api_results(self):
         pass

@@ -1,5 +1,6 @@
 usage: metric-list [-h] [-l {debug,info,warning,error,critical}] [-a api_host]
-                   [-e e_mail] [-t api_token] [-b] [-c]
+                   [-e e_mail] [-t api_token] [-b {true,false}]
+                   [-c {true,false}]
 
 Lists the defined metrics in a TrueSight Pulse account
 
@@ -16,7 +17,9 @@ optional arguments:
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
                         TrueSight Pulse account
-  -b, --enabled         Filter the list of metrics to only return enabled
+  -b {true,false}, --enabled {true,false}
+                        Filter the list of metrics to only return enabled
                         metrics
-  -c, --custom          Filter the list of metrics to only return custom
+  -c {true,false}, --custom {true,false}
+                        Filter the list of metrics to only return custom
                         metrics

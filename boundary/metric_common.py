@@ -81,8 +81,10 @@ class MetricCommon (ApiCli):
             m['defaultResolutionMS'] = metric['defaultResolutionMS']
         if 'isDisabled' in metric:
             m['isDisabled'] = metric['isDisabled']
+        if 'isBuiltin' in metric:
+            m['isBuiltin'] = metric['isBuiltin']
         return m
 
-    def metricDefintionV2(self,metrics):
+    def metricDefinitionV2(self, metrics):
         return 'result' not in metrics
 

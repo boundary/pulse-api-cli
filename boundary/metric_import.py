@@ -71,7 +71,7 @@ class MetricImport(MetricCommon):
         4) Create or update definitions using API call
         """
 
-        self.v2Metrics = self.metricDefintionV2(self.metrics)
+        self.v2Metrics = self.metricDefinitionV2(self.metrics)
         if self.v2Metrics:
             metrics = self.metrics
 
@@ -95,8 +95,6 @@ class MetricImport(MetricCommon):
         self.import_metrics()
 
     def create_update(self, metric):
-        """
-        """
         self.path = "v1/metrics/{0}".format(metric['name'])
         self.headers = {'content-type': 'application/json'}
         self.data = json.dumps(metric)

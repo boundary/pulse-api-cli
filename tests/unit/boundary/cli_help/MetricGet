@@ -1,5 +1,5 @@
 usage: metric-get [-h] [-l {debug,info,warning,error,critical}] [-a api_host]
-                  [-e e_mail] [-t api_token] -n metric_name [-b] [-c]
+                  [-e e_mail] [-t api_token] -n metric_name
 
 Get a metric definition from a TrueSight Pulse account
 
@@ -18,7 +18,3 @@ optional arguments:
                         TrueSight Pulse account
   -n metric_name, --metric-name metric_name
                         Metric identifier
-  -b, --enabled         Filter the list of metrics to only return enabled
-                        metrics
-  -c, --custom          Filter the list of metrics to only return custom
-                        metrics
