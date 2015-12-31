@@ -295,9 +295,9 @@ $ hostgroup-search -n 'my-host-group'
 
 **API Documentation**
 
-[http://premium-documentation.boundary.com/v1/get/hostgroups/search](http://premium-documentation.boundary.com/v1/get/hostgroups/search)
+[http://premium-documentation.boundary.com/v1/put/hostgroup/:hostgroupId](http://premium-documentation.boundary.com/v1/put/hostgroup/:hostgroupId)
 
-
+** Usage **
 ```
 usage: hostgroup-update [-h] [-l {debug,info,warning,error,critical}]
                         [-a api_host] [-e e_mail] [-t api_token] -i
