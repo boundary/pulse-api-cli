@@ -17,21 +17,28 @@ from boundary import HostgroupModify
 
 
 class HostgroupUpdate(HostgroupModify):
+
     def __init__(self):
         HostgroupModify.__init__(self, True)
         self.method = "PUT"
-        self.hostGroupId = ""
 
     def add_arguments(self):
         HostgroupModify.add_arguments(self)
+
         self.parser.add_argument('-i', '--host-group-id', dest='hostGroupId', action='store',
                                  required=True, metavar='host_group_id', help='Host group id to update')
+
+        self.parser.add_argument('-n', '--host-group-name', dest='host_group_name', action='store', required=False,
+                                 metavar="host_group_name", help='Host group name')
+
+        self.parser.add_argument('-s', '--sources', dest='sources', action='store', required=True, metavar='sources',
+                                 help='Comma separated sources to add to the host group. If empty adds all hosts.')
 
     def get_arguments(self):
         """
         Extracts the specific arguments of this CLI
         """
-        HostGroupModify.get_arguments(self)
+        HostgroupModify.get_arguments(self)
 
         if self.args.hostGroupId is not None:
             self.hostGroupId = self.args.hostGroupId

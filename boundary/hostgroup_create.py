@@ -22,5 +22,14 @@ class HostgroupCreate(HostgroupModify):
         self.path = "v1/hostgroups"
         self.sources = None
 
+    def add_arguments(self):
+        HostgroupModify.add_arguments(self)
+
+        self.parser.add_argument('-n', '--host-group-name', dest='host_group_name', action='store', required=True,
+                                 metavar="host_group_name", help='Host group name')
+
+        self.parser.add_argument('-s', '--sources', dest='sources', action='store', required=True, metavar='sources',
+                                 help='Comma separated sources to add to the host group. If empty adds all hosts.')
+
     def get_description(self):
         return "Creates host group definition in a {0} account".format(self.product_name)
