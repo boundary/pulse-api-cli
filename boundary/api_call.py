@@ -211,12 +211,15 @@ class ApiCall(object):
         """
         return status_code == requests.codes.ok
 
+    def form_url(self):
+        return "{0}://{1}/{2}{3}".format(self._scheme, self._api_host, self._path, self._get_url_parameters())
+
     def _call_api(self):
         """
         Make an API call to get the metric definition
         """
 
-        self._url = "{0}://{1}/{2}{3}".format(self._scheme, self._api_host, self._path, self._get_url_parameters())
+        self._url = self.form_url()
         if self._headers is not None:
             logging.debug(self._headers)
         if self._data is not None:
