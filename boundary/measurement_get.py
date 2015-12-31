@@ -61,7 +61,7 @@ class MeasurementGet(ApiCli):
                                  help='Metric default aggregate')
         self.parser.add_argument('-r', '--sample', dest='sample', action='store', type=int, metavar="sample",
                                  help='Down sample rate sample in seconds')
-        self.parser.add_argument('-s', '--source', dest='source', action='store', metavar="source", required=False,
+        self.parser.add_argument('-s', '--source', dest='source', action='store', metavar="source", required=True,
                                  help='Source of measurement')
         self.parser.add_argument('-b', '--start', dest='start', action='store', required=True, metavar="start",
                                  help='Start of time range as ISO 8601 string or epoch seconds')

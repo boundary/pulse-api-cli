@@ -42,12 +42,10 @@ class MeasurementCreate(ApiCli):
     def add_arguments(self):
         ApiCli.add_arguments(self)
         self.parser.add_argument('-n', '--metric-name', dest='metricName', action='store', required=True,
-                                 metavar='metric_name',
-                                 help='Metric identifier')
+                                 metavar='metric_name', help='Metric identifier')
         self.parser.add_argument('-m', '--measurement', dest='measurement', action='store', required=True,
-                                 metavar="measurement",
-                                 help='Measurement value')
-        self.parser.add_argument('-s', '--source', dest='source', action='store', metavar="source",
+                                 metavar="measurement", help='Measurement value')
+        self.parser.add_argument('-s', '--source', dest='source', action='store', required=False, metavar="source",
                                  help='Source of measurement. Defaults to the host where the command is run')
         self.parser.add_argument('-d', '--timestamp', dest='timestamp', action='store', metavar="timestamp",
                                  help='Time of occurrence of the measurement in either epoch seconds or \
@@ -77,7 +75,7 @@ class MeasurementCreate(ApiCli):
         m = {'metric': self.metricName,
              'measure': self.measurement,
              'source': self.source,
-             'timestamp': self.timestamp}
+             'timestamp': int(self.timestamp)}
         self.data = json.dumps(m, sort_keys=True)
         self.headers = {'Content-Type': 'application/json', "Accept": "application/json"}
 
