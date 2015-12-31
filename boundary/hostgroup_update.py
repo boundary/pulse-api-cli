@@ -21,11 +21,12 @@ class HostgroupUpdate(HostgroupModify):
     def __init__(self):
         HostgroupModify.__init__(self, True)
         self.method = "PUT"
+        self.host_group_id = None
 
     def add_arguments(self):
         HostgroupModify.add_arguments(self)
 
-        self.parser.add_argument('-i', '--host-group-id', dest='hostGroupId', action='store',
+        self.parser.add_argument('-i', '--host-group-id', dest='host_group_id', action='store',
                                  required=True, metavar='host_group_id', help='Host group id to update')
 
         self.parser.add_argument('-n', '--host-group-name', dest='host_group_name', action='store', required=False,
