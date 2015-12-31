@@ -33,7 +33,7 @@ class PluginGetTest(TestCase):
     def test_cli_help(self):
         CLITest.check_cli_help(self, self.cli)
 
-    def test_create_metric(self):
+    def test_get_plugin(self):
         runner = CLIRunner(PluginGet())
 
         plugin_name = 'httpcheck'
