@@ -27,6 +27,7 @@ class AlarmModify(ApiCli):
         self._aggregate = None
         self._actions = None
         self._alarm_name = None
+        self._alarm_id = None
         self._host_group_id = None
         self._interval = None
         self._is_disabled = None
@@ -99,6 +100,7 @@ class AlarmModify(ApiCli):
 
         self._actions = self.args.actions if self.args.actions is not None else None
         self._alarm_name = self.args.alarm_name if self.args.alarm_name is not None else None
+        self._alarm_id = self.args.alarm_id if self.args.alarm_id is not None else None
         self._metric_name = self.args.metric_name if self.args.metric_name is not None else None
         self._aggregate = self.args.aggregate if self.args.aggregate is not None else None
         self._operation = self.args.operation if self.args.operation is not None else None
@@ -161,6 +163,7 @@ class AlarmModify(ApiCli):
 
         self._actions = self._kwargs['actions'] if 'actions' in self._kwargs else None
         self._alarm_name = self._kwargs['name'] if 'name' in self._kwargs else None
+        self._alarm_id = self._kwargs['id'] if 'id' in self._kwargs else None
         self._aggregate = self._kwargs['aggregate'] if 'aggregate' in self._kwargs else None
         self._operation = self._kwargs['operation'] if 'operation' in self._kwargs else None
         self._threshold = self._kwargs['threshold'] if 'threshold' in self._kwargs else None
