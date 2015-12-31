@@ -59,7 +59,7 @@ class MetricModify (MetricCommon):
         self.parser.add_argument('-r', '--resolution', dest='resolution', action='store', metavar='resolution',
                                  help='Metric default resolution')
         self.parser.add_argument('-x', '--is-disabled', dest='isDisabled', action='store', default=None,
-                                 choices=['yes', 'no'], help='Enable or disable the metric definition')
+                                 choices=['true', 'false'], help='Enable or disable the metric definition')
         
     def get_arguments(self):
         """
