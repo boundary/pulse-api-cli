@@ -39,7 +39,6 @@ class CLIRunner(object):
         try:
             command = self.get_cli_name_from_class()
             args.insert(0, command)
-            print(args)
             output = subprocess.check_output(args=args)
         except subprocess.CalledProcessError as e:
             sys.stderr.write("{0}: {1}\n".format(e.output, e.returncode))
