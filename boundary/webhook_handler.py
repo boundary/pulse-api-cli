@@ -23,13 +23,13 @@ class WebHookBase(object):
     def __init__(self):
         pass
 
+
 """
 Wrapper for metric from Web Hook JSON payload
 """
 
 
 class WebHookMetric(WebHookBase):
-
     def __init__(self, id, name, type):
         WebHookBase.__init__(self)
         self._id = id
@@ -65,6 +65,7 @@ class WebHookMetric(WebHookBase):
     @property
     def type(self):
         return self._type
+
 
 """
 Class wrapper for text attribute of Web Hook action JSON payload
@@ -121,7 +122,6 @@ Class to store POST'ed data from Web Hook
 
 
 class WebHookAction(WebHookBase):
-
     def __init__(self, affected_servers={}):
         self.json = None
         self._data = {}
@@ -186,22 +186,24 @@ class WebHookHandler(BaseHTTPRequestHandler):
         self.send_response(urllib2.httplib.OK)
         self.end_headers()
         content_length = int(self.headers['Content-Length'])
-        data = self.rfile.read(content_length)
-        print(data)
-        print(self.headers)
-        self.wfile.write('data: %s\n' % str(data))
+        body = self.rfile.read(content_length)
+        print("Client: {0}".format(str(self.client_address)))
+        print("headers: {0}".format(self.headers))
+        print("path: {0}".format(self.path))
+        print("body: {0}".format(body))
+        # self.wfile.write("data: {0}\n".format(str(body)))
 
-        self.wfile.write('Client: %s\n' % str(self.client_address))
-        self.wfile.write('Path: %s\n' % self.path)
-        self.process_payload(data)
+        # self.wfile.write("Client: {0}\n".format(str(self.client_address)))
+        # self.wfile.write("Path: {0}\n".format(self.path))
 
-        return
+    # print("Body: {0}".format(self.process_payload(body)))
 
     def validate_data(self, data):
         return True
 
     def process_payload(self, json_data):
         data = json.loads(json_data)
+        return data
 
     def handle_action(self, action):
         print(action)
@@ -220,6 +222,7 @@ class WebHookApp:
         # server.socket = ssl.wrap_socket (server.socket, certfile='/Users/davidg/server.pem', server_side=True)
         print("Starting Webhook on {0}:{1}, use <Ctrl-C> to stop".format(self.address, self.port))
         server.serve_forever()
+
 
 def main():
     c = WebHookApp()

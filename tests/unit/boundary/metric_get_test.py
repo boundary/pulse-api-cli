@@ -15,9 +15,12 @@
 # limitations under the License.
 #
 
+import json
 from unittest import TestCase
-from cli_test import CLITest
+
 from boundary import MetricGet
+from cli_runner import CLIRunner
+from cli_test import CLITest
 
 
 class MetricGetTest(TestCase):
@@ -30,3 +33,13 @@ class MetricGetTest(TestCase):
 
     def test_cli_help(self):
         CLITest.check_cli_help(self, self.cli)
+
+    def test_get_metric(self):
+        runner_create = CLIRunner(MetricGet())
+
+        get = runner_create.get_output(['-n', 'CPU'])
+        metric_get = json.loads(get)
+
+        self.assertEqual('CPU', metric_get['name'])
+        self.assertEqual('CPU Utilization', metric_get['displayName'])
+        self.assertTrue(True, metric_get['isBuiltin'])
