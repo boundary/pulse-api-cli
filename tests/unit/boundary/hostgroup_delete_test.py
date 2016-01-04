@@ -15,8 +15,12 @@
 # limitations under the License.
 #
 
+import json
 from unittest import TestCase
+
+from boundary import HostgroupCreate
 from boundary import HostgroupDelete
+from cli_runner import CLIRunner
 from cli_test import CLITest
 
 
@@ -30,3 +34,19 @@ class HostgroupDeleteTest(TestCase):
 
     def test_cli_help(self):
         CLITest.check_cli_help(self, self.cli)
+
+    def test_delete_filter(self):
+        runner_create = CLIRunner(HostgroupCreate())
+        filter_name = 'Filter' + CLITest.random_string(6)
+        sources = 'foo,bar,red,green'
+
+        create = runner_create.get_output(['-n', filter_name,
+                                           '-s', sources])
+        filter_create = json.loads(create)
+        filter = filter_create['result']
+        filter_id = filter['id']
+
+        runner_delete = CLIRunner(HostgroupDelete())
+        delete = runner_delete.get_output(['-i', str(filter_id)])
+        delete_result = json.loads(delete)
+        self.assertTrue(delete_result['result']['success'])

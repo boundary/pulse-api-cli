@@ -16,8 +16,10 @@
 #
 
 from unittest import TestCase
+import json
 from boundary import HostgroupList
 from cli_test import CLITest
+from cli_runner import CLIRunner
 
 
 class HostgroupListTest(TestCase):
@@ -30,3 +32,11 @@ class HostgroupListTest(TestCase):
 
     def test_cli_help(self):
         CLITest.check_cli_help(self, self.cli)
+
+    def test_list_hostgroup(self):
+        runner_list = CLIRunner(HostgroupList())
+        list = runner_list.get_output([])
+        hostgroup_list = json.loads(list)
+
+        self.assertGreaterEqual(1, len(hostgroup_list))
+

@@ -16,8 +16,10 @@
 #
 
 from unittest import TestCase
+import json
 from boundary import ActionInstalled
 from cli_test import CLITest
+from cli_runner import CLIRunner
 
 
 class ActionInstalledTest(TestCase):
@@ -30,4 +32,13 @@ class ActionInstalledTest(TestCase):
 
     def test_cli_help(self):
         CLITest.check_cli_help(self, self.cli)
+
+    def test_get_actions_installed(self):
+        runner = CLIRunner(ActionInstalled())
+
+        result = runner.get_output([])
+        actions_result = json.loads(result)
+        actions = actions_result['result']
+
+        self.assertGreaterEqual(len(actions), 1)
 

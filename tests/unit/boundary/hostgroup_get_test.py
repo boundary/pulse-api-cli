@@ -17,6 +17,7 @@
 
 import json
 from unittest import TestCase
+from string import split
 
 from boundary import HostgroupCreate
 from boundary import HostgroupDelete
@@ -36,13 +37,14 @@ class HostgroupGetTest(TestCase):
     def test_cli_help(self):
         CLITest.check_cli_help(self, self.cli)
 
-    def test_create_hostgroup(self):
+    def test_get_hostgroup(self):
         runner_create = CLIRunner(HostgroupCreate())
 
         hostgroup_name = 'SAMPLE' + CLITest.random_string(6)
+        sources = 'FOO, BAR'
 
         create = runner_create.get_output(['-n', hostgroup_name,
-                                           '-s', 'FOO,BAR'])
+                                           '-s', sources])
         hostgroup_create = json.loads(create)
         hostgroup = hostgroup_create['result']
 
@@ -59,6 +61,7 @@ class HostgroupGetTest(TestCase):
         self.assertEqual(hostgroup_name, hostgroup['name'])
         self.assertFalse(hostgroup['system'])
         self.assertTrue(CLITest.is_int(hostgroup['id']))
+        self.assertItemsEqual(split(sources, ','), hostgroup['hostnames'])
 
         runner_delete = CLIRunner(HostgroupDelete())
         delete = runner_delete.get_output(['-i', str(hostgroup_id)])

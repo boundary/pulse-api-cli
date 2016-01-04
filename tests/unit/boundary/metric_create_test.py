@@ -36,7 +36,6 @@ class MetricCreateTest(TestCase):
     def test_cli_help(self):
         CLITest.check_cli_help(self, self.cli)
 
-
     def test_create_metric(self):
         runner_create = CLIRunner(MetricCreate())
         metric_name = 'METRIC' + CLITest.random_string(6)
