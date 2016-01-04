@@ -1,7 +1,7 @@
 usage: metric-create-batch [-h] [-l {debug,info,warning,error,critical}]
                            [-a api_host] [-e e_mail] [-t api_token] -f path
 
-General API CLI
+Creates multiple metric definitions from a file into a TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit

@@ -92,7 +92,7 @@ class MetricListTest(TestCase):
 #       self.json2 = json.loads(self.text)
 #       self.assertDictEqual(self.json1, self.json2)
 
-    def test_get_metric(self):
+    def test_list_metric(self):
         found = False
         runner_create = CLIRunner(MetricList())
 

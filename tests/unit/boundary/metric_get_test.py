@@ -43,6 +43,7 @@ class MetricGetTest(TestCase):
         self.assertEqual('CPU', metric_get['name'])
         self.assertEqual('CPU Utilization', metric_get['displayName'])
         self.assertEqual('CPU', metric_get['displayNameShort'])
+        self.assertEqual('Overall CPU utilization', metric_get['description'])
         self.assertTrue(metric_get['isBuiltin'])
         self.assertFalse(metric_get['isDisabled'])
         self.assertEqual('percent', metric_get['unit'])

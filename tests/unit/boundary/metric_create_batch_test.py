@@ -16,17 +16,48 @@
 #
 
 from unittest import TestCase
-from cli_test import CLITest
+
+import os
+import json
 from boundary import MetricCreateBatch
+from boundary import MetricDelete
+from metric_test import MetricTest
+from boundary import MetricExport
+from cli_test import CLITest
+from cli_runner import CLIRunner
 
 
 class MetricCreateBatchTest(TestCase):
-
     def setUp(self):
         self.cli = MetricCreateBatch()
+        self.filename = os.path.join(os.path.dirname(__file__), 'metric_import_data.json')
 
     def test_get_description(self):
         CLITest.check_description(self, self.cli)
 
     def test_cli_help(self):
         CLITest.check_cli_help(self, self.cli)
+
+    def test_create_metric_batch(self):
+        filename = os.path.join(os.path.dirname(__file__), 'metric_import_data.json')
+        print(filename)
+
+        runner_create = CLIRunner(MetricCreateBatch())
+        create = runner_create.get_output(['-f', filename])
+
+        runner_export = CLIRunner(MetricExport())
+        export = runner_export.get_output(['-p', 'TEST_METRIC_IMPORT'])
+        metrics = json.loads(export)
+
+        MetricTest.metric_assert(self,
+                      metrics['TEST_METRIC_IMPORT_A'],
+                      'My Number of Files',
+                      'My Files',
+                      'My Number Of Files',
+                      'number',
+                      'SUM',
+                      2000,
+                      False)
+
+# runner_delete = CLIRunner(MetricDelete())
+#        delete = runner_delete.get_output(['-n', metric_name])

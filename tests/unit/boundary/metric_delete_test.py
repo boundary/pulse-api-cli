@@ -15,9 +15,13 @@
 # limitations under the License.
 #
 
+import json
 from unittest import TestCase
-from cli_test import CLITest
+
+from boundary import MetricCreate
 from boundary import MetricDelete
+from cli_runner import CLIRunner
+from cli_test import CLITest
 
 
 class MetricDeleteTest(TestCase):
@@ -31,3 +35,27 @@ class MetricDeleteTest(TestCase):
     def test_get_cli_help(self):
         CLITest.check_cli_help(self, self.cli)
 
+    def test_delete_metric(self):
+        runner_create = CLIRunner(MetricCreate())
+        metric_name = 'METRIC' + CLITest.random_string(6)
+        display_name = 'Display Name ' + CLITest.random_string(20)
+        display_name_short = 'Short Display Name' + CLITest.random_string(5)
+        description = CLITest.random_string(30)
+        aggregate = 'avg'
+        unit = 'number'
+        resolution = 60000
+        disabled = False
+
+        create = runner_create.get_output(['-n', metric_name,
+                                           '-d', display_name,
+                                           '-s', display_name_short,
+                                           '-i', description,
+                                           '-g', aggregate,
+                                           '-r', str(resolution),
+                                           '-u', unit,
+                                           '-x', str(disabled).lower()])
+        metric_create = json.loads(create)
+        metric = metric_create['result']
+
+        runner_delete = CLIRunner(MetricDelete())
+        delete = runner_delete.get_output(['-n', metric_name])
