@@ -1,5 +1,5 @@
 #
-# Copyright 2015 BMCSoftware, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,95 +14,14 @@
 # limitations under the License.
 #
 
-from boundary import MetricCommon
-import json
-import requests
-
-"""
-Class definition for import metric definitions
-Sets creates or updates a metric from a JSON file
-"""
+from boundary import MetricCreateBulk
 
 
-class MetricCreateBatch(MetricCommon):
+class MetricCreateBatch(MetricCreateBulk):
 
     def __init__(self):
-        """
-        """
-        MetricCommon.__init__(self)
-        self.method = 'PUT'
-        self.metrics = None
-        self.path = None
-        self.v2Metrics = None
-       
-    def add_arguments(self):
-        """
-        Configure handling of command line arguments.
-        """
-        # Call our parent to add the default arguments
-        MetricCommon.add_arguments(self)
+        MetricCreateBulk.__init__(self)
 
-        self.parser.add_argument('-f', '--file', dest='path', metavar='path', action='store', required=True,
-                                 help='Path to JSON file')
-
-    def get_arguments(self):
-        """
-        """
-        MetricCommon.get_arguments(self)
-        if self.args.path is not None:
-            self.path = self.args.path
-        
-    def load_and_parse(self):
-        """
-        Load the metrics file from the given path
-        """
-        f = open(self.path, "r")
-        metrics_json = f.read()
-        self.metrics = json.loads(metrics_json)
-
-    def import_metrics(self):
-        """
-        1) Get command line arguments
-        2) Read the JSON file
-        3) Parse into a dictionary
-        4) Create or update definitions using API call
-        """
-
-        self.v2Metrics = self.metricDefintionV2(self.metrics)
-        if self.v2Metrics:
-            metrics = self.metrics
-
-        else:
-            metrics = self.metrics['result']
-
-        # Loop through the metrics and call the API
-        # to create/update
-        for m in metrics:
-            if self.v2Metrics:
-                metric = metrics[m]
-                metric['name'] = m
-            else:
-                metric = m
-            self.create_update(metric)
-      
-    def _call_api(self):
-        """
-        """
-        self.load_and_parse()
-        self.import_metrics()
-
-    def create_update(self, metric):
-        """
-        """
-        self.path = "v1/metrics/{0}".format(metric['name'])
-        self.headers = {'content-type': 'application/json'}
-        self.data = json.dumps(metric)
-        MetricCommon.callAPI(self)
-
-    def _handle_results(self):
-        """
-        Default is to just print the results to standard out
-        """
-        if self._api_result.status_code != requests.codes.ok:
-            print(self.colorize_json(self._api_result.text))
+    def get_description(self):
+        return 'Creates multiple metric definitions from a file into a {0} account'.format(self.product_name)
 

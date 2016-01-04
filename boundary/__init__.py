@@ -51,6 +51,7 @@ from .meter_client import MeterClient
 from .metric_common import MetricCommon
 from .metric_modify import MetricModify
 from .metric_create import MetricCreate
+from .metric_create_bulk import MetricCreateBulk
 from .metric_create_batch import MetricCreateBatch
 from .metric_delete import MetricDelete
 from .metric_export import MetricExport

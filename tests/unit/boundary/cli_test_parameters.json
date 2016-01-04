@@ -60,7 +60,7 @@
     "description": "Creates a new metric definition in an TrueSight Pulse account"
   },
   "MetricCreateBatch": {
-    "description": "General API CLI"
+    "description": "Creates multiple metric definitions from a file into a TrueSight Pulse account"
   },
   "MetricDelete": {
     "description": "Deletes a metric definition from a TrueSight Pulse account"
