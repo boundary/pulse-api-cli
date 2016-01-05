@@ -15,13 +15,15 @@
 # limitations under the License.
 #
 
+import json
 from unittest import TestCase
-from boundary import AlarmCreate
+
 from boundary import API
+from boundary import AlarmCreate
+from boundary import AlarmDelete
+from cli_runner import CLIRunner
 from cli_test import CLITest
 from cli_test_parameters import CLITestParameters
-from cli_runner import CLIRunner
-import json
 
 
 class AlarmCreateTest(TestCase):
@@ -87,11 +89,11 @@ class AlarmCreateTest(TestCase):
         api.alarm_delete(id=alarm.id)
 
     def test_create_alarm(self):
-        runner = CLIRunner(AlarmCreate())
+        runner_create = CLIRunner(AlarmCreate())
 
-        output = runner.get_output(['-n', 'my-alarm', '-m', 'CPU', '-g', 'max', '-o', 'gt',
+        create = runner_create.get_output(['-n', 'my-alarm', '-m', 'CPU', '-g', 'max', '-o', 'gt',
                                     '-v', '0.50', '-r', '5 minutes'])
-        result = json.loads(output)
+        result = json.loads(create)
         alarm = result['result']
         self.assertEqual(300, int(alarm['interval']))
         self.assertEqual([], alarm['actions'])
@@ -105,3 +107,7 @@ class AlarmCreateTest(TestCase):
         self.assertEqual('gt', alarm['triggerPredicate']['op'])
         self.assertEqual(0.5, alarm['triggerPredicate']['val'])
         self.assertEqual(3, int(alarm['typeId']))
+
+        runner_delete = CLIRunner(AlarmDelete())
+        delete = runner_delete.get_output(['-i', str(alarm['id'])])
+

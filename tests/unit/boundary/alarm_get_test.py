@@ -19,6 +19,7 @@ from unittest import TestCase
 
 from boundary import AlarmGet
 from boundary import AlarmCreate
+from boundary import AlarmDelete
 from boundary import API
 from cli_test import CLITest
 from cli_runner import CLIRunner
@@ -85,4 +86,7 @@ class AlarmGetTest(TestCase):
         self.assertEqual(alarm_create['triggerPredicate']['op'], alarm_get['triggerPredicate']['op'])
         self.assertEqual(alarm_create['triggerPredicate']['val'], alarm_get['triggerPredicate']['val'])
         self.assertEqual(int(alarm_create['typeId']), int(alarm_get['typeId']))
+
+        runner_delete = CLIRunner(AlarmDelete())
+        delete = runner_delete.get_output(['-i', str(alarm_get['id'])])
 
