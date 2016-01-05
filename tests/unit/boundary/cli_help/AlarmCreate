@@ -4,7 +4,7 @@ usage: alarm-create [-h] -n alarm_name
                     {sum,avg,max,min} -o {eq,gt,lt} -v value -r {1 second,15
                     seconds,1 minute,5 minutes,1 hour,1.5 hours,3 hours,6
                     hours,12 hours} [-u host_group_id] [-d note]
-                    [-c action-id] [-p {yes,no}] [-x {yes,no}]
+                    [-c action-id] [-p {true,false}] [-x {true,false}]
 
 Creates an alarm definition in an TrueSight Pulse account
 
@@ -38,12 +38,12 @@ optional arguments:
   -d note, --note note  A description or resolution of the alarm
   -c action-id, --action action-id
                         An action to be performed when an alarm is triggered
-  -p {yes,no}, --per-host-notify {yes,no}
+  -p {true,false}, --per-host-notify {true,false}
                         An alarm by default will run the associated actions
                         when any server in the host group violates the
                         threshold, and then at the end when all servers are
                         back within the threshold. If perHostNotify is set to
                         true, the actions will run when ANY server in the
                         group violates and falls back within the threshold.
-  -x {yes,no}, --is-disabled {yes,no}
+  -x {true,false}, --is-disabled {true,false}
                         Enable or disable the alarm definition
