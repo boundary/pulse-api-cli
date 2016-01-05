@@ -15,9 +15,12 @@
 # limitations under the License.
 #
 
+import json
 from unittest import TestCase
-from boundary import AlarmList
+
 from boundary import API
+from boundary import AlarmList
+from cli_runner import CLIRunner
 from cli_test import CLITest
 
 
@@ -39,4 +42,13 @@ class AlarmListTest(TestCase):
         self.assertGreaterEqual(len(alarm_list), 1)
         for alarm in alarm_list:
             print(alarm)
+
+    def test_list_alarm(self):
+        runner_list = CLIRunner(AlarmList())
+
+        create = runner_list.get_output([])
+        result_list = json.loads(create)
+        alarm_list = result_list['result']
+
+        self.assertGreaterEqual(len(alarm_list), 1)
 
