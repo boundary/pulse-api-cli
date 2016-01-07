@@ -1,11 +1,11 @@
-usage: metric-create [-h] [-l {debug,info,warning,error,critical}]
+usage: metric-update [-h] [-l {debug,info,warning,error,critical}]
                      [-a api_host] [-e e_mail] [-t api_token] [-z] -n
                      metric_name -d display_name -s display_short_name
                      [-i description] -g {avg,max,min,sum} -u
                      {percent,number,bytecount,duration} [-r resolution]
                      [-x {true,false}]
 
-Creates a new metric definition in an TrueSight Pulse account
+Updates a metric definition in an TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit

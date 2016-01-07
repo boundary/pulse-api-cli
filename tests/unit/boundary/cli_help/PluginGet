@@ -1,5 +1,5 @@
 usage: plugin-get [-h] [-l {debug,info,warning,error,critical}] [-a api_host]
-                  [-e e_mail] [-t api_token] -n plugin_name
+                  [-e e_mail] [-t api_token] [-z] -n plugin_name
 
 Get the details of a plugin in a TrueSight Pulse account
 
@@ -16,5 +16,6 @@ optional arguments:
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
                         TrueSight Pulse account
+  -z, --curl            Output the corresponding curl command line and exit
   -n plugin_name, --plugin-Name plugin_name
                         Plugin name

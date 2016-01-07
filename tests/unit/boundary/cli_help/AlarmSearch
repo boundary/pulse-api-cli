@@ -1,5 +1,6 @@
 usage: alarm-search [-h] [-l {debug,info,warning,error,critical}]
-                    [-a api_host] [-e e_mail] [-t api_token] -n alarm-name
+                    [-a api_host] [-e e_mail] [-t api_token] [-z] -n
+                    alarm-name
 
 Searches for an alarm definition by name from a TrueSight Pulse account
 
@@ -16,5 +17,6 @@ optional arguments:
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
                         TrueSight Pulse account
+  -z, --curl            Output the corresponding curl command line and exit
   -n alarm-name, --alarm-name alarm-name
                         Alarm name

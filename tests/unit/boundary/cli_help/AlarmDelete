@@ -1,7 +1,7 @@
-usage: alarm-get [-h] [-l {debug,info,warning,error,critical}] [-a api_host]
-                 [-e e_mail] [-t api_token] [-z] -i alarm-id
+usage: alarm-delete [-h] [-l {debug,info,warning,error,critical}]
+                    [-a api_host] [-e e_mail] [-t api_token] [-z] -i alarm-id
 
-Retrieves an alarm definition from a TrueSight Pulse account
+Deletes an alarm definition from a TrueSight Pulse account
 
 optional arguments:
   -h, --help            show this help message and exit

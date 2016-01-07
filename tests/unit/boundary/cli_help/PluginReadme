@@ -1,5 +1,5 @@
 usage: plugin-readme [-h] [-l {debug,info,warning,error,critical}]
-                     [-a api_host] [-e e_mail] [-t api_token] [-m path]
+                     [-a api_host] [-e e_mail] [-t api_token] [-z] [-m path]
                      [-p path] [-o path] [-r path]
 
 Generates README from plugin.json and template
@@ -17,6 +17,7 @@ optional arguments:
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
                         TrueSight Pulse account
+  -z, --curl            Output the corresponding curl command line and exit
   -m path, --metric-manifest-path path
                         Path to metrics.json manifest. Defaults to
                         metrics.json

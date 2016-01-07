@@ -1,5 +1,5 @@
 usage: measurement-get [-h] [-l {debug,info,warning,error,critical}]
-                       [-a api_host] [-e e_mail] [-t api_token]
+                       [-a api_host] [-e e_mail] [-t api_token] [-z]
                        [-f {csv,json,xml}] -n metric_name [-g aggregate]
                        [-r sample] -s source -b start [-d end]
 
@@ -18,6 +18,7 @@ optional arguments:
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
                         TrueSight Pulse account
+  -z, --curl            Output the corresponding curl command line and exit
   -f {csv,json,xml}, --format {csv,json,xml}
                         Output format
   -n metric_name, --name metric_name

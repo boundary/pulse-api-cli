@@ -1,5 +1,5 @@
 usage: metric-list [-h] [-l {debug,info,warning,error,critical}] [-a api_host]
-                   [-e e_mail] [-t api_token] [-b {true,false}]
+                   [-e e_mail] [-t api_token] [-z] [-b {true,false}]
                    [-c {true,false}]
 
 Lists the defined metrics in a TrueSight Pulse account
@@ -17,6 +17,7 @@ optional arguments:
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
                         TrueSight Pulse account
+  -z, --curl            Output the corresponding curl command line and exit
   -b {true,false}, --enabled {true,false}
                         Filter the list of metrics to only return enabled
                         metrics

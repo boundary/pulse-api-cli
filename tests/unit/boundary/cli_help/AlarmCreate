@@ -1,6 +1,6 @@
 usage: alarm-create [-h] -n alarm_name
                     [-l {debug,info,warning,error,critical}] [-a api_host]
-                    [-e e_mail] [-t api_token] -m metric_name -g
+                    [-e e_mail] [-t api_token] [-z] -m metric_name -g
                     {sum,avg,max,min} -o {eq,gt,lt} -v value -r {1 second,15
                     seconds,1 minute,5 minutes,1 hour,1.5 hours,3 hours,6
                     hours,12 hours} [-u host_group_id] [-d note]
@@ -23,6 +23,7 @@ optional arguments:
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
                         TrueSight Pulse account
+  -z, --curl            Output the corresponding curl command line and exit
   -m metric_name, --metric metric_name
                         Name of the metric to alarm
   -g {sum,avg,max,min}, --trigger-aggregate {sum,avg,max,min}

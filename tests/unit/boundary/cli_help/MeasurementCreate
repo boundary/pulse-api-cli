@@ -1,5 +1,5 @@
 usage: measurement-create [-h] [-l {debug,info,warning,error,critical}]
-                          [-a api_host] [-e e_mail] [-t api_token] -n
+                          [-a api_host] [-e e_mail] [-t api_token] [-z] -n
                           metric_name -m measurement [-s source]
                           [-d timestamp]
 
@@ -18,6 +18,7 @@ optional arguments:
   -t api_token, --api-token api_token
                         API token for given e-mail that has access to the
                         TrueSight Pulse account
+  -z, --curl            Output the corresponding curl command line and exit
   -n metric_name, --metric-name metric_name
                         Metric identifier
   -m measurement, --measurement measurement
