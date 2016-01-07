@@ -45,6 +45,7 @@ class ApiCall(object):
         self._api_host = "premium-api.boundary.com"
         self._email = None
         self._api_token = None
+        self._curl = False
 
         # All member variables related to REST CALL
         self._scheme = "https"
@@ -95,6 +96,7 @@ class ApiCall(object):
     @headers.setter
     def headers(self, headers):
         self._headers = headers
+
     #
     # method
     #
@@ -214,6 +216,28 @@ class ApiCall(object):
     def form_url(self):
         return "{0}://{1}/{2}{3}".format(self._scheme, self._api_host, self._path, self._get_url_parameters())
 
+    def _curl_output(self):
+
+        headers = ""
+        if self._headers is not None:
+            for key in self._headers:
+                headers = headers + ' -H "{0}: {1}"'.format(key, self._headers[key])
+
+        data = None
+        if self._data is not None:
+            data = " -d '{0}'".format(self._data)
+        else:
+            data = ''
+
+        url = ' "{0}"'.format(self.form_url())
+
+        print('curl -X {0} -u "{1}:{2}"{3}{4}{5}'.format(self._method,
+                                                       self._email,
+                                                       self._api_token,
+                                                       headers,
+                                                       data,
+                                                       url))
+
     def _call_api(self):
         """
         Make an API call to get the metric definition
@@ -253,4 +277,3 @@ class ApiCall(object):
         if self._api_result.status_code == requests.codes.ok:
             result = json.loads(self._api_result.text)
         return result
-

@@ -85,6 +85,8 @@ class ApiCli(ApiCall):
                                  metavar="api_token",
                                  help='API token for given e-mail that has access to the {0} account'.format(
                                      self.product_name))
+        self.parser.add_argument('-z', '--curl', dest='curl', required=False, action='store_true', default=False,
+                                 help='Output the corresponding curl command line and exit')
 
     def _parse_args(self):
         """
@@ -118,6 +120,7 @@ class ApiCli(ApiCall):
             self._email = self.args.email
         if self.args.api_token is not None:
             self._api_token = self.args.api_token
+        self._curl = self.args.curl
 
         logging.debug("apihost: {0}".format(self._api_host))
         logging.debug("email: {0}".format(self._email))
@@ -183,8 +186,11 @@ class ApiCli(ApiCall):
 
         self.get_api_parameters()
         if self._validate_arguments():
-            self._call_api()
-            self._handle_results()
+            if self._curl:
+                self._curl_output()
+            else:
+                self._call_api()
+                self._handle_results()
         else:
             print(self._message)
 
