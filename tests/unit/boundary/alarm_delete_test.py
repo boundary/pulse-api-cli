@@ -16,14 +16,18 @@
 #
 
 from unittest import TestCase
+import json
 from boundary import API
-from boundary import AlarmUpdate
+from boundary import AlarmCreate
+from boundary import AlarmDelete
 from cli_test import CLITest
+from cli_runner import CLIRunner
 
 
-class AlarmUpdateTest(TestCase):
+class AlarmDeleteTest(TestCase):
+
     def setUp(self):
-        self.cli = AlarmUpdate()
+        self.cli = AlarmDelete()
         self.api = API()
 
     def test_cli_description(self):
@@ -34,17 +38,42 @@ class AlarmUpdateTest(TestCase):
 
     def test_api_call(self):
         api = API()
-        name = 'ALARM_DELETE_TEST'
+        name = 'ALARM_DELETE_API_TEST' + CLITest.random_string(6)
         metric_name = 'CPU'
         interval = '1 minute'
         aggregate = 'sum'
         operation = 'gt'
         threshold = '0.80'
+        note = CLITest.random_string(20)
         alarm = api.alarm_create(name=name,
                                  metric_name=metric_name,
                                  interval=interval,
                                  aggregate=aggregate,
                                  operation=operation,
-                                 threshold=threshold)
+                                 threshold=threshold,
+                                 note=note)
 
         self.api.alarm_delete(id=alarm.id)
+
+    def test_delete_alarm(self):
+        name = 'ALARM_DELETE_TEST' + CLITest.random_string(6)
+        metric_name = 'CPU'
+        interval = '1 minute'
+        aggregate = 'sum'
+        operation = 'gt'
+        threshold = '0.80'
+        note = CLITest.random_string(20)
+
+        runner_create = CLIRunner(AlarmCreate())
+        create = runner_create.get_output(['-n', name,
+                                           '-m', metric_name,
+                                           '-g', aggregate,
+                                           '-o', operation,
+                                           '-v', str(threshold),
+                                           '-r', interval,
+                                           '-d', note])
+        result_create = json.loads(create)
+        alarm = result_create['result']
+
+        runner_delete = CLIRunner(AlarmDelete())
+        delete = runner_delete.get_output(['-i', str(alarm['id'])])
