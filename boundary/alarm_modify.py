@@ -82,7 +82,7 @@ class AlarmModify(ApiCli):
                                  help='An action to be performed when an alarm is triggered')
 
         self.parser.add_argument('-p', '--per-host-notify', dest='per_host_notify', action='store',
-                                 default=None, choices=['yes', 'no'],
+                                 default=None, choices=['true', 'false'],
                                  help='An alarm by default will run the associated actions when \
                                  any server in the host group violates the threshold, and then at the end when \
                                  all servers are back within the threshold. If perHostNotify is set to true, \
@@ -90,7 +90,7 @@ class AlarmModify(ApiCli):
                                  and falls back within the threshold.')
 
         self.parser.add_argument('-x', '--is-disabled', dest='is_disabled', action='store', default=None,
-                                 choices=['yes', 'no'], help='Enable or disable the alarm definition')
+                                 choices=['true', 'false'], help='Enable or disable the alarm definition')
 
     def get_arguments(self):
         """
