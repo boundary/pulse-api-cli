@@ -13,6 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+import json
+
 from boundary import AlarmModify
 
 
@@ -46,6 +49,9 @@ class AlarmUpdate(AlarmModify):
     def get_api_parameters(self):
         AlarmModify.get_api_parameters(self)
         self.method = "PUT"
+        if self._alarm_id is not None:
+            self._payload['id'] = float(self._alarm_id)
+        self.data = json.dumps(self._payload, sort_keys=True)
         self.path = "v1/alarm/{0}".format(self._alarm_id)
 
     def get_description(self):
