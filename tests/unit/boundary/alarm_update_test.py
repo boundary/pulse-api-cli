@@ -82,7 +82,7 @@ class AlarmUpdateTest(TestCase):
         self.assertEqual(3600, alarm_update.interval)
         self.assertEqual(is_disabled, alarm_update.is_disabled)
         self.assertEqual(metric_name, alarm_update.metric_name)
-        self.assertEqual(name, alarm_update.name)
+        self.assertEqual(alarm_name, alarm_update.name)
         self.assertEqual(note, alarm_update.note)
         self.assertEqual(operation, alarm_update.operation)
         self.assertEqual(per_host_modify, alarm_update.per_host_modify)
@@ -131,16 +131,16 @@ class AlarmUpdateTest(TestCase):
         result_update = json.loads(update)
         alarm = result_update['result']
 
-        self.assertEqual(300, alarm['interval'])
+        self.assertEqual(300000, alarm['triggerInterval'])
         self.assertEqual(1, alarm['familyId'])
         self.assertFalse(is_disabled, alarm['isDisabled'])
-        self.assertEqual(metric_name, alarm['metricName'])
+        self.assertEqual(metric_name, alarm['metric'])
         self.assertEqual(alarm_name, alarm['name'])
         self.assertEqual(aggregate, alarm['triggerPredicate']['agg'])
         self.assertEqual(op, alarm['triggerPredicate']['op'])
         self.assertEqual(value, alarm['triggerPredicate']['val'])
         self.assertEqual(3, int(alarm['typeId']))
-        self.assertEqual(note, int(alarm['note']))
+        self.assertEqual(note, alarm['note'])
 
         runner_delete = CLIRunner(AlarmDelete())
         delete = runner_delete.get_output(['-i', str(alarm['id'])])
