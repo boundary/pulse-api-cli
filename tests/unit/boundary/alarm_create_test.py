@@ -58,6 +58,8 @@ class AlarmCreateTest(TestCase):
         self.assertEqual(operation, alarm.operation)
         self.assertEqual(threshold, alarm.threshold)
 
+        self.api.alarm_delete(id=alarm.id)
+
     def test_credentials(self):
         parameters = CLITestParameters(filename='credentials.json')
         api_host = parameters.get_value('api-host', 'value')
@@ -108,6 +110,5 @@ class AlarmCreateTest(TestCase):
         self.assertEqual(0.5, alarm['triggerPredicate']['val'])
         self.assertEqual(3, int(alarm['typeId']))
 
-        runner_delete = CLIRunner(AlarmDelete())
-        delete = runner_delete.get_output(['-i', str(alarm['id'])])
+        self.api.alarm_delete(id=alarm['id'])
 

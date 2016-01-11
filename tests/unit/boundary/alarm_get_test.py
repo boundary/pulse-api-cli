@@ -62,6 +62,8 @@ class AlarmGetTest(TestCase):
         self.assertEqual(alarm_create.operation, alarm_get.operation)
         self.assertEqual(alarm_create.threshold, alarm_get.threshold)
 
+        self.api.alarm_delete(id=alarm_get.id)
+
     def test_get_alarm(self):
         runner_create = CLIRunner(AlarmCreate())
 
