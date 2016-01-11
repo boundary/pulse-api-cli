@@ -39,8 +39,4 @@ class AlarmCreate(AlarmModify):
     def get_description(self):
         return 'Creates an alarm definition in an {0} account'.format(self.product_name)
 
-    def get_api_parameters(self):
-        AlarmModify.get_api_parameters(self)
-        self.path = 'v1/alarms'
-
 
