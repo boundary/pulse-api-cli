@@ -13,10 +13,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+import json
+
+import requests
 from boundary import ApiCli
 from boundary.alarm_common import result_to_alarm
-import json
-import requests
 
 
 class AlarmModify(ApiCli):
@@ -36,6 +37,7 @@ class AlarmModify(ApiCli):
         self._operation = None
         self._per_host_notify = None
         self._threshold = None
+        self._payload = {}
 
         self._intervals = {'1 second': 1,
                            '5 seconds': 15,
@@ -112,7 +114,6 @@ class AlarmModify(ApiCli):
         self._is_disabled = self.args.is_disabled if self.args.is_disabled is not None else None
 
     def get_api_parameters(self):
-        payload = {}
 
         # Create trigger predicate dictionary
         predicate = {}
@@ -125,37 +126,37 @@ class AlarmModify(ApiCli):
             predicate['val'] = float(self._threshold)
 
         if 'agg' in predicate or 'op' in predicate or 'val' in predicate:
-            payload['triggerPredicate'] = predicate
+            self._payload['triggerPredicate'] = predicate
 
         # Create payload dictionary
         if self._alarm_name:
-            payload['name'] = self._alarm_name
+            self._payload['name'] = self._alarm_name
 
         if self._host_group_id is not None:
-            payload['hostgroupId'] = self._host_group_id
+            self._payload['hostgroupId'] = self._host_group_id
 
         if self._interval is not None:
-            payload['interval'] = self._intervals[self._interval]
+            self._payload['interval'] = self._intervals[self._interval]
 
         if self._is_disabled is not None:
-            payload['isDisabled'] = self._is_disabled
+            self._payload['isDisabled'] = self._is_disabled
 
         if self._metric_name is not None:
-            payload['metricName'] = self._metric_name
+            self._payload['metricName'] = self._metric_name
 
         if self._note is not None:
-            payload['note'] = self._note
+            self._payload['note'] = self._note
 
         if self._actions is not None:
-            payload['actions'] = self._actions
+            self._payload['actions'] = self._actions
 
         if self._per_host_notify is not None:
-            payload['perHostNotify'] = True if self._per_host_notify == 'yes' else False
+            self._payload['perHostNotify'] = True if self._per_host_notify == 'yes' else False
 
         if self._is_disabled is not None:
-            payload['isDisabled'] = True if self._is_disabled == 'yes' else False
+            self._payload['isDisabled'] = True if self._is_disabled == 'yes' else False
 
-        self.data = json.dumps(payload, sort_keys=True)
+        self.data = json.dumps(self._payload, sort_keys=True)
         self.headers = {'Content-Type': 'application/json'}
         self.path = 'v1/alarms'
 
