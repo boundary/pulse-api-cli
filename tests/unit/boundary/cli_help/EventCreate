@@ -1,0 +1,36 @@
+usage: event-create [-h] [-l {debug,info,warning,error,critical}]
+                    [-a api_host] [-e e_mail] [-t api_token] [-z] [-b {}]
+                    [-r {INFO,WARN,ERROR,CRITICAL}] [-m message] -f aggregate
+                    [-o organization_id] [-p PROPERTIES]
+                    [-s ref:type:name:properties] -w title
+
+Creates a new event in an TrueSight Pulse account
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -l {debug,info,warning,error,critical}, --log-level {debug,info,warning,error,critical}
+                        Sets logging level to one of
+                        debug,info,warning,error,critical.Default is logging
+                        is disabled
+  -a api_host, --api-host api_host
+                        TrueSight Pulse API host endpoint
+  -e e_mail, --email e_mail
+                        e-mail that has access to the TrueSight Pulse account
+  -t api_token, --api-token api_token
+                        API token for given e-mail that has access to the
+                        TrueSight Pulse account
+  -z, --curl            Output the corresponding curl command line and exit
+  -b {}, --status {}
+  -r {INFO,WARN,ERROR,CRITICAL}, --severity {INFO,WARN,ERROR,CRITICAL}
+                        Severity of the the event
+  -m message, --message message
+                        Text describing the event
+  -f aggregate, --fingerprint-fields aggregate
+                        Metric aggregate to alarm upon
+  -o organization_id, --organization-id organization_id
+                        Boundary account Id
+  -p PROPERTIES, --properties PROPERTIES
+  -s ref:type:name:properties, --source ref:type:name:properties
+                        A description or resolution of the alarm
+  -w title, --title title
+                        Title of the event

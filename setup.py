@@ -22,6 +22,7 @@ setup(
         'bin/alarm-update',
         'bin/action-installed',
         'bin/action-types',
+        'bin/event-create',
         'bin/event-list',
         'bin/hostgroup-create',
         'bin/hostgroup-delete',
