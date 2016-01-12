@@ -18,19 +18,19 @@
   },
   "AlarmGet": {
     "description": "Retrieves an alarm definition from a TrueSight Pulse account",
-    "curl": "curl -X GET \"https://premium-api.boundary.com/v1/alarm/1024\"\n'"
+    "curl": "curl -X GET \"https://premium-api.boundary.com/v1/alarm/1024\"\n"
   },
   "AlarmList": {
     "description": "List alarm definitions associated with the TrueSight Pulse account",
-    "curl": ""
+    "curl": "curl -X GET \"https://premium-api.boundary.com/v1/alarms\"\n"
   },
   "AlarmSearch": {
     "description": "Searches for an alarm definition by name from a TrueSight Pulse account",
-    "curl": ""
+    "curl": "curl -X GET \"https://premium-api.boundary.com/v1/alarms/search?name=foo\"\n"
   },
   "AlarmUpdate": {
     "description": "Updates an alarm definition in an TrueSight Pulse account",
-    "curl": ""
+    "curl": "curl -X PUT -H \"Content-Type: application/json\" -d '{\"id\": 1024.0, \"interval\": 300, \"isDisabled\": false, \"metricName\": \"CPU\", \"name\": \"my-curl\", \"triggerPredicate\": {\"agg\": \"min\", \"op\": \"lt\", \"val\": 0.5}}' \"https://premium-api.boundary.com/v1/alarm/1024\"\n"
   },
   "EventCreate": {
     "description": "Creates a new event in an TrueSight Pulse account",
@@ -38,7 +38,7 @@
   },
   "EventList": {
     "description": "Lists the events in a TrueSight Pulse account",
-    "curl": ""
+    "curl": "curl -X GET \"https://premium-api.boundary.com/v1/events\"\n"
   },
   "HostgroupCreate": {
     "description": "Creates host group definition in a TrueSight Pulse account",
@@ -143,6 +143,10 @@
   "RelayGetConfig": {
     "description": "Returns relay configuration from a TrueSight Pulse account",
     "curl": ""
+  },
+  "RelayGetOutput": {
+    "description": "Queries for relay output messages in a TrueSight Pulse account",
+    "curl": "curl -X GET \"https://premium-api.boundary.com/v1/relays/My-Relay/output/1\"\n"
   },
   "RelayList": {
     "description": "Lists the relays in a TrueSight Pulse account",
