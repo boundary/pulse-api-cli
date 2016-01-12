@@ -18,7 +18,7 @@
   },
   "AlarmGet": {
     "description": "Retrieves an alarm definition from a TrueSight Pulse account",
-    "curl": ""
+    "curl": "curl -X GET \"https://premium-api.boundary.com/v1/alarm/1024\"\n'"
   },
   "AlarmList": {
     "description": "List alarm definitions associated with the TrueSight Pulse account",
@@ -42,7 +42,7 @@
   },
   "HostgroupCreate": {
     "description": "Creates host group definition in a TrueSight Pulse account",
-    "curl": ""
+    "curl": "curl -X POST -H \"Content-Type: application/json\" -H \"Accept: application/json\" -d '{\"hostnames\": [\"source1\", \"source2\", \"source3\"], \"name\": \"My-Filter\"}' \"https://premium-api.boundary.com/v1/hostgroups\"\n"
   },
   "HostgroupDelete": {
     "description": "Deletes a host group definition by id from a TrueSight Pulse account",

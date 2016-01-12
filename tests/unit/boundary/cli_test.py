@@ -38,6 +38,8 @@ class CLITest:
         parameters = CLITestParameters()
         p = re.compile(r'-u ".*?"\s')
         a = p.findall(output)
+        print(output)
+        print(a)
         output = output.replace(a[0], '')
         test_case.assertEqual(parameters.get_value(cli.__class__.__name__, 'curl'), output.encode('utf-8'))
 
