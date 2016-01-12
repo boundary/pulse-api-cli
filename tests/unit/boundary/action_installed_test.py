@@ -15,11 +15,12 @@
 # limitations under the License.
 #
 
-from unittest import TestCase
 import json
+from unittest import TestCase
+
 from boundary import ActionInstalled
-from cli_test import CLITest
 from cli_runner import CLIRunner
+from cli_test import CLITest
 
 
 class ActionInstalledTest(TestCase):
@@ -29,6 +30,11 @@ class ActionInstalledTest(TestCase):
 
     def test_cli_description(self):
         CLITest.check_description(self, self.cli)
+
+    def test_cli_curl(self):
+        runner = CLIRunner(self.cli)
+        curl = runner.get_output(['-z'])
+        CLITest.check_curl(self, self.cli, curl)
 
     def test_cli_help(self):
         CLITest.check_cli_help(self, self.cli)

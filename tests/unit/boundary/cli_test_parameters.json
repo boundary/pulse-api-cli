@@ -1,126 +1,168 @@
 {
   "ActionInstalled": {
-    "description": "Returns the actions configured within a TrueSight Pulse account"
+    "description": "Returns the actions configured within a TrueSight Pulse account",
+    "curl": "curl -X GET \"https://premium-api.boundary.com/v1/actions/installed\"\n"
   },
   "ActionTypes": {
-    "description": "List action types associated with the TrueSight Pulse account"
+    "description": "List action types associated with the TrueSight Pulse account",
+    "curl": "curl -X GET \"https://premium-api.boundary.com/v1/actions\"\n"
   },
   "AlarmCreate": {
-    "description": "Creates an alarm definition in an TrueSight Pulse account"
+    "description": "Creates an alarm definition in an TrueSight Pulse account",
+    "curl": "curl -X POST -H \"Content-Type: application/json\" -d '{\"interval\": 300, \"isDisabled\": false, \"metricName\": \"CPU\", \"name\": \"my-curl\", \"triggerPredicate\": {\"agg\": \"min\", \"op\": \"lt\", \"val\": 0.5}}' \"https://premium-api.boundary.com/v1/alarms\"\n"
+
   },
   "AlarmDelete": {
-    "description": "Deletes an alarm definition from a TrueSight Pulse account"
+    "description": "Deletes an alarm definition from a TrueSight Pulse account",
+    "curl": "curl -X DELETE \"https://premium-api.boundary.com/v1/alarm/1024\"\n"
   },
   "AlarmGet": {
-    "description": "Retrieves an alarm definition from a TrueSight Pulse account"
+    "description": "Retrieves an alarm definition from a TrueSight Pulse account",
+    "curl": ""
   },
   "AlarmList": {
-    "description": "List alarm definitions associated with the TrueSight Pulse account"
+    "description": "List alarm definitions associated with the TrueSight Pulse account",
+    "curl": ""
   },
   "AlarmSearch": {
-    "description": "Searches for an alarm definition by name from a TrueSight Pulse account"
+    "description": "Searches for an alarm definition by name from a TrueSight Pulse account",
+    "curl": ""
   },
   "AlarmUpdate": {
-    "description": "Updates an alarm definition in an TrueSight Pulse account"
+    "description": "Updates an alarm definition in an TrueSight Pulse account",
+    "curl": ""
   },
   "EventCreate": {
-    "description": "Creates a new event in an TrueSight Pulse account"
+    "description": "Creates a new event in an TrueSight Pulse account",
+    "curl": ""
   },
   "EventList": {
-    "description": "Lists the events in a TrueSight Pulse account"
+    "description": "Lists the events in a TrueSight Pulse account",
+    "curl": ""
   },
   "HostgroupCreate": {
-    "description": "Creates host group definition in a TrueSight Pulse account"
+    "description": "Creates host group definition in a TrueSight Pulse account",
+    "curl": ""
   },
   "HostgroupDelete": {
-    "description": "Deletes a host group definition by id from a TrueSight Pulse account"
+    "description": "Deletes a host group definition by id from a TrueSight Pulse account",
+    "curl": ""
   },
   "HostgroupGet": {
-    "description": "Retrieves a single host group definition by id from a TrueSight Pulse account"
+    "description": "Retrieves a single host group definition by id from a TrueSight Pulse account",
+    "curl": ""
   },
   "HostgroupList": {
-    "description": "Lists the Host Groups in an TrueSight Pulse account"
+    "description": "Lists the Host Groups in an TrueSight Pulse account",
+    "curl": ""
   },
   "HostgroupSearch": {
-    "description": "Searches for Host Group by name in an TrueSight Pulse account"
+    "description": "Searches for Host Group by name in an TrueSight Pulse account",
+    "curl": ""
   },
   "HostgroupUpdate": {
-    "description": "Updates host group definition in a TrueSight Pulse account"
+    "description": "Updates host group definition in a TrueSight Pulse account",
+    "curl": ""
   },
   "MeasurementCreate": {
-    "description": "Adds a measurement value to a TrueSight Pulse account"
+    "description": "Adds a measurement value to a TrueSight Pulse account",
+    "curl": ""
   },
   "MeterClient": {
-    "description": "Communicates with an TrueSight Pulse meter using JSON RPC"
+    "description": "Communicates with an TrueSight Pulse meter using JSON RPC",
+    "curl": ""
   },
   "MeasurementGet": {
-    "description": "Retrieves measurement values from a metric in a TrueSight Pulse account"
+    "description": "Retrieves measurement values from a metric in a TrueSight Pulse account",
+    "curl": ""
   },
   "MetricCreate": {
-    "description": "Creates a new metric definition in an TrueSight Pulse account"
+    "description": "Creates a new metric definition in an TrueSight Pulse account",
+    "curl": ""
   },
   "MetricCreateBatch": {
-    "description": "Creates multiple metric definitions from a file into a TrueSight Pulse account"
+    "description": "Creates multiple metric definitions from a file into a TrueSight Pulse account",
+    "curl": ""
   },
   "MetricDelete": {
-    "description": "Deletes a metric definition from a TrueSight Pulse account"
+    "description": "Deletes a metric definition from a TrueSight Pulse account",
+    "curl": ""
   },
   "MetricExport": {
-    "description": "Export the metric definitions from a TrueSight Pulse account"
+    "description": "Export the metric definitions from a TrueSight Pulse account",
+    "curl": ""
   },
   "MetricGet": {
-    "description": "Get a metric definition from a TrueSight Pulse account"
+    "description": "Get a metric definition from a TrueSight Pulse account",
+    "curl": ""
   },
   "MetricList": {
-    "description": "Lists the defined metrics in a TrueSight Pulse account"
+    "description": "Lists the defined metrics in a TrueSight Pulse account",
+    "curl": ""
   },
   "MetricUpdate": {
-    "description": "Updates a metric definition in an TrueSight Pulse account"
+    "description": "Updates a metric definition in an TrueSight Pulse account",
+    "curl": ""
   },
   "PluginAdd": {
-    "description": "Imports a meter plugin from a GitHub repository into a TrueSight Pulse account"
+    "description": "Imports a meter plugin from a GitHub repository into a TrueSight Pulse account",
+    "curl": ""
   },
   "PluginGet": {
-    "description": "Get the details of a plugin in a TrueSight Pulse account"
+    "description": "Get the details of a plugin in a TrueSight Pulse account",
+    "curl": ""
   },
   "PluginGetComponents": {
-    "description": "Get the components of a plugin in a TrueSight Pulse account"
+    "description": "Get the components of a plugin in a TrueSight Pulse account",
+    "curl": ""
   },
   "PluginInstall": {
-    "description": "Installs a plugin into a TrueSight Pulse account"
+    "description": "Installs a plugin into a TrueSight Pulse account",
+    "curl": ""
   },
   "PluginInstalled": {
-    "description": "Gets the plugins installed into a TrueSight Pulse account"
+    "description": "Gets the plugins installed into a TrueSight Pulse account",
+    "curl": ""
   },
   "PluginList": {
-    "description": "Lists the plugins in a TrueSight Pulse account"
+    "description": "Lists the plugins in a TrueSight Pulse account",
+    "curl": ""
   },
   "PluginReadme": {
-    "description": "Generates README from plugin.json and template"
+    "description": "Generates README from plugin.json and template",
+    "curl": ""
   },
   "PluginRemove": {
-    "description": "Remove a staged pre-release meter plugin from a TrueSight Pulse account"
+    "description": "Remove a staged pre-release meter plugin from a TrueSight Pulse account",
+    "curl": ""
   },
   "PluginUninstall": {
-    "description": "Uninstalls a plugin from a TrueSight Pulse account"
+    "description": "Uninstalls a plugin from a TrueSight Pulse account",
+    "curl": ""
   },
   "RelayGetConfig": {
-    "description": "Returns relay configuration from a TrueSight Pulse account"
+    "description": "Returns relay configuration from a TrueSight Pulse account",
+    "curl": ""
   },
   "RelayList": {
-    "description": "Lists the relays in a TrueSight Pulse account"
+    "description": "Lists the relays in a TrueSight Pulse account",
+    "curl": ""
   },
   "RelaySetConfig": {
-    "description": "Sets the configuration of a relay in a TrueSight Pulse account"
+    "description": "Sets the configuration of a relay in a TrueSight Pulse account",
+    "curl": ""
   },
   "SourceDelete": {
-    "description": "Delete sources from a TrueSight Pulse account"
+    "description": "Delete sources from a TrueSight Pulse account",
+    "curl": ""
   },
   "SourceList": {
-    "description": "Lists the sources in a TrueSight Pulse account"
+    "description": "Lists the sources in a TrueSight Pulse account",
+    "curl": ""
   },
   "UserGet": {
-    "description": "Returns the user associated with the TrueSight Pulse account"
+    "description": "Returns the user associated with the TrueSight Pulse account",
+    "curl": ""
   }
 
 }

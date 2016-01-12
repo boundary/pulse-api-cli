@@ -36,6 +36,15 @@ class AlarmDeleteTest(TestCase):
     def test_cli_help(self):
         CLITest.check_cli_help(self, self.cli)
 
+    def test_create_curl(self):
+        runner = CLIRunner(self.cli)
+
+        alarm_id = 1024
+
+        curl = runner.get_output(['-i', str(alarm_id),
+                                  '-z'])
+        CLITest.check_curl(self, self.cli, curl)
+
     def test_api_call(self):
         api = API()
         name = 'ALARM_DELETE_API_TEST' + CLITest.random_string(6)
@@ -77,3 +86,5 @@ class AlarmDeleteTest(TestCase):
 
         runner_delete = CLIRunner(AlarmDelete())
         delete = runner_delete.get_output(['-i', str(alarm['id'])])
+
+

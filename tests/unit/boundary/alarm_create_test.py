@@ -37,6 +37,27 @@ class AlarmCreateTest(TestCase):
     def test_cli_help(self):
         CLITest.check_cli_help(self, self.cli)
 
+    def test_create_curl(self):
+        runner = CLIRunner(self.cli)
+
+        alarm_name = 'my-curl'
+        metric_name = 'CPU'
+        aggregate = 'min'
+        operation = 'lt'
+        value = 0.5
+        interval = '5 minutes'
+        enabled = False
+
+        curl = runner.get_output(['-n', alarm_name,
+                                  '-m', metric_name,
+                                  '-g', aggregate,
+                                  '-o', operation,
+                                  '-v', str(value),
+                                  '-r', interval,
+                                  '-x', str(enabled).lower(),
+                                  '-z'])
+        CLITest.check_curl(self, self.cli, curl)
+
     def test_api_call(self):
         name = 'ALARM_CREATE_TEST'
         metric_name = 'CPU'
@@ -93,8 +114,13 @@ class AlarmCreateTest(TestCase):
     def test_create_alarm(self):
         runner_create = CLIRunner(AlarmCreate())
 
-        create = runner_create.get_output(['-n', 'my-alarm', '-m', 'CPU', '-g', 'max', '-o', 'gt',
-                                    '-v', '0.50', '-r', '5 minutes'])
+        create = runner_create.get_output(['-n',
+                                           'my-alarm',
+                                           '-m', 'CPU',
+                                           '-g', 'max',
+                                           '-o', 'gt',
+                                           '-v', '0.50',
+                                           '-r', '5 minutes'])
         result = json.loads(create)
         alarm = result['result']
         self.assertEqual(300, int(alarm['interval']))
@@ -111,4 +137,5 @@ class AlarmCreateTest(TestCase):
         self.assertEqual(3, int(alarm['typeId']))
 
         self.api.alarm_delete(id=alarm['id'])
+
 

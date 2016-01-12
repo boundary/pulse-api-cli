@@ -34,6 +34,14 @@ class CLITest:
         test_case.assertEqual(parameters.get_value(cli.__class__.__name__, 'description'), cli.get_description())
 
     @staticmethod
+    def check_curl(test_case, cli, output):
+        parameters = CLITestParameters()
+        p = re.compile(r'-u ".*?"\s')
+        a = p.findall(output)
+        output = output.replace(a[0], '')
+        test_case.assertEqual(parameters.get_value(cli.__class__.__name__, 'curl'), output.encode('utf-8'))
+
+    @staticmethod
     def get_cli_name_from_class(i):
         name = i.__class__.__name__
         m = re.findall("([A-Z][a-z]+)", name)
