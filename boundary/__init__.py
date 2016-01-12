@@ -78,6 +78,7 @@ from .source_delete import SourceDelete
 from .source_list import SourceList
 
 from .relay_get_config import RelayGetConfig
+from .relay_get_output import RelayGetOutput
 from .relay_list import RelayList
 from .relay_set_config import RelaySetConfig
 

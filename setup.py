@@ -50,6 +50,7 @@ setup(
         'bin/plugin-readme',
         'bin/plugin-remove',
         'bin/plugin-uninstall',
+        'bin/relay-get-output',
         'bin/relay-list',
         'bin/relay-get-config',
         'bin/source-delete',
