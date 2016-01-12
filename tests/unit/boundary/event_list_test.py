@@ -16,7 +16,9 @@
 #
 
 from unittest import TestCase
+
 from boundary import EventList
+from cli_runner import CLIRunner
 from cli_test import CLITest
 
 
@@ -30,3 +32,9 @@ class EventListTest(TestCase):
 
     def test_cli_help(self):
         CLITest.check_cli_help(self, self.cli)
+
+    def test_create_curl(self):
+        runner = CLIRunner(self.cli)
+
+        curl = runner.get_output(['-z'])
+        CLITest.check_curl(self, self.cli, curl)

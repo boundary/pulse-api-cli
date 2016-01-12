@@ -38,6 +38,29 @@ class AlarmUpdateTest(TestCase):
     def test_cli_help(self):
         CLITest.check_cli_help(self, self.cli)
 
+    def test_create_curl(self):
+        runner = CLIRunner(self.cli)
+
+        alarm_id = 1024
+        alarm_name = 'my-curl'
+        metric_name = 'CPU'
+        aggregate = 'min'
+        operation = 'lt'
+        value = 0.5
+        interval = '5 minutes'
+        enabled = False
+
+        curl = runner.get_output(['-i', str(alarm_id),
+                                  '-n', alarm_name,
+                                  '-m', metric_name,
+                                  '-g', aggregate,
+                                  '-o', operation,
+                                  '-v', str(value),
+                                  '-r', interval,
+                                  '-x', str(enabled).lower(),
+                                  '-z'])
+        CLITest.check_curl(self, self.cli, curl)
+
     def test_api_call(self):
         aggregate = 'sum'
         interval = '1 minute'

@@ -36,6 +36,12 @@ class AlarmListTest(TestCase):
     def test_cli_help(self):
         CLITest.check_cli_help(self, self.cli)
 
+    def test_create_curl(self):
+        runner = CLIRunner(self.cli)
+
+        curl = runner.get_output(['-z'])
+        CLITest.check_curl(self, self.cli, curl)
+
     def test_api_call(self):
         alarm_list = self.api.alarm_list()
 
