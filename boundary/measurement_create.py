@@ -49,7 +49,7 @@ class MeasurementCreate(ApiCli):
                                  help='Source of measurement. Defaults to the host where the command is run')
         self.parser.add_argument('-d', '--timestamp', dest='timestamp', action='store', metavar="timestamp",
                                  help='Time of occurrence of the measurement in either epoch seconds or \
-                                 epoch milliseconds. Defaults to the receipt time at Boundary')
+                                 epoch milliseconds. Defaults to the receipt time at api endpoint')
 
     def get_arguments(self):
         """
