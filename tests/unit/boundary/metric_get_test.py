@@ -34,6 +34,15 @@ class MetricGetTest(TestCase):
     def test_cli_help(self):
         CLITest.check_cli_help(self, self.cli)
 
+    def test_create_curl(self):
+        runner = CLIRunner(self.cli)
+
+        metric = 'FOO'
+
+        curl = runner.get_output(['-n', metric,
+                                  '-z'])
+        CLITest.check_curl(self, self.cli, curl)
+
     def test_get_metric(self):
         runner_create = CLIRunner(MetricGet())
 
