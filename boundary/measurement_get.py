@@ -82,7 +82,7 @@ class MeasurementGet(ApiCli):
         if self.args.source is not None:
             self.source = self.args.source
         else:
-            self.source = ""
+            self.source = None
 
         if self.args.aggregate is not None:
             self.aggregate = self.args.aggregate
@@ -108,11 +108,13 @@ class MeasurementGet(ApiCli):
         stop_time *= 1000
 
         self.path = "v1/measurements/{0}".format(self._metric_name)
-        self.url_parameters = {"source": self.source,
-                               "start": str(start_time),
-                               "end": str(stop_time),
-                               "sample": str(self.sample),
-                               "agg": self.aggregate}
+        url_parameters = {"start": str(start_time),
+                          "end": str(stop_time),
+                          "sample": str(self.sample),
+                          "agg": self.aggregate}
+	if self.source is not None:
+           url_parameters['source'] = self.source
+	self.url_parameters = url_parameters
 
     def parse_time_date(self, s):
         """
@@ -146,6 +148,7 @@ class MeasurementGet(ApiCli):
         # Loop through the aggregates one row per timestamp, and 1 or more source/value pairs
         for r in payload['result']['aggregates']:
             timestamp = r[0][0]
+	    # timestamp = datetime.fromtimestamp(int(timestamp/1000.0)).strftime('%Y-%m-%d %H:%M:%S')
             for s in r[1]:
                 print('{0},"{1}","{2}",{3}'.format(timestamp, metric_name, s[0], s[1]))
 
