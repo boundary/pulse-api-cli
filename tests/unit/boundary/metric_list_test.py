@@ -15,7 +15,6 @@
 # limitations under the License.
 #
 from unittest import TestCase
-from mock import Mock, patch
 import sys
 from boundary.metric_list import MetricList
 from io import TextIOWrapper, BytesIO
@@ -78,30 +77,6 @@ class MetricListTest(TestCase):
                                   '-c', str(custom).lower(),
                                   '-z'])
         CLITest.check_curl(self, self.cli, curl)
-
-    def test_mock_arguments(self):
-        pass
-        # sys.argv = ['metric-list', '-l', 'debug']
-        # self.metric_list.execute();
-
-#   @patch('boundary.api_cli.requests')
-#   def test_execute(self, mock_requests):
-#       sys.argv = ['metric-list']
-#       self.maxDiff = None
-
-#       mock_response = Mock()
-#       mock_response.status_code = 200
-#       mock_response.text = self.text
-
-#       mock_requests.get.return_value = mock_response
-#       self.cli.execute()
-
-#       # get output
-#       sys.stdout.seek(0)      # jump to the start
-#       self.out = sys.stdout.read()  # read output
-#       self.json1 = json.loads(self.out)
-#       self.json2 = json.loads(self.text)
-#       self.assertDictEqual(self.json1, self.json2)
 
     def test_list_metric(self):
         found = False
