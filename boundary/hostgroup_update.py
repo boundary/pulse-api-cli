@@ -41,10 +41,10 @@ class HostgroupUpdate(HostgroupModify):
         """
         HostgroupModify.get_arguments(self)
 
-        if self.args.hostGroupId is not None:
-            self.hostGroupId = self.args.hostGroupId
+        if self.args.host_group_id is not None:
+            self.host_group_id = self.args.host_group_id
 
-        self.path = "v1/hostgroup/" + str(self.hostGroupId)
+        self.path = "v1/hostgroup/" + str(self.host_group_id)
 
     def get_description(self):
         return 'Updates host group definition in a {0} account'.format(self.product_name)
