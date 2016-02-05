@@ -1,6 +1,6 @@
 usage: relay-get-output [-h] [-l {debug,info,warning,error,critical}]
                         [-a api_host] [-e e_mail] [-t api_token] [-z] -n
-                        meter_name [-s since]
+                        meter_name [-s since] [-r]
 
 Queries for relay output messages in a TrueSight Pulse account
 
@@ -22,3 +22,4 @@ optional arguments:
                         Name of the meter to get output information
   -s since, --since since
                         Pull since items from end of log
+  -r, --raw             Send output in raw JSON format
