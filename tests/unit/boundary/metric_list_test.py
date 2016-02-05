@@ -68,6 +68,17 @@ class MetricListTest(TestCase):
     def test_cli_help(self):
         CLITest.check_cli_help(self, self.cli)
 
+    def test_create_curl(self):
+        runner = CLIRunner(self.cli)
+
+        enabled = True
+        custom = True
+
+        curl = runner.get_output(['-b', str(enabled).lower(),
+                                  '-c', str(custom).lower(),
+                                  '-z'])
+        CLITest.check_curl(self, self.cli, curl)
+
     def test_mock_arguments(self):
         pass
         # sys.argv = ['metric-list', '-l', 'debug']
