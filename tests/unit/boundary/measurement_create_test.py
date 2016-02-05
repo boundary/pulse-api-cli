@@ -16,8 +16,10 @@
 #
 
 from unittest import TestCase
-from cli_test import CLITest
+
 from boundary import MeasurementCreate
+from cli_runner import CLIRunner
+from cli_test import CLITest
 
 
 class MeasurementCreateTest(TestCase):
@@ -30,3 +32,17 @@ class MeasurementCreateTest(TestCase):
 
     def test_cli_help(self):
         CLITest.check_cli_help(self, self.cli)
+
+    def test_create_curl(self):
+        runner = CLIRunner(self.cli)
+
+        metric = 'CPU'
+        measurement = 0.5
+        timestamp = 1452643455
+
+        curl = runner.get_output(['-n', metric,
+                                  '-m', str(measurement),
+                                  '-s', 'source1',
+                                  '-d', str(timestamp),
+                                  '-z'])
+        CLITest.check_curl(self, self.cli, curl)

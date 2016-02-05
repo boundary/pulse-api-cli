@@ -29,4 +29,4 @@ optional arguments:
   -d timestamp, --timestamp timestamp
                         Time of occurrence of the measurement in either epoch
                         seconds or epoch milliseconds. Defaults to the receipt
-                        time at Boundary
+                        time at api endpoint
