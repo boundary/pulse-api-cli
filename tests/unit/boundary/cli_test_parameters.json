@@ -46,27 +46,27 @@
   },
   "HostgroupDelete": {
     "description": "Deletes a host group definition by id from a TrueSight Pulse account",
-    "curl": ""
+    "curl": "curl -X DELETE \"https://premium-api.boundary.com/v1/hostgroup/1024\"\n"
   },
   "HostgroupGet": {
     "description": "Retrieves a single host group definition by id from a TrueSight Pulse account",
-    "curl": ""
+    "curl": "curl -X GET \"https://premium-api.boundary.com/v1/hostgroup/1024\"\n"
   },
   "HostgroupList": {
     "description": "Lists the Host Groups in an TrueSight Pulse account",
-    "curl": ""
+    "curl": "curl -X GET \"https://premium-api.boundary.com/v1/hostgroups\"\n"
   },
   "HostgroupSearch": {
     "description": "Searches for Host Group by name in an TrueSight Pulse account",
-    "curl": ""
+    "curl": "curl -X GET \"https://premium-api.boundary.com/v1/hostgroups/search?name=My-Filter\"\n"
   },
   "HostgroupUpdate": {
     "description": "Updates host group definition in a TrueSight Pulse account",
-    "curl": ""
+    "curl": "curl -X PUT -H \"Content-Type: application/json\" -H \"Accept: application/json\" -d '{\"hostnames\": [\"source1\", \"source2\", \"source3\"], \"name\": \"FOO\"}' \"https://premium-api.boundary.com/v1/hostgroup/1024\"\n"
   },
   "MeasurementCreate": {
     "description": "Adds a measurement value to a TrueSight Pulse account",
-    "curl": ""
+    "curl": "curl -X POST -H \"Content-Type: application/json\" -H \"Accept: application/json\" -d '{\"measure\": \"0.5\", \"metric\": \"CPU\", \"source\": \"source1\", \"timestamp\": 1452643455}' \"https://premium-api.boundary.com/v1/measurements\"\n"
   },
   "MeterClient": {
     "description": "Communicates with an TrueSight Pulse meter using JSON RPC",
@@ -78,7 +78,7 @@
   },
   "MetricCreate": {
     "description": "Creates a new metric definition in an TrueSight Pulse account",
-    "curl": ""
+    "curl": "curl -X POST -H \"Content-Type: application/json\" -H \"Accept: application/json\" -d '{\"defaultAggregate\": \"avg\", \"defaultResolutionMS\": \"60000\", \"description\": \"My Description\", \"displayName\": \"Display Name\", \"displayNameShort\": \"Short Display Name\", \"isDisabled\": false, \"name\": \"METRIC\", \"unit\": \"number\"}' \"https://premium-api.boundary.com/v1/metrics\"\n"
   },
   "MetricCreateBatch": {
     "description": "Creates multiple metric definitions from a file into a TrueSight Pulse account",
@@ -86,7 +86,7 @@
   },
   "MetricDelete": {
     "description": "Deletes a metric definition from a TrueSight Pulse account",
-    "curl": ""
+    "curl": "curl -X DELETE \"https://premium-api.boundary.com/v1/metrics/FOO\"\n"
   },
   "MetricExport": {
     "description": "Export the metric definitions from a TrueSight Pulse account",
@@ -94,11 +94,11 @@
   },
   "MetricGet": {
     "description": "Get a metric definition from a TrueSight Pulse account",
-    "curl": ""
+    "curl": "curl -X GET \"https://premium-api.boundary.com/v1/metrics\"\n"
   },
   "MetricList": {
     "description": "Lists the defined metrics in a TrueSight Pulse account",
-    "curl": ""
+    "curl": "curl -X GET \"https://premium-api.boundary.com/v1/metrics?enabled=true&custom=true\"\n"
   },
   "MetricUpdate": {
     "description": "Updates a metric definition in an TrueSight Pulse account",
@@ -150,7 +150,7 @@
   },
   "RelayList": {
     "description": "Lists the relays in a TrueSight Pulse account",
-    "curl": ""
+    "curl": "curl -X GET \"https://premium-api.boundary.com/v1/relays\""
   },
   "RelaySetConfig": {
     "description": "Sets the configuration of a relay in a TrueSight Pulse account",
@@ -158,15 +158,15 @@
   },
   "SourceDelete": {
     "description": "Delete sources from a TrueSight Pulse account",
-    "curl": ""
+    "curl": "curl -X DELETE  -H \"Content-Type: application/json\" -H \"Accept: application/json\" -d '{\"names\": [\"foo\"]}' \"https://premium-api.boundary.com/v1/sources/byName\""
   },
   "SourceList": {
     "description": "Lists the sources in a TrueSight Pulse account",
-    "curl": ""
+    "curl": "curl -X GET \"https://premium-api.boundary.com/v1/account/sources/\""
   },
   "UserGet": {
     "description": "Returns the user associated with the TrueSight Pulse account",
-    "curl": ""
+    "curl": "curl -X GET \"https://premium-api.boundary.com/user\""
   }
 
 }

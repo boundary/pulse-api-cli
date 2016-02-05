@@ -37,6 +37,15 @@ class HostgroupSearchTest(TestCase):
     def test_cli_help(self):
         CLITest.check_cli_help(self, self.cli)
 
+    def test_create_curl(self):
+        runner = CLIRunner(self.cli)
+
+        filter_name = 'My-Filter'
+
+        curl = runner.get_output(['-n', filter_name,
+                                  '-z'])
+        CLITest.check_curl(self, self.cli, curl)
+
     def test_search_filter(self):
         runner_create = CLIRunner(HostgroupCreate())
         filter_name = 'Filter' + CLITest.random_string(6)

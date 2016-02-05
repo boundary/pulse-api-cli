@@ -36,6 +36,30 @@ class MetricCreateTest(TestCase):
     def test_cli_help(self):
         CLITest.check_cli_help(self, self.cli)
 
+    def test_create_curl(self):
+        runner = CLIRunner(self.cli)
+
+        runner_create = CLIRunner(MetricCreate())
+        metric_name = 'METRIC'
+        display_name = 'Display Name'
+        display_name_short = 'Short Display Name'
+        description = 'My Description'
+        aggregate = 'avg'
+        unit = 'number'
+        resolution = 60000
+        disabled = False
+
+        curl = runner_create.get_output(['-n', metric_name,
+                                         '-d', display_name,
+                                         '-s', display_name_short,
+                                         '-i', description,
+                                         '-g', aggregate,
+                                         '-r', str(resolution),
+                                         '-u', unit,
+                                         '-x', str(disabled).lower(),
+                                         '-z'])
+        CLITest.check_curl(self, self.cli, curl)
+
     def test_create_metric(self):
         runner_create = CLIRunner(MetricCreate())
         metric_name = 'METRIC' + CLITest.random_string(6)

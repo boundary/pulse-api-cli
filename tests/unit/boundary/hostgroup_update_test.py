@@ -18,6 +18,7 @@
 from unittest import TestCase
 from boundary import HostgroupUpdate
 from cli_test import CLITest
+from cli_runner import CLIRunner
 
 
 class HostgroupUpdateTest(TestCase):
@@ -30,4 +31,16 @@ class HostgroupUpdateTest(TestCase):
 
     def test_cli_help(self):
         CLITest.check_cli_help(self, self.cli)
+
+    def test_create_curl(self):
+        runner = CLIRunner(self.cli)
+
+        filter_id = 1024
+        filter_name = "FOO"
+
+        curl = runner.get_output(['-i', str(filter_id),
+                                  '-n', filter_name,
+                                  '-s', 'source1,source2,source3',
+                                  '-z'])
+        CLITest.check_curl(self, self.cli, curl)
 
