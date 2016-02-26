@@ -154,7 +154,7 @@ class ApiCall(object):
         if 'BOUNDARY_API_HOST' in os.environ:
             self._api_host = os.environ['BOUNDARY_API_HOST']
         else:
-            self._api_host = 'premium-api.boundary.com'
+            self._api_host = 'api.truesight.bmc.com'
 
     def _get_url_parameters(self):
         """
