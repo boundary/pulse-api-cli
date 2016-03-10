@@ -57,8 +57,7 @@ class MeasurementGet(ApiCli):
         self.parser.add_argument('-n', '--name', dest='metric_name', action='store', required=True,
                                  metavar="metric_name", help='Metric identifier')
         self.parser.add_argument('-g', '--aggregate', dest='aggregate', action='store', required=False,
-                                 choices=['sum', 'avg', 'max', 'min'], metavar='aggregate',
-                                 help='Metric default aggregate')
+                                 choices=['sum', 'avg', 'max', 'min'], help='Metric default aggregate')
         self.parser.add_argument('-r', '--sample', dest='sample', action='store', type=int, metavar="sample",
                                  help='Down sample rate sample in seconds')
         self.parser.add_argument('-s', '--source', dest='source', action='store', metavar="source", required=True,
@@ -112,9 +111,9 @@ class MeasurementGet(ApiCli):
                           "end": str(stop_time),
                           "sample": str(self.sample),
                           "agg": self.aggregate}
-	if self.source is not None:
-           url_parameters['source'] = self.source
-	self.url_parameters = url_parameters
+        if self.source is not None:
+            url_parameters['source'] = self.source
+        self.url_parameters = url_parameters
 
     def parse_time_date(self, s):
         """
@@ -148,7 +147,7 @@ class MeasurementGet(ApiCli):
         # Loop through the aggregates one row per timestamp, and 1 or more source/value pairs
         for r in payload['result']['aggregates']:
             timestamp = r[0][0]
-	    # timestamp = datetime.fromtimestamp(int(timestamp/1000.0)).strftime('%Y-%m-%d %H:%M:%S')
+            # timestamp = datetime.fromtimestamp(int(timestamp/1000.0)).strftime('%Y-%m-%d %H:%M:%S')
             for s in r[1]:
                 print('{0},"{1}","{2}",{3}'.format(timestamp, metric_name, s[0], s[1]))
 
