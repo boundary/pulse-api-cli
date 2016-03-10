@@ -16,7 +16,7 @@ optional arguments:
                         Name of the alarm
   -l {debug,info,warning,error,critical}, --log-level {debug,info,warning,error,critical}
                         Sets logging level to one of
-                        debug,info,warning,error,critical.Default is logging
+                        debug,info,warning,error,critical. Default is logging
                         is disabled
   -a api_host, --api-host api_host
                         TrueSight Pulse API host endpoint

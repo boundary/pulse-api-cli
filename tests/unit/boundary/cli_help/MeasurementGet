@@ -1,7 +1,8 @@
 usage: measurement-get [-h] [-l {debug,info,warning,error,critical}]
                        [-a api_host] [-e e_mail] [-t api_token] [-z]
-                       [-f {csv,json,xml}] -n metric_name [-g aggregate]
-                       [-r sample] -s source -b start [-d end]
+                       [-f {csv,json,xml}] -n metric_name
+                       [-g {sum,avg,max,min}] [-r sample] -s source -b start
+                       [-d end]
 
 Retrieves measurement values from a metric in a TrueSight Pulse account
 
@@ -9,7 +10,7 @@ optional arguments:
   -h, --help            show this help message and exit
   -l {debug,info,warning,error,critical}, --log-level {debug,info,warning,error,critical}
                         Sets logging level to one of
-                        debug,info,warning,error,critical.Default is logging
+                        debug,info,warning,error,critical. Default is logging
                         is disabled
   -a api_host, --api-host api_host
                         TrueSight Pulse API host endpoint
@@ -23,7 +24,7 @@ optional arguments:
                         Output format
   -n metric_name, --name metric_name
                         Metric identifier
-  -g aggregate, --aggregate aggregate
+  -g {sum,avg,max,min}, --aggregate {sum,avg,max,min}
                         Metric default aggregate
   -r sample, --sample sample
                         Down sample rate sample in seconds
