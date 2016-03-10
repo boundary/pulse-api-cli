@@ -69,7 +69,7 @@ class ApiCli(ApiCall):
     def add_logging_argument(self):
         self.parser.add_argument('-l', '--log-level', dest='logLevel', action='store',
                                  choices=['debug', 'info', 'warning', 'error', 'critical'],
-                                 help='Sets logging level to one of debug,info,warning,error,critical.' +
+                                 help='Sets logging level to one of debug,info,warning,error,critical. ' +
                                       'Default is logging is disabled')
 
     def add_arguments(self):
