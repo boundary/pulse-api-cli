@@ -38,6 +38,7 @@ class MeasurementCreate(ApiCli):
         self.measurement = None
         self.source = None
         self.timestamp = None
+        self._properties = None
 
     def add_arguments(self):
         ApiCli.add_arguments(self)
@@ -50,6 +51,20 @@ class MeasurementCreate(ApiCli):
         self.parser.add_argument('-d', '--timestamp', dest='timestamp', action='store', metavar="timestamp",
                                  help='Time of occurrence of the measurement in either epoch seconds or \
                                  epoch milliseconds. Defaults to the receipt time at api endpoint')
+        self.parser.add_argument('-p', '--property', dest='properties', action='append', required=False,
+                                 metavar='property=value',
+                                 help='Property to add to the measurement')
+
+    def _process_properties(self):
+        """
+        Transforms the command line properties into python dictionary
+        :return:
+        """
+        if self.args.properties is not None:
+            self._properties = {}
+            for p in self.args.properties:
+                d = p.split('=')
+                self._properties[d[0]] = d[1]
 
     def get_arguments(self):
         """
@@ -68,14 +83,21 @@ class MeasurementCreate(ApiCli):
             self.source = socket.gethostname()
 
         if self.args.timestamp is not None:
-            self.timestamp = self.args.timestamp
-        else:
-            self.timestamp = int(time.time())
+            self.timestamp = int(self.args.timestamp)
 
         m = {'metric': self.metricName,
-             'measure': self.measurement,
-             'source': self.source,
-             'timestamp': int(self.timestamp)}
+             'measure': self.measurement}
+
+        if self.source is not None:
+            m['source'] = self.source
+        if self.timestamp is not None:
+            m['timestamp'] = int(self.timestamp)
+
+        self._process_properties()
+
+        if self._properties is not None:
+            m['metadata'] = self._properties
+
         self.data = json.dumps(m, sort_keys=True)
         self.headers = {'Content-Type': 'application/json', "Accept": "application/json"}
 
@@ -89,7 +111,7 @@ class MeasurementCreate(ApiCli):
         try:
             ApiCli._call_api(self)
         except requests.exceptions.ChunkedEncodingError:
-            None
+            pass
 
     def get_description(self):
         return 'Adds a measurement value to a {0} account'.format(self.product_name)

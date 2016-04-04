@@ -35,6 +35,7 @@ class MeasurementGet(ApiCli):
         self.method = "GET"
         self._metric_name = None
         self.format = None
+        self.date_format = None
         # Default to 1 second sample period
         self.sample = 1
         self.source = None
@@ -67,6 +68,11 @@ class MeasurementGet(ApiCli):
         self.parser.add_argument('-d', '--end', dest='end', action='store', metavar="end", required=False,
                                  help='End of time range as ISO 8601 string or epoch seconds')
 
+        self.parser.add_argument('-o', '--date-format', dest='date_format', action='store', metavar="format",
+                                 required=False,
+                                 help='For CSV, XML output formats dates (see Python date.strftime). ' +
+                                      'Default format is %%s')
+
     def get_arguments(self):
         """
         Extracts the specific arguments of this CLI
@@ -92,6 +98,9 @@ class MeasurementGet(ApiCli):
             self.format = self.args.format
         else:
             self.format = "json"
+
+        if self.args.date_format is not None:
+            self.date_format = self.args.date_format
 
         start_time = int(self.parse_time_date(self.args.start).strftime("%s"))
 
@@ -130,6 +139,14 @@ class MeasurementGet(ApiCli):
                 ret = None
         return ret
 
+    def _format_timestamp(self, ts):
+        if self.date_format is not None:
+            fts = datetime.fromtimestamp(int(float(ts)/1000.0)).strftime(self.date_format)
+        else:
+            fts = datetime.fromtimestamp(int(float(ts)/1000.0)).strftime('%s')
+
+        return str(fts)
+
     def get_description(self):
         """
         Returns the description of this command
@@ -142,12 +159,11 @@ class MeasurementGet(ApiCli):
         """
         payload = json.loads(text)
         # Print CSV header
-        print("{0},{1},{2}".format('timestamp', 'source', 'value'))
+        print("{0},{1},{2},{3}".format('timestamp', 'metric', 'source', 'value'))
         metric_name = self._metric_name
         # Loop through the aggregates one row per timestamp, and 1 or more source/value pairs
-        for r in payload['result']['aggregates']:
-            timestamp = r[0][0]
-            # timestamp = datetime.fromtimestamp(int(timestamp/1000.0)).strftime('%Y-%m-%d %H:%M:%S')
+        for r in payload['result']['aggregates']['key']:
+            timestamp = self._format_timestamp(r[0][0])
             for s in r[1]:
                 print('{0},"{1}","{2}",{3}'.format(timestamp, metric_name, s[0], s[1]))
 
@@ -180,8 +196,8 @@ class MeasurementGet(ApiCli):
         metric_name = self._metric_name
 
         # Loop through the aggregates one row per timestamp, and 1 or more source/value pairs
-        for r in payload['result']['aggregates']:
-            timestamp = r[0][0]
+        for r in payload['result']['aggregates']['key']:
+            timestamp = self._format_timestamp(r[0][0])
             for s in r[1]:
                 # Each timestamp, metric, source, values is placed in a measure tag
                 measure_node = SubElement(measurements, 'measure')

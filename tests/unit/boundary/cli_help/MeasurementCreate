@@ -1,7 +1,7 @@
 usage: measurement-create [-h] [-l {debug,info,warning,error,critical}]
                           [-a api_host] [-e e_mail] [-t api_token] [-z] -n
                           metric_name -m measurement [-s source]
-                          [-d timestamp]
+                          [-d timestamp] [-p property=value]
 
 Adds a measurement value to a TrueSight Pulse account
 
@@ -30,3 +30,5 @@ optional arguments:
                         Time of occurrence of the measurement in either epoch
                         seconds or epoch milliseconds. Defaults to the receipt
                         time at api endpoint
+  -p property=value, --property property=value
+                        Property to add to the measurement
