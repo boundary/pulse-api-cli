@@ -19,6 +19,7 @@ Command line scripts for accessing the Boundary APIs
 
 from .api_call import ApiCall
 from .api_cli import ApiCli
+from .property_handler import PropertyHandler
 
 from .alarm_common import Alarm
 from .alarm_modify import AlarmModify
