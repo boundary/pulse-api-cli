@@ -147,12 +147,12 @@ class ApiCall(object):
         """
         Gets the configuration stored in environment variables
         """
-        if 'BOUNDARY_EMAIL' in os.environ:
-            self._email = os.environ['BOUNDARY_EMAIL']
-        if 'BOUNDARY_API_TOKEN' in os.environ:
-            self._api_token = os.environ['BOUNDARY_API_TOKEN']
-        if 'BOUNDARY_API_HOST' in os.environ:
-            self._api_host = os.environ['BOUNDARY_API_HOST']
+        if 'TSP_EMAIL' in os.environ:
+            self._email = os.environ['TSP_EMAIL']
+        if 'TSP_API_TOKEN' in os.environ:
+            self._api_token = os.environ['TSP_API_TOKEN']
+        if 'TSP_API_HOST' in os.environ:
+            self._api_host = os.environ['TSP_API_HOST']
         else:
             self._api_host = 'api.truesight.bmc.com'
 
