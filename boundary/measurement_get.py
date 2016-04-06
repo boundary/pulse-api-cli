@@ -14,6 +14,7 @@
 # limitations under the License.
 #
 import json
+import string
 from datetime import datetime
 from xml.dom import minidom
 from xml.etree import ElementTree
@@ -54,7 +55,7 @@ class MeasurementGet(ApiCli):
 
         # Command specific arguments
         self.parser.add_argument('-f', '--format', dest='format', action='store', required=False,
-                                 choices=['csv', 'json', 'xml'], help='Output format')
+                                 choices=['csv', 'json', 'raw', 'xml'], help='Output format. Default is raw')
         self.parser.add_argument('-n', '--name', dest='metric_name', action='store', required=True,
                                  metavar="metric_name", help='Metric identifier')
         self.parser.add_argument('-g', '--aggregate', dest='aggregate', action='store', required=False,
@@ -70,7 +71,7 @@ class MeasurementGet(ApiCli):
 
         self.parser.add_argument('-o', '--date-format', dest='date_format', action='store', metavar="format",
                                  required=False,
-                                 help='For CSV, XML output formats dates (see Python date.strftime). ' +
+                                 help='For CSV, JSON, and XML output formats dates (see Python date.strftime). ' +
                                       'Default format is %%s')
 
     def get_arguments(self):
@@ -159,17 +160,40 @@ class MeasurementGet(ApiCli):
         """
         payload = json.loads(text)
         # Print CSV header
-        print("{0},{1},{2},{3}".format('timestamp', 'metric', 'source', 'value'))
+        print("{0},{1},{2},{3},{4}".format('timestamp', 'metric', 'aggregate', 'source', 'value'))
         metric_name = self._metric_name
         # Loop through the aggregates one row per timestamp, and 1 or more source/value pairs
         for r in payload['result']['aggregates']['key']:
             timestamp = self._format_timestamp(r[0][0])
+            # timestamp = string.strip(timestamp, ' ')
+            # timestamp = string.strip(timestamp, "'")
             for s in r[1]:
-                print('{0},"{1}","{2}",{3}'.format(timestamp, metric_name, s[0], s[1]))
+                print('{0},"{1}","{2}","{3}",{4}'.format(timestamp, metric_name, self.aggregate, s[0], s[1]))
 
     def output_json(self, text):
         """
-        Output results in JSON format
+        Output results in structured JSON format
+        """
+        payload = json.loads(text)
+        data = []
+        metric_name = self._metric_name
+        for r in payload['result']['aggregates']['key']:
+            timestamp = self._format_timestamp(r[0][0])
+            for s in r[1]:
+                data.append({
+                    "timestamp": timestamp,
+                    "metric": metric_name,
+                    "aggregate": self.aggregate,
+                    "source": s[0],
+                    "value": s[1],
+                })
+        payload = {"data": data}
+        out = json.dumps(payload, indent=self._indent, separators=(',', ': '))
+        print(self.colorize_json(out))
+
+    def output_raw(self, text):
+        """
+        Output results in raw JSON format
         """
         payload = json.loads(text)
         out = json.dumps(payload, sort_keys=True, indent=self._indent, separators=(',', ': '))
@@ -207,6 +231,8 @@ class MeasurementGet(ApiCli):
                 ts_node.text = str(timestamp)
                 metric_node = SubElement(measure_node, 'metric')
                 metric_node.text = metric_name
+                metric_node = SubElement(measure_node, 'aggregate')
+                metric_node.text = self.aggregate
                 source_node = SubElement(measure_node, 'source')
                 source_node.text = source
                 value_node = SubElement(measure_node, 'value')
@@ -228,6 +254,8 @@ class MeasurementGet(ApiCli):
                 self.output_json(self._api_result.text)
             elif self.format == "csv":
                 self.output_csv(self._api_result.text)
+            elif self.format == "raw":
+                self.output_raw(self._api_result.text)
             elif self.format == "xml":
                 self.output_xml(self._api_result.text)
         else:
