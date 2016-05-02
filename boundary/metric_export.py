@@ -76,6 +76,8 @@ class MetricExport(MetricCommon):
             m['defaultResolutionMS'] = metric['defaultResolutionMS']
         if 'isDisabled' in metric:
             m['isDisabled'] = metric['isDisabled']
+        if 'type' in metric:
+            m['type'] = metric['type']
         return m
 
     def extract_dictionary(self, metrics):
