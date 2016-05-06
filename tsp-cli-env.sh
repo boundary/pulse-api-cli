@@ -22,7 +22,7 @@ CONFIG_DIR=".ts_pulse"
 # Shows the current environment
 #
 function tsp-env() {
-env | egrep '(BOUNDARY|TSP)' | sort
+env | egrep '(BOUNDARY|TSI|TSP)' | sort
 }
 
 #
