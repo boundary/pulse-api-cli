@@ -47,7 +47,7 @@ class AlarmUpdateTest(TestCase):
         aggregate = 'min'
         operation = 'lt'
         value = 0.5
-        interval = '5 minutes'
+        trigger_interval = 300000
         enabled = False
 
         curl = runner.get_output(['-i', str(alarm_id),
@@ -56,14 +56,14 @@ class AlarmUpdateTest(TestCase):
                                   '-g', aggregate,
                                   '-o', operation,
                                   '-v', str(value),
-                                  '-r', interval,
+                                  '-r', str(trigger_interval),
                                   '-x', str(enabled).lower(),
                                   '-z'])
         CLITest.check_curl(self, self.cli, curl)
 
     def test_api_call(self):
         aggregate = 'sum'
-        interval = '1 minute'
+        trigger_interval = 60
         is_disabled = True
         metric_name = 'CPU'
         note = 'This is a note'
@@ -72,7 +72,7 @@ class AlarmUpdateTest(TestCase):
         per_host_modify = True
         threshold = '0.80'
         alarm_create = self.api.alarm_create(aggregate=aggregate,
-                                             interval=interval,
+                                             trigger_interval=trigger_interval,
                                              is_disabled=is_disabled,
                                              metric_name=metric_name,
                                              name=alarm_name,
@@ -82,7 +82,7 @@ class AlarmUpdateTest(TestCase):
                                              threshold=threshold)
 
         aggregate = 'avg'
-        interval = '1 hour'
+        trigger_interval = 3600000
         is_disabled = False
         metric_name = 'CPU'
         note = 'This is a updated note'
@@ -92,7 +92,7 @@ class AlarmUpdateTest(TestCase):
 
         alarm_update = self.api.alarm_update(id=alarm_create.id,
                                              aggregate=aggregate,
-                                             interval=interval,
+                                             trigger_interval=trigger_interval,
                                              is_disabled=is_disabled,
                                              metric_name=metric_name,
                                              name=alarm_name,
@@ -102,7 +102,7 @@ class AlarmUpdateTest(TestCase):
                                              threshold=threshold)
 
         self.assertEqual(aggregate, alarm_update.aggregate)
-        self.assertEqual(3600, alarm_update.interval)
+        self.assertEqual(trigger_interval, alarm_update.trigger_interval)
         self.assertEqual(is_disabled, alarm_update.is_disabled)
         self.assertEqual(metric_name, alarm_update.metric_name)
         self.assertEqual(alarm_name, alarm_update.name)
@@ -120,7 +120,7 @@ class AlarmUpdateTest(TestCase):
         aggregate = 'max'
         op = 'gt'
         value = 0.75
-        interval = '5 minutes'
+        trigger_interval = 900000
         is_disabled = True
         runner_create = CLIRunner(AlarmCreate())
         create = runner_create.get_output(['-n', alarm_name,
@@ -129,32 +129,30 @@ class AlarmUpdateTest(TestCase):
                                            '-g', aggregate,
                                            '-o', op,
                                            '-v', str(value),
-                                           '-r', str(interval),
+                                           '-r', str(trigger_interval),
                                            '-x', str(is_disabled).lower()])
-        result_create = json.loads(create)
-        alarm_create = result_create['result']
+        alarm_create = json.loads(create)
 
         note = CLITest.random_string(50)
         aggregate = 'max'
         op = 'gt'
         value = 0.75
-        interval = '5 minutes'
+        trigger_interval = 300000
         is_disabled = False
 
         runner_update = CLIRunner(AlarmUpdate())
-        update = runner_update.get_output(['-i', str(alarm_create['id']),
+        update = runner_update.get_output(['-i', str(int(alarm_create['id'])),
                                            '-n', alarm_name,
                                            '-m', metric_name,
                                            '-d', note,
                                            '-g', aggregate,
                                            '-o', op,
                                            '-v', str(value),
-                                           '-r', str(interval),
+                                           '-r', str(trigger_interval),
                                            '-x', str(is_disabled).lower()])
-        result_update = json.loads(update)
-        alarm = result_update['result']
+        alarm = json.loads(update)
 
-        self.assertEqual(300000, alarm['triggerInterval'])
+        self.assertEqual(trigger_interval, alarm['triggerInterval'])
         self.assertEqual(1, alarm['familyId'])
         self.assertFalse(is_disabled, alarm['isDisabled'])
         self.assertEqual(metric_name, alarm['metric'])

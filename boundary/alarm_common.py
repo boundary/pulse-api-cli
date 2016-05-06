@@ -17,29 +17,37 @@
 
 class Alarm(object):
     def __init__(self, **kwargs):
-        self._operations = ('eq', 'lt', 'gt')
+
         self._aggregates = ('avg', 'sum', 'max', 'min')
+        self._operations = ('eq', 'lt', 'gt')
 
         self._actions = kwargs['actions'] if 'actions' in kwargs else None
         self._aggregate = kwargs['aggregate'] if 'aggregate' in kwargs else None
         self._host_group_id = kwargs['host_group_id'] if 'host_group_id' in kwargs else None
         self._id = kwargs['id'] if 'id' in kwargs else None
-        self._interval = kwargs['interval'] if 'interval' in kwargs else None
         self._is_disabled = kwargs['is_disabled'] if 'is_disabled' in kwargs else None
-        self._metric_name = kwargs['metric_name'] if 'metric_name' in kwargs else None
+        self._metric = kwargs['metric'] if 'metric' in kwargs else None
         self._name = kwargs['name'] if 'name' in kwargs else None
         self._note = kwargs['note'] if 'note' in kwargs else None
+        self._notify_clear = kwargs['notify_clear'] if 'notify_clear' in kwargs else None
+        self._notify_set = kwargs['notify_set'] if 'notify_set' in kwargs else None
         self._operation = kwargs['operation'] if 'operation' in kwargs else None
         self._per_host_notify = kwargs['per_host_notify'] if 'per_host_notify' in kwargs else None
+        self._timeout_interval = kwargs['timeoutInterval'] if 'timeoutInterval' in kwargs else None
         self._threshold = kwargs['threshold'] if 'threshold' in kwargs else None
+        self._trigger_interval = kwargs['trigger_interval'] if 'trigger_interval' in kwargs else None
 
     def __repr__(self):
         return 'Alarm(aggregate={0}, actions={1}, host_group_id={2}, id={3}, ' \
-               'interval={4}, is_disabled={5}, metric_name={6}, name={7}, note={8}, operation={9}, ' \
+               'interval={4}, is_disabled={5}, metric={6}, name={7}, note={8}, operation={9}, ' \
                'per_host_notify={10}, ' \
                'threshold={11}'.format('"{0}"'.format(self._aggregate) if self._aggregate is not None else None,
-                                       self._actions, self._host_group_id, self._id, self._interval, self._is_disabled,
-                                       '"{0}"'.format(self._metric_name) if self._metric_name is not None else None,
+                                       self._actions,
+                                       self._host_group_id,
+                                       self._id,
+                                       self._trigger_interval,
+                                       self._is_disabled,
+                                       '"{0}"'.format(self._metric) if self._metric is not None else None,
                                        '"{0}"'.format(self._name) if self._name is not None else None,
                                        '"{0}"'.format(self._note) if self._note is not None else None,
                                        '"{0}"'.format(self._operation) if self._operation is not None else None,
@@ -80,12 +88,36 @@ class Alarm(object):
         self._id = value
 
     @property
-    def interval(self):
-        return self._interval
+    def notify_clear(self):
+        return self._notify_clear
 
-    @interval.setter
-    def interval(self, interval):
-        self._interval = interval
+    @notify_clear.setter
+    def notify_clear(self, notify_clear):
+        self._notify_clear = notify_clear
+
+    @property
+    def notify_set(self):
+        return self._notify_set
+
+    @notify_set.setter
+    def notify_set(self, notify_set):
+        self._notify_set = notify_set
+
+    @property
+    def timeout_interval(self):
+        return self._timeout_interval
+
+    @timeout_interval.setter
+    def timeout_interval(self, timeout_interval):
+        self._timeout_interval = timeout_interval
+
+    @property
+    def trigger_interval(self):
+        return self._trigger_interval
+
+    @trigger_interval.setter
+    def trigger_interval(self, trigger_interval):
+        self._trigger_interval = trigger_interval
 
     @property
     def is_disabled(self):
@@ -96,12 +128,12 @@ class Alarm(object):
         self._is_disabled = is_disabled
 
     @property
-    def metric_name(self):
-        return self._metric_name
+    def metric(self):
+        return self._metric
 
-    @metric_name.setter
-    def metric_name(self, metric_name):
-        self._metric_name = metric_name
+    @metric.setter
+    def metric(self, metric):
+        self._metric = metric
 
     @property
     def name(self):
@@ -158,20 +190,16 @@ def result_to_alarm(result):
             operation = result['triggerPredicate']['op']
             threshold = result['triggerPredicate']['val']
 
-        metric_name = None
-        if 'metricName' in result:
-            metric_name = result['metricName']
+        metric = None
         if 'metric' in result:
-            metric_name = result['metric']
+            metric = result['metric']
 
         # These are optional so explicitly check to see if the exist
         hostgroup_id = result['hostgroupId'] if 'hostgroupId' in result else None
 
-        interval = None
-        if 'interval' in result:
-            interval = result['interval']
+        trigger_interval = None
         if 'triggerInterval' in result:
-            interval = result['triggerInterval']
+            trigger_interval = result['triggerInterval']
 
         is_disabled = result['isDisabled'] if 'isDisabled' in result else None
         note = result['note'] if 'note' in result else None
@@ -182,9 +210,9 @@ def result_to_alarm(result):
                 aggregate=aggregate,
                 host_group_id=hostgroup_id,
                 id=alarm_id,
-                interval=interval,
+                trigger_interval=trigger_interval,
                 is_disabled=is_disabled,
-                metric_name=metric_name,
+                metric=metric,
                 name=name,
                 note=note,
                 operation=operation,

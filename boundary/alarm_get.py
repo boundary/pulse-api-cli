@@ -22,12 +22,6 @@ from boundary.alarm_common import result_to_alarm
 import json
 import requests
 
-"""
-Uses the following Boundary API:
-
-https://premium-api.boundary.com/v1/alarms/search?name=
-"""
-
 
 class AlarmGet(ApiCli):
     def __init__(self):
@@ -56,7 +50,7 @@ class AlarmGet(ApiCli):
 
     def get_api_parameters(self):
         self.method = "GET"
-        self.path = "v1/alarm/{0}".format(self._alarm_id)
+        self.path = "v2/alarms/{0}".format(self._alarm_id)
 
     def get_description(self):
         """

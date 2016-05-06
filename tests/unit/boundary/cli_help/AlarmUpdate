@@ -1,10 +1,11 @@
 usage: alarm-update [-h] -i alarm_id [-n alarm_name]
                     [-l {debug,info,warning,error,critical}] [-a api_host]
-                    [-e e_mail] [-t api_token] [-z] [-m metric_name]
+                    [-e e_mail] [-t api_token] [-z] -m metric_name
                     [-g {sum,avg,max,min}] [-o {eq,gt,lt}] [-v value]
-                    [-r {1 second,15 seconds,1 minute,5 minutes,1 hour,1.5 hours,3 hours,6 hours,12 hours}]
-                    [-u host_group_id] [-d note] [-c action-id]
-                    [-p {true,false}] [-x {true,false}]
+                    [-r trigger_interval] [-j timeout_interval]
+                    [-u host_group_id] [-d note] [-k action-id]
+                    [-c {true,false}] [-s {true,false}] [-p {true,false}]
+                    [-x {true,false}]
 
 Updates an alarm definition in an TrueSight Pulse account
 
@@ -34,13 +35,23 @@ optional arguments:
                         Trigger threshold comparison
   -v value, --trigger-threshold value
                         Trigger threshold value
-  -r {1 second,15 seconds,1 minute,5 minutes,1 hour,1.5 hours,3 hours,6 hours,12 hours}, --trigger-interval {1 second,15 seconds,1 minute,5 minutes,1 hour,1.5 hours,3 hours,6 hours,12 hours}
-                        Interval to alarm upon
+  -r trigger_interval, --trigger-interval trigger_interval
+                        Interval of time in ms that the alarm state should be
+                        in fault before triggering
+  -j timeout_interval, --timeout-interval timeout_interval
+                        The interval after which an individual host state
+                        should resolve by timeout. Default: 259200000 milli-
+                        seconds (3 days)
   -u host_group_id, --host-group-id host_group_id
                         Host group the alarm applies to
   -d note, --note note  A description or resolution of the alarm
-  -c action-id, --action action-id
+  -k action-id, --action action-id
                         An action to be performed when an alarm is triggered
+  -c {true,false}, --notify-clear {true,false}
+                        Perform actions when all hosts
+  -s {true,false}, --notify-set {true,false}
+                        Perform actions when an alarm threshold and interval
+                        is breached.
   -p {true,false}, --per-host-notify {true,false}
                         An alarm by default will run the associated actions
                         when any server in the host group violates the

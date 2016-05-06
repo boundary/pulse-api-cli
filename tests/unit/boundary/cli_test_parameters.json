@@ -9,28 +9,27 @@
   },
   "AlarmCreate": {
     "description": "Creates an alarm definition in an TrueSight Pulse account",
-    "curl": "curl -X POST -H \"Content-Type: application/json\" -d '{\"interval\": 300, \"isDisabled\": false, \"metricName\": \"CPU\", \"name\": \"my-curl\", \"triggerPredicate\": {\"agg\": \"min\", \"op\": \"lt\", \"val\": 0.5}}' \"https://api.truesight.bmc.com/v1/alarms\"\n"
-
+    "curl": "curl -X POST -H \"Content-Type: application/json\" -d '{\"isDisabled\": false, \"metric\": \"CPU\", \"name\": \"my-curl\", \"triggerInterval\": 300000, \"triggerPredicate\": {\"agg\": \"min\", \"op\": \"lt\", \"val\": 0.5}}' \"https://api.truesight.bmc.com/v2/alarms\"\n"
   },
   "AlarmDelete": {
     "description": "Deletes an alarm definition from a TrueSight Pulse account",
-    "curl": "curl -X DELETE \"https://api.truesight.bmc.com/v1/alarm/1024\"\n"
+    "curl": "curl -X DELETE \"https://api.truesight.bmc.com/v2/alarms/1024\"\n"
   },
   "AlarmGet": {
     "description": "Retrieves an alarm definition from a TrueSight Pulse account",
-    "curl": "curl -X GET \"https://api.truesight.bmc.com/v1/alarm/1024\"\n"
+    "curl": "curl -X GET \"https://api.truesight.bmc.com/v2/alarms/1024\"\n"
   },
   "AlarmList": {
     "description": "List alarm definitions associated with the TrueSight Pulse account",
-    "curl": "curl -X GET \"https://api.truesight.bmc.com/v1/alarms\"\n"
+    "curl": "curl -X GET \"https://api.truesight.bmc.com/v2/alarms\"\n"
   },
   "AlarmSearch": {
     "description": "Searches for an alarm definition by name from a TrueSight Pulse account",
-    "curl": "curl -X GET \"https://api.truesight.bmc.com/v1/alarms/search?name=foo\"\n"
+    "curl": "curl -X GET \"https://api.truesight.bmc.com/v2/alarms/search?name=foo\"\n"
   },
   "AlarmUpdate": {
     "description": "Updates an alarm definition in an TrueSight Pulse account",
-    "curl": "curl -X PUT -H \"Content-Type: application/json\" -d '{\"id\": 1024.0, \"interval\": 300, \"isDisabled\": false, \"metricName\": \"CPU\", \"name\": \"my-curl\", \"triggerPredicate\": {\"agg\": \"min\", \"op\": \"lt\", \"val\": 0.5}}' \"https://api.truesight.bmc.com/v1/alarm/1024\"\n"
+    "curl": "curl -X PUT -H \"Content-Type: application/json\" -d '{\"id\": 1024, \"isDisabled\": false, \"metric\": \"CPU\", \"name\": \"my-curl\", \"triggerInterval\": 300000, \"triggerPredicate\": {\"agg\": \"min\", \"op\": \"lt\", \"val\": 0.5}}' \"https://api.truesight.bmc.com/v2/alarms/1024\"\n"
   },
   "EventCreate": {
     "description": "Creates a new event in an TrueSight Pulse account",
@@ -166,7 +165,6 @@
   },
   "UserGet": {
     "description": "Returns the user associated with the TrueSight Pulse account",
-    "curl": "curl -X GET \"https://api.truesight.bmc.comuser\""
+    "curl": "curl -X GET \"https://api.truesight.bmc.com/user\""
   }
-
 }

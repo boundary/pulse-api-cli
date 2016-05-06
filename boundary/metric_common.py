@@ -83,6 +83,8 @@ class MetricCommon (ApiCli):
             m['isDisabled'] = metric['isDisabled']
         if 'isBuiltin' in metric:
             m['isBuiltin'] = metric['isBuiltin']
+        if 'type' in metric:
+            m['type'] = metric['type']
         return m
 
     def metricDefinitionV2(self, metrics):

@@ -54,7 +54,7 @@ class AlarmDelete(ApiCli):
 
     def get_api_parameters(self):
         self.method = "DELETE"
-        self.path = "v1/alarm/{0}".format(self._alarm_id)
+        self.path = "v2/alarms/{0}".format(self._alarm_id)
 
     def get_description(self):
         return 'Deletes an alarm definition from a {0} account'.format(self.product_name)
@@ -73,3 +73,9 @@ class AlarmDelete(ApiCli):
         if self._api_result.status_code != requests.codes.ok:
             pass
         return None
+
+    def good_response(self, status_code):
+        """
+        Determines what status codes represent a good response from an API call.
+        """
+        return status_code == requests.codes.no_content

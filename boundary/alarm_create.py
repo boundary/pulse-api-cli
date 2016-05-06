@@ -14,6 +14,7 @@
 # limitations under the License.
 #
 from boundary import AlarmModify
+import requests
 
 
 class AlarmCreate(AlarmModify):
@@ -27,6 +28,9 @@ class AlarmCreate(AlarmModify):
 
         self.parser.add_argument('-n', '--alarm-name', dest='alarm_name', action='store', required=True,
                                  metavar='alarm_name', help='Name of the alarm')
+        self.parser.add_argument('-y', '--alarm-type', dest='alarm_type', action='store', required=False,
+                                 choices=['threshold', 'host', 'api'],
+                                 help='Type of the alarm either: threshold or communication. Default threshold')
 
         AlarmModify.add_arguments(self)
 
@@ -38,5 +42,11 @@ class AlarmCreate(AlarmModify):
 
     def get_description(self):
         return 'Creates an alarm definition in an {0} account'.format(self.product_name)
+
+    def good_response(self, status_code):
+        """
+        Determines what status codes represent a good response from an API call.
+        """
+        return status_code == requests.codes.created
 
 

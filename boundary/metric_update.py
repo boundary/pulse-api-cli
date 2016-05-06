@@ -22,7 +22,7 @@ class MetricUpdate(MetricModify):
     def __init__(self):
         """
         """
-        MetricModify.__init__(self)
+        MetricModify.__init__(self, True)
         self.method = "PUT"
         self.description = "Updates a metric definition in an Boundary account"
          

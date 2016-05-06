@@ -39,7 +39,7 @@ class CLITest:
         p = re.compile(r'-u ".*?"\s')
         a = p.findall(output)
         output = output.replace(a[0], '')
-        test_case.assertEqual(parameters.get_value(cli.__class__.__name__, 'curl'), output.encode('utf-8'))
+        test_case.assertEqual(parameters.get_value(cli.__class__.__name__, 'curl').encode('utf-8'), output.encode('utf-8'))
 
     @staticmethod
     def get_cli_name_from_class(i):

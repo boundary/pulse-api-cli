@@ -28,23 +28,26 @@ class AlarmCommonTest(TestCase):
         self.assertIsNone(self.alarm.aggregate)
         self.assertIsNone(self.alarm.host_group_id)
         self.assertIsNone(self.alarm.id)
-        self.assertIsNone(self.alarm.interval)
         self.assertIsNone(self.alarm.is_disabled)
-        self.assertIsNone(self.alarm.metric_name)
+        self.assertIsNone(self.alarm.metric)
         self.assertIsNone(self.alarm.name)
         self.assertIsNone(self.alarm.note)
         self.assertIsNone(self.alarm.operation)
         self.assertIsNone(self.alarm.per_host_notify)
         self.assertIsNone(self.alarm.threshold)
+        self.assertIsNone(self.alarm.notify_clear)
+        self.assertIsNone(self.alarm.notify_set)
+        self.assertIsNone(self.alarm.timeout_interval)
+        self.assertIsNone(self.alarm.trigger_interval)
 
     def test_alarm_init(self):
         actions = [1, 2]
         aggregate = 'avg'
         host_group_id = 1000
         alarm_id = 123456789
-        interval = '1 hour'
+        trigger_interval = 3600
         is_disabled = True
-        metric_name = "TEST_METRIC"
+        metric = "TEST_METRIC"
         name = 'My Alarm'
         note = 'just a note'
         operation = 'eq'
@@ -56,9 +59,9 @@ class AlarmCommonTest(TestCase):
             aggregate=aggregate,
             host_group_id=host_group_id,
             id=alarm_id,
-            interval=interval,
+            trigger_interval=trigger_interval,
             is_disabled=is_disabled,
-            metric_name=metric_name,
+            metric=metric,
             name=name,
             note=note,
             operation=operation,
@@ -70,9 +73,9 @@ class AlarmCommonTest(TestCase):
         self.assertEqual(aggregate, alarm.aggregate)
         self.assertEqual(host_group_id, alarm.host_group_id)
         self.assertEqual(alarm_id, alarm.id)
-        self.assertEqual(interval, alarm.interval)
+        self.assertEqual(trigger_interval, alarm.trigger_interval)
         self.assertEqual(is_disabled, alarm.is_disabled)
-        self.assertEqual(metric_name, alarm.metric_name)
+        self.assertEqual(metric, alarm.metric)
         self.assertEqual(name, alarm.name)
         self.assertEqual(note, alarm.note)
         self.assertEqual(operation, alarm.operation)
@@ -134,9 +137,9 @@ class AlarmCommonTest(TestCase):
             aggregate='avg',
             host_group_id=1000,
             alarm_id=123456789,
-            interval=900,
+            trigger_interval=900,
             is_disabled=True,
-            metric_name='TEST_METRIC',
+            metric='TEST_METRIC',
             name='My Alarm',
             note='just a note',
             operation='eq',
@@ -145,6 +148,6 @@ class AlarmCommonTest(TestCase):
         )
 
         self.assertEqual('Alarm(aggregate="avg", actions=[1, 2], host_group_id=1000, id=None, interval=900, '
-                         'is_disabled=True, metric_name="TEST_METRIC", name="My Alarm", '
+                         'is_disabled=True, metric="TEST_METRIC", name="My Alarm", '
                          'note="just a note", operation="eq", per_host_notify=True, threshold=1000',
                          alarm.__repr__())

@@ -21,16 +21,8 @@ class MetricCreate (MetricModify):
     def __init__(self):
         """
         """
-        MetricModify.__init__(self)
+        MetricModify.__init__(self, False)
         self.method = "POST"
-        self.metricName = None
-        self.displayName = None
-        self.displayNameShort = None
-        self.description = None
-        self.aggregate = None
-        self.unit = None
-        self.resolution = None
-        self.isDisabled = None
 
     def get_arguments(self):
         """

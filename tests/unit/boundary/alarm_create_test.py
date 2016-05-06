@@ -41,40 +41,40 @@ class AlarmCreateTest(TestCase):
         runner = CLIRunner(self.cli)
 
         alarm_name = 'my-curl'
-        metric_name = 'CPU'
+        metric = 'CPU'
         aggregate = 'min'
         operation = 'lt'
         value = 0.5
-        interval = '5 minutes'
+        trigger_interval = 300000
         enabled = False
 
         curl = runner.get_output(['-n', alarm_name,
-                                  '-m', metric_name,
+                                  '-m', metric,
                                   '-g', aggregate,
                                   '-o', operation,
                                   '-v', str(value),
-                                  '-r', interval,
+                                  '-r', str(trigger_interval),
                                   '-x', str(enabled).lower(),
                                   '-z'])
         CLITest.check_curl(self, self.cli, curl)
 
     def test_api_call(self):
-        name = 'ALARM_CREATE_TEST'
-        metric_name = 'CPU'
-        interval = '1 minute'
+        name = 'ALARM_CREATE_TEST' + CLITest.random_string(6)
+        metric = 'CPU'
+        trigger_interval = 60000
         aggregate = 'sum'
         operation = 'gt'
         threshold = 0.80
         alarm = self.api.alarm_create(name=name,
-                                      metric_name=metric_name,
-                                      interval=interval,
+                                      metric=metric,
+                                      trigger_interval=trigger_interval,
                                       aggregate=aggregate,
                                       operation=operation,
                                       threshold=threshold)
 
         self.assertEqual(name, alarm.name)
-        self.assertEqual(metric_name, alarm.metric_name)
-        self.assertEqual(60, alarm.interval)
+        self.assertEqual(metric, alarm.metric)
+        self.assertEqual(trigger_interval, alarm.trigger_interval)
         self.assertEqual(aggregate, alarm.aggregate)
         self.assertEqual(operation, alarm.operation)
         self.assertEqual(threshold, alarm.threshold)
@@ -89,22 +89,22 @@ class AlarmCreateTest(TestCase):
 
         api = API(api_host=api_host, email=email, api_token=api_token)
 
-        name = 'ALARM_CREDS_TEST'
-        metric_name = 'CPU'
-        interval = '1 minute'
+        name = 'ALARM_CREDS_TEST' + CLITest.random_string(6)
+        metric = 'CPU'
+        trigger_interval = 900000
         aggregate = 'sum'
         operation = 'gt'
         threshold = 0.80
         alarm = api.alarm_create(name=name,
-                                 metric_name=metric_name,
-                                 interval=interval,
+                                 metric=metric,
+                                 trigger_interval=trigger_interval,
                                  aggregate=aggregate,
                                  operation=operation,
                                  threshold=threshold)
 
         self.assertEqual(name, alarm.name)
-        self.assertEqual(metric_name, alarm.metric_name)
-        self.assertEqual(60, alarm.interval)
+        self.assertEqual(metric, alarm.metric)
+        self.assertEqual(trigger_interval, alarm.trigger_interval)
         self.assertEqual(aggregate, alarm.aggregate)
         self.assertEqual(operation, alarm.operation)
         self.assertEqual(threshold, alarm.threshold)
@@ -114,23 +114,25 @@ class AlarmCreateTest(TestCase):
     def test_create_alarm(self):
         runner_create = CLIRunner(AlarmCreate())
 
-        create = runner_create.get_output(['-n',
-                                           'my-alarm',
+        alarm_name = 'my-alarm' + CLITest.random_string(6)
+        trigger_interval = 300000
+
+        create = runner_create.get_output(['-n', alarm_name,
                                            '-m', 'CPU',
                                            '-g', 'max',
                                            '-o', 'gt',
                                            '-v', '0.50',
-                                           '-r', '5 minutes'])
-        result = json.loads(create)
-        alarm = result['result']
-        self.assertEqual(300, int(alarm['interval']))
+                                           '-r', str(trigger_interval)])
+        alarm = json.loads(create)
+        self.assertEqual(trigger_interval, int(alarm['triggerInterval']))
         self.assertEqual([], alarm['actions'])
         self.assertEqual(1, int(alarm['familyId']))
         self.assertFalse(alarm['isDisabled'])
-        self.assertEqual('CPU', alarm['metricName'])
-        self.assertEqual('my-alarm', alarm['name'])
-        self.assertTrue(alarm['name'])
+        self.assertEqual('CPU', alarm['metric'])
+        self.assertEqual(alarm_name, alarm['name'])
         self.assertTrue(alarm['perHostNotify'])
+        self.assertTrue(alarm['notifyClear'])
+        self.assertTrue(alarm['notifySet'])
         self.assertEqual('max', alarm['triggerPredicate']['agg'])
         self.assertEqual('gt', alarm['triggerPredicate']['op'])
         self.assertEqual(0.5, alarm['triggerPredicate']['val'])

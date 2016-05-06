@@ -56,30 +56,6 @@ class MetricExport(MetricCommon):
         if self.args.patterns:
             self.filter_expression = re.compile(self.args.patterns)
 
-    def extract_fields(self, metric):
-        """
-        Extract only the required fields for the create/update API call
-        """
-
-        m = {}
-        if 'description' in metric:
-            m['description'] = metric['description']
-        if 'displayName' in metric:
-            m['displayName'] = metric['displayName']
-        if 'displayNameShort' in metric:
-            m['displayNameShort'] = metric['displayNameShort']
-        if 'unit' in metric:
-            m['unit'] = metric['unit']
-        if 'defaultAggregate' in metric:
-            m['defaultAggregate'] = metric['defaultAggregate']
-        if 'defaultResolutionMS' in metric:
-            m['defaultResolutionMS'] = metric['defaultResolutionMS']
-        if 'isDisabled' in metric:
-            m['isDisabled'] = metric['isDisabled']
-        if 'type' in metric:
-            m['type'] = metric['type']
-        return m
-
     def extract_dictionary(self, metrics):
         """
         Extract required fields from an array

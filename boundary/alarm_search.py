@@ -56,7 +56,7 @@ class AlarmSearch(ApiCli):
 
     def get_api_parameters(self):
         self.method = "GET"
-        self.path = "v1/alarms/search"
+        self.path = "v2/alarms/search"
         self.url_parameters = {'name': self._alarm_name}
 
     def get_description(self):

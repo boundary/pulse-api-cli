@@ -49,7 +49,7 @@ class AlarmSearchTest(TestCase):
         aggregate = 'max'
         op = 'gt'
         value = 0.50
-        interval = '5 minutes'
+        trigger_interval = 300000
         note = CLITest.random_string(20)
         enabled = True
         runner_create = CLIRunner(AlarmCreate())
@@ -59,7 +59,7 @@ class AlarmSearchTest(TestCase):
                                            '-g', aggregate,
                                            '-o', op,
                                            '-v', str(value),
-                                           '-r', interval,
+                                           '-r', str(trigger_interval),
                                            '-d', note,
                                            '-x', str(enabled).lower()])
 
@@ -67,11 +67,11 @@ class AlarmSearchTest(TestCase):
         search = runner_search.get_output(['-n', alarm_name])
         result_search = json.loads(search)
         alarm = result_search['result'][0]
-        self.assertEqual(int(300), alarm['interval'])
+        self.assertEqual(trigger_interval, alarm['interval'])
         self.assertItemsEqual([], alarm['actions'])
         self.assertEqual(1, int(alarm['familyId']))
         self.assertFalse(False, alarm['isDisabled'])
-        self.assertEqual(metric_name, alarm['metricName'])
+        self.assertEqual(metric_name, alarm['metric'])
         self.assertEqual(alarm_name, alarm['name'])
         self.assertTrue(alarm['perHostNotify'])
         self.assertEqual(aggregate, alarm['triggerPredicate']['agg'])

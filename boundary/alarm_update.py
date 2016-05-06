@@ -15,6 +15,7 @@
 #
 
 import json
+import requests
 
 from boundary import AlarmModify
 
@@ -26,7 +27,7 @@ class AlarmUpdate(AlarmModify):
 
     def add_arguments(self):
 
-        self.parser.add_argument('-i', '--alarm-id', dest='alarm_id', action='store', required=True,
+        self.parser.add_argument('-i', '--alarm-id', dest='alarm_id', action='store', required=True, type=int,
                                  metavar='alarm_id', help='Id of the alarm to update')
         self.parser.add_argument('-n', '--alarm-name', dest='alarm_name', action='store',
                                  metavar='alarm_name', help='Name of the alarm')
@@ -50,9 +51,11 @@ class AlarmUpdate(AlarmModify):
         AlarmModify.get_api_parameters(self)
         self.method = "PUT"
         if self._alarm_id is not None:
-            self._payload['id'] = float(self._alarm_id)
+            self._payload['id'] = int(self._alarm_id)
         self.data = json.dumps(self._payload, sort_keys=True)
-        self.path = "v1/alarm/{0}".format(self._alarm_id)
+        self.path = "v2/alarms/{0}".format(self._alarm_id)
 
     def get_description(self):
         return 'Updates an alarm definition in an {0} account'.format(self.product_name)
+
+

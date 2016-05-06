@@ -48,15 +48,15 @@ class AlarmDeleteTest(TestCase):
     def test_api_call(self):
         api = API()
         name = 'ALARM_DELETE_API_TEST' + CLITest.random_string(6)
-        metric_name = 'CPU'
-        interval = '1 minute'
+        metric = 'CPU'
+        trigger_interval = 60000
         aggregate = 'sum'
         operation = 'gt'
         threshold = '0.80'
         note = CLITest.random_string(20)
         alarm = api.alarm_create(name=name,
-                                 metric_name=metric_name,
-                                 interval=interval,
+                                 metric=metric,
+                                 trigger_interval=trigger_interval,
                                  aggregate=aggregate,
                                  operation=operation,
                                  threshold=threshold,
@@ -66,8 +66,8 @@ class AlarmDeleteTest(TestCase):
 
     def test_delete_alarm(self):
         name = 'ALARM_DELETE_TEST' + CLITest.random_string(6)
-        metric_name = 'CPU'
-        interval = '1 minute'
+        metric = 'CPU'
+        trigger_interval = 60000
         aggregate = 'sum'
         operation = 'gt'
         threshold = '0.80'
@@ -75,15 +75,13 @@ class AlarmDeleteTest(TestCase):
 
         runner_create = CLIRunner(AlarmCreate())
         create = runner_create.get_output(['-n', name,
-                                           '-m', metric_name,
+                                           '-m', metric,
                                            '-g', aggregate,
                                            '-o', operation,
                                            '-v', str(threshold),
-                                           '-r', interval,
+                                           '-r', str(trigger_interval),
                                            '-d', note])
-        result_create = json.loads(create)
-        alarm = result_create['result']
-
+        alarm = json.loads(create)
         runner_delete = CLIRunner(AlarmDelete())
         delete = runner_delete.get_output(['-i', str(alarm['id'])])
 

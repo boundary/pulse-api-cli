@@ -27,7 +27,7 @@ class AlarmList(ApiCli):
         return "List alarm definitions associated with the {0} account".format(self.product_name)
 
     def get_api_parameters(self):
-        self.path = "v1/alarms"
+        self.path = "v2/alarms"
         self.method = "GET"
 
     def handle_key_word_args(self):

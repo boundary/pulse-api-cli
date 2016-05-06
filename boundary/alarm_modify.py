@@ -25,6 +25,9 @@ class AlarmModify(ApiCli):
         ApiCli.__init__(self)
         self._update = update
 
+        # Mapping of alarm types to corresponding codes
+        self._alarm_types = {"threshold": 3, "host": 4, "api": 5}
+
         self._aggregate = None
         self._actions = None
         self._alarm_name = None
@@ -32,28 +35,22 @@ class AlarmModify(ApiCli):
         self._host_group_id = None
         self._interval = None
         self._is_disabled = None
-        self._metric_name = None
+        self._metric = None
         self._note = None
         self._operation = None
         self._per_host_notify = None
         self._threshold = None
+        self._type_id = None
+        self._notify_clear = None
+        self._notify_set = None
         self._payload = {}
-
-        self._intervals = {'1 second': 1,
-                           '5 seconds': 15,
-                           '1 minute': 60,
-                           '5 minutes': 300,
-                           '1 hour': 3600,
-                           '1.5 hours': 5400,
-                           '3 hours': 10800,
-                           '6 hours': 21600,
-                           '12 hours': 43200
-                           }
+        self._trigger_interval = None
+        self._timeout_interval = None
 
     def add_arguments(self):
         ApiCli.add_arguments(self)
-        self.parser.add_argument('-m', '--metric', dest='metric_name', action='store',
-                                 required=(False if self._update else True),
+        self.parser.add_argument('-m', '--metric', dest='metric', action='store',
+                                 required=True,
                                  metavar='metric_name', help='Name of the metric to alarm')
 
         self.parser.add_argument('-g', '--trigger-aggregate', dest='aggregate', action='store',
@@ -68,11 +65,15 @@ class AlarmModify(ApiCli):
                                  required=(False if self._update else True),
                                  metavar='value', help='Trigger threshold value')
 
-        self.parser.add_argument('-r', '--trigger-interval', dest='interval', action='store',
-                                 required=(False if self._update else True),
-                                 choices=['1 second', '15 seconds', '1 minute', '5 minutes', '1 hour', '1.5 hours',
-                                          '3 hours', '6 hours', '12 hours'],
-                                 help='Interval to alarm upon')
+        self.parser.add_argument('-r', '--trigger-interval', dest='trigger_interval', action='store',
+                                 metavar='trigger_interval', required=False, type=int,
+                                 help='Interval of time in ms that the alarm state should be in fault ' +
+                                      'before triggering')
+
+        self.parser.add_argument('-j', '--timeout-interval', dest='timeout_interval', action='store',
+                                 metavar = 'timeout_interval', required=False, type=int,
+                                 help='The interval after which an individual host state should resolve by timeout. ' +
+                                      'Default: 259200000 milli-seconds (3 days)')
 
         self.parser.add_argument('-u', '--host-group-id', dest='host_group_id', action='store', metavar='host_group_id',
                                  type=int, help='Host group the alarm applies to')
@@ -80,8 +81,16 @@ class AlarmModify(ApiCli):
         self.parser.add_argument('-d', '--note', dest='note', action='store', metavar='note',
                                  help='A description or resolution of the alarm')
 
-        self.parser.add_argument('-c', '--action', dest='actions', action='append', metavar='action-id', type=int,
+        self.parser.add_argument('-k', '--action', dest='actions', action='append', metavar='action-id', type=int,
                                  help='An action to be performed when an alarm is triggered')
+
+        self.parser.add_argument('-c', '--notify-clear', dest='notify_clear', action='store', default=None,
+                                 choices=['true', 'false'],
+                                 help='Perform actions when all hosts')
+
+        self.parser.add_argument('-s', '--notify-set', dest='notify_set', action='store', default=None,
+                                 choices=['true', 'false'],
+                                 help='Perform actions when an alarm threshold and interval is breached.')
 
         self.parser.add_argument('-p', '--per-host-notify', dest='per_host_notify', action='store',
                                  default=None, choices=['true', 'false'],
@@ -103,15 +112,18 @@ class AlarmModify(ApiCli):
         self._actions = self.args.actions if self.args.actions is not None else None
         self._alarm_name = self.args.alarm_name if self.args.alarm_name is not None else None
 
-        self._metric_name = self.args.metric_name if self.args.metric_name is not None else None
+        self._metric = self.args.metric if self.args.metric is not None else None
         self._aggregate = self.args.aggregate if self.args.aggregate is not None else None
         self._operation = self.args.operation if self.args.operation is not None else None
         self._threshold = self.args.threshold if self.args.threshold is not None else None
-        self._interval = self.args.interval if self.args.interval is not None else None
+        self._trigger_interval = self.args.trigger_interval if self.args.trigger_interval is not None else None
         self._host_group_id = self.args.host_group_id if self.args.host_group_id is not None else None
         self._note = self.args.note if self.args.note is not None else None
         self._per_host_notify = self.args.per_host_notify if self.args.per_host_notify is not None else None
         self._is_disabled = self.args.is_disabled if self.args.is_disabled is not None else None
+        self._notify_clear = self.args.notify_clear if self.args.notify_clear is not None else None
+        self._notify_set = self.args.notify_set if self.args.notify_set is not None else None
+        self._timeout_interval = self.args.timeout_interval if self.args.timeout_interval is not None else None
 
     def get_api_parameters(self):
 
@@ -136,13 +148,13 @@ class AlarmModify(ApiCli):
             self._payload['hostgroupId'] = self._host_group_id
 
         if self._interval is not None:
-            self._payload['interval'] = self._intervals[self._interval]
+            self._payload['triggerInterval'] = self._interval
 
         if self._is_disabled is not None:
             self._payload['isDisabled'] = self._is_disabled
 
-        if self._metric_name is not None:
-            self._payload['metricName'] = self._metric_name
+        if self._metric is not None:
+            self._payload['metric'] = self._metric
 
         if self._note is not None:
             self._payload['note'] = self._note
@@ -156,30 +168,48 @@ class AlarmModify(ApiCli):
         if self._is_disabled is not None:
             self._payload['isDisabled'] = True if self._is_disabled == 'yes' else False
 
+        if self._notify_clear is not None:
+            self._payload['notifyClear'] = self._notify_clear
+
+        if self._notify_set is not None:
+            self._payload['notifySet'] = self._notify_set
+
+        if self._timeout_interval is not None:
+            self._payload['timeoutInterval'] = self._timeout_interval
+
+        if self._trigger_interval is not None:
+            self._payload['triggerInterval'] = self._trigger_interval
+
         self.data = json.dumps(self._payload, sort_keys=True)
         self.headers = {'Content-Type': 'application/json'}
-        self.path = 'v1/alarms'
+        self.path = 'v2/alarms'
 
     def handle_key_word_args(self):
 
         self._actions = self._kwargs['actions'] if 'actions' in self._kwargs else None
+        self._aggregate = self._kwargs['aggregate'] if 'aggregate' in self._kwargs else None
         self._alarm_name = self._kwargs['name'] if 'name' in self._kwargs else None
         self._alarm_id = self._kwargs['id'] if 'id' in self._kwargs else None
-        self._aggregate = self._kwargs['aggregate'] if 'aggregate' in self._kwargs else None
         self._operation = self._kwargs['operation'] if 'operation' in self._kwargs else None
         self._threshold = self._kwargs['threshold'] if 'threshold' in self._kwargs else None
         self._host_group_id = self._kwargs['host_group_id'] if 'host_group_id' in self._kwargs else None
-        self._interval = self._kwargs['interval'] if 'interval' in self._kwargs else None
-        self._metric_name = self._kwargs['metric_name'] if 'metric_name' in self._kwargs else None
+        self._trigger_interval = self._kwargs['trigger_interval'] if 'trigger_interval' in self._kwargs else None
+        self._metric = self._kwargs['metric'] if 'metric' in self._kwargs else None
         self._note = self._kwargs['note'] if 'note' in self._kwargs else None
         self._actions = self._kwargs['actions'] if 'actions' in self._kwargs else None
-        self._per_host_notify = self._kwargs['per_host_notify'] if 'per_host_notify' in self._kwargs else None
-        self._is_disabled = self._kwargs["is_disabled"] if 'is_disabled' in self._kwargs else None
+        self._timeout_interval = self._kwargs['timeout_interval'] if 'timeout_interval' in self._kwargs else None
+        self._notify_clear = self._kwargs['notifyClear'] if 'notifyClear' in self._kwargs else None
+        self._notify_set = self._kwargs['notifySet'] if 'notifySet' in self._kwargs else None
+
+        self.data = json.dumps(self._payload, sort_keys=True)
+        self.headers = {'Content-Type': 'application/json'}
+        self.path = 'v2/alarms'
 
     def _handle_api_results(self):
-        # Only process if we get HTTP result of 200
-        if self._api_result.status_code == requests.codes.ok:
+        # Only process if we get HTTP result of 201
+        if self._api_result.status_code == requests.codes.created:
             alarm_result = json.loads(self._api_result.text)
-            return result_to_alarm(alarm_result['result'])
+            return result_to_alarm(alarm_result)
         else:
             return None
+

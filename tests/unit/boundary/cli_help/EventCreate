@@ -1,7 +1,8 @@
 usage: event-create [-h] [-l {debug,info,warning,error,critical}]
-                    [-a api_host] [-e e_mail] [-t api_token] [-z] [-b {}]
-                    [-r {INFO,WARN,ERROR,CRITICAL}] [-m message] -f aggregate
-                    [-o organization_id] [-p PROPERTIES]
+                    [-a api_host] [-e e_mail] [-t api_token] [-z]
+                    [-b {acknowledged,closed,ok,open}]
+                    [-r {info,warn,error,critical}] [-m message] -f field_list
+                    [-o tenant_id] [-p property=value]
                     [-s ref:type:name:properties] -w title
 
 Creates a new event in an TrueSight Pulse account
@@ -20,16 +21,17 @@ optional arguments:
                         API token for given e-mail that has access to the
                         TrueSight Pulse account
   -z, --curl            Output the corresponding curl command line and exit
-  -b {}, --status {}
-  -r {INFO,WARN,ERROR,CRITICAL}, --severity {INFO,WARN,ERROR,CRITICAL}
+  -b {acknowledged,closed,ok,open}, --status {acknowledged,closed,ok,open}
+  -r {info,warn,error,critical}, --severity {info,warn,error,critical}
                         Severity of the the event
   -m message, --message message
                         Text describing the event
-  -f aggregate, --fingerprint-fields aggregate
-                        Metric aggregate to alarm upon
-  -o organization_id, --organization-id organization_id
-                        Boundary account Id
-  -p PROPERTIES, --properties PROPERTIES
+  -f field_list, --fingerprint-fields field_list
+                        List of fields that make up the fingerprint
+  -o tenant_id, --tenant-id tenant_id
+                        Tenant Id
+  -p property=value, --property property=value
+                        Add properties to an event
   -s ref:type:name:properties, --source ref:type:name:properties
                         A description or resolution of the alarm
   -w title, --title title
