@@ -1,5 +1,5 @@
 TARGET=boundary
-VERSION=0.3.0
+VERSION=$(shell python -c "from boundary import __version__ ; print(__version__)")
 TAR_FILE=dist/boundary-$(VERSION).tar.gz
 
 install: build
