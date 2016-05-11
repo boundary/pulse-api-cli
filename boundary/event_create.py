@@ -62,17 +62,21 @@ class EventCreate(ApiCli, PropertyHandler):
         self.method = "POST"
         self.path = 'v1/events'
 
+        self._event_class = None
         self._fingerprint_fields = None
-        self._title = None
+        self._properties = None
         self._source = None
         self._severity = None
         self._status = None
+        self._title = None
         self._tenant_id = None
 
     def add_arguments(self):
         ApiCli.add_arguments(self)
         self.parser.add_argument('-b', '--status', dest='status', action='store',
                                  choices=['acknowledged', 'closed', 'ok', 'open'])
+        self.parser.add_argument('-c', '--event-class', dest='event_class', action='store',
+                                 help='Event class of this event')
         self.parser.add_argument('-r', '--severity', dest='severity', action='store',
                                  choices=['info', 'warn', 'error', 'critical'],
                                  help='Severity of the the event')
@@ -99,6 +103,9 @@ class EventCreate(ApiCli, PropertyHandler):
 
         if self.args.tenant_id is not None:
             self._tenant_id = self.args.tenant_id
+
+        if self.args.event_class is not None:
+            self._event_class = self.args.event_class
 
         if self.args.fingerprint_fields is not None:
             self._fingerprint_fields = self.args.fingerprint_fields
@@ -137,6 +144,9 @@ class EventCreate(ApiCli, PropertyHandler):
         self._process_properties(self.args.properties)
         if self._properties is not None:
             event['properties'] = self._properties
+
+        if self._event_class is not None:
+            event['eventClass'] = self._event_class
 
         if self._fingerprint_fields is not None:
             event['fingerprintFields'] = self._fingerprint_fields
