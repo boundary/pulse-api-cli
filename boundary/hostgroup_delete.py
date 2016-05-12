@@ -45,7 +45,7 @@ class HostgroupDelete(ApiCli):
         if self.force:
             self.url_parameters = {"forceRemove": True}
 
-        self.path = "v1/hostgroup/{0}".format(str(self.hostGroupId))
+        self.path = "v1/hostgroups/{0}".format(str(self.hostGroupId))
 
     def get_description(self):
         return "Deletes a host group definition by id from a {0} account".format(self.product_name)
