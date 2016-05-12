@@ -23,7 +23,7 @@ import boundary.util as util
 
 
 class ApiCall(object):
-    def __init__(self, api_host="premium-api.boundary.com", email=None, api_token=None):
+    def __init__(self, api_host="api.truesight.bmc.com", email=None, api_token=None):
         """
         :param api_host: api end point host
         :param email: TrueSight Pulse account e-mail
