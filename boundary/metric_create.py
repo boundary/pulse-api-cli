@@ -1,5 +1,5 @@
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,34 +15,25 @@
 #
 from boundary import MetricModify
 
+
 class MetricCreate (MetricModify):
      
     def __init__(self):
         """
         """
-        MetricModify.__init__(self)
+        MetricModify.__init__(self, False)
         self.method = "POST"
-        self.metricName = None
-        self.displayName = None
-        self.displayNameShort = None
-        self.description = None
-        self.aggregate = None
-        self.unit = None
-        self.resolution = None
-        self.isDisabled = None
 
-        self.cli_description = "Creates a new metric definition in an Boundary account"
-
-    def getArguments(self):
+    def get_arguments(self):
         """
         Extracts the specific arguments of this CLI
         """
-        MetricModify.getArguments(self)
+        MetricModify.get_arguments(self)
 
         self.path = "v1/metrics"
          
-    def getDescription(self):
+    def get_description(self):
         """
         """
-        return "Creates a new metric definition in an Boundary account"
+        return 'Creates a new metric definition in an {0} account'.format(self.product_name)
 

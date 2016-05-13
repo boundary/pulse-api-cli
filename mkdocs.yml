@@ -2,14 +2,17 @@ site_name: BMC TrueSight Pulse CLIs
 theme: united
 google_analytics: ['UA-47528703-5','auto']
 pages:
-- ['index.md', 'Home']
-- ['install.md','Getting Started','Installing']
-- ['configuration.md','Getting Started','Configuring']
-- ['reference/actions.md','Reference','Actions']
-- ['reference/alarms.md','Reference','Alarms']
-- ['reference/hostgroups.md','Reference','Host Groups']
-- ['reference/measurements.md','Reference','Measurements']
-- ['reference/metrics.md','Reference','Metrics']
-- ['reference/plugins.md','Reference','Plugins']
-- ['reference/sources.md','Reference','Sources']
+- Home: index.md
+- Getting Started:
+  - Installing: 'install.md'
+  - Configuring: 'configuration.md'
+- Reference:
+  - Actions: 'reference/actions.md'
+  - Alarms: 'reference/alarms.md'
+  - Host Groups: 'reference/hostgroups.md'
+  - Measurements: 'reference/measurements.md'
+  - Metrics: 'reference/metrics.md'
+  - Plugins: 'reference/plugins.md'
+  - Relays: 'reference/relays.md'
+  - Sources: 'reference/sources.md'
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,24 +14,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-import unittest
-from mock import Mock, patch
+from unittest import TestCase
 import sys
 from boundary.metric_list import MetricList
 from io import TextIOWrapper, BytesIO
 import json
 import StringIO
+from cli_test import CLITest
+from cli_runner import CLIRunner
 
 
-class TestMetricList(unittest.TestCase):
+class MetricListTest(TestCase):
 
     def setUp(self):
-        self.metric_list = MetricList()
+        self.cli = MetricList()
         self.text = '''
         {
-        "result": [
-                    {
-                     "name": "BOUNDARY_MOCK_METRIC",
+        "result": [ { "name": "BOUNDARY_MOCK_METRIC",
                      "defaultAggregate": "AVG",
                      "defaultResolutionMS": 1000,
                      "description": "BOUNDARY_MOCK_METRIC",
@@ -41,43 +40,62 @@ class TestMetricList(unittest.TestCase):
                      "isDisabled": false,
                      "isBuiltin": false
                     }
-                    ]
+                  ]
         }
         '''
 
+        self.out = None
+        self.json1 = None
+        self.json2 = None
         # setup the environment
         self.old_stdout = sys.stdout
-        sys.stdout = TextIOWrapper(BytesIO(), sys.stdout.encoding)
+        sys.stdout = TextIOWrapper(BytesIO(), 'utf-8')
         sys.stdout = StringIO.StringIO()
 
     def tearDown(self):
         # restore stdout
         sys.stdout.close()
         sys.stdout = self.old_stdout
+#        print("self.out: " + str(self.out))
+#        print("self.json1: " + str(self.json1))
+#        print("self.text: " + str(self.text))
+#        print("self.json2: " + str(self.json2))
 
     def test_cli_description(self):
-        self.assertEqual(self.metric_list.cli_description, 'Lists the defined metrics in a Boundary account')
+        CLITest.check_description(self, self.cli)
 
-    def test_mock_arguments(self):
-        pass
-        # sys.argv = ['metric-list', '-l', 'debug']
-        # self.metric_list.execute();
+    def test_cli_help(self):
+        CLITest.check_cli_help(self, self.cli)
 
-    @patch('boundary.api_cli.requests')
-    def test_execute(self, mock_requests):
-        sys.argv = ['metric-list']
-        self.maxDiff = None
+    def test_create_curl(self):
+        runner = CLIRunner(self.cli)
 
-        mock_response = Mock()
-        mock_response.status_code = 200
-        mock_response.text = self.text
+        enabled = True
+        custom = True
 
-        mock_requests.get.return_value = mock_response
-        self.metric_list.execute()
+        curl = runner.get_output(['-b', str(enabled).lower(),
+                                  '-c', str(custom).lower(),
+                                  '-z'])
+        CLITest.check_curl(self, self.cli, curl)
 
-        # get output
-        sys.stdout.seek(0)      # jump to the start
-        self.out = sys.stdout.read() # read output
-        json1 = json.load(self.out)
-        json2 = json.load(self.text)
-        self.assertDictEqual(json1, json2)
+    def test_list_metric(self):
+        found = False
+        runner_create = CLIRunner(MetricList())
+
+        get = runner_create.get_output([])
+        result_get = json.loads(get)
+        metric_get = result_get['result']
+
+        for metric in metric_get:
+            if metric['name'] == 'CPU':
+                found = True
+                self.assertEqual('CPU Utilization', metric['displayName'])
+                self.assertEqual('CPU', metric['displayNameShort'])
+                self.assertTrue(metric['isBuiltin'])
+                self.assertFalse(metric['isDisabled'])
+                self.assertEqual('percent', metric['unit'])
+                self.assertEqual('avg', metric['defaultAggregate'])
+                self.assertEqual(1000, metric['defaultResolutionMS'])
+                self.assertEqual('Overall CPU utilization', metric['description'])
+
+        self.assertTrue(found)

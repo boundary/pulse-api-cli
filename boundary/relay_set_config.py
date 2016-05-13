@@ -1,5 +1,5 @@
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,25 +14,31 @@
 # limitations under the License.
 #
 
-from api_cli import ApiCli
+from boundary import ApiCli
 
 
 class RelaySetConfig(ApiCli):
-
     def __init__(self):
-        ApiCli.__init__()
-        self.path = "v1/relays"
-        self.sources = None
+        ApiCli.__init__(self)
+        self.method = 'PUT'
+        self._file = None
+        self._meter = None
 
-    def addArguments(self):
+    def add_arguments(self):
         """
         """
-        ApiCli.addArguments()
-        self.parser.add_argument('-n', '--name', metavar='meter', dest='meter', action='store',required=True,
-                                 help='Name of the meter to set plugin configuration information')
+        ApiCli.add_arguments(self)
 
-    def getArguments(self):
-        ApiCli.getArguments()
+        self.parser.add_argument('-f', '--file', metavar='path', dest='file', action='store', required=True,
+                                 help='Name of the meter to get plugin configuration information')
 
-    def getDescription(self):
-        return "Pushes relay configuration to a meter"
+    def get_arguments(self):
+        ApiCli.get_arguments(self)
+
+        if self.args.file is not None:
+            self._file = self.args.path
+
+        self.path = 'v1/relays/{0}/config'.format(self._meter)
+
+    def get_description(self):
+        return 'Sets the configuration of a relay in a {0} account'.format(self.product_name)

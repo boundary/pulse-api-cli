@@ -1,6 +1,5 @@
-#!/usr/bin/python
 # 
-#  Copyright 2014-2015 Boundary, Inc.
+#  Copyright 2015 BMC Software, Inc.
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,15 +13,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+from boundary import MetricCommon
+import json
+import requests
+import re
 
 """
 Exports metrics from a Boundary account with the ability to filter on metric name
 """
-import json
-
-from six.moves import http_client
-from boundary import MetricCommon
-import re
 
 
 class MetricExport(MetricCommon):
@@ -38,55 +36,33 @@ class MetricExport(MetricCommon):
         self.patterns = None
         self.filter_expression = None
 
-    def getDescription(self):
+    def get_description(self):
         """
         """
-        return 'Export the metric definitions from a Boundary account'
+        return 'Export the metric definitions from a {0} account'.format(self.product_name)
 
-    def addArguments(self):
+    def add_arguments(self):
         """
         """
-        MetricCommon.addArguments(self)
+        MetricCommon.add_arguments(self)
         self.parser.add_argument('-p', '--pattern', metavar='pattern', dest='patterns', action='store',
                                  help='regular expression pattern to use search the name of the metric')
         
-    def getArguments(self):
+    def get_arguments(self):
         """
         """
-        MetricCommon.getArguments(self)
+        MetricCommon.get_arguments(self)
         
         if self.args.patterns:
             self.filter_expression = re.compile(self.args.patterns)
 
-    def extractFields(self, metric):
-        """
-        Extract only the required fields for the create/update API call
-        """
-
-        m = {}
-        if 'description' in metric:
-            m['description'] = metric['description']
-        if 'displayName' in metric:
-            m['displayName'] = metric['displayName']
-        if 'displayNameShort' in metric:
-            m['displayNameShort'] = metric['displayNameShort']
-        if 'unit' in metric:
-            m['unit'] = metric['unit']
-        if 'defaultAggregate' in metric:
-            m['defaultAggregate'] = metric['defaultAggregate']
-        if 'defaultResolutionMS' in metric:
-            m['defaultResolutionMS'] = metric['defaultResolutionMS']
-        if 'isDisabled' in metric:
-            m['isDisabled'] = metric['isDisabled']
-        return m
-
-    def extractDictionary(self, metrics):
+    def extract_dictionary(self, metrics):
         """
         Extract required fields from an array
         """
         new_metrics = {}
         for m in metrics:
-            metric = self.extractFields(m)
+            metric = self.extract_fields(m)
             new_metrics[m['name']] = metric
         return new_metrics
 
@@ -94,7 +70,7 @@ class MetricExport(MetricCommon):
         """
         Apply the criteria to filter out on the metrics required
         """
-        if self.filter_expression != None:
+        if self.filter_expression is not None:
             new_metrics = []
             metrics = self.metrics['result']
             for m in metrics:
@@ -103,16 +79,16 @@ class MetricExport(MetricCommon):
         else:
             new_metrics = self.metrics['result']
 
-        self.metrics = self.extractDictionary(new_metrics)
+        self.metrics = self.extract_dictionary(new_metrics)
 
-    def handleResults(self, result):
+    def _handle_results(self):
         """
         Call back function to be implemented by the CLI.
         """
         
         # Only process if we get HTTP result of 200
-        if result.status_code == http_client.OK:
-            self.metrics = json.loads(result.text)
+        if self._api_result.status_code == requests.codes.ok:
+            self.metrics = json.loads(self._api_result.text)
             self.filter()
             out = json.dumps(self.metrics, sort_keys=True, indent=4, separators=(',', ': '))
-            print(out)
+            print(self.colorize_json(out))

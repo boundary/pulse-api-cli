@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -36,17 +36,9 @@ class TestApiCli(unittest.TestCase):
         with self.assertRaises(AttributeError, msg='Assign a value that is not in http method list'):
             self.a.method = 'FOO'
 
-    def test_method_delete(self):
-        with self.assertRaises(AttributeError, msg='Check delete of method property'):
-            del self.a.path
-
     def test_path_set(self):
         self.a.path = "v1/foobar"
         self.assertEqual(self.a.path, 'v1/foobar', 'Check assignment of path property')
-
-    def test_path_delete(self):
-        with self.assertRaises(AttributeError, msg='Check delete of path property'):
-            del self.a.path
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,5 +1,5 @@
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2016 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,8 +14,9 @@
 # limitations under the License.
 #
 from boundary import ApiCli
+from boundary import PropertyHandler
 import json
-from six.moves import http_client
+import requests
 
 
 class Source(object):
@@ -54,119 +55,119 @@ def string_to_dict(s):
     return json.loads(s)
 
 
-class EventCreate(ApiCli):
+class EventCreate(ApiCli, PropertyHandler):
     def __init__(self):
         ApiCli.__init__(self)
+        PropertyHandler.__init__(self)
         self.method = "POST"
         self.path = 'v1/events'
 
-        self.fingerprint_fields = None
-        self.title = None
-        self.source = None
-        self.severity = None
-        self.status = None
+        self._fingerprint_fields = None
+        self._title = None
+        self._source = None
+        self._severity = None
+        self._status = None
+        self._tenant_id = None
 
-    def addArguments(self):
-        ApiCli.addArguments(self)
+    def add_arguments(self):
+        ApiCli.add_arguments(self)
         self.parser.add_argument('-b', '--status', dest='status', action='store',
-                                 choices=[])
-        self.parser.add_argument('-v', '--severity', dest='severity', action='store',
-                                 choices=['INFO', 'WARN', 'ERROR', 'CRITICAL'],
+                                 choices=['acknowledged', 'closed', 'ok', 'open'])
+        self.parser.add_argument('-r', '--severity', dest='severity', action='store',
+                                 choices=['info', 'warn', 'error', 'critical'],
                                  help='Severity of the the event')
         self.parser.add_argument('-m', '--message', dest='message', action='store',
                                  metavar='message', help='Text describing the event')
-        self.parser.add_argument('-f', '--fingerprint-fields', dest='fingerprint_fields', action='store', required=True,
-                                 type=split_string, metavar='aggregate', help='Metric aggregate to alarm upon')
-        self.parser.add_argument('-o', '--organization-id', dest='organization_id', action='store',
-                                 metavar='organization_id', help='Boundary account Id')
-        #
-        self.parser.add_argument('-p', '--properties', dest='properties', action='store')
-        # self.parser.add_argument('-v', '--trigger-threshold', dest='triggerThreshold', action='store',
-        # metavar='value',
-        #                          help='Trigger threshold value')
-        # self.parser.add_argument('-r', '--sender', dest='triggerInterval', action='store',
-        #                          metavar='interval', help='Optional information about the sender of the event. \
-        #                          This is used to describe a third party event system forwarding this event into \
-        #                          Boundary, or a Boundary service sending the event.')
-        # self.parser.add_argument('-i', '--host-group-id', dest='hostGroupId', action='store', metavar='hostgroup_id',
-        #                          help='Host group the alarm applies to')
+        self.parser.add_argument('-f', '--fingerprint-fields', dest='fingerprint_fields', action='store',
+                                 required=True, type=split_string, metavar='field_list',
+                                 help='List of fields that make up the fingerprint')
+        self.parser.add_argument('-o', '--tenant-id', dest='tenant_id', action='store',
+                                 metavar='tenant_id', help='Tenant Id')
+        # Use the mixin to add argument to handle properties
+        self._add_property_argument(self.parser, 'Add properties to an event')
         self.parser.add_argument('-s', '--source', dest='source', action='store', metavar='ref:type:name:properties',
-                                 type=string_to_dict, help='A description or resolution of the alarm')
+                                 type=split_string, help='A description or resolution of the alarm')
 
         self.parser.add_argument('-w', '--title', dest='title', metavar='title', action='store', required=True,
                                  help='Title of the event')
 
-        # self.parser.add_argument('-x', '--tags', dest='isDisabled', action='store_true',
-        #                          help='Tags to assi')
-
-    def getArguments(self):
+    def get_arguments(self):
         """
         Extracts the specific arguments of this CLI
         """
-        ApiCli.getArguments(self)
+        ApiCli.get_arguments(self)
+
+        if self.args.tenant_id is not None:
+            self._tenant_id = self.args.tenant_id
+
         if self.args.fingerprint_fields is not None:
-            self.fingerprint_fields = self.args.fingerprint_fields
+            self._fingerprint_fields = self.args.fingerprint_fields
 
         if self.args.title is not None:
-            self.title = self.args.title
+            self._title = self.args.title
 
         if self.args.source is not None:
-            self.source = self.args.source
+            self._source = self.args.source
 
         if self.args.severity is not None:
-            self.severity = self.args.severity
+            self._severity = self.args.severity
 
         if self.args.message is not None:
-            self.message = self.args.message
+            self._message = self.args.message
 
-        event = {
-            "title": "foobar",
-            "fingerprintFields": ['@title'],
-            "source": {"ref": "foo", "type": "bar", "name": "foobar"}
-        }
+        event = {}
 
-        if self.title is not None:
-            event['title'] = self.title
+        if self._title is not None:
+            event['title'] = self._title
 
-        if self.severity is not None:
-            event['severity'] = self.severity
+        if self._severity is not None:
+            event['severity'] = self._severity
 
-        if self.message is not None:
-            event['message'] = self.message
+        if self._message is not None:
+            event['message'] = self._message
 
-        if self.source is not None:
-            event['source'] = self.source
+        if self._source is not None:
+            if 'source' not in event:
+                event['source'] = {}
+            if len(self._source) >= 1:
+                event['source']['ref'] = self._source[0]
+            if len(self._source) >= 2:
+                event['source']['type'] = self._source[1]
 
-        if self.fingerprint_fields is not None:
-            event['fingerprintFields'] = self.fingerprint_fields
+        self._process_properties(self.args.properties)
+        if self._properties is not None:
+            event['properties'] = self._properties
+
+        if self._fingerprint_fields is not None:
+            event['fingerprintFields'] = self._fingerprint_fields
 
         self.data = json.dumps(event, sort_keys=True)
-        self.headers = {'Content-Type': 'application/json', "Accept": "application/json"}
+        self.headers = {'Content-Type': 'application/json'}
 
-    def validateArguments(self):
+    def _validate_arguments(self):
         """
         TODO: Implement validation of event creation arguments
         """
-        return ApiCli.validateArguments(self)
+        return ApiCli._validate_arguments(self)
 
-    def getDescription(self):
-        return "Creates a new metric event in an Boundary account"
+    def get_description(self):
+        return "Creates a new event in an {0} account".format(self.product_name)
 
     def good_response(self, status_code):
         """
         A successful call to the Event Creation API returns a 201 and not 200
         so check for that response and return True when we receive a 201 response
         """
-        return status_code == http_client.CREATED
+        return status_code == requests.codes.accepted
 
-    def handleResults(self, result):
+    def _handle_results(self):
         # Only process if we get HTTP result of 201
-        if result.status_code == http_client.CREATED:
-            location = result.headers['location']
+        if self._api_result.status_code == requests.codes.ok:
+            location = self._api_result.headers['location']
             s = str.split(location, '/')
             out = s[-1]
             event_id = {
                 "eventId": int(out)
             }
             out = json.dumps(event_id, sort_keys=True, indent=4, separators=(',', ': '))
-            print(out)
+            print(self.colorize_json(out))

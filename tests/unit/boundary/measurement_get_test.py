@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,14 +19,19 @@ import unittest
 import datetime
 import json
 from boundary import MeasurementGet
+from cli_test import CLITest
 
-class TestMeasurementGet(unittest.TestCase):
+
+class MeasurementGetTest(unittest.TestCase):
 
     def setUp(self):
         self.mg = MeasurementGet()
         self.now = datetime.datetime.now()
         self.now_epoch = self.now.strftime("%s")
-        pass
+        self.cli = MeasurementGet()
+
+    def test_cli_help(self):
+        CLITest.check_cli_help(self, self.cli)
 
     # def test_parse_datetime(self):
     #     out = self.mg.parse_time_date('2015-06-10')

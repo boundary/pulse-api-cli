@@ -1,5 +1,5 @@
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,20 +23,20 @@ class PluginGetComponents(ApiCli):
         self.path = "v1/plugins"
         self.pluginName = None
 
-    def addArguments(self):
-        ApiCli.addArguments(self)
+    def add_arguments(self):
+        ApiCli.add_arguments(self)
         self.parser.add_argument('-n', '--plugin-Name', dest='pluginName', action='store', metavar='plugin_name',
                                  required=True, help='Plugin name')
 
-    def getArguments(self):
+    def get_arguments(self):
         """
         Extracts the specific arguments of this CLI
         """
-        ApiCli.getArguments(self)
+        ApiCli.get_arguments(self)
         if self.args.pluginName is not None:
             self.pluginName = self.args.pluginName
 
         self.path = "v1/plugins/{0}/components".format(self.pluginName)
 
-    def getDescription(self):
-        return "Get the components of a plugin in a Boundary account"
+    def get_description(self):
+        return 'Get the components of a plugin in a {0} account'.format(self.product_name)

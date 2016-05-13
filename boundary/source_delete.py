@@ -1,5 +1,5 @@
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,16 +24,16 @@ class SourceDelete(ApiCli):
         self.path = "v1/sources/byName"
         self.sources = None
 
-    def addArguments(self):
-        ApiCli.addArguments(self)
+    def add_arguments(self):
+        ApiCli.add_arguments(self)
         self.parser.add_argument('-s', '--sources', dest='sources', metavar='source1[,source2]',
                                  action='store', required=True, help='List of sources to delete')
 
-    def getArguments(self):
+    def get_arguments(self):
         """
         Extracts the specific arguments of this CLI
         """
-        ApiCli.getArguments(self)
+        ApiCli.get_arguments(self)
 
         # Get the list of sources separated by commas
         if self.args.sources is not None:
@@ -48,5 +48,5 @@ class SourceDelete(ApiCli):
         self.data = json.dumps(payload, sort_keys=True)
         self.headers = {'Content-Type': 'application/json', "Accept": "application/json"}
 
-    def getDescription(self):
-        return "Delete sources from a Boundary account"
+    def get_description(self):
+        return "Delete sources from a {0} account".format(self.product_name)

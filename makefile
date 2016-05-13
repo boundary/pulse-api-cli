@@ -1,5 +1,5 @@
 TARGET=boundary
-VERSION=0.2.1
+VERSION=$(shell python -c "from boundary import __version__ ; print(__version__)")
 TAR_FILE=dist/boundary-$(VERSION).tar.gz
 
 install: build
@@ -11,9 +11,11 @@ build:
 doc:
 	pandoc -f markdown -t plain README.md > README.txt
 
+rebuild: clean install
+
 upload:
 	python setup.py sdist upload
 	
 clean:
-	/bin/rm -rf build dist site
-	pip freeze | grep "boundary==$(VERSION)" && pip uninstall $(TARGET)
+	/bin/rm -rf build dist site MANIFEST
+	pip freeze | grep "boundary==$(VERSION)" && pip uninstall -y $(TARGET)

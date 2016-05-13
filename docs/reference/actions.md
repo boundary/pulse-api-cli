@@ -38,7 +38,7 @@ $ action-installed
 {
   "result": [
     {
-      "name": "boundary-enterprise",
+      "name": "E-mail Operations",
   ...
 ```
 
@@ -79,7 +79,7 @@ $ action-types
 {
   "result": [
     {
-      "name": "boundary-enterprise",
+      "name": "email",
     ...
 ```
 
