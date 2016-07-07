@@ -90,7 +90,8 @@ class EventCreate(ApiCli, PropertyHandler):
         # Use the mixin to add argument to handle properties
         self._add_property_argument(self.parser, 'Add properties to an event')
         self.parser.add_argument('-s', '--source', dest='source', action='store', metavar='ref:type:name:properties',
-                                 type=split_string, help='A description or resolution of the alarm')
+                                 type=split_string,
+				 help='Hostname or ip address of the system this event refers to.', required=True)
 
         self.parser.add_argument('-w', '--title', dest='title', metavar='title', action='store', required=True,
                                  help='Title of the event')
