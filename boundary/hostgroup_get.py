@@ -22,9 +22,7 @@ class HostgroupGet(ApiCli):
         """
         ApiCli.__init__(self)
         self.method = "GET"
-        self.path = "v1/hostgroups"
-
-        self.hostGroupId = ""
+        self.hostGroupId = None
 
     def add_arguments(self):
         """
@@ -41,7 +39,7 @@ class HostgroupGet(ApiCli):
         if self.args.hostGroupId is not None:
             self.hostGroupId = self.args.hostGroupId
 
-        self.path = "v1/hostgroup/{0}".format(str(self.hostGroupId))
+        self.path = "v1/hostgroups/{0}".format(str(self.hostGroupId))
 
     def get_description(self):
         return "Retrieves a single host group definition by id from a {0} account".format(self.product_name)

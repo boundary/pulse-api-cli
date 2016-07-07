@@ -1,6 +1,6 @@
 usage: event-create [-h] [-l {debug,info,warning,error,critical}]
                     [-a api_host] [-e e_mail] [-t api_token] [-z]
-                    [-b {acknowledged,closed,ok,open}]
+                    [-b {acknowledged,closed,ok,open}] [-c EVENT_CLASS]
                     [-r {info,warn,error,critical}] [-m message] -f field_list
                     [-o tenant_id] [-p property=value]
                     [-s ref:type:name:properties] -w title
@@ -22,6 +22,8 @@ optional arguments:
                         TrueSight Pulse account
   -z, --curl            Output the corresponding curl command line and exit
   -b {acknowledged,closed,ok,open}, --status {acknowledged,closed,ok,open}
+  -c EVENT_CLASS, --event-class EVENT_CLASS
+                        Event class of this event
   -r {info,warn,error,critical}, --severity {info,warn,error,critical}
                         Severity of the the event
   -m message, --message message

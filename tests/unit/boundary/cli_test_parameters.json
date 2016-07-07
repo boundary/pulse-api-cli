@@ -45,11 +45,11 @@
   },
   "HostgroupDelete": {
     "description": "Deletes a host group definition by id from a TrueSight Pulse account",
-    "curl": "curl -X DELETE \"https://api.truesight.bmc.com/v1/hostgroup/1024\"\n"
+    "curl": "curl -X DELETE \"https://api.truesight.bmc.com/v1/hostgroups/1024\"\n"
   },
   "HostgroupGet": {
     "description": "Retrieves a single host group definition by id from a TrueSight Pulse account",
-    "curl": "curl -X GET \"https://api.truesight.bmc.com/v1/hostgroup/1024\"\n"
+    "curl": "curl -X GET \"https://api.truesight.bmc.com/v1/hostgroups/1024\"\n"
   },
   "HostgroupList": {
     "description": "Lists the Host Groups in an TrueSight Pulse account",
@@ -61,7 +61,7 @@
   },
   "HostgroupUpdate": {
     "description": "Updates host group definition in a TrueSight Pulse account",
-    "curl": "curl -X PUT -H \"Content-Type: application/json\" -H \"Accept: application/json\" -d '{\"hostnames\": [\"source1\", \"source2\", \"source3\"], \"name\": \"FOO\"}' \"https://api.truesight.bmc.com/v1/hostgroup/1024\"\n"
+    "curl": "curl -X PUT -H \"Content-Type: application/json\" -H \"Accept: application/json\" -d '{\"hostnames\": [\"source1\", \"source2\", \"source3\"], \"name\": \"FOO\"}' \"https://api.truesight.bmc.com/v1/hostgroups/1024\"\n"
   },
   "MeasurementCreate": {
     "description": "Adds a measurement value to a TrueSight Pulse account",

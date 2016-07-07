@@ -6,8 +6,10 @@ setup(
     version=__version__,
     url="http://boundary.github.io/boundary-api-cli/",
     author='David Gwartney',
-    author_email='davidg@boundary.com',
+    author_email='david_gwartney@bmc.com',
     packages=['boundary', ],
+    install_requires=['pygments', 'python-dateutil', 'requests', 'jinja2', 'six'],
+    setup_requires=['pygments', 'python-dateutil', 'requests', 'jinja2', 'six'],
     entry_points={
         'console_scripts': [
             'actionhandler = boundary.webhook_handler:main',
@@ -64,11 +66,4 @@ setup(
     license='LICENSE.txt',
     description='Command line tools for using the Boundary REST APIs',
     long_description=open('README.txt').read(),
-    install_requires=[
-        "Pygments >=2.0.2",
-        "python-dateutil >= 2.4.1",
-        "requests >= 2.3.0",
-        "jinja2 >= 2.7.3",
-        "six >= 1.9.0",
-    ],
 )
