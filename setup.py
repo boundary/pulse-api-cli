@@ -64,5 +64,10 @@ setup(
     license='LICENSE.txt',
     description='Command line tools for using the TrueSight Pulse REST APIs',
     long_description=open('README.txt').read(),
-    install_requires=['pygments', 'python-dateutil', 'requests', 'jinja2', 'six'],
+    install_requires=[
+        'pygments >= 2.0.2',
+        'requests >= 2.3.0',
+        'six >= 1.10.0',
+        'python-dateutil >= 2.5.2',
+        'jinja2 >=  2.7.3'],
 )
