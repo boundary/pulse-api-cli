@@ -1,0 +1,46 @@
+{
+  "name": "Boundary README Test",
+  "version": "2.0",
+  "tags": "meter",
+  "description": "Example plugin.json for testing README.md generation",
+  "icon": "icon.png",
+  "command": "node index.js",
+  "command_lua": "boundary-meter init.lua",
+  "postExtract": "npm install",
+  "postExtract_lua": "",
+  "ignore": "node_modules",
+  "metrics": [
+    "BOUNDARY_README_METRIC"
+  ],
+  "paramArray": {
+    "itemTitle": [
+      "parameter_a",
+      "parameter_b",
+      "parameter_c"
+    ],
+    "schemaTitle": "Configuration"
+  },
+  "paramSchema": [
+    {
+      "title": "Parameter A",
+      "name": "paramter_a",
+      "description": "Example parameter a that is a string",
+      "type": "string",
+      "required": "true"
+    },
+    {
+      "title": "Parameter B",
+      "name": "parameter_b",
+      "description": "Example parameter b that is a string",
+      "type": "string",
+      "required": false
+    },
+    {
+      "title": "Parameter C",
+      "name": "parameter_c",
+      "description": "Example parameter c that is a string",
+      "type": "string",
+      "required": false
+    }
+  ]
+}

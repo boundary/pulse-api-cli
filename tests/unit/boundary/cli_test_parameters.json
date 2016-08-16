@@ -1,0 +1,170 @@
+{
+  "ActionInstalled": {
+    "description": "Returns the actions configured within a TrueSight Pulse account",
+    "curl": "curl -X GET \"https://api.truesight.bmc.com/v1/actions/installed\"\n"
+  },
+  "ActionTypes": {
+    "description": "List action types associated with the TrueSight Pulse account",
+    "curl": "curl -X GET \"https://api.truesight.bmc.com/v1/actions\"\n"
+  },
+  "AlarmCreate": {
+    "description": "Creates an alarm definition in an TrueSight Pulse account",
+    "curl": "curl -X POST -H \"Content-Type: application/json\" -d '{\"isDisabled\": false, \"metric\": \"CPU\", \"name\": \"my-curl\", \"triggerInterval\": 300000, \"triggerPredicate\": {\"agg\": \"min\", \"op\": \"lt\", \"val\": 0.5}}' \"https://api.truesight.bmc.com/v2/alarms\"\n"
+  },
+  "AlarmDelete": {
+    "description": "Deletes an alarm definition from a TrueSight Pulse account",
+    "curl": "curl -X DELETE \"https://api.truesight.bmc.com/v2/alarms/1024\"\n"
+  },
+  "AlarmGet": {
+    "description": "Retrieves an alarm definition from a TrueSight Pulse account",
+    "curl": "curl -X GET \"https://api.truesight.bmc.com/v2/alarms/1024\"\n"
+  },
+  "AlarmList": {
+    "description": "List alarm definitions associated with the TrueSight Pulse account",
+    "curl": "curl -X GET \"https://api.truesight.bmc.com/v2/alarms\"\n"
+  },
+  "AlarmSearch": {
+    "description": "Searches for an alarm definition by name from a TrueSight Pulse account",
+    "curl": "curl -X GET \"https://api.truesight.bmc.com/v2/alarms/search?name=foo\"\n"
+  },
+  "AlarmUpdate": {
+    "description": "Updates an alarm definition in an TrueSight Pulse account",
+    "curl": "curl -X PUT -H \"Content-Type: application/json\" -d '{\"id\": 1024, \"isDisabled\": false, \"metric\": \"CPU\", \"name\": \"my-curl\", \"triggerInterval\": 300000, \"triggerPredicate\": {\"agg\": \"min\", \"op\": \"lt\", \"val\": 0.5}}' \"https://api.truesight.bmc.com/v2/alarms/1024\"\n"
+  },
+  "EventCreate": {
+    "description": "Creates a new event in an TrueSight Pulse account",
+    "curl": ""
+  },
+  "EventList": {
+    "description": "Lists the events in a TrueSight Pulse account",
+    "curl": "curl -X GET \"https://api.truesight.bmc.com/v1/events\"\n"
+  },
+  "HostgroupCreate": {
+    "description": "Creates host group definition in a TrueSight Pulse account",
+    "curl": "curl -X POST -H \"Content-Type: application/json\" -H \"Accept: application/json\" -d '{\"hostnames\": [\"source1\", \"source2\", \"source3\"], \"name\": \"My-Filter\"}' \"https://api.truesight.bmc.com/v1/hostgroups\"\n"
+  },
+  "HostgroupDelete": {
+    "description": "Deletes a host group definition by id from a TrueSight Pulse account",
+    "curl": "curl -X DELETE \"https://api.truesight.bmc.com/v1/hostgroups/1024\"\n"
+  },
+  "HostgroupGet": {
+    "description": "Retrieves a single host group definition by id from a TrueSight Pulse account",
+    "curl": "curl -X GET \"https://api.truesight.bmc.com/v1/hostgroups/1024\"\n"
+  },
+  "HostgroupList": {
+    "description": "Lists the Host Groups in an TrueSight Pulse account",
+    "curl": "curl -X GET \"https://api.truesight.bmc.com/v1/hostgroups\"\n"
+  },
+  "HostgroupSearch": {
+    "description": "Searches for Host Group by name in an TrueSight Pulse account",
+    "curl": "curl -X GET \"https://api.truesight.bmc.com/v1/hostgroups/search?name=My-Filter\"\n"
+  },
+  "HostgroupUpdate": {
+    "description": "Updates host group definition in a TrueSight Pulse account",
+    "curl": "curl -X PUT -H \"Content-Type: application/json\" -H \"Accept: application/json\" -d '{\"hostnames\": [\"source1\", \"source2\", \"source3\"], \"name\": \"FOO\"}' \"https://api.truesight.bmc.com/v1/hostgroups/1024\"\n"
+  },
+  "MeasurementCreate": {
+    "description": "Adds a measurement value to a TrueSight Pulse account",
+    "curl": "curl -X POST -H \"Content-Type: application/json\" -H \"Accept: application/json\" -d '{\"measure\": \"0.5\", \"metric\": \"CPU\", \"source\": \"source1\", \"timestamp\": 1452643455}' \"https://api.truesight.bmc.com/v1/measurements\"\n"
+  },
+  "MeterClient": {
+    "description": "Communicates with an TrueSight Pulse meter using JSON RPC",
+    "curl": ""
+  },
+  "MeasurementGet": {
+    "description": "Retrieves measurement values from a metric in a TrueSight Pulse account",
+    "curl": ""
+  },
+  "MetricCreate": {
+    "description": "Creates a new metric definition in an TrueSight Pulse account",
+    "curl": "curl -X POST -H \"Content-Type: application/json\" -H \"Accept: application/json\" -d '{\"defaultAggregate\": \"avg\", \"defaultResolutionMS\": \"60000\", \"description\": \"My Description\", \"displayName\": \"Display Name\", \"displayNameShort\": \"Short Display Name\", \"isDisabled\": false, \"name\": \"METRIC\", \"unit\": \"number\"}' \"https://api.truesight.bmc.com/v1/metrics\"\n"
+  },
+  "MetricCreateBatch": {
+    "description": "Creates multiple metric definitions from a file into a TrueSight Pulse account",
+    "curl": ""
+  },
+  "MetricDelete": {
+    "description": "Deletes a metric definition from a TrueSight Pulse account",
+    "curl": "curl -X DELETE \"https://api.truesight.bmc.com/v1/metrics/FOO\"\n"
+  },
+  "MetricExport": {
+    "description": "Export the metric definitions from a TrueSight Pulse account",
+    "curl": ""
+  },
+  "MetricGet": {
+    "description": "Get a metric definition from a TrueSight Pulse account",
+    "curl": "curl -X GET \"https://api.truesight.bmc.com/v1/metrics\"\n"
+  },
+  "MetricList": {
+    "description": "Lists the defined metrics in a TrueSight Pulse account",
+    "curl": "curl -X GET \"https://api.truesight.bmc.com/v1/metrics?enabled=true&custom=true\"\n"
+  },
+  "MetricUpdate": {
+    "description": "Updates a metric definition in an TrueSight Pulse account",
+    "curl": ""
+  },
+  "PluginAdd": {
+    "description": "Imports a meter plugin from a GitHub repository into a TrueSight Pulse account",
+    "curl": ""
+  },
+  "PluginGet": {
+    "description": "Get the details of a plugin in a TrueSight Pulse account",
+    "curl": ""
+  },
+  "PluginGetComponents": {
+    "description": "Get the components of a plugin in a TrueSight Pulse account",
+    "curl": ""
+  },
+  "PluginInstall": {
+    "description": "Installs a plugin into a TrueSight Pulse account",
+    "curl": ""
+  },
+  "PluginInstalled": {
+    "description": "Gets the plugins installed into a TrueSight Pulse account",
+    "curl": ""
+  },
+  "PluginList": {
+    "description": "Lists the plugins in a TrueSight Pulse account",
+    "curl": ""
+  },
+  "PluginReadme": {
+    "description": "Generates README from plugin.json and template",
+    "curl": ""
+  },
+  "PluginRemove": {
+    "description": "Remove a staged pre-release meter plugin from a TrueSight Pulse account",
+    "curl": ""
+  },
+  "PluginUninstall": {
+    "description": "Uninstalls a plugin from a TrueSight Pulse account",
+    "curl": ""
+  },
+  "RelayGetConfig": {
+    "description": "Returns relay configuration from a TrueSight Pulse account",
+    "curl": ""
+  },
+  "RelayGetOutput": {
+    "description": "Queries for relay output messages in a TrueSight Pulse account",
+    "curl": "curl -X GET \"https://api.truesight.bmc.com/v1/relays/My-Relay/output/1\"\n"
+  },
+  "RelayList": {
+    "description": "Lists the relays in a TrueSight Pulse account",
+    "curl": "curl -X GET \"https://api.truesight.bmc.com/v1/relays\""
+  },
+  "RelaySetConfig": {
+    "description": "Sets the configuration of a relay in a TrueSight Pulse account",
+    "curl": ""
+  },
+  "SourceDelete": {
+    "description": "Delete sources from a TrueSight Pulse account",
+    "curl": "curl -X DELETE  -H \"Content-Type: application/json\" -H \"Accept: application/json\" -d '{\"names\": [\"foo\"]}' \"https://api.truesight.bmc.com/v1/sources/byName\""
+  },
+  "SourceList": {
+    "description": "Lists the sources in a TrueSight Pulse account",
+    "curl": "curl -X GET \"https://api.truesight.bmc.com/v1/account/sources/\""
+  },
+  "UserGet": {
+    "description": "Returns the user associated with the TrueSight Pulse account",
+    "curl": "curl -X GET \"https://api.truesight.bmc.com/user\""
+  }
+}

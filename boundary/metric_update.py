@@ -1,5 +1,5 @@
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,16 +16,17 @@
 
 from boundary import MetricModify
 
-class MetricUpdate (MetricModify):
+
+class MetricUpdate(MetricModify):
      
     def __init__(self):
         """
         """
-        MetricModify.__init__(self)
+        MetricModify.__init__(self, True)
         self.method = "PUT"
         self.description = "Updates a metric definition in an Boundary account"
          
-    def getDescription(self):
+    def get_description(self):
         """
         """
-        return "Updates a metric definition in an Boundary account"
+        return 'Updates a metric definition in an {0} account'.format(self.product_name)

@@ -1,0 +1,40 @@
+usage: metric-create [-h] [-l {debug,info,warning,error,critical}]
+                     [-a api_host] [-e e_mail] [-t api_token] [-z] -n
+                     metric_name -d display_name -s display_short_name -i
+                     description -g {avg,max,min,sum}
+                     [-u {percent,number,bytecount,duration}] [-r resolution]
+                     [-y type] [-x {true,false}]
+
+Creates a new metric definition in an TrueSight Pulse account
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -l {debug,info,warning,error,critical}, --log-level {debug,info,warning,error,critical}
+                        Sets logging level to one of
+                        debug,info,warning,error,critical. Default is logging
+                        is disabled
+  -a api_host, --api-host api_host
+                        TrueSight Pulse API host endpoint
+  -e e_mail, --email e_mail
+                        e-mail that has access to the TrueSight Pulse account
+  -t api_token, --api-token api_token
+                        API token for given e-mail that has access to the
+                        TrueSight Pulse account
+  -z, --curl            Output the corresponding curl command line and exit
+  -n metric_name, --metric-name metric_name
+                        Metric identifier
+  -d display_name, --display-name display_name
+                        Metric display name
+  -s display_short_name, --display-name-short display_short_name
+                        Metric short display name
+  -i description, --description description
+                        Metric description
+  -g {avg,max,min,sum}, --aggregate {avg,max,min,sum}
+                        Metric default aggregate
+  -u {percent,number,bytecount,duration}, --unit {percent,number,bytecount,duration}
+                        Metric unit
+  -r resolution, --resolution resolution
+                        Metric default resolution
+  -y type, --type type  Sets the type metadata field
+  -x {true,false}, --is-disabled {true,false}
+                        Enable or disable the metric definition

@@ -1,0 +1,40 @@
+{
+  "name": "Boundary README Test",
+  "version" : "0.9.0",
+  "meterVersionRequired" : "4.2.0-611",
+  "os" : [ "Linux", "Windows", "SmartOS", "OS X" ],
+  "tags" : "meter",
+  "description": "This plugin scans one or more devices/drives for available disk space as a percentage.",
+  "icon" : "icon.png",
+  "command" : "node index.js",
+  "command_lua" : "boundary-meter init.lua",
+  "postExtract" : "npm install",
+  "postExtract_lua" : "",
+  "ignore" : "node_modules",
+  "metrics" : ["BOUNDARY_PLUGIN_README_TEST"],
+  "paramArray" : { "itemTitle" : ["parameter_a"], "schemaTitle" : "Configuration"},
+  "paramSchema" : [
+    {
+      "title" : "Parameter A",
+      "name" : "parameter_a",
+      "description" : "A string parameter",
+      "type" : "string",
+      "required" : true
+    },
+    {
+      "title" : "Parameter B",
+      "name" : "parameter_b",
+      "description" : "A string parameter",
+      "type" : "string",
+      "required" : false
+    },
+    {
+      "title" : "Parameter C",
+      "name" : "parameter_c",
+      "description" : "A string parameter",
+      "type" : "string",
+      "required" : false
+    }
+  ]
+
+}

@@ -1,11 +1,11 @@
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-# http://www.apache.org/licenses/LICENSE-2.0
+#     http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,32 +14,39 @@
 # limitations under the License.
 #
 from boundary import AlarmModify
+import requests
 
 
 class AlarmCreate(AlarmModify):
-    def __init__(self):
+    def __init__(self, **kwargs):
         AlarmModify.__init__(self, False)
+        self._kwargs = kwargs
         self.method = "POST"
+        self._alarm_result = None
 
-        self.cli_description = "Creates a new alarm definition in an Boundary account"
-
-    def addArguments(self):
+    def add_arguments(self):
 
         self.parser.add_argument('-n', '--alarm-name', dest='alarm_name', action='store', required=True,
                                  metavar='alarm_name', help='Name of the alarm')
+        self.parser.add_argument('-y', '--alarm-type', dest='alarm_type', action='store', required=False,
+                                 choices=['threshold', 'host', 'api'],
+                                 help='Type of the alarm either: threshold or communication. Default threshold')
 
-        AlarmModify.addArguments(self)
+        AlarmModify.add_arguments(self)
 
-    def getArguments(self):
+    def get_arguments(self):
         """
         Extracts the specific arguments of this CLI
         """
-        AlarmModify.getArguments(self)
+        AlarmModify.get_arguments(self)
 
-        self.path = 'v1/alarms'
+    def get_description(self):
+        return 'Creates an alarm definition in an {0} account'.format(self.product_name)
 
-    def getDescription(self):
-        return 'Creates an alarm definition in an Boundary account'
-
+    def good_response(self, status_code):
+        """
+        Determines what status codes represent a good response from an API call.
+        """
+        return status_code == requests.codes.created
 
 

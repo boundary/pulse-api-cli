@@ -1,5 +1,5 @@
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@ import socket
 import time
 import json
 
-from six.moves import http_client
 from boundary import ApiCli
 import requests
 
@@ -39,26 +38,39 @@ class MeasurementCreate(ApiCli):
         self.measurement = None
         self.source = None
         self.timestamp = None
+        self._properties = None
 
-    def addArguments(self):
-        ApiCli.addArguments(self)
+    def add_arguments(self):
+        ApiCli.add_arguments(self)
         self.parser.add_argument('-n', '--metric-name', dest='metricName', action='store', required=True,
-                                 metavar='metric_name',
-                                 help='Metric identifier')
+                                 metavar='metric_name', help='Metric identifier')
         self.parser.add_argument('-m', '--measurement', dest='measurement', action='store', required=True,
-                                 metavar="measurement",
-                                 help='Measurement value')
-        self.parser.add_argument('-s', '--source', dest='source', action='store', metavar="source",
+                                 metavar="measurement", help='Measurement value')
+        self.parser.add_argument('-s', '--source', dest='source', action='store', required=False, metavar="source",
                                  help='Source of measurement. Defaults to the host where the command is run')
         self.parser.add_argument('-d', '--timestamp', dest='timestamp', action='store', metavar="timestamp",
                                  help='Time of occurrence of the measurement in either epoch seconds or \
-                                 epoch milliseconds. Defaults to the receipt time at Boundary')
+                                 epoch milliseconds. Defaults to the receipt time at api endpoint')
+        self.parser.add_argument('-p', '--property', dest='properties', action='append', required=False,
+                                 metavar='property=value',
+                                 help='Property to add to the measurement')
 
-    def getArguments(self):
+    def _process_properties(self):
+        """
+        Transforms the command line properties into python dictionary
+        :return:
+        """
+        if self.args.properties is not None:
+            self._properties = {}
+            for p in self.args.properties:
+                d = p.split('=')
+                self._properties[d[0]] = d[1]
+
+    def get_arguments(self):
         """
         Extracts the specific arguments of this CLI
         """
-        ApiCli.getArguments(self)
+        ApiCli.get_arguments(self)
         if self.args.metricName is not None:
             self.metricName = self.args.metricName
 
@@ -71,18 +83,25 @@ class MeasurementCreate(ApiCli):
             self.source = socket.gethostname()
 
         if self.args.timestamp is not None:
-            self.timestamp = self.args.timestamp
-        else:
-            self.timestamp = int(time.time())
+            self.timestamp = int(self.args.timestamp)
 
         m = {'metric': self.metricName,
-             'measure': self.measurement,
-             'source': self.source,
-             'timestamp': self.timestamp}
+             'measure': self.measurement}
+
+        if self.source is not None:
+            m['source'] = self.source
+        if self.timestamp is not None:
+            m['timestamp'] = int(self.timestamp)
+
+        self._process_properties()
+
+        if self._properties is not None:
+            m['metadata'] = self._properties
+
         self.data = json.dumps(m, sort_keys=True)
         self.headers = {'Content-Type': 'application/json', "Accept": "application/json"}
 
-    def callAPI(self):
+    def _call_api(self):
         """
         Override so we can handle the incomplete read error generated
         by Boundary API that creates a measurement.
@@ -90,20 +109,20 @@ class MeasurementCreate(ApiCli):
         to other API calls.
         """
         try:
-            ApiCli.callAPI(self)
+            ApiCli._call_api(self)
         except requests.exceptions.ChunkedEncodingError:
-            None
+            pass
 
-    def getDescription(self):
-        return "Adds a measurement value to a Boundary account"
+    def get_description(self):
+        return 'Adds a measurement value to a {0} account'.format(self.product_name)
 
-    def handleResults(self, result):
+    def _handle_results(self):
         """
         Call back function to be implemented by the CLI.
         """
 
         # Only process if we get HTTP result of 200
-        if result.status_code == http_client.OK:
-            payload = json.loads(result.text)
+        if self._api_result.status_code == requests.codes.ok:
+            payload = json.loads(self._api_result.text)
             out = json.dumps(payload, sort_keys=True, indent=4, separators=(',', ': '))
-            print(out)
+            print(self.colorize_json(out))

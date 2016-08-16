@@ -1,0 +1,63 @@
+usage: alarm-update [-h] -i alarm_id [-n alarm_name]
+                    [-l {debug,info,warning,error,critical}] [-a api_host]
+                    [-e e_mail] [-t api_token] [-z] -m metric_name
+                    [-g {sum,avg,max,min}] [-o {eq,gt,lt}] [-v value]
+                    [-r trigger_interval] [-j timeout_interval]
+                    [-u host_group_id] [-d note] [-k action-id]
+                    [-c {true,false}] [-s {true,false}] [-p {true,false}]
+                    [-x {true,false}]
+
+Updates an alarm definition in an TrueSight Pulse account
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i alarm_id, --alarm-id alarm_id
+                        Id of the alarm to update
+  -n alarm_name, --alarm-name alarm_name
+                        Name of the alarm
+  -l {debug,info,warning,error,critical}, --log-level {debug,info,warning,error,critical}
+                        Sets logging level to one of
+                        debug,info,warning,error,critical. Default is logging
+                        is disabled
+  -a api_host, --api-host api_host
+                        TrueSight Pulse API host endpoint
+  -e e_mail, --email e_mail
+                        e-mail that has access to the TrueSight Pulse account
+  -t api_token, --api-token api_token
+                        API token for given e-mail that has access to the
+                        TrueSight Pulse account
+  -z, --curl            Output the corresponding curl command line and exit
+  -m metric_name, --metric metric_name
+                        Name of the metric to alarm
+  -g {sum,avg,max,min}, --trigger-aggregate {sum,avg,max,min}
+                        Metric aggregate to alarm upon
+  -o {eq,gt,lt}, --trigger-operation {eq,gt,lt}
+                        Trigger threshold comparison
+  -v value, --trigger-threshold value
+                        Trigger threshold value
+  -r trigger_interval, --trigger-interval trigger_interval
+                        Interval of time in ms that the alarm state should be
+                        in fault before triggering
+  -j timeout_interval, --timeout-interval timeout_interval
+                        The interval after which an individual host state
+                        should resolve by timeout. Default: 259200000 milli-
+                        seconds (3 days)
+  -u host_group_id, --host-group-id host_group_id
+                        Host group the alarm applies to
+  -d note, --note note  A description or resolution of the alarm
+  -k action-id, --action action-id
+                        An action to be performed when an alarm is triggered
+  -c {true,false}, --notify-clear {true,false}
+                        Perform actions when all hosts
+  -s {true,false}, --notify-set {true,false}
+                        Perform actions when an alarm threshold and interval
+                        is breached.
+  -p {true,false}, --per-host-notify {true,false}
+                        An alarm by default will run the associated actions
+                        when any server in the host group violates the
+                        threshold, and then at the end when all servers are
+                        back within the threshold. If perHostNotify is set to
+                        true, the actions will run when ANY server in the
+                        group violates and falls back within the threshold.
+  -x {true,false}, --is-disabled {true,false}
+                        Enable or disable the alarm definition

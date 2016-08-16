@@ -1,6 +1,5 @@
-#!/usr/bin/env python
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,7 +16,7 @@
 
 import json
 import logging
-import urllib2
+import requests
 
 from boundary import ApiCli
 from boundary import PluginManifest
@@ -31,6 +30,7 @@ Format of output table:
 |:-----------|:--------|
 """
 
+
 class MetricMarkdown(ApiCli):
     def __init__(self):
         ApiCli.__init__(self)
@@ -41,13 +41,13 @@ class MetricMarkdown(ApiCli):
         self.file_path = None
         self.fields = None
 
-    def addArguments(self):
-        ApiCli.addArguments(self)
+    def add_arguments(self):
+        ApiCli.add_arguments(self)
         self.parser.add_argument('-f', '--file', dest='file_path', action='store', required=False, metavar='path',
                                  help='Path to plugin.json manifest. Defaults to plugin.json')
 
-    def getArguments(self):
-        ApiCli.getArguments(self)
+    def get_arguments(self):
+        ApiCli.get_arguments(self)
 
         if self.args.file_path is None:
             self.file_path = 'plugin.json'
@@ -58,8 +58,11 @@ class MetricMarkdown(ApiCli):
 
         self.load()
 
-    def handleResults(self, result):
-        if result.status_code == urllib2.httplib.OK:
+    def get_description(self):
+        return 'Generates a README file'
+
+    def handle_sesults(self, result):
+        if result.status_code == requests.codes.ok:
             result = json.loads(result.text)
             self.metric_definitions = result['result']
 
@@ -73,7 +76,7 @@ class MetricMarkdown(ApiCli):
         """
         manifest = PluginManifest(self.file_path)
         manifest.get()
-        self.manifest = manifest.getManifest()
+        self.manifest = manifest.get_manifest()
 
     def getMetricDefinition(self, name):
         """

@@ -1,0 +1,29 @@
+{
+  "TEST_METRIC_IMPORT_A": {
+    "defaultAggregate": "SUM",
+    "defaultResolutionMS": 2000,
+    "description": "My Number Of Files",
+    "displayName": "My Number of Files",
+    "displayNameShort": "My Files",
+    "isDisabled": false,
+    "unit": "number"
+  },
+  "TEST_METRIC_IMPORT_B": {
+    "defaultAggregate": "AVG",
+    "defaultResolutionMS": 3000,
+    "description": "My CPU Utilization",
+    "displayName": "My CPU Util",
+    "displayNameShort": "My CPU",
+    "isDisabled": true,
+    "unit": "percent"
+  },
+  "TEST_METRIC_IMPORT_C": {
+    "defaultAggregate": "MAX",
+    "defaultResolutionMS": 5000,
+    "description": "My Wait Time",
+    "displayName": "My Wait Time Number of Processes",
+    "displayNameShort": "Wait Time",
+    "isDisabled": false,
+    "unit": "duration"
+  }
+}

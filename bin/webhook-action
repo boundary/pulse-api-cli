@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Copyright 2014-2015 Boundary, Inc.
+# Copyright 2015 BMC Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-from boundary.action_webhook import ActionWebhook
+from boundary import ActionWebhook
 
 if __name__ == '__main__':
     pass
