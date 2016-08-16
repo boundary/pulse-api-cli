@@ -8,7 +8,6 @@ setup(
     author='David Gwartney',
     author_email='david_gwartney@bmc.com',
     packages=['boundary', ],
-    install_requires=['pygments', 'python-dateutil', 'requests', 'jinja2', 'six'],
     entry_points={
         'console_scripts': [
             'actionhandler = boundary.webhook_handler:main',
@@ -63,6 +62,7 @@ setup(
     ],
     package_data={'boundary': ['templates/*']},
     license='LICENSE.txt',
-    description='Command line tools for using the Boundary REST APIs',
+    description='Command line tools for using the TrueSight Pulse REST APIs',
     long_description=open('README.txt').read(),
+    install_requires=['pygments', 'python-dateutil', 'requests', 'jinja2', 'six'],
 )
