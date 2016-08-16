@@ -1,9 +1,8 @@
 from distutils.core import setup
-from boundary import __version__
 
 setup(
     name='boundary',
-    version=__version__,
+    version='0.3.4',
     url="http://boundary.github.io/boundary-api-cli/",
     author='David Gwartney',
     author_email='david_gwartney@bmc.com',

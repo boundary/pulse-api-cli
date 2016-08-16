@@ -1,5 +1,5 @@
 TARGET=boundary
-VERSION=$(shell python -c "from boundary import __version__ ; print(__version__)")
+VERSION=$(shell grep version setup.py | cut -d "'" -f 2)
 TAR_FILE=dist/$(TARGET)-$(VERSION).tar.gz
 
 install: build
