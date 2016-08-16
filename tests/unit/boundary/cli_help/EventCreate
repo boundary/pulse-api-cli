@@ -2,8 +2,8 @@ usage: event-create [-h] [-l {debug,info,warning,error,critical}]
                     [-a api_host] [-e e_mail] [-t api_token] [-z]
                     [-b {acknowledged,closed,ok,open}] [-c EVENT_CLASS]
                     [-r {info,warn,error,critical}] [-m message] -f field_list
-                    [-o tenant_id] [-p property=value]
-                    [-s ref:type:name:properties] -w title
+                    [-o tenant_id] [-p property=value] -s
+                    ref:type:name:properties -w title
 
 Creates a new event in an TrueSight Pulse account
 
@@ -35,6 +35,7 @@ optional arguments:
   -p property=value, --property property=value
                         Add properties to an event
   -s ref:type:name:properties, --source ref:type:name:properties
-                        A description or resolution of the alarm
+                        Hostname or ip address of the system this event refers
+                        to.
   -w title, --title title
                         Title of the event
