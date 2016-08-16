@@ -1,6 +1,6 @@
 TARGET=boundary
 VERSION=$(shell python -c "from boundary import __version__ ; print(__version__)")
-TAR_FILE=dist/boundary-$(VERSION).tar.gz
+TAR_FILE=dist/$(TARGET)-$(VERSION).tar.gz
 
 install: build
 	pip install $(TAR_FILE)
@@ -18,4 +18,4 @@ upload:
 	
 clean:
 	/bin/rm -rf build dist site MANIFEST
-	pip freeze | grep "boundary==$(VERSION)" && pip uninstall -y $(TARGET)
+	pip freeze | grep -v "$(TARGET)==$(VERSION)" && pip uninstall -y $(TARGET)
