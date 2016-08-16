@@ -9,7 +9,6 @@ setup(
     author_email='david_gwartney@bmc.com',
     packages=['boundary', ],
     install_requires=['pygments', 'python-dateutil', 'requests', 'jinja2', 'six'],
-    setup_requires=['pygments', 'python-dateutil', 'requests', 'jinja2', 'six'],
     entry_points={
         'console_scripts': [
             'actionhandler = boundary.webhook_handler:main',
